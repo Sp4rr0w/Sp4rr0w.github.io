@@ -47,7 +47,7 @@
     
     <title>
         
-            أرشيف: 2018 | 
+            وسم: netcat | 
         
         Hexo
     </title>
@@ -223,7 +223,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Hexo">
-    <meta name="msapplication-starturl" content="http://yoursite.com/archives/2018/">
+    <meta name="msapplication-starturl" content="http://yoursite.com/tags/netcat/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Hexo">
@@ -238,9 +238,9 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://yoursite.com/archives/2018/">
+    <meta property="og:url" content="http://yoursite.com/tags/netcat/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="أرشيف: 2018 | Hexo">
+    <meta property="og:title" content="وسم: netcat | Hexo">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     
@@ -252,7 +252,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/archives/2018/index.html" />
+        <link rel="canonical" href="http://yoursite.com/tags/netcat/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -421,22 +421,29 @@
     <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
         <!-- Post Title -->
         <p class="post_entry-title">
-            <a href="/2018/03/23/Hello-World/">Hello World</a>
+            <a href="/2017/11/27/交叉编译netcat在路由器上使用 - 从入门到放弃再到success/">交叉编译netcat在路由器上使用 - 从入门到放弃再到success</a>
         </p>
 
         <!-- Post Excerpt -->
         <p class="post_entry-excerpt">
             
-                
+                Author : https://sp4rr0w.github.ioTime : 2017-11-27 22:25:51Router Model : RT-N12Router CPU : MIPS32
+1. 路由器架构12345678910111213141516171819202122admin@RT-N12:/tmp/home/rootcat /proc/cpuinfosystem type             : Broadcom BCM53572 chip rev 1 pkg 8processor               : 0cpu model               : MIPS 74K V4.9BogoMIPS                : 149.91wait instruction        : nomicrosecond timers      : yestlb_entries             : 32extra interrupt vector  : nohardware watchpoint     : yesASEs implemented        : mips16 dspshadow register sets    : 1VCED exceptions         : not availableVCEI exceptions         : not availableunaligned_instructions  : 51078121dcache hits             : 2147483648dcache misses           : 0icache hits             : 2147483648icache misses           : 0instructions            : 2147483648
+2. 先编译buildroot可知路由器CPU为 MIPS。由同事告知可以先编译buildroot生成的gcc之后再指定编译netcat，这样可以在路由器上运行。
+折腾之路由此开始
+下载buildroot
+
+https://buildroot.org/downloads/buildroot-2017.08.tar.gz
+
             
             &nbsp;&nbsp;&nbsp;
             <span>
-                <a href="/2018/03/23/Hello-World/" target="_self">واصل القراءة</a>
+                <a href="/2017/11/27/交叉编译netcat在路由器上使用 - 从入门到放弃再到success/" target="_self">واصل القراءة</a>
             </span>
         </p>
 
         <!-- Post Tags -->
-        
+        <ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/netcat/">netcat</a></li><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/交叉编译/">交叉编译</a></li><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/路由器/">路由器</a></li></ul>
     </div>
 
     <!-- Post_entry Footer -->
@@ -444,7 +451,7 @@
         <div class="post_entry-footer-border"></div>
         <div class="post_entry-footer-info">
             <div class="post_entry-footer-date">
-                Mar 23, 2018
+                Nov 27, 2017
             </div>
             <div class="post_entry-footer-comment">
                 
