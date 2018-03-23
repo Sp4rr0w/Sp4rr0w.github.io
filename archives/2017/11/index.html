@@ -320,7 +320,28 @@
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
             Author : https://sp4rr0w.github.ioTime : 2017-11-27 22:25:51Router Model : RT-N12Router CPU : MIPS32
-1. 路由器架构12345678910111213141516171819202122admin@RT-N12:/tmp/home/rootcat /proc/cpuinfosystem type             : Broadcom BCM53572 chip rev 1 pkg 8processor               : 0cpu model               : MIPS 74K V4.9BogoMIPS                : 149.91wait instruction        : nomicrosecond timers      : yestlb_entries             : 32extra interrupt vector  : nohardware watchpoint     : yesASEs implemented        : mips16 dspshadow register sets    : 1VCED exceptions         : not availableVCEI exceptions         : not availableunaligned_instructions  : 51078121dcache hits             : 2147483648dcache misses           : 0icache hits             : 2147483648icache misses           : 0instructions            : 2147483648
+1. 路由器架构admin@RT-N12:/tmp/home/root
+cat /proc/cpuinfo
+system type             : Broadcom BCM53572 chip rev 1 pkg 8
+processor               : 0
+cpu model               : MIPS 74K V4.9
+BogoMIPS                : 149.91
+wait instruction        : no
+microsecond timers      : yes
+tlb_entries             : 32
+extra interrupt vector  : no
+hardware watchpoint     : yes
+ASEs implemented        : mips16 dsp
+shadow register sets    : 1
+VCED exceptions         : not available
+VCEI exceptions         : not available
+
+unaligned_instructions  : 51078121
+dcache hits             : 2147483648
+dcache misses           : 0
+icache hits             : 2147483648
+icache misses           : 0
+instructions            : 2147483648
 2. 先编译buildroot可知路由器CPU为 MIPS。由同事告知可以先编译buildroot生成的gcc之后再指定编译netcat，这样可以在路由器上运行。
 折腾之路由此开始
 下载buildroot
@@ -338,10 +359,10 @@ https://buildroot.org/downloads/buildroot-2017.08.tar.gz
         <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
             <!-- Author Avatar -->
             <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="John Doe's avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
             </div>
             <div>
-                <strong>John Doe</strong>
+                <strong>Sparrow</strong>
                 <span>Nov 27, 2017</span>
             </div>
         </div>
@@ -396,10 +417,10 @@ BLOG
         <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
             <!-- Author Avatar -->
             <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="John Doe's avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
             </div>
             <div>
-                <strong>John Doe</strong>
+                <strong>Sparrow</strong>
                 <span>Nov 26, 2017</span>
             </div>
         </div>
@@ -467,7 +488,7 @@ BLOG
 
     <!-- Sidebar Avatar -->
     <div class="sidebar-image">
-        <img src="/img/avatar.png" alt="John Doe's avatar">
+        <img src="/img/avatar.png" alt="Sparrow's avatar">
     </div>
 
     <!-- Sidebar Email -->
@@ -679,10 +700,7 @@ It will not impact the appearance and can give developers a lot of support :)
             Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Hexo
             
         </div>-->
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-Total <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span> views.
-您是Sparrow博客的第<span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span>个小伙伴.
+
         <!-- Paradox Footer Right Section -->
 
         <!--
@@ -701,6 +719,10 @@ Total <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></s
         </div>
     
 </footer>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+Total <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span> views.
+您是Sparrow博客的第<span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span>个小伙伴.
 
 
                     <!-- Import JS File -->
@@ -832,6 +854,8 @@ Total <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></s
     <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+
+   
 
 
 
