@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>Sparrow&#39;s blog</title>
   
   
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-03-23T05:47:50.086Z</updated>
+  <updated>2018-03-23T06:28:42.126Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,20 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2018/03/23/Hello-World/"/>
-    <id>http://yoursite.com/2018/03/23/Hello-World/</id>
-    <published>2018-03-23T05:47:50.000Z</published>
-    <updated>2018-03-23T05:47:50.086Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>交叉编译tor在路由器上使用</title>
