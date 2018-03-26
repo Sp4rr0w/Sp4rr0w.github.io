@@ -248,7 +248,7 @@
 
     
         <meta property="article:published_time" content="Thu Jan 18 2018 19:09:00 GMT-0500">
-        <meta property="article:modified_time" content="Mon Mar 26 2018 06:41:14 GMT-0400">
+        <meta property="article:modified_time" content="Mon Mar 26 2018 06:45:50 GMT-0400">
     
 
     <!-- The Twitter Card protocol -->
@@ -271,7 +271,7 @@
     "mainEntityOfPage": "http://yoursite.com/2018/01/18/Kerberos认证相关/index.html",
     "headline": "Kerberos认证相关",
     "datePublished": "Thu Jan 18 2018 19:09:00 GMT-0500",
-    "dateModified": "Mon Mar 26 2018 06:41:14 GMT-0400",
+    "dateModified": "Mon Mar 26 2018 06:45:50 GMT-0400",
     "author": {
         "@type": "Person",
         "name": "Sparrow",
@@ -549,7 +549,7 @@
 5. Client-A ----------------------------------------------------------==&gt; Server-B (Client-A把服务票据中的服务器部分和请求一起发送到Server-B(Client-A要访问活动目录中的主机),远程服务器将直接接受该服务器票据,并不需要和KDC直接通信,因为该票据是用远程服务器和KDC共享的长期密钥加密过的)
 </code></pre><h2 id="0x02-Kerberos认证过程-详细版"><a href="#0x02-Kerberos认证过程-详细版" class="headerlink" title="0x02 Kerberos认证过程 (详细版)"></a>0x02 Kerberos认证过程 (详细版)</h2><p>Kerberos.jpg</p>
 <p>认证或请求服务 的过程如下: </p>
-<h4 id="1-Client-A-—-gt-KDC-AS"><a href="#1-Client-A-—-gt-KDC-AS" class="headerlink" title="1. Client-A —&gt; KDC-AS"></a>1. Client-A —&gt; KDC-AS</h4><pre><code>        KRB_AS_REQ (Kerberos Authentication Service Request) - 客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)
+<h4 id="1-Client-A-—-gt-KDC-AS"><a href="#1-Client-A-—-gt-KDC-AS" class="headerlink" title="1. Client-A —&gt; KDC-AS"></a>1. Client-A —&gt; KDC-AS</h4><pre><code>KRB_AS_REQ (Kerberos Authentication Service Request) - 客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)
     a. 客户端Client对用户口令执行散列运算转换为NTLM散列。此散列值(即用户密钥)成为客户端和KDC共享的长期密钥(long term key)。 
     b. KRB_AS_REQ (Kerberos Authentication Service Request) - 客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)。
 </code></pre><h4 id="2-Client-A-lt-—-KDC-AS"><a href="#2-Client-A-lt-—-KDC-AS" class="headerlink" title="2. Client-A &lt;— KDC-AS"></a>2. Client-A &lt;— KDC-AS</h4><pre><code>KRB_AS_REP (Kerberos Authentication Service Response) - 
@@ -582,8 +582,8 @@ KDC(密钥分发中心　Key Distribution Center)有两个服务组成 :
     该认证过程的实现不依赖于主机操作系统的认证,无需基于主机地址的信任,不要求网络上所有主机的物理安全,并假定网络上传送的数据包可以被任意地读取.修改和插入数据。
     在以上情况下, Kerberos 作为一种可信任的第三方认证服务,是通过传统的密码技术(如:共享密钥)执行认证服务的。
 </code></pre><h4 id="krbtgt账户"><a href="#krbtgt账户" class="headerlink" title="krbtgt账户"></a>krbtgt账户</h4><pre><code>每个域控制器DC都有一个&quot;krbtgt&quot;的用户账户,是KDC的服务账户,用来创建票据授予服务(TGS)加密的密钥。
-</code></pre><h4 id="Principal-委托人"><a href="#Principal-委托人" class="headerlink" title="Principal　委托人"></a>Principal　委托人</h4><pre><code>一个具有唯一标识的实体,可以是一台计算机或一项服务,通过使用KDC颁发的票据来进行通信。委托人可以分为两类: 用户和服务,分别具有不同种类的标识符。
-</code></pre><p>Kerberos信任模型的核心是每个委托人(principal)和KDC的通信是在利用仅双方可知的密钥构建的安全通道中进行。<br>当委托人(principal)之间需要通信的时候,它们再使用KDC生成的会话密钥。</p>
+</code></pre><h4 id="Principal-委托人"><a href="#Principal-委托人" class="headerlink" title="Principal　委托人"></a>Principal　委托人</h4><pre><code>一个具有唯一标识的实体,可以是一台计算机或一项服务,通过使用KDC颁发的票据来进行通信。委托人可以分为两类: 用户和服务,分别具有不同种类的标识符。Kerberos信任模型的核心是每个委托人(principal)和KDC的通信是在利用仅双方可知的密钥构建的安全通道中进行。
+</code></pre><p>当委托人(principal)之间需要通信的时候,它们再使用KDC生成的会话密钥。</p>
 <pre><code>1. 用户 (UPN)
     用户通过如&quot;user@REALM&quot;格式的用户主体名称(User Principal Name,简称UPN)来标识。记住REALM一定是大写的。
 2. 服务 (SPN)
@@ -591,11 +591,11 @@ KDC(密钥分发中心　Key Distribution Center)有两个服务组成 :
     用于域中的服务和计算机账户。SPN的格式形如&quot;serviceclass/host_port/serviceName&quot;。
     例如, 主机&quot;dc1.bhusa.com&quot;上LDAP服务的SPN可能类似于&quot;ldap/dc1.bhusa.com&quot;, &quot;ldap/dc1&quot;和&quot;ldap/dc1.bhusa.com/bhusa.com&quot;。
     参考全限定主机名和仅主机名,一个服务可能注册为多个SPN。(同通常是执行DNS查询来规范化主机名称。这就解释了DNS为什么是微软Kerberos环境中的一个必要组件。查询服务的&quot;规范化&quot;名称,然后生成请求服务的SPN。)
+</code></pre><p><code>枚举域帐户的SPN</code></p>
+<pre><code>GetUserSPNS.ps1 - https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1
+Find-PSServiceAccounts.ps1 - https://github.com/PyroTek3/PowerShell-AD-Recon/blob/master/Find-PSServiceAccounts
+PowerView 的 Get-NetUser -SPN - https://github.com/PowerShellMafia/PowerSploit/blob/5690b09027b53a5932e42399f6943e03fa32e549/Recon/PowerView.ps1#L2087-L2089
 
-枚举域帐户的SPN :  
-    GetUserSPNS.ps1 - https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1
-    Find-PSServiceAccounts.ps1 - https://github.com/PyroTek3/PowerShell-AD-Recon/blob/master/Find-PSServiceAccounts
-    PowerView 的 Get-NetUser -SPN - https://github.com/PowerShellMafia/PowerSploit/blob/5690b09027b53a5932e42399f6943e03fa32e549/Recon/PowerView.ps1#L2087-L2089
 getspn.png
 </code></pre><h4 id="PAC-Privilege-Access-Certificate-特权访问证书"><a href="#PAC-Privilege-Access-Certificate-特权访问证书" class="headerlink" title="PAC (Privilege Access Certificate 特权访问证书)"></a>PAC (Privilege Access Certificate 特权访问证书)</h4><pre><code>KDC在向Kerberos客户端颁发TGT时,会向本地LSA (Local Security Authority)请求生成一个特殊的数据结构,名为&quot;特权访问证书&quot;这个PAC包含为Kerberos客户端构建一个本地访问令牌所需的用户信息,他同时使用域控制器服务器的私钥和KDC服务器的私钥来进行数字签署,以防假的KDC伪造PAC。
 </code></pre><pre><code>1. 用户的登入时间以及用户会话额到期时间
@@ -613,9 +613,8 @@ getspn.png
 13. 适用于用户的已知SID
 14. 域的SID
 15. 资源域的SID
-除此之外,PAC中还嵌入了另一个名为&quot;用户账户控制&quot;的数据结构 
-如何得到
-powerview 
+</code></pre><p>除此之外,PAC中还嵌入了另一个名为<code>用户账户控制</code>的数据结构<br>如何得到</p>
+<pre><code>powerview 
     Get-ComputerProperty -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto| fl
     Get-UserProperty -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto| fl
 
