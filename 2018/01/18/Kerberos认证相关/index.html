@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Thu Jan 18 2018 19:09:00 GMT-0500">
-        <meta property="article:modified_time" content="Mon Mar 26 2018 06:29:12 GMT-0400">
+        <meta property="article:modified_time" content="Mon Mar 26 2018 06:35:02 GMT-0400">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://yoursite.com/2018/01/18/Kerberos认证相关/index.html",
     "headline": "Kerberos认证相关",
     "datePublished": "Thu Jan 18 2018 19:09:00 GMT-0500",
-    "dateModified": "Mon Mar 26 2018 06:29:12 GMT-0400",
+    "dateModified": "Mon Mar 26 2018 06:35:02 GMT-0400",
     "author": {
         "@type": "Person",
         "name": "Sparrow",
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x01-Kerberos认证过程-简易版"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x01 Kerberos认证过程 (简易版)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x02-Kerberos认证过程-详细版"><span class="post-toc-number">2.</span> <span class="post-toc-text">0x02 Kerberos认证过程 (详细版)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#术语"><span class="post-toc-number">3.</span> <span class="post-toc-text">术语 :</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x01-Kerberos认证过程-简易版"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x01 Kerberos认证过程 (简易版)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x02-Kerberos认证过程-详细版"><span class="post-toc-number">2.</span> <span class="post-toc-text">0x02 Kerberos认证过程 (详细版)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-Client-A-—-gt-KDC-AS"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">1. Client-A —&gt; KDC-AS</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-Client-A-lt-—-KDC-AS"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">2. Client-A &lt;— KDC-AS</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-Client-A-—-gt-KDC-TGS"><span class="post-toc-number">2.0.3.</span> <span class="post-toc-text">3. Client-A —&gt; KDC-TGS</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-Client-A-lt-—-KDC-TGS"><span class="post-toc-number">2.0.4.</span> <span class="post-toc-text">4. Client-A &lt;— KDC-TGS</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-Client-A-—-gt-Server-B"><span class="post-toc-number">2.0.5.</span> <span class="post-toc-text">5. Client-A —&gt; Server-B</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#术语"><span class="post-toc-number">3.</span> <span class="post-toc-text">术语 :</span></a></li></ol>
     </ul>
     
 
@@ -524,50 +524,54 @@
         <a id="more"></a>
 <h2 id="0x01-Kerberos认证过程-简易版"><a href="#0x01-Kerberos认证过程-简易版" class="headerlink" title="0x01 Kerberos认证过程 (简易版)"></a>0x01 Kerberos认证过程 (简易版)</h2><p>认证或请求服务 的过程如下:<br>simple.jpg</p>
 <p><code>简义</code></p>
-<pre><code>`KRB_AS_REQ (Kerberos Authentication Service Request)`
-</code></pre><ol>
+<p><code>KRB_AS_REQ (Kerberos Authentication Service Request)</code></p>
+<ol>
 <li>Client-A ———————————————————==&gt; KDC-AS (客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)) 此过程叫KRB_AS_REQ</li>
 </ol>
-<pre><code>`KRB_AS_REP (Kerberos Authentication Service Response)`
-</code></pre><ol>
+<p><code>KRB_AS_REP (Kerberos Authentication Service Response)</code></p>
+<ol>
 <li>Client-A &lt;==——————————————————— KDC-AS (返回TGT,TGT票据使用KDC的krbtgt密钥进行加密) 此过程叫KRB_AS_REP</li>
 </ol>
-<pre><code>`KRB_TGS_REQ (Kerberos Ticket Granting Service Request)`
-</code></pre><ol>
+<p><code>KRB_TGS_REQ (Kerberos Ticket Granting Service Request)</code></p>
+<ol>
 <li>Client-A ———————————————————-==&gt; KDC-TGS (Client-A使用AS返回的”会话密钥”构建访问特定服务的请求,再把AS返回的”TGT”连同请求一起发送到票据授予服务TGS) 此过程叫KRB_TGS_REP</li>
 </ol>
-<pre><code>`KRB_TGS_REP (Kerberos Ticket Granting Service Response)`
-</code></pre><ol>
+<p><code>KRB_TGS_REP (Kerberos Ticket Granting Service Response)</code></p>
+<ol>
 <li>Client-A &lt;==———————————————————- KDC-TGS (TGS解密TGT和服务请求,并向Client-A发送一个服务票据ST(Service Ticket)</li>
 </ol>
-<pre><code>`KRB_AP_REQ (Kerberos Application Request)`
-</code></pre><ol>
+<p><code>KRB_AP_REQ (Kerberos Application Request)</code></p>
+<ol>
 <li>Client-A ———————————————————-==&gt; Server-B (Client-A把服务票据中的服务器部分和请求一起发送到Server-B(Client-A要访问活动目录中的主机),远程服务器将直接接受该服务器票据,并不需要和KDC直接通信,因为该票据是用远程服务器和KDC共享的长期密钥加密过的)</li>
 </ol>
 <h2 id="0x02-Kerberos认证过程-详细版"><a href="#0x02-Kerberos认证过程-详细版" class="headerlink" title="0x02 Kerberos认证过程 (详细版)"></a>0x02 Kerberos认证过程 (详细版)</h2><p>Kerberos.jpg</p>
 <p>认证或请求服务 的过程如下: </p>
-<ol>
-<li><p>Client-A —&gt; KDC-AS </p>
-<pre><code> KRB_AS_REQ (Kerberos Authentication Service Request) - 客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)
-</code></pre><p> a. 客户端Client对用户口令执行散列运算转换为NTLM散列。此散列值(即用户密钥)成为客户端和KDC共享的长期密钥(long term key)。<br> b. KRB_AS_REQ (Kerberos Authentication Service Request) - 客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)。</p>
-</li>
-<li><p>Client-A &lt;— KDC-AS </p>
-<p> KRB_AS_REP (Kerberos Authentication Service Response) -<br> 身份验证服务(KDC-AS)会解密时间戳,若解密成功(KDC-AS检查用户的信息(登录限制.组成员身份等)并创建票据授予票据(Ticket-Granting Ticket,TGT),<br> 并向本地LSA (Local Security Authority)请求生成一个特殊的数据PAC,表明了客户端获得某个特定用户的口令(即验证了用户的身份)。<br> 身份验证服务(KDC-AS)向客户端回复两条信息:<br> a. 短期会话密钥SessionKeya-kdc,用于客户端向KDC发起后续的请求 ,该消息经客户端的长期密钥(long term key)加密。(此短期会话密钥仅适用于该客户端和KDC之间)<br> b. 票据授予票据(Ticket Granting Ticket,简称TGT),包含有关用户名.域名.时间和组成员资格等信息。<br> TGT票据使用KDC的krbtgt密钥进行加密,PAC使用krbtgt密钥进行进行签名,并且系统很少会验证PAC数据(在Windows环境中为krbtgt账户的NT-Hash)。</p>
-</li>
-</ol>
-<ol>
-<li><p>Client-A —&gt; KDC-TGS </p>
-<p> KRB_TGS_REQ (Kerberos Ticket Granting Service Request) -<br> Client使用AS返回的”短期会话密钥”构建访问特定服务的请求,再把AS返回的”票据授予票据(TGT)”连同请求一起发送到票据授予服务TGS) 此过程叫KRB_TGS_REQ</p>
-<p> Client-A使用AS返回的会话密钥SessionKeya-kdc构建访问特定服务的请求。客户端Client再把请求连同TGT一起发送到票据授予服务TGS。<br> (TGT是被KDC的krbtgt密钥加密的，所以Client-A无法解密)<br> 黄金票据 - 此过程3可以伪造TGT(前提是获取krbtgt账号的口令散列值)，宣称自己是域内任何账号，包括域管或者不存在的用户，这是黄金票据的原理。</p>
-</li>
-</ol>
-<ol>
-<li><p>Client-A &lt;— KDC-TGS<br> KRB_TGS_REP (Kerberos Ticket Granting Service Response) -<br> 票据授予服务TGS解密TGT和服务请求,然后如果请求被允许(KDC会打开票据,进行校验和检查。如果DC能够打开票据,并能通过校验和检查,那么会认为TGT为有效票据。此时TGT中的数据会被复制,以创建TGS票据ST),<br> 票据授予服务TGS向客户端Client发送一个服务票据(Service Ticket,简称ST),包括两个部分:<br> a. 远程服务器的部分 - 包含请求用户的组成员资格、时间戳、用于客户端和远程服务器之间通信的会话密钥。使用远程服务器Server-B和KDC共享的长期密钥(long term key)加密这部分消息。<br> b. 客户端的部分 - 包含用于客户端和远程服务器之间通信的会话密钥SessionKeya-b。(使用步骤2中AS回复的短期会话密钥(SessionKeya-kdc)加密这部分消息生成的会话密钥SessionKeya-b。)</p>
-</li>
-<li><p>Client-A —&gt; Server-B<br> KRB_AP_REQ (Kerberos Application Request) -<br> Client-A把服务票据(Service Ticket)中的服务器部分和请求一起发送到Server-B(用户要访问活动目录中的主机)。<br> 远程服务器将直接接受该服务器票据,并不需要和KDC直接通信,因为该票据是用远程服务器和KDC共享的长期密钥加密过的。<br> 解密成功(目标服务会使用自己的NTLM密码散列打开TGS票据,并提取用户的授权数据和会话密钥SessionKeya-b。)即表明KDC已经允许了此次通信。<br> 白银票据 - 此过程5可以伪造TGS(前提是获取服务账号的口令散列值)，宣称自己是域内任何账号，例如域管，这是白银票据的原理。</p>
-</li>
-</ol>
-<h2 id="术语"><a href="#术语" class="headerlink" title="术语 :"></a>术语 :</h2><p><code>Kerberos</code>　: 　</p>
+<h4 id="1-Client-A-—-gt-KDC-AS"><a href="#1-Client-A-—-gt-KDC-AS" class="headerlink" title="1. Client-A —&gt; KDC-AS"></a>1. Client-A —&gt; KDC-AS</h4><pre><code>        KRB_AS_REQ (Kerberos Authentication Service Request) - 客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)
+    a. 客户端Client对用户口令执行散列运算转换为NTLM散列。此散列值(即用户密钥)成为客户端和KDC共享的长期密钥(long term key)。 
+    b. KRB_AS_REQ (Kerberos Authentication Service Request) - 客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)。
+</code></pre><h4 id="2-Client-A-lt-—-KDC-AS"><a href="#2-Client-A-lt-—-KDC-AS" class="headerlink" title="2. Client-A &lt;— KDC-AS"></a>2. Client-A &lt;— KDC-AS</h4><pre><code>KRB_AS_REP (Kerberos Authentication Service Response) - 
+身份验证服务(KDC-AS)会解密时间戳,若解密成功(KDC-AS检查用户的信息(登录限制.组成员身份等)并创建票据授予票据(Ticket-Granting Ticket,TGT),
+并向本地LSA (Local Security Authority)请求生成一个特殊的数据PAC,表明了客户端获得某个特定用户的口令(即验证了用户的身份)。
+身份验证服务(KDC-AS)向客户端回复两条信息: 
+    a. 短期会话密钥SessionKeya-kdc,用于客户端向KDC发起后续的请求 ,该消息经客户端的长期密钥(long term key)加密。(此短期会话密钥仅适用于该客户端和KDC之间)
+    b. 票据授予票据(Ticket Granting Ticket,简称TGT),包含有关用户名.域名.时间和组成员资格等信息。
+TGT票据使用KDC的krbtgt密钥进行加密,PAC使用krbtgt密钥进行进行签名,并且系统很少会验证PAC数据(在Windows环境中为krbtgt账户的NT-Hash)。
+</code></pre><h4 id="3-Client-A-—-gt-KDC-TGS"><a href="#3-Client-A-—-gt-KDC-TGS" class="headerlink" title="3. Client-A —&gt; KDC-TGS"></a>3. Client-A —&gt; KDC-TGS</h4><pre><code>KRB_TGS_REQ (Kerberos Ticket Granting Service Request) -
+Client使用AS返回的”短期会话密钥”构建访问特定服务的请求,再把AS返回的”票据授予票据(TGT)”连同请求一起发送到票据授予服务TGS) 此过程叫KRB_TGS_REQ
+Client-A使用AS返回的会话密钥SessionKeya-kdc构建访问特定服务的请求。客户端Client再把请求连同TGT一起发送到票据授予服务TGS。
+(TGT是被KDC的krbtgt密钥加密的，所以Client-A无法解密)
+黄金票据 - 此过程3可以伪造TGT(前提是获取krbtgt账号的口令散列值)，宣称自己是域内任何账号，包括域管或者不存在的用户，这是黄金票据的原理。
+</code></pre><h4 id="4-Client-A-lt-—-KDC-TGS"><a href="#4-Client-A-lt-—-KDC-TGS" class="headerlink" title="4. Client-A &lt;— KDC-TGS"></a>4. Client-A &lt;— KDC-TGS</h4><pre><code>KRB_TGS_REP (Kerberos Ticket Granting Service Response) -
+票据授予服务TGS解密TGT和服务请求,然后如果请求被允许(KDC会打开票据,进行校验和检查。如果DC能够打开票据,并能通过校验和检查,那么会认为TGT为有效票据。此时TGT中的数据会被复制,以创建TGS票据ST),
+票据授予服务TGS向客户端Client发送一个服务票据(Service Ticket,简称ST),包括两个部分: 
+    a. 远程服务器的部分 - 包含请求用户的组成员资格、时间戳、用于客户端和远程服务器之间通信的会话密钥。使用远程服务器Server-B和KDC共享的长期密钥(long term key)加密这部分消息。
+    b. 客户端的部分 - 包含用于客户端和远程服务器之间通信的会话密钥SessionKeya-b。(使用步骤2中AS回复的短期会话密钥(SessionKeya-kdc)加密这部分消息生成的会话密钥SessionKeya-b。)
+</code></pre><h4 id="5-Client-A-—-gt-Server-B"><a href="#5-Client-A-—-gt-Server-B" class="headerlink" title="5. Client-A —&gt; Server-B"></a>5. Client-A —&gt; Server-B</h4><pre><code>KRB_AP_REQ (Kerberos Application Request) - 
+Client-A把服务票据(Service Ticket)中的服务器部分和请求一起发送到Server-B(用户要访问活动目录中的主机)。
+远程服务器将直接接受该服务器票据,并不需要和KDC直接通信,因为该票据是用远程服务器和KDC共享的长期密钥加密过的。
+解密成功(目标服务会使用自己的NTLM密码散列打开TGS票据,并提取用户的授权数据和会话密钥SessionKeya-b。)即表明KDC已经允许了此次通信。
+白银票据 - 此过程5可以伪造TGS(前提是获取服务账号的口令散列值)，宣称自己是域内任何账号，例如域管，这是白银票据的原理。
+</code></pre><h2 id="术语"><a href="#术语" class="headerlink" title="术语 :"></a>术语 :</h2><p><code>Kerberos</code>　: 　</p>
 <pre><code>是Windows活动目录中使用的客户/服务器认证协议(windows中的认证协议有两种NTLM和Kerberos),为通信双方提供双向身份认证。
 相互认证或请求服务的实体被称为委托人(principal)。参与的中央服务器被称为密钥分发中心(简称KDC)。
 KDC(密钥分发中心　Key Distribution Center)有两个服务组成 : 
