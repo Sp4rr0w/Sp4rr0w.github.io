@@ -320,22 +320,6 @@
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
             Router Model : RT-AC66URouter CPU : MIPS32
-正常编译tor在 Ubuntu 下
-sudo apt-get install openssl
-sudo apt-get install libevent-dev
-sudo apt-get install build-essential
-sudo apt-get install libssl-dev
-tar xzf tor-0.3.1.8.tar.gz
-cd tor-0.3.1.8
-./configure &amp;&amp; make
-src/or/tor
-src/config/torrc   # torrc 
-src/or/tor -f src/config/torrc &amp;
-直接交叉编译tor 是有问题的结合上篇文章编译buildroot生成的buildroot-2011.05下/output/ 相关编译文件:
-$ cd tor 
-$ ./configure : 
-$ CC=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-gcc RANLIB=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ranlib AR=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ar LD=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ld STRIP=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-strip ./configure --host=mipsel-linux --disable-tool-name-check --enable-static-libevent --with-libevent-dir=/usr/local/lib
-
         
         &nbsp;&nbsp;&nbsp;
         <span>
@@ -428,7 +412,7 @@ $ CC=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-gcc RANL
 
     <!-- Sidebar Email -->
     <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
-        zbxzyzbx[@]163.com
+        true
         <b class="caret"></b>
     </a>
 </div>
@@ -441,7 +425,7 @@ $ CC=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-gcc RANL
         <ul id="settings-dropdown" class="dropdown-menu">
             
                 <li>
-                    <a href="#" target="_blank" title="Email Me">
+                    <a href="mailto: zbxzyzbx@163.com" target="_blank" title="Email Me">
                         
                             <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
                         
@@ -624,11 +608,11 @@ It will not impact the appearance and can give developers a lot of support :)
 
         <!--Copyright-->
         <div id="copyright">
-            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Sparrow's blog
+            Copyright&nbsp;©&nbsp;2017&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Sparrow's blog
             
 <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-Total <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span> views.
+     Total <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span> views.
 您是Sparrow博客的第<span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span>个小伙伴.
         </div>
 
