@@ -228,21 +228,6 @@
     </entry>
     
     <entry>
-      <title>about</title>
-      <link href="/2017/11/26/about/about/"/>
-      <url>/2017/11/26/about/about/</url>
-      <content type="html"><![CDATA[<a id="more"></a><p>Sparrow !</p>]]></content>
-      
-      <categories>
-          
-          <category> 其他 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    <entry>
       <title>重新出发</title>
       <link href="/2017/11/26/%E9%87%8D%E6%96%B0%E5%87%BA%E5%8F%91/"/>
       <url>/2017/11/26/%E9%87%8D%E6%96%B0%E5%87%BA%E5%8F%91/</url>
@@ -276,9 +261,23 @@
   
     
     <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      <content type="html"><![CDATA[<a id="more"></a><p>Sparrow !</p>]]></content>
+    </entry>
+    
+    <entry>
       <title>gallery</title>
       <link href="/gallery/index.html"/>
       <url>/gallery/index.html</url>
+      <content type="html"><![CDATA[]]></content>
+    </entry>
+    
+    <entry>
+      <title>links</title>
+      <link href="/links/index.html"/>
+      <url>/links/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     

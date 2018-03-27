@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://sp4rr0w.github.io/about/index.html</loc>
+    
+    <lastmod>2018-03-27T12:32:26.893Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sp4rr0w.github.io/links/index.html</loc>
+    
+    <lastmod>2018-03-27T12:23:57.976Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://sp4rr0w.github.io/2018/01/19/%E5%9F%9F%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/</loc>
     
     <lastmod>2018-03-27T11:10:19.863Z</lastmod>
@@ -47,13 +61,6 @@
     <loc>https://sp4rr0w.github.io/2018/01/18/Kerberos%E8%AE%A4%E8%AF%81%E7%9B%B8%E5%85%B3/</loc>
     
     <lastmod>2018-03-27T06:30:22.760Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://sp4rr0w.github.io/2017/11/26/about/about/</loc>
-    
-    <lastmod>2018-03-27T05:43:11.962Z</lastmod>
     
   </url>
   
