@@ -171,7 +171,7 @@
 
     <style>
       body{
-        background-color: #c0c0c0;
+        background-color: #f5f5f5;
       }
 
       /* blog_info bottom background */
@@ -248,7 +248,7 @@
 
     
         <meta property="article:published_time" content="Thu Dec 07 2017 10:23:00 GMT-0500">
-        <meta property="article:modified_time" content="Mon Mar 26 2018 22:03:06 GMT-0400">
+        <meta property="article:modified_time" content="Tue Mar 27 2018 04:37:31 GMT-0400">
     
 
     <!-- The Twitter Card protocol -->
@@ -271,7 +271,7 @@
     "mainEntityOfPage": "http://yoursite.com/2017/12/07/交叉编译tor在路由器上使用/index.html",
     "headline": "交叉编译tor在路由器上使用",
     "datePublished": "Thu Dec 07 2017 10:23:00 GMT-0500",
-    "dateModified": "Mon Mar 26 2018 22:03:06 GMT-0400",
+    "dateModified": "Tue Mar 27 2018 04:37:31 GMT-0400",
     "author": {
         "@type": "Person",
         "name": "Sparrow",
@@ -355,7 +355,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正常编译tor"><span class="post-toc-number">1.</span> <span class="post-toc-text">正常编译tor</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#交叉编译-openssl"><span class="post-toc-number">2.</span> <span class="post-toc-text">交叉编译 openssl</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#交叉编译-libevent"><span class="post-toc-number">3.</span> <span class="post-toc-text">交叉编译 libevent</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#交叉编译-zlib"><span class="post-toc-number">4.</span> <span class="post-toc-text">交叉编译 zlib</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#交叉编译-tor"><span class="post-toc-number">5.</span> <span class="post-toc-text">交叉编译 tor</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正常编译tor"><span class="post-toc-number">1.</span> <span class="post-toc-text">正常编译tor</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#交叉编译-openssl"><span class="post-toc-number">2.</span> <span class="post-toc-text">交叉编译 openssl</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#交叉编译-libevent"><span class="post-toc-number">3.</span> <span class="post-toc-text">交叉编译 libevent</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#交叉编译-zlib"><span class="post-toc-number">4.</span> <span class="post-toc-text">交叉编译 zlib</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#交叉编译-tor"><span class="post-toc-number">5.</span> <span class="post-toc-text">交叉编译 tor</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x06-qemu模拟mips运行tor"><span class="post-toc-number">6.</span> <span class="post-toc-text">0x06 qemu模拟mips运行tor</span></a></li></ol>
     </ul>
     
 
@@ -812,8 +812,7 @@ wget http://ip/tor 即可.
 </code></pre><p><strong>running tor</strong><br><img src="/2017/12/07/交叉编译tor在路由器上使用/router_tor.png" alt="running tor"></p>
 <p>之前我怀疑传到路由器上的tor运行时需要某些库文件的,运行发现是不需要的</p>
 <p>但是还是有segmentation fault。<br>还是要用QEMU模拟MIPS测试….</p>
-<p>0x06 qemu模拟mips运行tor</p>
-<p>转到Ubuntu的<br>拷贝buildroot编译成的rootfs.tar（buildroot-2011.05 /output/ images）<br>里面有个lib文件夹，将里面的链接库sudo mv * /lib/</p>
+<h2 id="0x06-qemu模拟mips运行tor"><a href="#0x06-qemu模拟mips运行tor" class="headerlink" title="0x06 qemu模拟mips运行tor"></a>0x06 qemu模拟mips运行tor</h2><p>转到Ubuntu的<br>拷贝buildroot编译成的rootfs.tar（buildroot-2011.05 /output/ images）<br>里面有个lib文件夹，将里面的链接库sudo mv * /lib/</p>
 <p>之后直接运行TOR（qemu的安装后会自动识别MIPS类型的文件）<br>在Ubuntu中运行qemu<br><img src="/2017/12/07/交叉编译tor在路由器上使用/running_tor_in_ubuntu.png" alt="running tor"></p>
 <p>QEMU模拟MIPS运行TOR完美运行成功！</p>
 <p>问题来了为什么在路由器上运行失败segmentation fault呢？</p>
@@ -966,7 +965,7 @@ wget http://ip/tor 即可.
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -984,7 +983,7 @@ wget http://ip/tor 即可.
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/其他/">其他<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/技术相关/">技术相关<span class="sidebar_archives-count">7</span></a>
+                <a class="sidebar_archives-link" href="/categories/其他/">其他<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/技术相关/">技术相关<span class="sidebar_archives-count">9</span></a>
             </ul>
         </li>
         
@@ -993,7 +992,7 @@ wget http://ip/tor 即可.
     <!-- Pages  -->
     
         <li>
-            <a href="/about.md" title="关于">
+            <a href="/about" title="关于">
                 
                     <i class="material-icons sidebar-material-icons">person</i>
                 
@@ -1008,7 +1007,7 @@ wget http://ip/tor 即可.
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">10</span>
+                <span class="sidebar-badge">12</span>
             </a>
         </li>
         

