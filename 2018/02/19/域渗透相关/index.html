@@ -92,20 +92,20 @@
 <meta name="keywords" content="Kerberos,笔记,域渗透,hash注入,Golden Ticket,NTDS.dit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="域渗透相关">
-<meta property="og:url" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/index.html">
+<meta property="og:url" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/index.html">
 <meta property="og:site_name" content="Sparrow&#39;s Blog">
 <meta property="og:description" content="…..">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/Kerberos.png">
-<meta property="og:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/pass-the-ticket.png">
-<meta property="og:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/Golden_Ticket1.png">
-<meta property="og:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/Golden_Ticket2.png">
-<meta property="og:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/getspn.png">
-<meta property="og:updated_time" content="2018-03-28T08:35:19.347Z">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/Kerberos.png">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/pass-the-ticket.png">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/Golden_Ticket1.png">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/Golden_Ticket2.png">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/getspn.png">
+<meta property="og:updated_time" content="2018-03-28T10:00:32.335Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透相关">
 <meta name="twitter:description" content="…..">
-<meta name="twitter:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/Kerberos.png">
+<meta name="twitter:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/Kerberos.png">
 
 
 
@@ -135,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="https://sp4rr0w.github.io/2018/01/19/域渗透相关/"/>
+  <link rel="canonical" href="https://sp4rr0w.github.io/2018/02/19/域渗透相关/"/>
 
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/01/19/域渗透相关/">
+    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/02/19/域渗透相关/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sparrow">
@@ -341,8 +341,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-19T08:10:00-05:00">
-                2018-01-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-19T08:10:00-05:00">
+                2018-02-19
               </time>
             
 
@@ -382,8 +382,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/01/19/域渗透相关/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/01/19/域渗透相关/" itemprop="commentCount"></span>
+                <a href="/2018/02/19/域渗透相关/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/02/19/域渗透相关/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -391,7 +391,7 @@
 
           
           
-             <span id="/2018/01/19/域渗透相关/" class="leancloud_visitors" data-flag-title="域渗透相关">
+             <span id="/2018/02/19/域渗透相关/" class="leancloud_visitors" data-flag-title="域渗透相关">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -449,13 +449,13 @@ mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:用戶a /domain:
 <p>查看mimikatz的相关资料发现如下信息:</p>
 <pre><code>ntlm hash is mandatory on XP/2003/Vista/2008 and before 7/2008r2/8/2012 kb2871997 (AES not available or replaceable) ; AES keys can be replaced only on 8.1/2012r2 or 7/2008r2/8/2012 with kb2871997, in this case you can avoid ntlm hash.
 </code></pre><p>根据提示，尝试在系统安装补丁kb2871997后继续测试<br>安裝 : <a href="https://www.microsoft.com/en-us/download/details.aspx?id=42765" target="_blank" rel="noopener">https://www.microsoft.com/en-us/download/details.aspx?id=42765</a><br>之后可以用\计算机名的方式通过远程共享查看目标机器(ps:这里必须要使用计算机名进行连接，会爆密码错误。  不要用win10测试，win10机器测试会在一分鐘后重啓 ,)<br>(如果获取的散列是NTLM，则Kerberos凭证加密方法是RC4。如果散列加密方法为AES，则Kerberos票使用AES进行的加密。)</p>
-<h2 id="Pass-the-Ticket-票据传递攻击PtT"><a href="#Pass-the-Ticket-票据传递攻击PtT" class="headerlink" title="Pass the Ticket (票据传递攻击PtT)"></a>Pass the Ticket (票据传递攻击PtT)</h2><p><img src="/2018/01/19/域渗透相关/Kerberos.png" alt="Kerberos.png"><br>与PtH情况类似,但PtT使用的是Kerberos票据,而不是NT哈希</p>
+<h2 id="Pass-the-Ticket-票据传递攻击PtT"><a href="#Pass-the-Ticket-票据传递攻击PtT" class="headerlink" title="Pass the Ticket (票据传递攻击PtT)"></a>Pass the Ticket (票据传递攻击PtT)</h2><p><img src="/2018/02/19/域渗透相关/Kerberos.png" alt="Kerberos.png"><br>与PtH情况类似,但PtT使用的是Kerberos票据,而不是NT哈希</p>
 <p><a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos" target="_blank" rel="noopener">https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos</a></p>
 <p>在微软活动目录中颁发的TGT是可移植的。由于Kerberos的无状态特性,TGT中并没有关于票据来源的标识信息。</p>
 <p>这意味着可以从某台计算机上导出一个有效的TGT,然后导入到该环境中其他的计算机上。</p>
 <p>新导入的票据可以用于域的身份认证,并拥有票据中指定用户的权限来访问网络资源。   </p>
 <p>这种特别的攻击方法被称为”pass-the-ticket”攻击。</p>
-<p><img src="/2018/01/19/域渗透相关/pass-the-ticket.png" alt="pass-the-ticket.png"></p>
+<p><img src="/2018/02/19/域渗透相关/pass-the-ticket.png" alt="pass-the-ticket.png"></p>
 <p>拿到了域控权限,在上面就可以很容易的获得krbtgt的Hash值,再通过mimikatz即可生成任意用户任何权限的Ticket,也就是Golden Ticket</p>
 <p>考虑到mimikatz的pth功能需要本地管理员权限，所以mimikatz也提供了不需要管理员权限的解决方法Pass-The-Ticket</p>
 <p>Pass-The-Ticket需要用到gentilkiwi开源的另一款工具kekeo : <a href="https://github.com/gentilkiwi/kekeo" target="_blank" rel="noopener">https://github.com/gentilkiwi/kekeo</a></p>
@@ -506,9 +506,9 @@ mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:用戶a /domain:
 <li>简单过程:</li>
 <li>清空缓存证书<br>  kerberos::purge  ( or klist purge)</li>
 <li>手动创建了一张域管理的黄金票据<br>  kerberos::golden /admin:administrator /domain:demo.local /sid:S-1-5-21-1239069908-882060383-2558203358 /krbtgt:3f65c6984cbfebdc5f17986d07620afb /ticket:administrator.kirbi.bin</li>
-<li>使用这张票据<br>  kerberos::ptt administrator.kirbi.bin<br>  <img src="/2018/01/19/域渗透相关/Golden_Ticket1.png" alt="Golden_Ticket1"></li>
+<li>使用这张票据<br>  kerberos::ptt administrator.kirbi.bin<br>  <img src="/2018/02/19/域渗透相关/Golden_Ticket1.png" alt="Golden_Ticket1"></li>
 <li>然后我的低权限本地用户，就被提升到域管理权限<br>  kerberos::list</li>
-<li>利用dcsync功能获取hash,通过DRSR(目录复制服务DRS远程协议)协议，从域控制器获取任何用户的hash<br>  lsadump::dcsync /domain:demo.local /user:testwin10  (administrator / testwin7)<br>  <img src="/2018/01/19/域渗透相关/Golden_Ticket2.png" alt="Golden_Ticket2"></li>
+<li>利用dcsync功能获取hash,通过DRSR(目录复制服务DRS远程协议)协议，从域控制器获取任何用户的hash<br>  lsadump::dcsync /domain:demo.local /user:testwin10  (administrator / testwin7)<br>  <img src="/2018/02/19/域渗透相关/Golden_Ticket2.png" alt="Golden_Ticket2"></li>
 </ul>
 </blockquote>
 <h2 id="Silver-Ticket-白银票据"><a href="#Silver-Ticket-白银票据" class="headerlink" title="Silver Ticket (白银票据)"></a>Silver Ticket (白银票据)</h2><p>简义 : 发生在上面的过程5，可以伪造TGS(前提是获取服务账号的口令散列值)，宣称自己是域内任何账号，例如域管。</p>
@@ -583,7 +583,7 @@ Windows Remote Server    RPCSS、LDAP、CIFS
         dscorepropagationdata  : {1/12/2018 6:32:42 AM, 9/13/2016 4:06:37 AM, 9/13/2016 3:53:08 AM, 1/1/1601 12:00:00 AM}
         distinguishedname      : CN=krbtgt,CN=Users,DC=demo,DC=local
         ....
-</code></pre><p><img src="/2018/01/19/域渗透相关/getspn.png" alt="getspn"></p>
+</code></pre><p><img src="/2018/02/19/域渗透相关/getspn.png" alt="getspn"></p>
 <pre><code>b. 请求这些特定的SPN的 TGS可以使用Windows内置的工具setspn.exe或者在PowerShell中调用.NET的
     System.IdentityModel.Tokens.KerberosRequestorSecurityToken类。
 
@@ -778,7 +778,7 @@ Hash传递攻击登陆Windows2012远程桌面
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/18/Kerberos认证相关/" rel="next" title="Kerberos认证相关">
+              <a href="/2018/02/18/Kerberos认证相关/" rel="next" title="Kerberos认证相关">
                 <i class="fa fa-chevron-left"></i> Kerberos认证相关
               </a>
             
@@ -788,8 +788,8 @@ Hash传递攻击登陆Windows2012远程桌面
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/02/27/端口转发之SSH隧道/" rel="prev" title="端口转发之SSH隧道">
-                端口转发之SSH隧道 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/28/批量导出ElasticSearch查询的结果/" rel="prev" title="批量导出ElasticSearch查询的结果">
+                批量导出ElasticSearch查询的结果 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

