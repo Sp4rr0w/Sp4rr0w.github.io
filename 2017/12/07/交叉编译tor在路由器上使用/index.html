@@ -14,6 +14,13 @@
 
 
 
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
 
 
 
@@ -94,7 +101,7 @@
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/12/07/交叉编译tor在路由器上使用/file_tor.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/12/07/交叉编译tor在路由器上使用/router_tor.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/12/07/交叉编译tor在路由器上使用/running_tor_in_ubuntu.png">
-<meta property="og:updated_time" content="2018-03-28T01:36:31.131Z">
+<meta property="og:updated_time" content="2018-03-28T02:17:46.404Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="交叉编译tor在路由器上使用">
 <meta name="twitter:description" content="Router Model : RT-AC66URouter CPU : MIPS32">
@@ -715,7 +722,7 @@ wget http://ip/tor 即可.
 </code></pre><p><strong>running tor</strong><br><img src="/2017/12/07/交叉编译tor在路由器上使用/router_tor.png" alt="running tor"></p>
 <p>之前我怀疑传到路由器上的tor运行时需要某些库文件的,运行发现是不需要的</p>
 <p>但是还是有segmentation fault。<br>还是要用QEMU模拟MIPS测试….</p>
-<h2 id="0x06-qemu模拟mips运行tor"><a href="#0x06-qemu模拟mips运行tor" class="headerlink" title="0x06 qemu模拟mips运行tor"></a>0x06 qemu模拟mips运行tor</h2><p>转到Ubuntu的<br>拷贝buildroot编译成的rootfs.tar（buildroot-2011.05 /output/ images）<br>里面有个lib文件夹，将里面的链接库sudo mv * /lib/</p>
+<h2 id="qemu模拟mips运行tor"><a href="#qemu模拟mips运行tor" class="headerlink" title="qemu模拟mips运行tor"></a>qemu模拟mips运行tor</h2><p>转到Ubuntu的<br>拷贝buildroot编译成的rootfs.tar（buildroot-2011.05 /output/ images）<br>里面有个lib文件夹，将里面的链接库sudo mv * /lib/</p>
 <p>之后直接运行TOR（qemu的安装后会自动识别MIPS类型的文件）<br>在Ubuntu中运行qemu<br><img src="/2017/12/07/交叉编译tor在路由器上使用/running_tor_in_ubuntu.png" alt="running tor"></p>
 <p>QEMU模拟MIPS运行TOR完美运行成功！</p>
 <p>问题来了为什么在路由器上运行失败segmentation fault呢？</p>
@@ -923,7 +930,7 @@ wget http://ip/tor 即可.
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正常编译tor"><span class="nav-number">1.</span> <span class="nav-text">正常编译tor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-openssl"><span class="nav-number">2.</span> <span class="nav-text">交叉编译 openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-libevent"><span class="nav-number">3.</span> <span class="nav-text">交叉编译 libevent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-zlib"><span class="nav-number">4.</span> <span class="nav-text">交叉编译 zlib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-tor"><span class="nav-number">5.</span> <span class="nav-text">交叉编译 tor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-qemu模拟mips运行tor"><span class="nav-number">6.</span> <span class="nav-text">0x06 qemu模拟mips运行tor</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正常编译tor"><span class="nav-number">1.</span> <span class="nav-text">正常编译tor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-openssl"><span class="nav-number">2.</span> <span class="nav-text">交叉编译 openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-libevent"><span class="nav-number">3.</span> <span class="nav-text">交叉编译 libevent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-zlib"><span class="nav-number">4.</span> <span class="nav-text">交叉编译 zlib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-tor"><span class="nav-number">5.</span> <span class="nav-text">交叉编译 tor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qemu模拟mips运行tor"><span class="nav-number">6.</span> <span class="nav-text">qemu模拟mips运行tor</span></a></li></ol></div>
             
 
           </div>
@@ -1034,9 +1041,6 @@ wget http://ip/tor 即可.
 
 
 
-  
-  
-
 
 
 
@@ -1076,16 +1080,6 @@ wget http://ip/tor 即可.
   
   
     <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
   
 
 
