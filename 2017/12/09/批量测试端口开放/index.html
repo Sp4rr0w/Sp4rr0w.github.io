@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-CN">
+<html class="theme-next mist use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="0x01. PowerShell简单测试端口开放import-Module .\Invoke-TestPortInvoke-TestPort -ipLists C:\x.txt 23 function Invoke-TestPort{    [CmdletBinding()] Param (        [Parameter(Mandatory = $true, Position = 0)]">
+<meta name="description" content="0x01. PowerShell简单测试端口开放">
 <meta name="keywords" content="PowerShell,Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="批量测试端口开放">
 <meta property="og:url" content="https://sp4rr0w.github.io/2017/12/09/批量测试端口开放/index.html">
 <meta property="og:site_name" content="Sparrow&#39;s blog">
-<meta property="og:description" content="0x01. PowerShell简单测试端口开放import-Module .\Invoke-TestPortInvoke-TestPort -ipLists C:\x.txt 23 function Invoke-TestPort{    [CmdletBinding()] Param (        [Parameter(Mandatory = $true, Position = 0)]">
+<meta property="og:description" content="0x01. PowerShell简单测试端口开放">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-26T10:03:09.090Z">
+<meta property="og:updated_time" content="2018-03-28T01:34:04.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="批量测试端口开放">
-<meta name="twitter:description" content="0x01. PowerShell简单测试端口开放import-Module .\Invoke-TestPortInvoke-TestPort -ipLists C:\x.txt 23 function Invoke-TestPort{    [CmdletBinding()] Param (        [Parameter(Mandatory = $true, Position = 0)]">
+<meta name="twitter:description" content="0x01. PowerShell简单测试端口开放">
 
 
 
@@ -100,7 +100,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -384,66 +384,126 @@
       
 
       
-        <a id="more"></a>
-<p>0x01. PowerShell简单测试端口开放<br>import-Module .\Invoke-TestPort<br>Invoke-TestPort -ipLists C:\x.txt 23</p>
-<p>function Invoke-TestPort<br>{<br>    [CmdletBinding()] Param (<br>        [Parameter(Mandatory = $true, Position = 0)]<br>        [Alias(“Url”,”Domain”)]<br>        [String]<br>        $ipLists,</p>
-<pre><code>    [Parameter(Mandatory = $true ,Position = 1)]
-    [String]
-    $Port
-)
-Process{
-   Write-Host &quot;Starting TestPort ...&quot;
-   $ips = Get-Content -ErrorAction SilentlyContinue -Path $ipLists
-   foreach ($ip in $ips){
-       try{
-           $socket = new-object System.Net.Sockets.TcpClient($ip, $Port)
+        <h2 id="0x01-PowerShell简单测试端口开放"><a href="#0x01-PowerShell简单测试端口开放" class="headerlink" title="0x01. PowerShell简单测试端口开放"></a>0x01. PowerShell简单测试端口开放</h2><a id="more"></a>
+<pre><code>import-Module .\Invoke-TestPort
+Invoke-TestPort -ipLists C:\x.txt 23
 
-       }
-       catch [Exception]{
-           Write-Host $ip&quot;:&quot;$Port &quot;CAN&#39;T Connected&quot;
-           continue
-       }
-       Write-Host $ip&quot;:&quot;$Port &quot;CAN Connected&quot;
+function Invoke-TestPort
+{
+    [CmdletBinding()] Param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [Alias(&quot;Url&quot;,&quot;Domain&quot;)]
+        [String]
+        $ipLists,
+
+        [Parameter(Mandatory = $true ,Position = 1)]
+        [String]
+        $Port
+    )
+    Process{
+       Write-Host &quot;Starting TestPort ...&quot;
+       $ips = Get-Content -ErrorAction SilentlyContinue -Path $ipLists
+       foreach ($ip in $ips){
+           try{
+               $socket = new-object System.Net.Sockets.TcpClient($ip, $Port)
+
+           }
+           catch [Exception]{
+               Write-Host $ip&quot;:&quot;$Port &quot;CAN&#39;T Connected&quot;
+               continue
+           }
+           Write-Host $ip&quot;:&quot;$Port &quot;CAN Connected&quot;
+        }
     }
 }
-</code></pre><p>}</p>
-<p>0x02. Python批量测试Telnet端口开放</p>
-<p>import sys<br>import getpass<br>import pexpect<br>import telnetlib<br>import threadpool</p>
-<p>OKWHITE = ‘\033[1;37m’<br>OKENDC = ‘\033[0m’</p>
-<p>class Telnets_OK():<br>    def <strong>init</strong>(self,ip,thread_id,Store_Result_txt):<br>        self.ip                      = ip<br>        self.thread_id               = thread_id<br>        self.Store_Result_txt        = Store_Result_txt</p>
-<pre><code>    self.OKWHITE = &#39;\033[1;37m&#39; 
-    self.OKGREEN = &#39;\033[92m&#39;
-    self.OKWARNING = &#39;\033[93m&#39; 
-    self.OKFAIL = &#39;\033[91m&#39;    
-    self.OKENDC = &#39;\033[0m&#39;
-    self.login()
+</code></pre><p>0x02. Python批量测试Telnet端口开放</p>
+<pre><code>import sys
+import getpass
+import pexpect
+import telnetlib
+import threadpool
 
-def Store_ok_txt(self):
-    with open(&#39;Can_Telnet_{0}&#39;.format(self.Store_Result_txt),&#39;a+&#39;) as f:
-        f.write(self.ip + &quot;^&quot;)
-        f.write(&quot;\n&quot;)
+OKWHITE = &#39;\033[1;37m&#39;
+OKENDC = &#39;\033[0m&#39;
 
-def Store_not_ok_txt(self):
-    with open(&#39;Cannot_Telnet_{0}&#39;.format(self.Store_Result_txt),&#39;a+&#39;) as f:
-        f.write(self.ip + &quot;^&quot;)
-        f.write(&quot;\n&quot;)
+class Telnets_OK():
+    def __init__(self,ip,thread_id,Store_Result_txt):
+        self.ip                      = ip
+        self.thread_id               = thread_id
+        self.Store_Result_txt        = Store_Result_txt
 
-def login( self ):
-    cmd = &#39;telnet &#39; + self.ip 
-    child = pexpect.spawn(cmd)
-    index = child.expect([&quot;[lL]ogin&quot;, &quot;(?i)Unknown host&quot;, pexpect.EOF, pexpect.TIMEOUT])
-    if ( index == 0 ):
-        print self.OKGREEN +   &quot;[+] can   telnet : {0}&quot;.format(self.ip) + self.OKENDC
-        self.Store_ok_txt()
-    else:  
-        print self.OKFAIL + &quot;[-] can\&#39;t telnet : {0}&quot;.format(self.ip) + self.OKENDC
+        self.OKWHITE = &#39;\033[1;37m&#39; 
+        self.OKGREEN = &#39;\033[92m&#39;
+        self.OKWARNING = &#39;\033[93m&#39; 
+        self.OKFAIL = &#39;\033[91m&#39;    
+        self.OKENDC = &#39;\033[0m&#39;
+        self.login()
 
-        self.Store_not_ok_txt()
-    child.close()  
-</code></pre><p>def Load_Urls_Txt( txt):<br>    Urls_Pass   = []<br>    f           = open( txt, ‘r’)<br>    line        = f.readline().strip(‘\n’)<br>    while (line):<br>        Urls_Pass.append(line)<br>        line    = f.readline().strip(‘\n’)<br>    f.close()<br>    return Urls_Pass</p>
-<p>def main(Urls_Pass ,Store_Result_txt):<br>    task_pool = threadpool.ThreadPool(20)<br>    templists = []<br>    for i in range(0,len(Urls_Pass)):<br>        a       = Urls_Pass[0]<br>        temp    = a.split(‘^’)<br>        udic    = {}<br>        udic[‘ip’]      = temp[0]<br>        udic[‘Store_Result_txt’]= Store_Result_txt<br>        udic[‘thread_id’]   = i<br>        tmp = (None,udic)<br>        Urls_Pass.remove(a)<br>        templists.append(tmp)<br>    request_list = threadpool.makeRequests(Telnets_OK , templists)<br>    map(task_pool.putRequest , request_list)<br>    task_pool.wait()</p>
-<p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    if len(sys.argv) != 2:<br>        print OKWHITE<br>        print ‘Usage      : python {0} <txt>‘.format(sys.argv[0])<br>        print ‘txt        : domain or ip’<br>        print ‘Threads    : 20 (default)’<br>        print ‘Name       : piliang telnet’<br>        print OKENDC<br>        sys.exit(1)<br>    print OKWHITE + “Loading : {0}”.format(sys.argv[1])<br>    txt             = ‘’.join(sys.argv[1])<br>    Urls_Pass    = Load_Urls_Txt(txt)<br>    print “Lines : {0}”.format(len(Urls_Pass)) + OKENDC<br>    main(Urls_Pass, sys.argv[1])</txt></p>
+    def Store_ok_txt(self):
+        with open(&#39;Can_Telnet_{0}&#39;.format(self.Store_Result_txt),&#39;a+&#39;) as f:
+            f.write(self.ip + &quot;^&quot;)
+            f.write(&quot;\n&quot;)
 
+    def Store_not_ok_txt(self):
+        with open(&#39;Cannot_Telnet_{0}&#39;.format(self.Store_Result_txt),&#39;a+&#39;) as f:
+            f.write(self.ip + &quot;^&quot;)
+            f.write(&quot;\n&quot;)
+
+    def login( self ):
+        cmd = &#39;telnet &#39; + self.ip 
+        child = pexpect.spawn(cmd)
+        index = child.expect([&quot;[lL]ogin&quot;, &quot;(?i)Unknown host&quot;, pexpect.EOF, pexpect.TIMEOUT])
+        if ( index == 0 ):
+            print self.OKGREEN +   &quot;[+] can   telnet : {0}&quot;.format(self.ip) + self.OKENDC
+            self.Store_ok_txt()
+        else:  
+            print self.OKFAIL + &quot;[-] can\&#39;t telnet : {0}&quot;.format(self.ip) + self.OKENDC
+
+            self.Store_not_ok_txt()
+        child.close()  
+
+def Load_Urls_Txt( txt):
+    Urls_Pass   = []
+    f           = open( txt, &#39;r&#39;)
+    line        = f.readline().strip(&#39;\n&#39;)
+    while (line):
+        Urls_Pass.append(line)
+        line    = f.readline().strip(&#39;\n&#39;)
+    f.close()
+    return Urls_Pass
+
+def main(Urls_Pass ,Store_Result_txt):
+    task_pool = threadpool.ThreadPool(20)
+    templists = []
+    for i in range(0,len(Urls_Pass)):
+        a       = Urls_Pass[0]
+        temp    = a.split(&#39;^&#39;)
+        udic    = {}
+        udic[&#39;ip&#39;]      = temp[0] 
+        udic[&#39;Store_Result_txt&#39;]= Store_Result_txt
+        udic[&#39;thread_id&#39;]   = i
+        tmp = (None,udic)
+        Urls_Pass.remove(a)
+        templists.append(tmp)
+    request_list = threadpool.makeRequests(Telnets_OK , templists)
+    map(task_pool.putRequest , request_list)
+    task_pool.wait()
+
+if __name__ == &#39;__main__&#39;:
+    if len(sys.argv) != 2:
+        print OKWHITE
+        print &#39;Usage      : python {0} &lt;txt&gt;&#39;.format(sys.argv[0]) 
+        print &#39;txt        : domain or ip&#39;
+        print &#39;Threads    : 20 (default)&#39;
+        print &#39;Name       : piliang telnet&#39;
+        print OKENDC
+        sys.exit(1)
+    print OKWHITE + &quot;Loading : {0}&quot;.format(sys.argv[1]) 
+    txt             = &#39;&#39;.join(sys.argv[1])
+    Urls_Pass    = Load_Urls_Txt(txt)
+    print &quot;Lines : {0}&quot;.format(len(Urls_Pass)) + OKENDC
+    main(Urls_Pass, sys.argv[1])
+</code></pre>
       
     </div>
     
@@ -542,8 +602,17 @@ def login( self ):
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -627,6 +696,22 @@ def login( self ):
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-PowerShell简单测试端口开放"><span class="nav-number">1.</span> <span class="nav-text">0x01. PowerShell简单测试端口开放</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -658,7 +743,7 @@ def login( self ):
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
