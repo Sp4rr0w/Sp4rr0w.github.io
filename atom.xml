@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://sp4rr0w.github.io/"/>
-  <updated>2018-03-28T10:00:19.476Z</updated>
+  <updated>2018-03-28T10:02:52.473Z</updated>
   <id>https://sp4rr0w.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://sp4rr0w.github.io/2018/03/28/%E6%89%B9%E9%87%8F%E5%AF%BC%E5%87%BAElasticSearch%E6%9F%A5%E8%AF%A2%E7%9A%84%E7%BB%93%E6%9E%9C/"/>
     <id>https://sp4rr0w.github.io/2018/03/28/批量导出ElasticSearch查询的结果/</id>
     <published>2018-03-28T20:09:00.000Z</published>
-    <updated>2018-03-28T10:00:19.476Z</updated>
+    <updated>2018-03-28T10:02:52.473Z</updated>
     
     <content type="html"><![CDATA[<p>…..<br><a id="more"></a></p><p>工具 ： <a href="https://github.com/taraslayshchuk/es2csv" target="_blank" rel="noopener">es2csv</a></p><h2 id="安装python3"><a href="#安装python3" class="headerlink" title="安装python3"></a>安装python3</h2><p>后修改 </p><pre><code>C:\python3\python.exe --&gt; C:\python3\python3.exe</code></pre><h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><pre><code>C:\python3\</code></pre><h2 id="安装es2csv所使用的插件"><a href="#安装es2csv所使用的插件" class="headerlink" title="安装es2csv所使用的插件"></a>安装es2csv所使用的插件</h2><p><a href="https://github.com/niltonvolpato/python-progressbar" target="_blank" rel="noopener">python-progressbar</a></p><p><a href="https://pypi.python.org/pypi/unicodecsv/0.14.1" target="_blank" rel="noopener">unicodecsv-0.14.1</a></p><p><a href="https://pypi.python.org/pypi/urllib3" target="_blank" rel="noopener">urllib3-1.22</a></p><p>[elasticsearch-5.2.0] (<a href="https://pypi.python.org/pypi/elasticsearch/5.2.0" target="_blank" rel="noopener">https://pypi.python.org/pypi/elasticsearch/5.2.0</a>)</p><p>进入到各自的文件夹下 运行：</p><pre><code>python3 setup.py install</code></pre><h2 id="英文系统下-打不了中文"><a href="#英文系统下-打不了中文" class="headerlink" title="英文系统下(打不了中文)"></a>英文系统下(打不了中文)</h2><p>进入<a href="https://sourceforge.net/projects/conemu/files/OldReleases/ConEmuPack/" target="_blank" rel="noopener">ConEmuPack</a>文件夹下，双击ConEmu64.exe运行：</p><pre><code>搜索字符串 ： -q &#39;00&#39;搜索全部索引 ： -i _all搜索需要的字段 ： -f 邮箱-EMAIL 明文密码-PASSWORD保存成csv文件 ： -o file.csv</code></pre><p>cd es2csv文件夾 运行： </p><pre><code>python3 es2csv_new.py -u http://9.9.9.10:9200 -q &#39;gov.vn&#39; -i _all -e -f 邮箱-EMAIL 明文密码-PASSWORD -o file-new.csv -k    Found 1846 results    Run query [#####] [1846/1846] [100%] [0:00:00] [Time: 0:00:00] [ 3.92 kdocs/s]    To csv [######] [614/614] [100%] [0:00:00] [Time: 0:00:00] [ 15.35 klines/s]    DELETE http://9.9.9.10:9200/_search/scroll [status:400 request:0.000s]</code></pre><p>导出数目多于官方规定死的500条，无限制</p>]]></content>
     
