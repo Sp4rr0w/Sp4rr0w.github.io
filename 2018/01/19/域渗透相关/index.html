@@ -88,23 +88,23 @@
 
 
 
-<meta name="description" content="0x01. Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )">
+<meta name="description" content="Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )">
 <meta name="keywords" content="Kerberos,笔记,域渗透,hash注入,Golden Ticket,NTDS.dit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="域渗透相关">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/index.html">
 <meta property="og:site_name" content="Sparrow&#39;s Blog">
-<meta property="og:description" content="0x01. Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )">
+<meta property="og:description" content="Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/Kerberos.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/pass-the-ticket.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/Golden_Ticket1.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/Golden_Ticket2.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/getspn.png">
-<meta property="og:updated_time" content="2018-03-28T01:36:13.316Z">
+<meta property="og:updated_time" content="2018-03-28T07:21:24.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透相关">
-<meta name="twitter:description" content="0x01. Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )">
+<meta name="twitter:description" content="Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )">
 <meta name="twitter:image" content="https://sp4rr0w.github.io/2018/01/19/域渗透相关/Kerberos.png">
 
 
@@ -317,7 +317,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sparrow">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/jacksparrow.png">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -427,7 +427,7 @@
       
 
       
-        <h2 id="0x01-Pass-the-Hash-PTH-hash传递攻击-即-Mimikatz-hash注入"><a href="#0x01-Pass-the-Hash-PTH-hash传递攻击-即-Mimikatz-hash注入" class="headerlink" title="0x01. Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )"></a>0x01. Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )</h2><a id="more"></a>
+        <h2 id="Pass-the-Hash-PTH-hash传递攻击-即-Mimikatz-hash注入"><a href="#Pass-the-Hash-PTH-hash传递攻击-即-Mimikatz-hash注入" class="headerlink" title="Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )"></a>Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )</h2><a id="more"></a>
 <p>在windows系统中,系统通常不会存储用户登录密码,而是存储密码的哈希值. </p>
 <p>在我们远程登录系统的时候,实际上向远程传递的就是密码的hash值。</p>
 <p>当攻击者获取了存储在计算机上的用户名和密码的hash值的时候(PWDUMP7等)</p>
@@ -441,7 +441,7 @@ c.hash injection
     mimikatz # privilege::debug
     mimikatz # sekurlsa::pth /user:administrator /domain:workgroup /ntlm:d6e1371929886ec1be0b0cf4b101f289 /run:c:\windows\system32\cmd.exe
 (sekurlsa::pth 中的pth 即Pass the Hash)
-</code></pre><h2 id="0x02-Pass-The-Key-OverPass-the-Hash"><a href="#0x02-Pass-The-Key-OverPass-the-Hash" class="headerlink" title="0x02. Pass The Key (OverPass-the-Hash)"></a>0x02. Pass The Key (OverPass-the-Hash)</h2><p>当系统安装了KB2871997补丁且禁用了NTLM的时候，那我们抓取到的ntlm hash</p>
+</code></pre><h2 id="Pass-The-Key-OverPass-the-Hash"><a href="#Pass-The-Key-OverPass-the-Hash" class="headerlink" title="Pass The Key (OverPass-the-Hash)"></a>Pass The Key (OverPass-the-Hash)</h2><p>当系统安装了KB2871997补丁且禁用了NTLM的时候，那我们抓取到的ntlm hash</p>
 <p>也就失去了作用，但是可以通过pass the key的攻击方式获得权限</p>
 <pre><code>mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::ekeys&quot; 获取用户的aes key
 mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:用戶a /domain:test.local /aes256:f74b379b5b422819db694aaf78f49177ed21c98ddad6b0e246a7e17df6d19d5c&quot; 注入aes key
@@ -449,7 +449,7 @@ mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:用戶a /domain:
 <p>查看mimikatz的相关资料发现如下信息:</p>
 <pre><code>ntlm hash is mandatory on XP/2003/Vista/2008 and before 7/2008r2/8/2012 kb2871997 (AES not available or replaceable) ; AES keys can be replaced only on 8.1/2012r2 or 7/2008r2/8/2012 with kb2871997, in this case you can avoid ntlm hash.
 </code></pre><p>根据提示，尝试在系统安装补丁kb2871997后继续测试<br>安裝 : <a href="https://www.microsoft.com/en-us/download/details.aspx?id=42765" target="_blank" rel="noopener">https://www.microsoft.com/en-us/download/details.aspx?id=42765</a><br>之后可以用\计算机名的方式通过远程共享查看目标机器(ps:这里必须要使用计算机名进行连接，会爆密码错误。  不要用win10测试，win10机器测试会在一分鐘后重啓 ,)<br>(如果获取的散列是NTLM，则Kerberos凭证加密方法是RC4。如果散列加密方法为AES，则Kerberos票使用AES进行的加密。)</p>
-<h2 id="0x03-Pass-the-Ticket-票据传递攻击PtT"><a href="#0x03-Pass-the-Ticket-票据传递攻击PtT" class="headerlink" title="0x03. Pass the Ticket (票据传递攻击PtT)"></a>0x03. Pass the Ticket (票据传递攻击PtT)</h2><p><img src="/2018/01/19/域渗透相关/Kerberos.png" alt="Kerberos.png"><br>与PtH情况类似,但PtT使用的是Kerberos票据,而不是NT哈希</p>
+<h2 id="Pass-the-Ticket-票据传递攻击PtT"><a href="#Pass-the-Ticket-票据传递攻击PtT" class="headerlink" title="Pass the Ticket (票据传递攻击PtT)"></a>Pass the Ticket (票据传递攻击PtT)</h2><p><img src="/2018/01/19/域渗透相关/Kerberos.png" alt="Kerberos.png"><br>与PtH情况类似,但PtT使用的是Kerberos票据,而不是NT哈希</p>
 <p><a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos" target="_blank" rel="noopener">https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos</a></p>
 <p>在微软活动目录中颁发的TGT是可移植的。由于Kerberos的无状态特性,TGT中并没有关于票据来源的标识信息。</p>
 <p>这意味着可以从某台计算机上导出一个有效的TGT,然后导入到该环境中其他的计算机上。</p>
@@ -467,7 +467,7 @@ mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:用戶a /domain:
 <pre><code>hash传递攻击(PtH):抓住哈希并使用它来访问资源。用户更改帐户密码之前有效。
 凭证传递攻击(PtT):抓取Kerberos凭证，并且使用它进行访问资源。攻击有效期是在票证有效期之内(一般为7天)。
 超hash传递攻击(OPtH / PtK):使用密码哈希来获取Kerberos凭证。用户更改帐户密码之前，哈希才有效。
-</code></pre><h2 id="0x04-Golden-Ticket-黄金票据"><a href="#0x04-Golden-Ticket-黄金票据" class="headerlink" title="0x04. Golden Ticket (黄金票据)"></a>0x04. Golden Ticket (黄金票据)</h2><p>简义 : 在拥有普通域用户权限和 krbtgt账号的hash的情况下,获取域管理员权限。</p>
+</code></pre><h2 id="Golden-Ticket-黄金票据"><a href="#Golden-Ticket-黄金票据" class="headerlink" title="Golden Ticket (黄金票据)"></a>Golden Ticket (黄金票据)</h2><p>简义 : 在拥有普通域用户权限和 krbtgt账号的hash的情况下,获取域管理员权限。</p>
 <p>发生在上面的过程3,可以伪造TGT(前提是获取krbtgt账号的口令散列值(hash))，宣称自己是域内任何账号，包括域管或者不存在的用户。</p>
 <p>由來: </p>
 <pre><code>Kerberos信任及完全依赖于KDC密码,由于Kerberos协议是无状态的,因此密钥分发中心KDC和票据授予服务TGS并没记录以前的交互信息。
@@ -511,7 +511,7 @@ mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:用戶a /domain:
 <li>利用dcsync功能获取hash,通过DRSR(目录复制服务DRS远程协议)协议，从域控制器获取任何用户的hash<br>  lsadump::dcsync /domain:demo.local /user:testwin10  (administrator / testwin7)<br>  <img src="/2018/01/19/域渗透相关/Golden_Ticket2.png" alt="Golden_Ticket2"></li>
 </ul>
 </blockquote>
-<h2 id="5-Silver-Ticket-白银票据"><a href="#5-Silver-Ticket-白银票据" class="headerlink" title="5. Silver Ticket (白银票据)"></a>5. Silver Ticket (白银票据)</h2><p>简义 : 发生在上面的过程5，可以伪造TGS(前提是获取服务账号的口令散列值)，宣称自己是域内任何账号，例如域管。</p>
+<h2 id="Silver-Ticket-白银票据"><a href="#Silver-Ticket-白银票据" class="headerlink" title="Silver Ticket (白银票据)"></a>Silver Ticket (白银票据)</h2><p>简义 : 发生在上面的过程5，可以伪造TGS(前提是获取服务账号的口令散列值)，宣称自己是域内任何账号，例如域管。</p>
 <p>Silver Ticket生成时指定了相关的服务名，因此只能用来访问相应的服务，所以局限性比较大，没有golden ticket好用</p>
 <p>所需条件(mimikatz生成silver ticket): </p>
 <blockquote>
@@ -537,7 +537,7 @@ Windows Remote Server    RPCSS、LDAP、CIFS
 <pre><code>kerberos::golden /domain:demo.local /sid:S-1-5-21-1239069908-882060383-2558203358 /target:owa2010dc.demo.local /service:cifs /rc4:aac6185241728f7685c8d50c61573b75 /user:silver /ptt
 (/rc4:aac6185241728f7685c8d50c61573b75 這裏我用的是owa2010dc$机器賬戶的NTLM hash
 ![Silver_Ticket1](域渗透相关/Silver_Ticket1.png)
-</code></pre><h2 id="0x06-Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破"><a href="#0x06-Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破" class="headerlink" title="0x06. Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)"></a>0x06. Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)</h2><p>简义 : 发生在上面的过程3,4, 目标的服务账户的服务器主体名称(SPN)请求一个Kerberos服务票据 (TGS) 。</p>
+</code></pre><h2 id="Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破"><a href="#Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破" class="headerlink" title="Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)"></a>Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)</h2><p>简义 : 发生在上面的过程3,4, 目标的服务账户的服务器主体名称(SPN)请求一个Kerberos服务票据 (TGS) 。</p>
 <p>这里会采用一个有效的用户认证票据(TGT)来请求一个或几个运行在服务器上的目标服务票据。</p>
 <p>域控不会检测用户是否真正连接到了这些资源上(即使用户可能真的有权限访问)。</p>
 <p>域控会在活动目录中查找SPN并且用SPN关联的用户账户把票据进行加密，以此赋予用户访问服务的权限。</p>
@@ -545,7 +545,7 @@ Windows Remote Server    RPCSS、LDAP、CIFS
 <p>所以Kerberoast能够通过尝试不同的NTLM哈希来解开kerberos票据，一旦票据被成功解开，它的密码也就到手了。<br>(获得服务票据不需要提权，同时也不会发送数据到目标机器。)</p>
 <pre><code>https://github.com/nidem/kerberoast/blob/master/tgsrepcrack.py
     python tgsrepcrack.py wordlist.txt sql.kirbi
-</code></pre><h2 id="0x07-Kerberoasting-Kerberoast攻击的另一种姿势"><a href="#0x07-Kerberoasting-Kerberoast攻击的另一种姿势" class="headerlink" title="0x07. Kerberoasting - Kerberoast攻击的另一种姿势"></a>0x07. Kerberoasting - Kerberoast攻击的另一种姿势</h2><p>我们通常不关心基于主机的SPN，因为计算机的机器帐户密码默认是随机的，每30天更换一次。</p>
+</code></pre><h2 id="Kerberoasting-Kerberoast攻击的另一种姿势"><a href="#Kerberoasting-Kerberoast攻击的另一种姿势" class="headerlink" title="Kerberoasting - Kerberoast攻击的另一种姿势"></a>Kerberoasting - Kerberoast攻击的另一种姿势</h2><p>我们通常不关心基于主机的SPN，因为计算机的机器帐户密码默认是随机的，每30天更换一次。</p>
 <p>但是，请记住，也可以为域用户帐户注册任意的SPN。</p>
 <p>一个常见的例子就是一个服务账户管理着多个MSSQL实例;此用户帐户注册的每个MSSQL实例都有一个&lt;MSSQLSvc/HOST:PORT&gt; 这样的SPN，</p>
 <p>这个SPN存储在用户的serviceprincipalname属性里.如果我们有一个为域用户帐户注册的任意SPN，</p>
@@ -600,7 +600,7 @@ d. 使用Tim的tgsrepcrack.py开始离线破解密码:
 e. xan7r给 Tim的工具集增加了一个分支，他添加了一个autokerberoast.ps1脚本，自动化了上述攻击过程:
 https://raw.githubusercontent.com/xan7r/kerberoast/master/autokerberoast.ps1
     此外，@ tifkin_写了一个Go语言版本的TGS爆破器，比原来的Python版本要快一些。
-</code></pre><h2 id="0x08-SYSVOL"><a href="#0x08-SYSVOL" class="headerlink" title="0x08. SYSVOL"></a>0x08. SYSVOL</h2><p>在域环境中修改域机器的本地账户密码是个很麻烦的事情</p>
+</code></pre><h2 id="SYSVOL"><a href="#SYSVOL" class="headerlink" title="SYSVOL"></a>SYSVOL</h2><p>在域环境中修改域机器的本地账户密码是个很麻烦的事情</p>
 <p>但是微软的GPP(组策略偏好)中提供了一个批量修改本地账户的功能，</p>
 <p>可以一次性批量的修改本地账户密码(组策略不仅仅可以用来批量管理密码)。</p>
 <p>但是最初却导致了一个问题，就是域管理员在配置GPP的时候，会在SYSVOL这个文件夹中保存当前GPP配置的xml文件，</p>
@@ -622,7 +622,7 @@ b. 域控安装补丁KB2962486
     这个补丁禁止在组策略配置中填入密码
 c. 目标不在组策略中使用域控密码
 d. 设置了共享文件夹\SYSVOL的访问权限
-</code></pre><h2 id="0x09-ntds-dit-活动目录的数据库文件"><a href="#0x09-ntds-dit-活动目录的数据库文件" class="headerlink" title="0x09. ntds.dit (活动目录的数据库文件)"></a>0x09. ntds.dit (活动目录的数据库文件)</h2><p>包含有关活动目录域中所有对象的所有信息 及 所有域用户和计算机帐户的密码哈希值。</p>
+</code></pre><h2 id="ntds-dit-活动目录的数据库文件"><a href="#ntds-dit-活动目录的数据库文件" class="headerlink" title="ntds.dit (活动目录的数据库文件)"></a>ntds.dit (活动目录的数据库文件)</h2><p>包含有关活动目录域中所有对象的所有信息 及 所有域用户和计算机帐户的密码哈希值。</p>
 <p>域控制器(DC)上的ntds.dit文件只能由可以登录到DC的用户访问 。</p>
 <p>这些组可以默认登录到域控制器:</p>
 <pre><code>    Enterprise Admins (目录林管理员组)
@@ -693,7 +693,7 @@ $ sudo ldconfig
         之前两篇关于如何转储 AD 数据库凭证的文章： 
             a. 攻击者如何从一个域控制器中读取活动目录数据库(NTDS.DIT)(https://adsecurity.org/?p=451)
             b. 在 Active Directory 域中获得管理员权限的攻击方法(https://adsecurity.org/?p=2362  [译]https://xianzhi.aliyun.com/forum/topic/115)
-</code></pre><h2 id="0x10-MS14-048-限制条件-打了补丁或者域中有Win2012-2012R2-域控"><a href="#0x10-MS14-048-限制条件-打了补丁或者域中有Win2012-2012R2-域控" class="headerlink" title="0x10.MS14-048 (限制条件:打了补丁或者域中有Win2012/2012R2 域控)"></a>0x10.MS14-048 (限制条件:打了补丁或者域中有Win2012/2012R2 域控)</h2><p>允许域内任何一个普通用户，将自己提升至域管权限。</p>
+</code></pre><h2 id="MS14-048-限制条件-打了补丁或者域中有Win2012-2012R2-域控"><a href="#MS14-048-限制条件-打了补丁或者域中有Win2012-2012R2-域控" class="headerlink" title="MS14-048 (限制条件:打了补丁或者域中有Win2012/2012R2 域控)"></a>MS14-048 (限制条件:打了补丁或者域中有Win2012/2012R2 域控)</h2><p>允许域内任何一个普通用户，将自己提升至域管权限。</p>
 <p>作为普通用户向域控请求一个没有PAC的Kerberos TGT认证的票据，域控会返回一个TGT(不包含PAC，PAC通常包含有用户组中的成员关系)</p>
 <p>生成一个伪造的PAC，因为没有密钥，所以生成的PAC”被标记”有MD5算法，而不是带有域用户密码数据的HMAC_MD5类型。</p>
 <p>把伪造的PAC结合上TGT构造认证数据，作为TGS服务的一部分发送到域控。</p>
@@ -860,7 +860,7 @@ Hash传递攻击登陆Windows2012远程桌面
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/jacksparrow.png"
+                src="/images/avatar.gif"
                 alt="Sparrow" />
             
               <p class="site-author-name" itemprop="name">Sparrow</p>
@@ -952,7 +952,7 @@ Hash传递攻击登陆Windows2012远程桌面
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-Pass-the-Hash-PTH-hash传递攻击-即-Mimikatz-hash注入"><span class="nav-number">1.</span> <span class="nav-text">0x01. Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-Pass-The-Key-OverPass-the-Hash"><span class="nav-number">2.</span> <span class="nav-text">0x02. Pass The Key (OverPass-the-Hash)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-Pass-the-Ticket-票据传递攻击PtT"><span class="nav-number">3.</span> <span class="nav-text">0x03. Pass the Ticket (票据传递攻击PtT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-Golden-Ticket-黄金票据"><span class="nav-number">4.</span> <span class="nav-text">0x04. Golden Ticket (黄金票据)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Silver-Ticket-白银票据"><span class="nav-number">5.</span> <span class="nav-text">5. Silver Ticket (白银票据)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破"><span class="nav-number">6.</span> <span class="nav-text">0x06. Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x07-Kerberoasting-Kerberoast攻击的另一种姿势"><span class="nav-number">7.</span> <span class="nav-text">0x07. Kerberoasting - Kerberoast攻击的另一种姿势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x08-SYSVOL"><span class="nav-number">8.</span> <span class="nav-text">0x08. SYSVOL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x09-ntds-dit-活动目录的数据库文件"><span class="nav-number">9.</span> <span class="nav-text">0x09. ntds.dit (活动目录的数据库文件)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10-MS14-048-限制条件-打了补丁或者域中有Win2012-2012R2-域控"><span class="nav-number">10.</span> <span class="nav-text">0x10.MS14-048 (限制条件:打了补丁或者域中有Win2012/2012R2 域控)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pass-the-Hash-PTH-hash传递攻击-即-Mimikatz-hash注入"><span class="nav-number">1.</span> <span class="nav-text">Pass the Hash (PTH hash传递攻击, 即 Mimikatz hash注入 )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pass-The-Key-OverPass-the-Hash"><span class="nav-number">2.</span> <span class="nav-text">Pass The Key (OverPass-the-Hash)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pass-the-Ticket-票据传递攻击PtT"><span class="nav-number">3.</span> <span class="nav-text">Pass the Ticket (票据传递攻击PtT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Golden-Ticket-黄金票据"><span class="nav-number">4.</span> <span class="nav-text">Golden Ticket (黄金票据)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Silver-Ticket-白银票据"><span class="nav-number">5.</span> <span class="nav-text">Silver Ticket (白银票据)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破"><span class="nav-number">6.</span> <span class="nav-text">Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberoasting-Kerberoast攻击的另一种姿势"><span class="nav-number">7.</span> <span class="nav-text">Kerberoasting - Kerberoast攻击的另一种姿势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SYSVOL"><span class="nav-number">8.</span> <span class="nav-text">SYSVOL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ntds-dit-活动目录的数据库文件"><span class="nav-number">9.</span> <span class="nav-text">ntds.dit (活动目录的数据库文件)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MS14-048-限制条件-打了补丁或者域中有Win2012-2012R2-域控"><span class="nav-number">10.</span> <span class="nav-text">MS14-048 (限制条件:打了补丁或者域中有Win2012/2012R2 域控)</span></a></li></ol></div>
             
 
           </div>

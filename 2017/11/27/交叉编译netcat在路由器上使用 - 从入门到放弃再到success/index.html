@@ -88,22 +88,22 @@
 
 
 
-<meta name="description" content="Author : https://sp4rr0w.github.ioTime : 2017-11-27 22:25:51Router Model : RT-N12Router CPU : MIPS32">
+<meta name="description" content="路由器架构">
 <meta name="keywords" content="交叉编译,netcat,路由器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="交叉编译netcat在路由器上使用 - 从入门到放弃再到success">
 <meta property="og:url" content="https://sp4rr0w.github.io/2017/11/27/交叉编译netcat在路由器上使用 - 从入门到放弃再到success/index.html">
 <meta property="og:site_name" content="Sparrow&#39;s Blog">
-<meta property="og:description" content="Author : https://sp4rr0w.github.ioTime : 2017-11-27 22:25:51Router Model : RT-N12Router CPU : MIPS32">
+<meta property="og:description" content="路由器架构">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/11/27/交叉编译netcat在路由器上使用%20-%20从入门到放弃再到success/Buildroot_Configuration.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/11/27/交叉编译netcat在路由器上使用%20-%20从入门到放弃再到success/Target_options.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/11/27/交叉编译netcat在路由器上使用%20-%20从入门到放弃再到success/Toolchain.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/11/27/交叉编译netcat在路由器上使用%20-%20从入门到放弃再到success/router_netcat.png">
-<meta property="og:updated_time" content="2018-03-28T01:36:37.735Z">
+<meta property="og:updated_time" content="2018-03-28T07:17:38.838Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="交叉编译netcat在路由器上使用 - 从入门到放弃再到success">
-<meta name="twitter:description" content="Author : https://sp4rr0w.github.ioTime : 2017-11-27 22:25:51Router Model : RT-N12Router CPU : MIPS32">
+<meta name="twitter:description" content="路由器架构">
 <meta name="twitter:image" content="https://sp4rr0w.github.io/2017/11/27/交叉编译netcat在路由器上使用%20-%20从入门到放弃再到success/Buildroot_Configuration.png">
 
 
@@ -316,7 +316,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sparrow">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/jacksparrow.png">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -426,8 +426,9 @@
       
 
       
-        <p>Author : <a href="https://sp4rr0w.github.io">https://sp4rr0w.github.io</a><br>Time : 2017-11-27 22:25:51<br>Router Model : RT-N12<br>Router CPU : MIPS32<br><a id="more"></a></p>
-<h2 id="1-路由器架构"><a href="#1-路由器架构" class="headerlink" title="1. 路由器架构"></a>1. 路由器架构</h2><pre><code>admin@RT-N12:/tmp/home/root
+        <h2 id="路由器架构"><a href="#路由器架构" class="headerlink" title="路由器架构"></a>路由器架构</h2><a id="more"></a>
+<p>Author : <a href="https://sp4rr0w.github.io">https://sp4rr0w.github.io</a><br>Time : 2017-11-27 22:25:51<br>Router Model : RT-N12<br>Router CPU : MIPS32</p>
+<pre><code>admin@RT-N12:/tmp/home/root
 cat /proc/cpuinfo
 system type             : Broadcom BCM53572 chip rev 1 pkg 8
 processor               : 0
@@ -449,7 +450,7 @@ dcache misses           : 0
 icache hits             : 2147483648
 icache misses           : 0
 instructions            : 2147483648
-</code></pre><h2 id="2-先编译buildroot"><a href="#2-先编译buildroot" class="headerlink" title="2. 先编译buildroot"></a>2. 先编译buildroot</h2><p>可知<code>路由器CPU</code>为 <code>MIPS</code>。由同事告知可以先编译<code>buildroot</code>生成的gcc之后再指定编译<code>netcat</code>，这样可以在路由器上运行。</p>
+</code></pre><h2 id="先编译buildroot"><a href="#先编译buildroot" class="headerlink" title="先编译buildroot"></a>先编译buildroot</h2><p>可知<code>路由器CPU</code>为 <code>MIPS</code>。由同事告知可以先编译<code>buildroot</code>生成的gcc之后再指定编译<code>netcat</code>，这样可以在路由器上运行。</p>
 <p><code>折腾</code>之路由此开始</p>
 <p>下载buildroot</p>
 <ul>
@@ -511,7 +512,7 @@ and
     libc.so.0 -&gt; libuClibc-1.0.26.so
     libc.so.1 -&gt; libuClibc-1.0.26.so
     libuClibc-1.0.26.so
-</code></pre><h2 id="3-编译netcat"><a href="#3-编译netcat" class="headerlink" title="3. 编译netcat"></a>3. 编译netcat</h2><p>下载netcat</p>
+</code></pre><h2 id="编译netcat"><a href="#编译netcat" class="headerlink" title="编译netcat"></a>编译netcat</h2><p>下载netcat</p>
 <pre><code>wget http://sourceforge.net/projects/netcat/files/netcat/0.7.1/netcat-0.7.1.tar.gz/download -O netcat-0.7.1.tar.gz
 </code></pre><p>编译netcat</p>
 <pre><code>cd netcat-0.7.1
@@ -733,7 +734,7 @@ qemu: uncaught target signal 11 (Segmentation fault) - core dumped
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/jacksparrow.png"
+                src="/images/avatar.gif"
                 alt="Sparrow" />
             
               <p class="site-author-name" itemprop="name">Sparrow</p>
@@ -825,7 +826,7 @@ qemu: uncaught target signal 11 (Segmentation fault) - core dumped
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-路由器架构"><span class="nav-number">1.</span> <span class="nav-text">1. 路由器架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-先编译buildroot"><span class="nav-number">2.</span> <span class="nav-text">2. 先编译buildroot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-编译netcat"><span class="nav-number">3.</span> <span class="nav-text">3. 编译netcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转到Ubuntu"><span class="nav-number">4.</span> <span class="nav-text">转到Ubuntu</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#路由器架构"><span class="nav-number">1.</span> <span class="nav-text">路由器架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#先编译buildroot"><span class="nav-number">2.</span> <span class="nav-text">先编译buildroot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译netcat"><span class="nav-number">3.</span> <span class="nav-text">编译netcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转到Ubuntu"><span class="nav-number">4.</span> <span class="nav-text">转到Ubuntu</span></a></li></ol></div>
             
 
           </div>

