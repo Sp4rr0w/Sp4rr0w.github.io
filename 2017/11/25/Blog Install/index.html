@@ -96,7 +96,7 @@
 <meta property="og:description" content="…..">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/11/25/Blog%20Install/%7B%7B">
-<meta property="og:updated_time" content="2018-03-28T11:36:33.153Z">
+<meta property="og:updated_time" content="2018-04-08T02:52:53.920Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Blog Install">
 <meta name="twitter:description" content="…..">
@@ -531,27 +531,27 @@ tag_generator:
   about ：
    没什么写的，有事留言吧!
 
-文章封面 
-https://neveryu.github.io/2017/07/15/hexo-next-five/
+</code></pre><p>文章封面 </p>
+<pre><code>https://neveryu.github.io/2017/07/15/hexo-next-five/
 修改 \themes\next\layout\_macro\post.swing 文件。
-      {% if is_index %}
-   <!-- 文章摘要图片 -->
-{% if post.summary_img  %}
-  <div class="out-img-topic">
-    <img src="/2017/11/25/Blog Install/{{" post.summary_img="" }}="" class="img-topic">
-  </div>
-{% endif %}
-   &lt;!-- 文章摘要图片 --&gt;
 
-之后： 
----
+    {% if is_index %}
+        <!-- 文章摘要图片 -->
+        {% if post.summary_img  %}
+        <div class="out-img-topic">
+        <img src="/2017/11/25/Blog Install/{{" post.summary_img="" }}="" class="img-topic">
+        </div>
+        {% endif %}
+    &lt;!-- 文章摘要图片 --&gt;
+</code></pre><p>之后： </p>
+<pre><code>---
 title: Blog Install
 date: 2017-11-25 00:00:00
 categories:
    - 其他
 tags:
 summary_img: /images/avatar.png
-
+---
 </code></pre>
       
     </div>
@@ -659,7 +659,7 @@ summary_img: /images/avatar.png
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -681,7 +681,7 @@ summary_img: /images/avatar.png
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
