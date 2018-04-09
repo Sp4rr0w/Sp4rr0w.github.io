@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="笔记,Tor,网桥," />
+  <meta name="keywords" content="Tor,笔记,网桥," />
 
 
 
@@ -89,14 +89,14 @@
 
 
 <meta name="description" content="…..">
-<meta name="keywords" content="笔记,Tor,网桥">
+<meta name="keywords" content="Tor,笔记,网桥">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tor技术相关">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/04/07/Tor技术相关/index.html">
 <meta property="og:site_name" content="Sparrow&#39;s Blog">
 <meta property="og:description" content="…..">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-08T04:48:19.376Z">
+<meta property="og:updated_time" content="2018-04-09T09:14:10.735Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tor技术相关">
 <meta name="twitter:description" content="…..">
@@ -423,7 +423,6 @@
       
         <p>…..<br><a id="more"></a></p>
 <h2 id="Tor的工作原理"><a href="#Tor的工作原理" class="headerlink" title="Tor的工作原理"></a>Tor的工作原理</h2><p>基于TCP连接的匿名通信系统,它可以用于网页浏览、即时消息等通信。</p>
-<p>在Tor匿名通信系统中,需要匿名的用户首先启动洋葱代理(OnionProxy)程序,洋葱代理负责通信链路的建立和数据的加/解密。</p>
 <p>它首先从目录服务器(Directory Server,DS)中获得所有Tor节点信息,然后在Tor节点集合中随机选取一个节点,与它协商密钥,最后与它建立一个安全信道。</p>
 <h2 id="Tor-技术相关"><a href="#Tor-技术相关" class="headerlink" title="Tor 技术相关"></a>Tor 技术相关</h2><h3 id="目录服务器-Directory-Server"><a href="#目录服务器-Directory-Server" class="headerlink" title="目录服务器(Directory Server)"></a>目录服务器(Directory Server)</h3><pre><code>存放Tor 节点的列表
 </code></pre><h4 id="无网桥"><a href="#无网桥" class="headerlink" title="无网桥"></a>无网桥</h4><pre><code>1. 本地Tor客户端A从目录服务器Directory Server获取Tor受信节点机器列表 
@@ -597,9 +596,9 @@ cp $GOPATH/bin/obfs4proxy /usr/local/bin
       
         <div class="post-tags">
           
-            <a href="/tags/笔记/" rel="tag"># 笔记</a>
-          
             <a href="/tags/Tor/" rel="tag"># Tor</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
           
             <a href="/tags/网桥/" rel="tag"># 网桥</a>
           

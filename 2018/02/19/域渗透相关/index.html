@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Kerberos,笔记,域渗透,hash注入,Golden Ticket,NTDS.dit," />
+  <meta name="keywords" content="笔记,Kerberos,域渗透,hash注入,Golden Ticket,NTDS.dit," />
 
 
 
@@ -89,7 +89,7 @@
 
 
 <meta name="description" content="…..">
-<meta name="keywords" content="Kerberos,笔记,域渗透,hash注入,Golden Ticket,NTDS.dit">
+<meta name="keywords" content="笔记,Kerberos,域渗透,hash注入,Golden Ticket,NTDS.dit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="域渗透相关">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/index.html">
@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/Golden_Ticket2.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/Silver_Ticket1.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/02/19/域渗透相关/getspn.png">
-<meta property="og:updated_time" content="2018-04-08T01:35:51.919Z">
+<meta property="og:updated_time" content="2018-04-08T09:29:54.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透相关">
 <meta name="twitter:description" content="…..">
@@ -450,7 +450,10 @@ mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:用戶a /domain:
 <p>查看mimikatz的相关资料发现如下信息:</p>
 <pre><code>ntlm hash is mandatory on XP/2003/Vista/2008 and before 7/2008r2/8/2012 kb2871997 (AES not available or replaceable) ; AES keys can be replaced only on 8.1/2012r2 or 7/2008r2/8/2012 with kb2871997, in this case you can avoid ntlm hash.
 </code></pre><p>根据提示，尝试在系统安装补丁kb2871997后继续测试<br>安裝 : <a href="https://www.microsoft.com/en-us/download/details.aspx?id=42765" target="_blank" rel="noopener">https://www.microsoft.com/en-us/download/details.aspx?id=42765</a><br>之后可以用\计算机名的方式通过远程共享查看目标机器(ps:这里必须要使用计算机名进行连接，会爆密码错误。  不要用win10测试，win10机器测试会在一分鐘后重啓 ,)<br>(如果获取的散列是NTLM，则Kerberos凭证加密方法是RC4。如果散列加密方法为AES，则Kerberos票使用AES进行的加密。)</p>
-<h2 id="Pass-the-Ticket-票据传递攻击PtT"><a href="#Pass-the-Ticket-票据传递攻击PtT" class="headerlink" title="Pass the Ticket (票据传递攻击PtT)"></a>Pass the Ticket (票据传递攻击PtT)</h2><p><img src="/2018/02/19/域渗透相关/Kerberos.png" alt="Kerberos.png"><br>与PtH情况类似,但PtT使用的是Kerberos票据,而不是NT哈希</p>
+<h2 id="Pass-the-Ticket-票据传递攻击PtT"><a href="#Pass-the-Ticket-票据传递攻击PtT" class="headerlink" title="Pass the Ticket (票据传递攻击PtT)"></a>Pass the Ticket (票据传递攻击PtT)</h2><p><img src="/2018/02/19/域渗透相关/Kerberos.png" alt="Kerberos.png"></p>
+<p>简义 </p>
+<pre><code>知道用户的ntlm值，由kekeo生成TGT票据，之后导入票据即可
+</code></pre><p>与PtH情况类似,但PtT使用的是Kerberos票据,而不是NT哈希</p>
 <p><a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos" target="_blank" rel="noopener">https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos</a></p>
 <p>在微软活动目录中颁发的TGT是可移植的。由于Kerberos的无状态特性,TGT中并没有关于票据来源的标识信息。</p>
 <p>这意味着可以从某台计算机上导出一个有效的TGT,然后导入到该环境中其他的计算机上。</p>
@@ -754,9 +757,9 @@ Hash传递攻击登陆Windows2012远程桌面
       
         <div class="post-tags">
           
-            <a href="/tags/Kerberos/" rel="tag"># Kerberos</a>
-          
             <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/Kerberos/" rel="tag"># Kerberos</a>
           
             <a href="/tags/域渗透/" rel="tag"># 域渗透</a>
           

