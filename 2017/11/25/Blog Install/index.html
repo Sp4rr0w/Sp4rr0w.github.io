@@ -95,12 +95,10 @@
 <meta property="og:site_name" content="Sparrow&#39;s Blog">
 <meta property="og:description" content="…..">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://sp4rr0w.github.io/2017/11/25/Blog%20Install/%7B%7B">
-<meta property="og:updated_time" content="2018-04-16T08:19:53.305Z">
+<meta property="og:updated_time" content="2018-04-16T08:24:37.005Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Blog Install">
 <meta name="twitter:description" content="…..">
-<meta name="twitter:image" content="https://sp4rr0w.github.io/2017/11/25/Blog%20Install/%7B%7B">
 
 
 
@@ -537,10 +535,10 @@ tag_generator:
 </code></pre><pre><code>{% if is_index %}
 <!-- 文章摘要图片 -->
 {% if post.summary_img  %}
-<div class="out-img-topic">
-<img src="/2017/11/25/Blog Install/{{" post.summary_img="" }}="" class="img-topic">
+<!-- 删掉此注释 <div class="out-img-topic">
+<img src={{ post.summary_img }} class="img-topic">
 </div>
-{% endif %}
+{% endif %} 删掉此注释 --&gt;
 &lt;!-- 文章摘要图片 --&gt;
 </code></pre><p>之后： </p>
 <pre><code>---
@@ -551,7 +549,7 @@ categories:
 tags:
 summary_img: /images/avatar.png
 ---
-</code></pre>
+</code></pre>--></code></pre>
       
     </div>
     
