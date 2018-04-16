@@ -96,7 +96,7 @@
 <meta property="og:description" content="…..">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/11/25/Blog%20Install/%7B%7B">
-<meta property="og:updated_time" content="2018-04-08T02:52:53.920Z">
+<meta property="og:updated_time" content="2018-04-16T08:19:53.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Blog Install">
 <meta name="twitter:description" content="…..">
@@ -533,16 +533,15 @@ tag_generator:
 
 </code></pre><p>文章封面 </p>
 <pre><code>https://neveryu.github.io/2017/07/15/hexo-next-five/
-修改 \themes\next\layout\_macro\post.swing 文件。
-
-    {% if is_index %}
-        <!-- 文章摘要图片 -->
-        {% if post.summary_img  %}
-        <div class="out-img-topic">
-        <img src="/2017/11/25/Blog Install/{{" post.summary_img="" }}="" class="img-topic">
-        </div>
-        {% endif %}
-    &lt;!-- 文章摘要图片 --&gt;
+修改 \themes\next\layout\_macro\post.swing 文件
+</code></pre><pre><code>{% if is_index %}
+<!-- 文章摘要图片 -->
+{% if post.summary_img  %}
+<div class="out-img-topic">
+<img src="/2017/11/25/Blog Install/{{" post.summary_img="" }}="" class="img-topic">
+</div>
+{% endif %}
+&lt;!-- 文章摘要图片 --&gt;
 </code></pre><p>之后： </p>
 <pre><code>---
 title: Blog Install
