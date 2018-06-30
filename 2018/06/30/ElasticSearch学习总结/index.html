@@ -92,11 +92,11 @@
 <meta name="keywords" content="ElasticSearch,笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ElasticSearch学习总结">
-<meta property="og:url" content="https://sp4rr0w.github.io/2018/07/01/ElasticSearch学习总结/index.html">
+<meta property="og:url" content="https://sp4rr0w.github.io/2018/06/30/ElasticSearch学习总结/index.html">
 <meta property="og:site_name" content="一只麻雀">
 <meta property="og:description" content="…..">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-30T07:04:30.967Z">
+<meta property="og:updated_time" content="2018-06-30T07:13:11.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ElasticSearch学习总结">
 <meta name="twitter:description" content="…..">
@@ -129,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="https://sp4rr0w.github.io/2018/07/01/ElasticSearch学习总结/"/>
+  <link rel="canonical" href="https://sp4rr0w.github.io/2018/06/30/ElasticSearch学习总结/"/>
 
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/07/01/ElasticSearch学习总结/">
+    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/06/30/ElasticSearch学习总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sparrow">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-01T16:10:30-04:00">
-                2018-07-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-30T15:10:30-04:00">
+                2018-06-30
               </time>
             
 
@@ -376,8 +376,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/01/ElasticSearch学习总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/01/ElasticSearch学习总结/" itemprop="commentCount"></span>
+                <a href="/2018/06/30/ElasticSearch学习总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/06/30/ElasticSearch学习总结/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -385,7 +385,7 @@
 
           
           
-             <span id="/2018/07/01/ElasticSearch学习总结/" class="leancloud_visitors" data-flag-title="ElasticSearch学习总结">
+             <span id="/2018/06/30/ElasticSearch学习总结/" class="leancloud_visitors" data-flag-title="ElasticSearch学习总结">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -535,14 +535,48 @@ ES是JAVA应用,作为一个JAVA应用,就脱离不开JVM和GC经常出现关于
 上手ES的时候,对GC一点概念都没有就去网上抄各种JVM&quot;优化&quot;参数,却仍然被heap不够用,内存溢出这样的问题
 </code></pre><h2 id="Elasticsearch线程池介绍"><a href="#Elasticsearch线程池介绍" class="headerlink" title="Elasticsearch线程池介绍"></a>Elasticsearch线程池介绍</h2><pre><code>curl -XGET &#39;http://localhost:9200/_nodes/stats?pretty&#39;
 ......
-</code></pre><h2 id="ElasticSearch-我的小結"><a href="#ElasticSearch-我的小結" class="headerlink" title="ElasticSearch 我的小結"></a>ElasticSearch 我的小結</h2><h3 id="1-命令行导入elastic-因为PDI-kettle-本身有900M-打开需要一定的内存-而且导入的时候还卡-所以使用命令行模式-速度快了10倍以上"><a href="#1-命令行导入elastic-因为PDI-kettle-本身有900M-打开需要一定的内存-而且导入的时候还卡-所以使用命令行模式-速度快了10倍以上" class="headerlink" title="1. 命令行导入elastic(因为PDI(kettle)本身有900M,打开需要一定的内存,而且导入的时候还卡,所以使用命令行模式,速度快了10倍以上):"></a>1. 命令行导入elastic(因为PDI(kettle)本身有900M,打开需要一定的内存,而且导入的时候还卡,所以使用命令行模式,速度快了10倍以上):</h3><pre><code>a. 先在PDI里面设置好ktr文件
+</code></pre><h2 id="ElasticSearch-我的小結"><a href="#ElasticSearch-我的小結" class="headerlink" title="ElasticSearch 我的小結"></a>ElasticSearch 我的小結</h2><h3 id="1-命令行模式导入elastic"><a href="#1-命令行模式导入elastic" class="headerlink" title="1. 命令行模式导入elastic"></a>1. 命令行模式导入elastic</h3><pre><code>命令行导入elastic(因为PDI(kettle)本身有900M,打开需要一定的内存,而且导入的时候还卡,所以使用命令行模式,速度快了10倍以上):
+
+a. 先在PDI里面设置好ktr文件
 b. 创建bat文件
-</code></pre><h3 id="2-因为kettle的原因-直接通过csv文件导入到elastic里面是报错的-id是必须提供-所以要加一个字段ID-而且不能重复-自增-。"><a href="#2-因为kettle的原因-直接通过csv文件导入到elastic里面是报错的-id是必须提供-所以要加一个字段ID-而且不能重复-自增-。" class="headerlink" title="2. 因为kettle的原因,直接通过csv文件导入到elastic里面是报错的(id是必须提供),所以要加一个字段ID,而且不能重复(自增)。"></a>2. 因为kettle的原因,直接通过csv文件导入到elastic里面是报错的(id是必须提供),所以要加一个字段ID,而且不能重复(自增)。</h3><p>其实kettle里面有个插件ADD QEUEUxx,在传输的时候通过这个插件就可以了,之后在右边选择valuename(插件默认名字)</p>
-<h3 id="3-因为某个库里面含有string类型的字段-生日-BIRTHDATE-2011-03-22-这使得在PDI-kettle-里面映射为字符串类型"><a href="#3-因为某个库里面含有string类型的字段-生日-BIRTHDATE-2011-03-22-这使得在PDI-kettle-里面映射为字符串类型" class="headerlink" title="3. 因为某个库里面含有string类型的字段(生日-BIRTHDATE : 2011-03-22),这使得在PDI(kettle)里面映射为字符串类型,"></a>3. 因为某个库里面含有string类型的字段(生日-BIRTHDATE : 2011-03-22),这使得在PDI(kettle)里面映射为字符串类型,</h3><p>但是导入到elastic时,会默认自动转为日期类型,这使得库里面字段(生日-BIRTHDATE )还有其他不是日期日期类型的(XXX字符串),转换不了日期类型,从而报错。<br>所以不能使用kettle默认创建索引,而是先使用curl创建索引及字段 :<br>curl -XPUT “<a href="http://9.9.9.10:8200/sbbb-typejp&#39;" target="_blank" rel="noopener">http://9.9.9.10:8200/sbbb-typejp&#39;</a><br>curl -XPOST “<a href="http://9.9.9.10:8200/sbbb-typejp/sbbb-typejp/_mapping?pretty&quot;" target="_blank" rel="noopener">http://9.9.9.10:8200/sbbb-typejp/sbbb-typejp/_mapping?pretty&quot;</a> -d ‘<br>{<br>    “sbbb-typejp”:{<br>        “properties”:{<br>            “邮箱-EMAIL”:{<br>                “type”:”string”<br>            },<br>            “用户名-USERNAME”:{<br>                “type”:”string”<br>            },<br>            “mwmm-ps”:{<br>                “type”:”string”<br>            },<br>            “生日-BIRTHDATE”:{<br>                “type”:”string”<br>            }<br>        }<br>    }<br>}’</p>
-<p>即:<br>    curl -XPOST “<a href="http://9.9.9.10:8200/sbbb-typejp/sbbb-typejp/_mapping?pretty&quot;" target="_blank" rel="noopener">http://9.9.9.10:8200/sbbb-typejp/sbbb-typejp/_mapping?pretty&quot;</a> -d ‘{“sbbb-test-2021dlh”:{“properties”:{“邮箱-EMAIL”:{“type”:”string”},”用户名-USERNAME”:{“type”:”string”},”mwmm-ps”:{“type”:”string”},”生日-BIRTHDATE”:{“type”:”string”}}}}’<br>之后在双击bat文件就好</p>
-<p>curl -XGET “<a href="http://9.9.9.10:8200/sbbb-typejp/_mapping?pretty&quot;" target="_blank" rel="noopener">http://9.9.9.10:8200/sbbb-typejp/_mapping?pretty&quot;</a> 查看mapping</p>
-<p>当然可以关闭该功能:修改mapping设置  ‘date-detection’ =&gt; false 即可<br>curl -XPUT “<a href="http://9.9.9.10:8200/sbbb-typejp" target="_blank" rel="noopener">http://9.9.9.10:8200/sbbb-typejp</a><br>{<br>    “mappings”:{<br>        “sbbb-typejp”:{<br>            “date-detection”:false<br>        }<br>    }<br>}</p>
-<h3 id="4-安装plugin"><a href="#4-安装plugin" class="headerlink" title="4. 安装plugin"></a>4. 安装plugin</h3><pre><code>a. elasticdump
+</code></pre><h3 id="2-csv文件导入到elastic"><a href="#2-csv文件导入到elastic" class="headerlink" title="2. csv文件导入到elastic"></a>2. csv文件导入到elastic</h3><pre><code>因为kettle的原因,直接通过csv文件导入到elastic里面是报错的(id是必须提供),所以要加一个字段ID,而且不能重复(自增)。
+其实kettle里面有个插件ADD QEUEUxx,在传输的时候通过这个插件就可以了,之后在右边选择valuename(插件默认名字)
+</code></pre><h3 id="3-日期-string类型"><a href="#3-日期-string类型" class="headerlink" title="3. 日期/string类型"></a>3. 日期/string类型</h3><pre><code>因为某个库里面含有string类型的字段(生日-BIRTHDATE : 2011-03-22),这使得在PDI(kettle)里面映射为字符串类型,
+</code></pre><p>但是导入到elastic时,会默认自动转为日期类型,这使得库里面字段(生日-BIRTHDATE )还有其他不是日期日期类型的(XXX字符串),转换不了日期类型,从而报错。<br>所以不能使用kettle默认创建索引,而是先使用curl创建索引及字段 : </p>
+<pre><code>curl -XPUT &quot;http://9.9.9.10:8200/sbbb-typejp&#39;
+curl -XPOST &quot;http://9.9.9.10:8200/sbbb-typejp/sbbb-typejp/_mapping?pretty&quot; -d &#39;
+{
+    &quot;sbbb-typejp&quot;:{
+        &quot;properties&quot;:{
+            &quot;邮箱-EMAIL&quot;:{
+                &quot;type&quot;:&quot;string&quot;
+            },
+            &quot;用户名-USERNAME&quot;:{
+                &quot;type&quot;:&quot;string&quot;
+            },
+            &quot;mwmm-ps&quot;:{
+                &quot;type&quot;:&quot;string&quot;
+            },
+            &quot;生日-BIRTHDATE&quot;:{
+                &quot;type&quot;:&quot;string&quot;
+            }
+        }
+    }
+}&#39;
+</code></pre><p>即:</p>
+<pre><code>curl -XPOST &quot;http://9.9.9.10:8200/sbbb-typejp/sbbb-typejp/_mapping?pretty&quot; -d &#39;{&quot;sbbb-test-2021dlh&quot;:{&quot;properties&quot;:{&quot;邮箱-EMAIL&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;用户名-USERNAME&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;mwmm-ps&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;生日-BIRTHDATE&quot;:{&quot;type&quot;:&quot;string&quot;}}}}&#39;
+</code></pre><p>之后在双击bat文件就好</p>
+<pre><code>curl -XGET &quot;http://9.9.9.10:8200/sbbb-typejp/_mapping?pretty&quot; 查看mapping
+</code></pre><p>当然可以关闭该功能:修改mapping设置  ‘date-detection’ =&gt; false 即可</p>
+<pre><code>curl -XPUT &quot;http://9.9.9.10:8200/sbbb-typejp
+{
+    &quot;mappings&quot;:{
+        &quot;sbbb-typejp&quot;:{
+            &quot;date-detection&quot;:false
+        }
+    }
+}
+</code></pre><h3 id="4-安装plugin"><a href="#4-安装plugin" class="headerlink" title="4. 安装plugin"></a>4. 安装plugin</h3><pre><code>a. elasticdump
     Linux : 
         wget http://nodejs.org/dist/v9.2.0/node-v9.2.0-linux-x64.tar.gz
         tar -zxvf node-v9.2.0-linux-x64.tar.gz
@@ -697,27 +731,32 @@ d. 因为索引建立好之后,使用 elasticdump 转移数据时
 e. v5.6.3 沒有csv-export 
 
         补丁 : https://github.com/fbaligand/kibana/releases/tag/v5.6.3-csv-export
-</code></pre><h3 id="常用搜索"><a href="#常用搜索" class="headerlink" title=". 常用搜索"></a>. 常用搜索</h3><blockquote>
-<p>curl -XDELETE “<a href="http://localhost:9200/twitter1?pretty&quot;" target="_blank" rel="noopener">http://localhost:9200/twitter1?pretty&quot;</a><br>curl -XPUT “localhost:9200/twitter1”<br>curl -XPOST “<a href="http://9.9.9.10:8200/sbbb-in/sbbb-in/_mapping?pretty&quot;" target="_blank" rel="noopener">http://9.9.9.10:8200/sbbb-in/sbbb-in/_mapping?pretty&quot;</a> -d ‘{“sbbb-nnnnn”:{“properties”:{“性别-SEX”:{“type”:”string”},”生日-BIRTHDATE”:{“type”:”string”},”姓名-FULLNAME”:{“type”:”string”},”电话-PHONE”:{“type”:”string”},”账户号-ACCT_NB”:{“type”:”string”},”ID卡-IDCARD”:{“type”:”string”},”地址-ADDRESS”:{“type”:”string”}}}}’<br>curl -XPOST “<a href="http://9.9.9.10:9200/sbbb-unlimit/sbbb-unlimit/_mapping?pretty&quot;" target="_blank" rel="noopener">http://9.9.9.10:9200/sbbb-unlimit/sbbb-unlimit/_mapping?pretty&quot;</a> -d ‘{“sbbb-unlimit”:{“properties”:{“邮箱-EMAIL”:{“type”:”string”},”mwmm-ps”:{“type”:”string”},”注册来源-SOURCE”:{“type”:”string”},”注册时间-TIMESTAMP”:{“type”:”string”}}}}’<br>curl -XGET “<a href="http://localhost:9200/gg/_count?pretty&quot;" target="_blank" rel="noopener">http://localhost:9200/gg/_count?pretty&quot;</a> -d’{“query”:{“match_all”:{}}}’<br>curl -XGET ‘<a href="http://localhost:9200/_cat/nodes?v&#39;" target="_blank" rel="noopener">http://localhost:9200/_cat/nodes?v&#39;</a><br>curl -X GET ‘<a href="http://localhost:9200/_cat/indices/booking?pri" target="_blank" rel="noopener">http://localhost:9200/_cat/indices/booking?pri</a></p>
-</blockquote>
-<pre><code>yellow open booking xeKdxcBZTyeXXKFL0_8eMQ 5 1 9999999 10401 5.4gb 5.4gb
-</code></pre><blockquote>
-<p>curl -XGET ‘<a href="http://localhost:9200/_cat/indices?v&#39;" target="_blank" rel="noopener">http://localhost:9200/_cat/indices?v&#39;</a></p>
-</blockquote>
-<pre><code>health status index   uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-yellow open   vv   aivl6uRxTVuu2x9ghhlbyg   5   1     470873            0    496.1mb        496.1mb
-yellow open   .kibana Q2a4JlacR2-qIMAC0WNu7A   1   1          4            1     21.4kb         21.4kb
-yellow open   bb    xtXjkuNsRBCVeUI7iaJIbw   5   1    4244901           79      3.8gb          3.8gb
-</code></pre><blockquote>
-<p>curl -XGET “<a href="http://localhost:9200/gg/sdsd/100?pretty&quot;" target="_blank" rel="noopener">http://localhost:9200/gg/sdsd/100?pretty&quot;</a></p>
-</blockquote>
-<pre><code>{
-  &quot;_index&quot; : &quot;gg&quot;,
-  &quot;_type&quot; : &quot;sdsd&quot;,
-  &quot;_id&quot; : &quot;100&quot;,
-  &quot;_version&quot; : 2,
-  &quot;found&quot; : true,
-  &quot;_source&quot; : {
+</code></pre><h3 id="常用搜索"><a href="#常用搜索" class="headerlink" title=". 常用搜索"></a>. 常用搜索</h3><pre><code>&gt; curl -XDELETE &quot;http://localhost:9200/twitter1?pretty&quot;
+&gt; curl -XPUT &quot;localhost:9200/twitter1&quot;
+&gt; curl -XPOST &quot;http://9.9.9.10:8200/sbbb-in/sbbb-in/_mapping?pretty&quot; -d &#39;{&quot;sbbb-nnnnn&quot;:{&quot;properties&quot;:{&quot;性别-SEX&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;生日-BIRTHDATE&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;姓名-FULLNAME&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;电话-PHONE&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;账户号-ACCT_NB&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;ID卡-IDCARD&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;地址-ADDRESS&quot;:{&quot;type&quot;:&quot;string&quot;}}}}&#39;
+&gt; curl -XPOST &quot;http://9.9.9.10:9200/sbbb-unlimit/sbbb-unlimit/_mapping?pretty&quot; -d &#39;{&quot;sbbb-unlimit&quot;:{&quot;properties&quot;:{&quot;邮箱-EMAIL&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;mwmm-ps&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;注册来源-SOURCE&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;注册时间-TIMESTAMP&quot;:{&quot;type&quot;:&quot;string&quot;}}}}&#39;
+&gt; curl -XGET &quot;http://localhost:9200/gg/_count?pretty&quot; -d&#39;{&quot;query&quot;:{&quot;match_all&quot;:{}}}&#39;
+&gt; curl -XGET &#39;http://localhost:9200/_cat/nodes?v&#39;
+&gt; curl -X GET &#39;http://localhost:9200/_cat/indices/booking?pri
+
+    yellow open booking xeKdxcBZTyeXXKFL0_8eMQ 5 1 9999999 10401 5.4gb 5.4gb
+
+&gt; curl -XGET &#39;http://localhost:9200/_cat/indices?v&#39;
+
+    health status index   uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+    yellow open   vv   aivl6uRxTVuu2x9ghhlbyg   5   1     470873            0    496.1mb        496.1mb
+    yellow open   .kibana Q2a4JlacR2-qIMAC0WNu7A   1   1          4            1     21.4kb         21.4kb
+    yellow open   bb    xtXjkuNsRBCVeUI7iaJIbw   5   1    4244901           79      3.8gb          3.8gb
+
+&gt; curl -XGET &quot;http://localhost:9200/gg/sdsd/100?pretty&quot;
+
+    {
+      &quot;_index&quot; : &quot;gg&quot;,
+      &quot;_type&quot; : &quot;sdsd&quot;,
+      &quot;_id&quot; : &quot;100&quot;,
+      &quot;_version&quot; : 2,
+      &quot;found&quot; : true,
+      &quot;_source&quot; : {
     &quot;ACCOUNT_ID&quot; : &quot;1450&quot;,
     &quot;PASSWORD&quot; : &quot;t+PhTvdySshVoOKNa7biHAY6HNURc+9cIfzDA6xxxxx&quot;,
     &quot;COUNTRY_CODE_ADDRESS_LINE&quot; : &quot;GB__15 Anroyd Street xxxxxx&quot;,
@@ -729,17 +768,38 @@ yellow open   bb    xtXjkuNsRBCVeUI7iaJIbw   5   1    4244901           79      
     &quot;GENDER&quot; : &quot;null&quot;,
     &quot;DATE_OF_BIRTH&quot; : &quot;null&quot;,
     &quot;CRAD_AND_NAME&quot; : &quot;412983xxxx07__SP RILEY&quot;
+      }
+    }
+</code></pre><p>通配符搜索</p>
+<pre><code>&gt; GET /my_index/my_type/_search
+{
+  &quot;query&quot;: {
+    &quot;wildcard&quot;: {
+      &quot;title&quot;: {
+    &quot;value&quot;: &quot;C3?*&quot;
+      }
+    }
   }
 }
-</code></pre><p>通配符搜索</p>
-<blockquote>
-<p>GET /my_index/my_type/_search<br>{<br>  “query”: {<br>    “wildcard”: {<br>      “title”: {<br>        “value”: “C3?*”<br>      }<br>    }<br>  }<br>}</p>
-</blockquote>
-<blockquote>
-<p>正则搜索<br>GET /my_index/my_type/_search<br>{<br>  “query”: {<br>    “regexp” : {<br>      “title” : “C[0-9].+345”<br>    }<br>  }<br>}</p>
-</blockquote>
-<p>curl -XPOST “<a href="http://9.9.9.10:8200/sbbb-test-2021dlh/sbbb-test-2021dlh/_mapping?pretty&quot;" target="_blank" rel="noopener">http://9.9.9.10:8200/sbbb-test-2021dlh/sbbb-test-2021dlh/_mapping?pretty&quot;</a> -d ‘{“sbbb-test-2021dlh”:{“properties”:{“邮箱-EMAIL”:{“type”:”string”},”用户名-USERNAME”:{“type”:”string”},”mwmm-ps”:{“type”:”string”}}}}’<br>curl -XPOST “<a href="http://9.9.9.10:8200/sbbb-test-2021dlh/sbbb-test-2021dlh/_mapping?pretty&quot;" target="_blank" rel="noopener">http://9.9.9.10:8200/sbbb-test-2021dlh/sbbb-test-2021dlh/_mapping?pretty&quot;</a> -d ‘<br>{<br>    “sbbb-test-2021dlh”:{<br>        “properties”:{<br>            “邮箱-EMAIL”:{<br>                “type”:”string”<br>            },<br>            “用户名-USERNAME”:{<br>                “type”:”string”<br>            },<br>            “mwmm-ps”:{<br>                “type”:”string”<br>            }<br>        }<br>    }<br>}’</p>
-<p>curl -XGET <a href="http://9.9.9.10:8200/sbbb-2021dlh/_mapping?pretty" target="_blank" rel="noopener">http://9.9.9.10:8200/sbbb-2021dlh/_mapping?pretty</a></p>
+</code></pre><p>正则搜索<br>    GET /my_index/my_type/_search<br>    {<br>      “query”: {<br>        “regexp” : {<br>          “title” : “C[0-9].+345”<br>        }<br>      }<br>    }</p>
+<pre><code>curl -XPOST &quot;http://9.9.9.10:8200/sbbb-test-2021dlh/sbbb-test-2021dlh/_mapping?pretty&quot; -d &#39;{&quot;sbbb-test-2021dlh&quot;:{&quot;properties&quot;:{&quot;邮箱-EMAIL&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;用户名-USERNAME&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;mwmm-ps&quot;:{&quot;type&quot;:&quot;string&quot;}}}}&#39;
+curl -XPOST &quot;http://9.9.9.10:8200/sbbb-test-2021dlh/sbbb-test-2021dlh/_mapping?pretty&quot; -d &#39;
+{
+    &quot;sbbb-test-2021dlh&quot;:{
+        &quot;properties&quot;:{
+            &quot;邮箱-EMAIL&quot;:{
+                &quot;type&quot;:&quot;string&quot;
+            },
+            &quot;用户名-USERNAME&quot;:{
+                &quot;type&quot;:&quot;string&quot;
+            },
+            &quot;mwmm-ps&quot;:{
+                &quot;type&quot;:&quot;string&quot;
+            }
+        }
+    }
+}&#39;
+</code></pre><p>curl -XGET <a href="http://9.9.9.10:8200/sbbb-2021dlh/_mapping?pretty" target="_blank" rel="noopener">http://9.9.9.10:8200/sbbb-2021dlh/_mapping?pretty</a></p>
 <pre><code>{
   &quot;sbbb-2021dlh&quot; : {
     &quot;mappings&quot; : {
@@ -779,8 +839,10 @@ yellow open   bb    xtXjkuNsRBCVeUI7iaJIbw   5   1    4244901           79      
 }
 </code></pre><p><a href="https://stackoverflow.com/questions/36856849/elastic-search-document-count" target="_blank" rel="noopener">https://stackoverflow.com/questions/36856849/elastic-search-document-count</a><br>docs.count in _cat/indices returns the count of all documents, including artificial documents that have been created for nested fields.<br>GET /index/type/_count count will tell you how many Elasticsearch documents are in your index, i.e. how many you have indexed.<br>GET /_cat/indices?v’ will tell you how many Lucene documents are in your index.</p>
 <p><a href="https://discuss.elastic.co/t/elasticsearch-health-status-is-yellow-how-to-up-green/81765" target="_blank" rel="noopener">https://discuss.elastic.co/t/elasticsearch-health-status-is-yellow-how-to-up-green/81765</a><br>Elasticsearch health status is yellow. How to up Green?<br>==&gt;<br>The Yellow status means that there is a risk of losing data if something goes wrong with your shards.<br>To get it green you should at least have another node. I mean you should create a cluster.<br>Kab,</p>
-<p>集群状态为yellow<br>由于我们是单节点部署elasticsearch,而默认的分片副本数目配置为1,而相同的分片不能在一个节点上,<br>所以就存在副本分片指定不明确的问题,所以显示为yellow,我们可以通过在elasticsearch集群上添加一个节点来解决问题,<br>如果你不想这么做,你可以删除那些指定不明确的副本分片(当然这不是一个好办法)但是作为测试和解决办法还是可以尝试的,<br>下面我们试一下删除副本分片的办法<br>解决办法<br>root@c2dbf1f9da5d:/# curl -XPUT “<a href="http://localhost:9200/_settings&quot;" target="_blank" rel="noopener">http://localhost:9200/_settings&quot;</a> -d’ { “number_of_replicas” : 0 } ‘<br>{“acknowledged”:true}</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><pre><code>http://www.cnblogs.com/kaynet/p/5861926.html
+<p>集群状态为yellow<br>由于我们是单节点部署elasticsearch,而默认的分片副本数目配置为1,而相同的分片不能在一个节点上,<br>所以就存在副本分片指定不明确的问题,所以显示为yellow,我们可以通过在elasticsearch集群上添加一个节点来解决问题,<br>如果你不想这么做,你可以删除那些指定不明确的副本分片(当然这不是一个好办法)但是作为测试和解决办法还是可以尝试的,<br>下面我们试一下删除副本分片的办法<br>解决办法</p>
+<pre><code>root@c2dbf1f9da5d:/# curl -XPUT &quot;http://localhost:9200/_settings&quot; -d&#39; { &quot;number_of_replicas&quot; : 0 } &#39;
+{&quot;acknowledged&quot;:true}
+</code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><pre><code>http://www.cnblogs.com/kaynet/p/5861926.html
 https://blog.csdn.net/mvpboss1004/article/details/65445023
 http://blog.csdn.net/xf_87/article/details/51026197
 </code></pre>
@@ -1011,7 +1073,7 @@ http://blog.csdn.net/xf_87/article/details/51026197
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES索引优化"><span class="nav-number">3.</span> <span class="nav-text">ES索引优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch常用配置及性能参数"><span class="nav-number">4.</span> <span class="nav-text">ElasticSearch常用配置及性能参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Elasticsearch线程池介绍"><span class="nav-number">5.</span> <span class="nav-text">Elasticsearch线程池介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch-我的小結"><span class="nav-number">6.</span> <span class="nav-text">ElasticSearch 我的小結</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-命令行导入elastic-因为PDI-kettle-本身有900M-打开需要一定的内存-而且导入的时候还卡-所以使用命令行模式-速度快了10倍以上"><span class="nav-number">6.1.</span> <span class="nav-text">1. 命令行导入elastic(因为PDI(kettle)本身有900M,打开需要一定的内存,而且导入的时候还卡,所以使用命令行模式,速度快了10倍以上):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-因为kettle的原因-直接通过csv文件导入到elastic里面是报错的-id是必须提供-所以要加一个字段ID-而且不能重复-自增-。"><span class="nav-number">6.2.</span> <span class="nav-text">2. 因为kettle的原因,直接通过csv文件导入到elastic里面是报错的(id是必须提供),所以要加一个字段ID,而且不能重复(自增)。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-因为某个库里面含有string类型的字段-生日-BIRTHDATE-2011-03-22-这使得在PDI-kettle-里面映射为字符串类型"><span class="nav-number">6.3.</span> <span class="nav-text">3. 因为某个库里面含有string类型的字段(生日-BIRTHDATE : 2011-03-22),这使得在PDI(kettle)里面映射为字符串类型,</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-安装plugin"><span class="nav-number">6.4.</span> <span class="nav-text">4. 安装plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用搜索"><span class="nav-number">6.5.</span> <span class="nav-text">. 常用搜索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES索引优化"><span class="nav-number">3.</span> <span class="nav-text">ES索引优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch常用配置及性能参数"><span class="nav-number">4.</span> <span class="nav-text">ElasticSearch常用配置及性能参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Elasticsearch线程池介绍"><span class="nav-number">5.</span> <span class="nav-text">Elasticsearch线程池介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch-我的小結"><span class="nav-number">6.</span> <span class="nav-text">ElasticSearch 我的小結</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-命令行模式导入elastic"><span class="nav-number">6.1.</span> <span class="nav-text">1. 命令行模式导入elastic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-csv文件导入到elastic"><span class="nav-number">6.2.</span> <span class="nav-text">2. csv文件导入到elastic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-日期-string类型"><span class="nav-number">6.3.</span> <span class="nav-text">3. 日期/string类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-安装plugin"><span class="nav-number">6.4.</span> <span class="nav-text">4. 安装plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用搜索"><span class="nav-number">6.5.</span> <span class="nav-text">. 常用搜索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
