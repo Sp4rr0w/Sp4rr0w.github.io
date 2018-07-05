@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon3.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="笔记,PowerShell," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="一 只 麻 雀" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="…..">
+<meta name="keywords" content="笔记,PowerShell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PowerShell 基础总结">
+<meta property="og:url" content="https://sp4rr0w.github.io/2018/07/05/PowerShell 基础总结/index.html">
+<meta property="og:site_name" content="一 只 麻 雀">
+<meta property="og:description" content="…..">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-05T12:16:56.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PowerShell 基础总结">
+<meta name="twitter:description" content="…..">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://sp4rr0w.github.io/2018/07/05/PowerShell 基础总结/"/>
+
+
+
+
+
+  <title>PowerShell 基础总结 | 一 只 麻 雀</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一 只 麻 雀</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/07/05/PowerShell 基础总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sparrow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/jacksparrow.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一 只 麻 雀">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PowerShell 基础总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-05T20:08:00-04:00">
+                2018-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术相关/" itemprop="url" rel="index">
+                    <span itemprop="name">技术相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/05/PowerShell 基础总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/05/PowerShell 基础总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/07/05/PowerShell 基础总结/" class="leancloud_visitors" data-flag-title="PowerShell 基础总结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>…..</p>
+<a id="more"></a>
+<h2 id="0x01-PowerShell简介及特性"><a href="#0x01-PowerShell简介及特性" class="headerlink" title="0x01 PowerShell简介及特性"></a>0x01 PowerShell简介及特性</h2><p>Windows PowerShell 是一种命令行外壳程序和脚本环境,使命令行用户和脚本编写者可以利用.NET Framework的强大功能(因此也支持.NET对象)。<br>Windows PowerShell具备以下特性:</p>
+<pre><code>操作便捷—-可识别单位(如GB、MB、KB等)Cmdlet命令结构简单(动名词形式)
+面向对象—-同面向过程相比,更容易描述现实事物
+结合.NET Framework环境—-借助.NET Framework平台的强大的库
+兼容性强—-完全兼容windows平台上其他调用,如exe文件执行、bat脚本执行等
+基于平台的可扩展性—-PowerShell俨然已形成一个平台,并且向各类平台管理提供对应管理组件
+</code></pre><h2 id="0x02-PowerShell基础语法"><a href="#0x02-PowerShell基础语法" class="headerlink" title="0x02 PowerShell基础语法"></a>0x02 PowerShell基础语法</h2><h3 id="0x00-交互式"><a href="#0x00-交互式" class="headerlink" title="0x00 交互式"></a>0x00 交互式</h3><p>a)    命令:cmdlet命令—动词+名词(通过get-command –commandtype cmdlet</p>
+<p>c)    惯用帮助文档:通过Get-Help(别名:Help)-Name 命令名    help IEX</p>
+<p>b)    别名机制:Get-Alias –name 命令名</p>
+<h3 id="0x01-变量"><a href="#0x01-变量" class="headerlink" title="0x01 变量"></a>0x01 变量</h3><p>a)    定义变量:PowerShell不需要声明变量,可自动创建变量,变量值可以是字符也可以是命令,但是变量名前必须有$</p>
+<pre><code>$a=1
+$b=2
+&quot;$a,$b&quot; -&gt; 1,2
+
+$c=$a+$b
+$d=&#39;的文&#39;
+&quot;$c,$d&quot; -&gt; 3,的文
+</code></pre><p>注意:输出多个变量时需要使用双引号,单引号是不会取变量中的值的。</p>
+<p>以下给num变量添加只读属性。</p>
+<pre><code>&gt; New-Variable xx -value &quot;33&quot; -Option ReadOnly
+&gt; $xx=5
+Cannot overwrite variable xx because it is read-only or constant.
+</code></pre><h3 id="0x01数组"><a href="#0x01数组" class="headerlink" title="0x01数组"></a>0x01数组</h3><p>a)    创建数组:常规数组可以使用逗号,连续数字数组可以使用。</p>
+<pre><code>&gt; $xxc = 1,&quot;434&quot;,(get-date)
+&gt; $xxc
+    1
+    434
+    Wednesday, July 4, 2018 3:07:06 AM
+
+其中有以下两个特例:
+空数组:
+&gt; $strr = @()
+&gt; $strr -is [array]
+    True
+一个元素数组:
+&gt; $strr = ,&quot;dd&quot;
+&gt; $strr -is [array]
+&gt; $strr.Count
+    1
+</code></pre><p>b)    数组的操作<br>    数组访问同python类似,从0开始<br>    数组的判断:$str –is [array]<br>    数组的追加:$books +=”需要添加的值”</p>
+<pre><code>$strr +=&quot;ffff&quot;
+$strr.Count
+    2
+</code></pre><p>c)    哈希表的使用<br>    之前创建空数组是使用@()<br>    而创建哈希表用到的是@{}<br>    此处的哈希表同python中的字典类型类似:</p>
+<pre><code>&gt; $hashlist = @{&#39;ddd&#39;=3434;&#39;5&#39;=66;&quot;ewew&quot;=&#39;dsd&#39;}
+&gt; $hashlist
+    Name                           Value                                           
+    ----                           -----                                           
+    5                              66                                              
+    ddd                            3434                                            
+    ewew                           dsd   
+</code></pre><h3 id="0x02-简写对比"><a href="#0x02-简写对比" class="headerlink" title="0x02 简写对比"></a>0x02 简写对比</h3><p>非常重要的文件系统命令概览</p>
+<pre><code>别名                描述                                    命令
+cp, cpi            复制文件或者目录                            Copy-Item
+Dir, ls, gci    列出目录的内容                            Get-Childitem
+type, cat, gc    基于文本行来读取内容                        Get-Content
+gi                获取指定的文件或者目录                    Get-Item
+gp                获取文件或目录的属性                        Get-ItemProperty
+ii                使用对应的默认windows程序运行文件或者目录    Invoke-Item
+—                连接两个路径为一个路径                    Join-Path
+mi, mv, move    移动文件或者目录                            Move-Item
+ni                创建新文件或者目录                        New-Item
+ri, rm, rmdir,del, erase, rd    删除空目录或者文件        Remove-Item
+rni, ren        重命名文件或者路径                        Rename-Item
+rvpa            处理相对路径或者包含通配符的路径            Resolve-Path
+sp                设置文件或路径的属性                        Set-ItemProperty
+Cd,chdir, sl    更改当前目录的位置                        Set-Location
+—                提取路径的特定部分,例如父目录,文件名        Split-Path
+—                测试指定的路径是否存在                    Test-Path
+</code></pre><p>用于指定相对路径的四个重要的特殊字符</p>
+<pre><code>字符    意义        示例    示例描述
+.        当前目录        ii .    用资源浏览器打开当前目录
+..        父目录        Cd ..    切换到父目录
+\        驱动器根目录    Cd \    切换到驱动器的顶级根目录
+~        家目录        Cd ~    切换到PowerShell初始化的目录
+</code></pre><p>存储在环境变量中的Windows特殊目录</p>
+<pre><code>特殊目录                            描述                            示例
+C:\Users\YvY\AppData\Local        存储在本地机器上的应用程序数据    $env:localappdata
+C:\Users\YvY                    用户目录                            $env:userprofile
+C:\Program Files\Common Files    应用程序公有数据目录                $env:commonprogramfiles
+C:\Users\Public                    所有本地用户的公有目录            $env:public
+C:\Program Files                具体应用程序安装的目录            $env:programfiles
+C:\Users\YvY\AppData\Roaming    漫游用户的应用程序数据            $env:appdata
+C:\Users\YvY\AppData\Local\Temp    当前用户的临时目录                $env:tmp
+C:\Users\YvY\AppData\Local\Temp    公有临时文件目录                    $env:temp
+C:\Windows                        Windows系统安装的目录            $env:windir
+</code></pre><p>构造路径的方法</p>
+<pre><code>方法                    描述                                示例
+ChangeExtension()        更改文件的扩展名                        ChangeExtension(“test.txt”, “ps1”)
+Combine()                拼接路径字符串; 对应Join-Path        Combine(“C:\test”, “test.txt”)
+GetDirectoryName()        返回目录对象:对应Split-Path -parent    GetDirectoryName(“c:\test\file.txt”)
+GetExtension()            返回文件扩展名                        GetExtension(“c:\test\file.txt”)
+GetFileName()            返回文件名:对应Split-Path -leaf        GetFileName(“c:\test\file.txt”)
+GetFileNameWithoutExtension()    返回不带扩展名的文件名        GetFileNameWithoutExtension(“c:\test\file.txt”)
+GetFullPath()            返回绝对路径                            GetFullPath(“.\test.txt”)
+GetInvalidFileNameChars()    返回所有不允许出现在文件名中字符    GetInvalidFileNameChars()
+GetInvalidPathChars()    返回所有不允许出现在路径中的字符        GetInvalidPathChars()
+GetPathRoot()            返回根目录:对应Split-Path -qualifier    GetPathRoot(“c:\test\file.txt”)
+GetRandomFileName()        返回一个随机的文件名                    GetRandomFileName()
+GetTempFileName()        在临时目录中返回一个临时文件名        GetTempFileName()
+GetTempPath()            返回临时文件目录                        GetTempPath()
+HasExtension()            如果路径中包含了扩展名,则返回True        HasExtension(“c:\test\file.txt”)
+IsPathRooted()            如果是绝对路径,返回为True; Split-Path -isAbsolute    IsPathRooted(“c:\test\file.txt”)
+</code></pre><p>运行命令中包含空格的命令,需要用单引号将命令括起来,同时在命令前面加: &amp; 符号;<br>这在PowerShell中称为调用操作<br>Exp:</p>
+<pre><code>&amp;&#39;C:\Program Files\Program\Program.exe&#39; arguments
+</code></pre><h3 id="0x03-PowerShell的安全执行策略"><a href="#0x03-PowerShell的安全执行策略" class="headerlink" title="0x03 PowerShell的安全执行策略"></a>0x03 PowerShell的安全执行策略</h3><pre><code>默认情况下,PowerShell不允许执行脚本文件,上面的用户配置文件也包括在内;如果不修改PowerShell的安全执行策略,
+你在PowerShell执行Get-ExecutionPolicy命令来查看默认的策略组
+
+Set-ExecutionPolicy RemoteSigned
+PS C:\&gt;&gt; Import-Module .\nishang-master\nishang.psm1
+nishang.psm1 cannot be loaded. The filem is not digitally signed. You cannot run this script on thecurrent system.
+.....
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+ok
+</code></pre><h3 id="0x04-PowerShell-中内置的命令"><a href="#0x04-PowerShell-中内置的命令" class="headerlink" title="0x04 PowerShell 中内置的命令"></a>0x04 PowerShell 中内置的命令</h3><p>实现cmd中tasklist的功能。</p>
+<p>PowerShell中内置的命令称为cmdlets,cmdlet实现具有以下特点:</p>
+<p>　　1)统一的命令形式<br>　　2)支持管道功能<br>　　3)输出易于管理的对象,支持面向对象的概念</p>
+<p>在PowerShell中有一个内置的变量: $profile;这个变量指示了PowerShell用户自定义配置文件。<br>可以在PowerShell中输入 $profile。</p>
+<p>cd命令现在用set-location命令替代了;dir命令用get-childitem命令替代了。<br>通过:   set-alias 命令来设置命令别名。</p>
+<pre><code>set-alias   new     new-objector
+set-alias   iexplorer  &#39;c:\program files\internet explorer\iexplorer.exe&#39;
+</code></pre><p>获取指定命令的帮助信息</p>
+<p>　　eg:  get-command  get-process</p>
+<p>利用通配符进行搜索<br>PowerShell支持通配符搜索,这一功能的完美支持,完全可以媲美linux下的正则表达式。</p>
+<pre><code>get-command *char*
+</code></pre><p>例如搜索带动词get的命令:  </p>
+<pre><code>get-command   -verb   get
+</code></pre><p>搜索带名词service的命令:  </p>
+<pre><code>get-command   -noun  service
+</code></pre><p>cmdlets一致的命令接口模式</p>
+<p>　　PowerShell采用一种称为cmdlets的命令接口模式,所有的命令都遵循这样的命令模式:<br>动词-名词,如:get-command 命令, get就是动词,而command就是名词</p>
+<pre><code>get-process  / get-eventlog    
+</code></pre><p>在PowerShell中则有四种方法获取帮助:</p>
+<pre><code>a)利用 get-command 命令
+b)利用 get-help  命令
+c)利用  -?命令选项
+d)查看系统帮助信息
+</code></pre><p>利用get-command命令和利用get-help命令获取命令帮助信息是不同的</p>
+<pre><code>get-command直接从cmdlet、函数、变量脚本或者别名中获取信息,
+get-help命令则从系统帮助主题文件中获取信息,
+通常get-help命令获取的帮助信息比get-command命令详细。
+</code></pre><p>Exp: 利用get-command  获取get-help帮助信息</p>
+<pre><code>Get-Command Get-Help | Format-List
+</code></pre><p>Exp: 利用get-help 获取自身的帮助信息</p>
+<pre><code>get-help   get-help
+</code></pre><p>利用get-help命令获取帮助信息可以指定命令选项来获取不同详细程度的帮组信息:</p>
+<pre><code>a) -detailed 选项 ; 获取特定命令的帮助信息详情;例如:  get-help  -detailed   get-process
+b) -full 选项; 获取特定命令的全部帮助信息; 例如:  get-help  -full   set-location
+c) -examples 选项;获取特定命令的实例帮助信息; 例如: get-help  -examples   get-childitem
+</code></pre><p>为了兼容Unix/Linux Shell(主要是bash)的命令;PowerShell中提供了一套机制来兼容cmd.exe和bash命令。</p>
+<pre><code>dir cat ps ....
+</code></pre><p>标准命令的别名,PowerShell还提供一套机制来支持内置cmdlet的命令别名。<br>我们知道cmdlets采用一致的用户接口模式: 动词-名词。<br>例如:</p>
+<pre><code>动词　　命令的缩写/别名
+get 　　g
+set　　　s
+item　　i
+location　　l
+command    cm
+</code></pre><p>查找别名 </p>
+<pre><code>Get-Alias –name f*
+</code></pre><p>PS中还存在很多内置的别名,这个可以通过get-alias cmdlet来查看</p>
+<p>介绍一个重要的概念:别名驱动器,在PS中有一个内置的环境支持对象,那就是别名驱动器;其盘符为alias:; 注意这个盘符是个虚拟的逻辑对象盘符,<br>而不是实际的分区盘符。在PS中通过cd  alias:可以进入这个虚拟盘符。</p>
+<p>以通过get-childitem(ls / dir )命令获取这个虚拟驱动器下的内容.</p>
+<p>创建别名<br>Exp:</p>
+<pre><code>set-alias    np　　c:\windows\notepad.exe     (在不同的系统上这个路径可能不同)
+</code></pre><p>Exp:</p>
+<pre><code>remove-item    alias:\np
+</code></pre><p>使用函数替代带有参数的命令<br>使用set-alias命令不可以为带有参数的命令创建别名。<br>Exp:</p>
+<p>　　function    np-Profile   {notepad   $profile}<br>　　这样定义的函数与别名具有类似的功能,在PS中键入np-profile 就会打开profile来编辑。</p>
+<p>在PS中利用env环境变量对象来获取path路径。</p>
+<pre><code>$env:path
+</code></pre><p>如果要将某个路径添加到默认搜索路径下,只需像下面这样就可以:<br>Exp:</p>
+<p>　　$env:path += “;H:\”</p>
+<p>需要注意的是,这样添加的路径仅在当前会话中有效,当前会话推出后就不再有效。如果需要一直有效,就必须修改配置文件。</p>
+<p>管理错误</p>
+<pre><code>在使用PS的过程中,经常会碰到错误;在PS中又两类错误: 终止错误、 非终止错误。
+终止错误:终止错误出现时,将终止命令的执行;例如,无法删除文件,这时PS会继续运行而不管该错误,然后显示错误和输出。
+非终止错误:不终止命令的执行;例如,提交无效的操作对象,PS就会生成终止错误
+</code></pre><p>PS提供的最具有突破性的功能就是:虚拟驱动器导航功能。在PS中,除了可以在文件系统驱动器之外进行浏览;还可以在HKEY_LOCAL_MACHINE(HKLM:)和<br>HKEY_CURRENT_USER(HKCU:)注册表配置单元驱动器中进行浏览,还可以在数字签名证书存储区(Cert:)以及当前会话中的函数等的驱动器中进行浏览,这些驱动<br>器统称为windows PS 驱动器。<br>可以通过:get-psdrive 来查看PS支持的驱动单元</p>
+<p>文件系统中导航/浏览</p>
+<p>Exp:</p>
+<pre><code>get-item  *  可以用来获取当前目录下的内容; 而单独的get-item运行时会提示输入路径或者操作对象。
+</code></pre><p>在PS中内置的变量 </p>
+<pre><code>$home 表示当前登录者的家目录
+$pshome 则表示widnows PowerShell的安装目录
+与其他shell一样,可以再PS中进行目录和文件操作;
+这通过下面的相关cmdlet实现: get-item、get-childitem、new-item、remove-item、set-item、move-item和copy-item实现。
+</code></pre><p>浏览注册表</p>
+<pre><code>PS中最值得推荐的特性之一就是可以再注册表中进行浏览和方便的操作。
+并且浏览方法和文件浏览方法保持一致。在PS中HKEY_LOCAL_MACHINE配置单元
+</code></pre><p>映射到hklm:驱动器; 而HKEY_CURRENT_USER配置单元则映射到HKCU:驱动器</p>
+<pre><code>cd hkcu:
+dir hkcu\software
+</code></pre><p>配置文件</p>
+<p>　　PS环境默认有4个配置文件</p>
+<p>1  针对所有用户,影响所有shell的配置文件</p>
+<pre><code>这个配置文件存放在:   %windir%\system32\windowsPowerShell\v1.0\profile.psl
+修改这个配置文件将影响所有的用户,以及所有的shell。
+</code></pre><p>2  针对所有用户,只影响Windows PowerShell的配置文件</p>
+<pre><code>这个配置文件保存在:  %windir%\system32\windowsPowerShell\v1.0\microsoft.PowerShell_pfrofile.psl
+修改这个配置文件将影响所有的用户,但只针对windows PowerShell有效。
+</code></pre><p>3  针对当前用户,影响所有shell的用户配置文件</p>
+<pre><code>这个配置文件保存在: %userprofile%\my documents\windowsPowerShell\v1.0\profile.psl
+修改这个配置文件只对当前用户有效,但是会影响所有的shell
+</code></pre><p>4  针对当前用户,只影响PS的用户配置文件</p>
+<pre><code>这个配置文件保存在: %userprofile%\my documents\windowsPowerShell\v1.0\microsoft.poweshel_profile.psl
+修改这个配置文件只对当前用户有效,并且只影响PS。
+</code></pre><p>$path 变量存储的路径<br>这么多配置文件,那么在当前会话中到底哪个起作用呢？<br>这个问题的答案就是: 只有与$path 变量中存储路径相同的配置文件才起作用; 包括路径和文件名。</p>
+<h3 id="0x05-管道和对象成员"><a href="#0x05-管道和对象成员" class="headerlink" title="0x05 管道和对象成员"></a>0x05 管道和对象成员</h3><p>1  管道<br>    管道的最大特点就是:  前一个命令的输出作为后一个命令的输入。cmd、bash均支持管道</p>
+<p>管道的概念。<br>在PS中,继承了cmd管道符号的表示方法:  |   表管道;</p>
+<p>但是PS与cmd的管道有本质的区别, cmd中的管道传递的是文本信息,</p>
+<p>而PS中传递的是对象,因此PS中的管道更加易于使用和管理。</p>
+<pre><code>例如:   get-location cmdlet
+</code></pre><p>命令返回的是一个pathinfo对象,这个对象是一个信息包,信息包中包含了相关的信息。</p>
+<p>对象成员<br>利用get-member获取对象的成员信息</p>
+<pre><code>get-location | get-member
+get-help  -parameter *  get-member
+</code></pre><p>可以发现get-member cmdlet支持:force、inputobject、membertype、name、static、view这些参数。 下面我们简要的利用一下这些参数</p>
+<p>Exp: 获取对象的静态方法和属性 </p>
+<pre><code>get-location | get-member  -static
+</code></pre><p>Exp: 获取对象的属性    </p>
+<pre><code>get-location | get-member  -membertype  property
+</code></pre><p>格式化输出</p>
+<p>PS支持4个格式化cmdlet:  format-wide、 format-list、format-table、format-custom; 这里仅介绍前面三个。</p>
+<p>四个命令均需要管道输出对象作为输入;四个cmdlet均有默认的输出属性,如果不进行指定,则输出默认的属性。</p>
+<p>1.format-wide　　<br>格式化命令默认输出不同数量的属性,format-wide默认仅输出一个默认属性。</p>
+<pre><code>get-command  | format-wide
+Exp: 利用format-wide 的property参数输出comandtype信息。
+get-command  | format-wide -property  commandtype
+</code></pre><p>2.format-list<br>format-list以列表的形式输出信息</p>
+<pre><code>get-location | format-list -property  path
+get-location | format-list -property *
+</code></pre><p>3.format-table<br>format-table以表格的形式输出信息</p>
+<pre><code>get-process | format-table
+利用property参数控制输出的属性
+Exp:
+    get-process | format-table  -property  path,cpu,id,pm
+    get-process | format-table  -property  path,cpu,id,pm   -autosize
+    get-process | format-table  -property  cpu,id,pm,path   -wrap    wrap参数用来将输出信息换行输出。
+
+groupby参数
+format-table 通过groupby参数还支持分组输出
+</code></pre><p>在PS中通过 &gt; 来实现输出重定向</p>
+<p>利用 &gt;&gt; 追加信息    get-process &gt;&gt; process.txt</p>
+<p>PS新增的特性 out-* cmdlet集重定向<br>    PS中的out重定向命令集,具有两个特点:</p>
+<pre><code>    1 这些out-* cmdlets 的输出不是对象,而是文本格式的数据,这是因为out-* cmdlet要将数据传输到接受文本信息的系统组件
+    2 这些out-* cmdlet 将数据从PS中发送到其他位置,同时在这些命令执行完毕的时候,会将在管道中传输的对象删除
+</code></pre><p>利用Format-wide 命令来验证out-* cmdlet的第二个特性</p>
+<pre><code>get-childitem | out-host  |format-wide -column 2
+</code></pre><p>原本我们通过get-childitem命令获取当前目录下的子目录传递给out-host,</p>
+<p>然后想利用format-wide -column 命令输出2列name属性信息,结果输出了很多列。</p>
+<p>out-host命令将在管道中传输的对象删除了。其实质就是当out-* cmdlet执行时,将删除传递给他的对象。</p>
+<p>变换一下管道传递的先后顺序则会得到:</p>
+<pre><code>get-childitem |format-wide -column 2  | out-host  
+</code></pre><p>注意: 所有的out命令均具有第二个特性,需要注意。</p>
+<p>Ps中分页输出</p>
+<pre><code>执行某些命令的时候,其输出信息量大,无法在当前页面中完整的显示所有信息,这就需要分页显示;
+在cmd中又more命令,在bash中也有类似的命令。
+在PS中通过参数来实现这一功能:  -paging
+</code></pre><p>放弃输出</p>
+<p>在cmd利用重定向可以阻止输出信息, 例如: dir&gt;nul<br>而在PS中需要进行管道传递,并且使用专门的cmdlet: out-null。</p>
+<p>打印输出</p>
+<p>利用 out-printer 命令打印输出信息。</p>
+<p>重定向输出到文件</p>
+<pre><code>get-process | out-file process.txt 
+</code></pre><p>有一点需要注意: out-file命令创建的是Unicode编码的文件,有时候为了输出ASCII编码的文件,</p>
+<p>我们需要增加-encoding参数, 从而控制输出的文本编码格式</p>
+<p>Exp:利用encoding参数控制编码格式</p>
+<pre><code>get-process | out-file  -encoding ascii -filepath .\process.txt
+</code></pre><p>目录和文件的建立、复制、移动和删除</p>
+<p>item作为cmdlet名词部分的cmdlet都与文件或目录的操作有关。</p>
+<p>利用get-command的发现功能查询文件操作相关命令</p>
+<pre><code>get-command *-item
+</code></pre><p>利用get-item获取当前用户home目录的信息</p>
+<pre><code>get-item $home
+get-childitem 
+get-childitem -name
+get-childitem -path $home
+get-childitem -force    Exp: 获取所有的子项,利用force参数 
+get-childitem -path $home -recurse    Exp:递归获取路径下的子项
+new-item
+    new-item -path $home\vol.txt  -itemtype file( or directory) 
+rename-item  vol.txt  volcanol.txt
+move-item   ..\volcanol.txt  .\
+copy-item vol .\desktop
+copy-item vol  .\desktop  -recurse    exp:复制容器下的项目
+remove-item  .\Desktop\vol -recurse
+</code></pre><h3 id="0x06-WMI对象和COM组件"><a href="#0x06-WMI对象和COM组件" class="headerlink" title="0x06 WMI对象和COM组件"></a>0x06 WMI对象和COM组件</h3><p>利用Get-WmiObject命令获取WMI信息</p>
+<pre><code>get-wmiobject  -list
+</code></pre><p>输出的头部:NameSpace: ROOT\CIMV2 ; 这个输出表示当前获取的WMI类型从属于root\cimv2 命名空间</p>
+<pre><code>get-wmiobject   -list  -namespace   root\cimv2
+</code></pre><p>get-wmiobject有很多的参数,其中一个就是:computername参数,指定计算机名或者IP地址,可以从远程计算机上获取相关的信息:</p>
+<pre><code>get-wmiobject  -list  -computername localhost
+</code></pre><p>显示WMI类的详细信息</p>
+<p>用-class参数显示 win32_operatingsystem类的信息</p>
+<pre><code>get-wmiobject  -class  win32_operatingsystem -namespace root\cimv2  
+</code></pre><p>cmdlet均有自己默认的属性,当没有指定参数或者属性时,cmdlet将以默认的属性或者参数进行操作,</p>
+<p>get-wmiobject也有几个默认的参数: -class;</p>
+<p>默认的namespace是root\cimv2; 而computername默认的是本机(localhost)。</p>
+<pre><code>因此上面的命令:  get-wmiobject -class win32_operatingsystem -namespace root\cimv2    
+相当于:  get-wmiobject  win32_operatingsystem 
+</code></pre><p>利用Format命令显示非默认属性</p>
+<pre><code>前面说过可以利用Format命令显示对象的非默认显示属性或者信息,这里一样可以显示非默认的信息。
+例如利用Format-table命令显示win32_operatingsystem的Total*和Free的
+get-wmiobject  -class  win32_operatingsystem -namespace root\cimv2   | format-table -property total*,free*
+</code></pre><p>创建WMI对象<br>既然WMI模型中有那么多的类,那么根据面向对象的思想,我们就可以利用这些类实例化一些对象。在PS中利用New-Object命令实例化对象。</p>
+<p>在Windows下某些软件组件具有Net Framework和Com接口,因此可以执行许多的系统的管理任务;</p>
+<p>PS可以使用这些组件。早起版本的Ps多数的cmdlet不支持远程计算机。</p>
+<p>但在PS中利用Net Framework的system.diagnostics.eventlog类管理事件日志时可消除这个限制。</p>
+<p>new-object命令创建system.diagnostics.eventlog对象</p>
+<pre><code>new-object -typename  system.diagnostics.eventlog    
+</code></pre><p>如上所示,我们创建了一个system.diagnostics.eventlog的对象,但是这个对象实例没有包含任何的数据,这是因为没有为其指定特定的事件日志。</p>
+<p>构造函数<br>与面向对象一致,需要利用类的构造函数来初始化对象。在这里我们通过指定日志名称引用特定的事件日志,</p>
+<p>并将日志名称传递给类的构造函数。使用-argumentlist参数指定特定的事件日志</p>
+<pre><code>new-object -typename system.diagnostics.eventlog  -argumentlist application    
+</code></pre><p>由于在PS中大多数的Net Framework核心类在system明明空间中定义,因此如果PS找不到指定的类型名称项,</p>
+<p>则会到system命名空间中查找类,这就是说我们可以不指定system</p>
+<p>命名空间来引用system.diagnostics.eventlog,而是使用diagnostics.eventlog.</p>
+<pre><code>new-object -typename diagnostics.eventlog  -argumentlist application
+</code></pre><h3 id="0x07-静态对象"><a href="#0x07-静态对象" class="headerlink" title="0x07 静态对象"></a>0x07 静态对象</h3><pre><code>在PS中有一类特殊的对象,我们不能同过这些类创建新的对象,这些类是不能更改状态的方法和属性的引用库。
+
+无法创建这些类,仅可以使用它。因为不能创建、销毁或更改这些类和方法,因此也将这些类叫做静态类。
+</code></pre><p>1 system.environment 静态类</p>
+<p>在PS中经常用到的静态类有system.environmet类。例如我们可以在PS中查看这些类:</p>
+<pre><code>system.environment
+</code></pre><p>查看了system.environment,类的信息,可以看出来system.environment,继承于system.object类。 </p>
+<p>这里还有一点需要注意的,那就是引用静态类的时候,要用”[]”,表示引用的是静态类。</p>
+<p>2 利用get-member函数是static参数获取静态类成员</p>
+<pre><code>[system.environment] | get-member
+</code></pre><p>通过get-member获取的类型是:system.runtimetype;与原来的类型不一致,这是为什么呢?</p>
+<p>因为静态类与其他的类在行为和方式上不同。在使用get-member命令获取静态类的信息的时候,需要附加-static参数。</p>
+<p>可以通过指定membertype参数来分类获取静态类的属性和方法。</p>
+<p>命令分别为:</p>
+<pre><code>[system.environment] | get-member  -membertype  property     # 获取属性
+[system.environment] | get-member  -membertype  method       # 获取方法
+</code></pre><p>试一下是否可以用new-object创建静态对象。</p>
+<pre><code>new-object   system.environment
+</code></pre><p>New-Object : 找不到构造函数。无法找到适合类型 system.environment 的构造函数。</p>
+<p>可以发现,静态类没有构造函数,因此静态函数仅仅是一个库,可以使用的库,不能通过它来派生新的的类和构造类的对象。</p>
+<p>3  引用静态类的成员<br>    在PS中通过全局引用符 “ :: “来引用静态类的成员。</p>
+<pre><code>[system.environment]::commandline
+--&gt;
+    &quot;C:\Windows\system32\WindowsPowerShell\v1.0\PowerShell_ISE.exe&quot;
+</code></pre><p>利用commandline获取了PS的安装路径。还可以通过OsVersion属性获取系统的版本信息</p>
+<pre><code>[system.environment]::osversion
+</code></pre><p>4 system.math 类进行数学运算<br>    在PS中还提供了另外一个静态类, system.math. 同样可以通过get-member命令获取system的成员。</p>
+<pre><code>[system.math] | get-member -static  -membertype method
+</code></pre><p>管道对象管理</p>
+<p>执行cmdlet时,在管道中传递的对象比我们实际需要的要多,而且有时候我们并不需要关注这么多的对象,</p>
+<p>那么我们是否可以对这些对象进行一下筛选呢？</p>
+<p>在PS中我们可以使用where-object命令进行筛选。</p>
+<p>1 where-object命令<br>利用where-object命令可以逐一的测试管道中传递的对象,并将符合筛选条件的对象在管道中进行传递,而将不符合条件的对象从管道中删除;</p>
+<p>实现这一功能需要使用where-object的FilterScript表达式特性。</p>
+<p>FiltrScript表达式为返回值为true或者false的脚本块; 脚本块是有{} 括起来的一个或者多个PS命令,这些脚本简单而功能强大。</p>
+<p>使用这些脚本需要使用PS提供的另外一个特性:比较运算符。</p>
+<p>在PS中,比较运算符不区分大小写,因为在PS中 小于(&lt;)、大于(&gt;) 、等于(=)因为有特殊的用途,因此用字母token表示。基本的运算符有:</p>
+<pre><code>比较运算符          含义         实例(返回TRUE)
+-eq              等于             1 –eq  1
+-ne              不等于           1 –ne   2
+-lt              小于              1 –lt   2
+-le              小于或等于      1 –le    2
+-gt              大于              2 –gt  1
+-ge              大于等于        2 –ge   1
+-like            类似需要用     &quot;file.doc&quot;  -like    &quot;f*.do?&quot;
+                 文本通配符
+-notlike        不类似           &quot;file.doc&quot;  -notlike  &quot;p*.doc&quot;
+-contains       包含              1,2,3  -contains   1
+-notcontains    不包含            1,2,3  -notcontains   4
+</code></pre><p>在PS中为了遍历管道中的对象,提供了一个预置的变量: $_  ;通过这个对象可以遍历管道中传递的对象。</p>
+<p>利用FilterScript进行筛选</p>
+<pre><code>1,2,3,4,5 | where-object  -filterscript {$_  -lt  3}
+输出 1  2
+</code></pre><p>还可以根据对象的属性进行筛选。例如我们要查看WMI中win32_systemdriver类,在系统中可能有几百个这样的系统驱动程序,而我们可能</p>
+<p>只对其中的一部分感兴趣,这样我们就可以通过FilterScript来获取我们感兴趣的驱动类。</p>
+<p>利用FilterScript表达式获取win32_systemdriver中正在运行的类</p>
+<pre><code>get-wmiobject -class  win32_systemdriver  | where-object  -filterscript {$_.state -eq &quot;running&quot;}
+</code></pre><p>PS中的逻辑运算符有:   -and、 -or、-not 、!; 分别是与、或、非(其中 ! 也是表示非)。</p>
+<h3 id="0x07-Reference"><a href="#0x07-Reference" class="headerlink" title="0x07 Reference"></a>0x07 Reference</h3><pre><code>http://www.cnblogs.com/volcanol/archive/2012/05/14/2500665.html
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/PowerShell/" rel="tag"># PowerShell</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/30/ElasticSearch学习总结/" rel="next" title="ElasticSearch学习总结">
+                <i class="fa fa-chevron-left"></i> ElasticSearch学习总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/jacksparrow.png"
+                alt="Sparrow" />
+            
+              <p class="site-author-name" itemprop="name">Sparrow</p>
+              <p class="site-description motion-element" itemprop="description">唯有时间不可挡</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xxxxxxxxxxxxxxxxxxxx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:3sparrow@protonmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                有趣的人
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.csdn.net/xxxxxxxxxxxxxxxxxxxxxxxxxx" title="以前的CSDN" target="_blank">以前的CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.c0smx.com/" title="dalao c0sMx" target="_blank">dalao c0sMx</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://riesa.me/" title="dalao riesa" target="_blank">dalao riesa</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://zeringzxh.github.io/" title="zering" target="_blank">zering</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-PowerShell简介及特性"><span class="nav-text">0x01 PowerShell简介及特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-PowerShell基础语法"><span class="nav-text">0x02 PowerShell基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-交互式"><span class="nav-text">0x00 交互式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-变量"><span class="nav-text">0x01 变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01数组"><span class="nav-text">0x01数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-简写对比"><span class="nav-text">0x02 简写对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-PowerShell的安全执行策略"><span class="nav-text">0x03 PowerShell的安全执行策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-PowerShell-中内置的命令"><span class="nav-text">0x04 PowerShell 中内置的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-管道和对象成员"><span class="nav-text">0x05 管道和对象成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x06-WMI对象和COM组件"><span class="nav-text">0x06 WMI对象和COM组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x07-静态对象"><span class="nav-text">0x07 静态对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x07-Reference"><span class="nav-text">0x07 Reference</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sparrow</span>
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a></div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'XzzzFqxY7zSnAm9am6FHg6do-gzGzoHsz',
+        appKey: 'aaBboz6UbNeJnPowxKNNDTm2',
+        placeholder: 'Just go go',
+        avatar:'wavatar',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("XzzzFqxY7zSnAm9am6FHg6do-gzGzoHsz", "aaBboz6UbNeJnPowxKNNDTm2");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

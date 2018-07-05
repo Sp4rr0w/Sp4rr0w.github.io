@@ -81,7 +81,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="一只麻雀" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="一 只 麻 雀" type="application/atom+xml" />
 
 
 
@@ -93,10 +93,10 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="ElasticSearch学习总结">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/06/30/ElasticSearch学习总结/index.html">
-<meta property="og:site_name" content="一只麻雀">
+<meta property="og:site_name" content="一 只 麻 雀">
 <meta property="og:description" content="…..">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-30T07:13:11.423Z">
+<meta property="og:updated_time" content="2018-06-30T07:21:22.495Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ElasticSearch学习总结">
 <meta name="twitter:description" content="…..">
@@ -135,7 +135,7 @@
 
 
 
-  <title>ElasticSearch学习总结 | 一只麻雀</title>
+  <title>ElasticSearch学习总结 | 一 只 麻 雀</title>
   
 
 
@@ -165,7 +165,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">一只麻雀</span>
+        <span class="site-title">一 只 麻 雀</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -315,7 +315,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只麻雀">
+      <meta itemprop="name" content="一 只 麻 雀">
     </span>
 
     
@@ -535,13 +535,13 @@ ES是JAVA应用,作为一个JAVA应用,就脱离不开JVM和GC经常出现关于
 上手ES的时候,对GC一点概念都没有就去网上抄各种JVM&quot;优化&quot;参数,却仍然被heap不够用,内存溢出这样的问题
 </code></pre><h2 id="Elasticsearch线程池介绍"><a href="#Elasticsearch线程池介绍" class="headerlink" title="Elasticsearch线程池介绍"></a>Elasticsearch线程池介绍</h2><pre><code>curl -XGET &#39;http://localhost:9200/_nodes/stats?pretty&#39;
 ......
-</code></pre><h2 id="ElasticSearch-我的小結"><a href="#ElasticSearch-我的小結" class="headerlink" title="ElasticSearch 我的小結"></a>ElasticSearch 我的小結</h2><h3 id="1-命令行模式导入elastic"><a href="#1-命令行模式导入elastic" class="headerlink" title="1. 命令行模式导入elastic"></a>1. 命令行模式导入elastic</h3><pre><code>命令行导入elastic(因为PDI(kettle)本身有900M,打开需要一定的内存,而且导入的时候还卡,所以使用命令行模式,速度快了10倍以上):
+</code></pre><h2 id="ElasticSearch-我的小結"><a href="#ElasticSearch-我的小結" class="headerlink" title="ElasticSearch 我的小結"></a>ElasticSearch 我的小結</h2><h3 id="命令行模式导入elastic"><a href="#命令行模式导入elastic" class="headerlink" title="命令行模式导入elastic"></a>命令行模式导入elastic</h3><pre><code>命令行导入elastic(因为PDI(kettle)本身有900M,打开需要一定的内存,而且导入的时候还卡,所以使用命令行模式,速度快了10倍以上):
 
 a. 先在PDI里面设置好ktr文件
 b. 创建bat文件
-</code></pre><h3 id="2-csv文件导入到elastic"><a href="#2-csv文件导入到elastic" class="headerlink" title="2. csv文件导入到elastic"></a>2. csv文件导入到elastic</h3><pre><code>因为kettle的原因,直接通过csv文件导入到elastic里面是报错的(id是必须提供),所以要加一个字段ID,而且不能重复(自增)。
+</code></pre><h3 id="csv文件导入到elastic"><a href="#csv文件导入到elastic" class="headerlink" title="csv文件导入到elastic"></a>csv文件导入到elastic</h3><pre><code>因为kettle的原因,直接通过csv文件导入到elastic里面是报错的(id是必须提供),所以要加一个字段ID,而且不能重复(自增)。
 其实kettle里面有个插件ADD QEUEUxx,在传输的时候通过这个插件就可以了,之后在右边选择valuename(插件默认名字)
-</code></pre><h3 id="3-日期-string类型"><a href="#3-日期-string类型" class="headerlink" title="3. 日期/string类型"></a>3. 日期/string类型</h3><pre><code>因为某个库里面含有string类型的字段(生日-BIRTHDATE : 2011-03-22),这使得在PDI(kettle)里面映射为字符串类型,
+</code></pre><h3 id="日期-string类型"><a href="#日期-string类型" class="headerlink" title="日期/string类型"></a>日期/string类型</h3><pre><code>因为某个库里面含有string类型的字段(生日-BIRTHDATE : 2011-03-22),这使得在PDI(kettle)里面映射为字符串类型,
 </code></pre><p>但是导入到elastic时,会默认自动转为日期类型,这使得库里面字段(生日-BIRTHDATE )还有其他不是日期日期类型的(XXX字符串),转换不了日期类型,从而报错。<br>所以不能使用kettle默认创建索引,而是先使用curl创建索引及字段 : </p>
 <pre><code>curl -XPUT &quot;http://9.9.9.10:8200/sbbb-typejp&#39;
 curl -XPOST &quot;http://9.9.9.10:8200/sbbb-typejp/sbbb-typejp/_mapping?pretty&quot; -d &#39;
@@ -576,7 +576,7 @@ curl -XPOST &quot;http://9.9.9.10:8200/sbbb-typejp/sbbb-typejp/_mapping?pretty&q
         }
     }
 }
-</code></pre><h3 id="4-安装plugin"><a href="#4-安装plugin" class="headerlink" title="4. 安装plugin"></a>4. 安装plugin</h3><pre><code>a. elasticdump
+</code></pre><h3 id="安装plugin"><a href="#安装plugin" class="headerlink" title="安装plugin"></a>安装plugin</h3><pre><code>a. elasticdump
     Linux : 
         wget http://nodejs.org/dist/v9.2.0/node-v9.2.0-linux-x64.tar.gz
         tar -zxvf node-v9.2.0-linux-x64.tar.gz
@@ -731,7 +731,7 @@ d. 因为索引建立好之后,使用 elasticdump 转移数据时
 e. v5.6.3 沒有csv-export 
 
         补丁 : https://github.com/fbaligand/kibana/releases/tag/v5.6.3-csv-export
-</code></pre><h3 id="常用搜索"><a href="#常用搜索" class="headerlink" title=". 常用搜索"></a>. 常用搜索</h3><pre><code>&gt; curl -XDELETE &quot;http://localhost:9200/twitter1?pretty&quot;
+</code></pre><h3 id="常用搜索"><a href="#常用搜索" class="headerlink" title="常用搜索"></a>常用搜索</h3><pre><code>&gt; curl -XDELETE &quot;http://localhost:9200/twitter1?pretty&quot;
 &gt; curl -XPUT &quot;localhost:9200/twitter1&quot;
 &gt; curl -XPOST &quot;http://9.9.9.10:8200/sbbb-in/sbbb-in/_mapping?pretty&quot; -d &#39;{&quot;sbbb-nnnnn&quot;:{&quot;properties&quot;:{&quot;性别-SEX&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;生日-BIRTHDATE&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;姓名-FULLNAME&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;电话-PHONE&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;账户号-ACCT_NB&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;ID卡-IDCARD&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;地址-ADDRESS&quot;:{&quot;type&quot;:&quot;string&quot;}}}}&#39;
 &gt; curl -XPOST &quot;http://9.9.9.10:9200/sbbb-unlimit/sbbb-unlimit/_mapping?pretty&quot; -d &#39;{&quot;sbbb-unlimit&quot;:{&quot;properties&quot;:{&quot;邮箱-EMAIL&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;mwmm-ps&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;注册来源-SOURCE&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;注册时间-TIMESTAMP&quot;:{&quot;type&quot;:&quot;string&quot;}}}}&#39;
@@ -781,8 +781,17 @@ e. v5.6.3 沒有csv-export
     }
   }
 }
-</code></pre><p>正则搜索<br>    GET /my_index/my_type/_search<br>    {<br>      “query”: {<br>        “regexp” : {<br>          “title” : “C[0-9].+345”<br>        }<br>      }<br>    }</p>
-<pre><code>curl -XPOST &quot;http://9.9.9.10:8200/sbbb-test-2021dlh/sbbb-test-2021dlh/_mapping?pretty&quot; -d &#39;{&quot;sbbb-test-2021dlh&quot;:{&quot;properties&quot;:{&quot;邮箱-EMAIL&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;用户名-USERNAME&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;mwmm-ps&quot;:{&quot;type&quot;:&quot;string&quot;}}}}&#39;
+</code></pre><p>正则搜索</p>
+<pre><code>GET /my_index/my_type/_search
+{
+  &quot;query&quot;: {
+    &quot;regexp&quot; : {
+      &quot;title&quot; : &quot;C[0-9].+345&quot;
+    }
+  }
+}
+
+curl -XPOST &quot;http://9.9.9.10:8200/sbbb-test-2021dlh/sbbb-test-2021dlh/_mapping?pretty&quot; -d &#39;{&quot;sbbb-test-2021dlh&quot;:{&quot;properties&quot;:{&quot;邮箱-EMAIL&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;用户名-USERNAME&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;mwmm-ps&quot;:{&quot;type&quot;:&quot;string&quot;}}}}&#39;
 curl -XPOST &quot;http://9.9.9.10:8200/sbbb-test-2021dlh/sbbb-test-2021dlh/_mapping?pretty&quot; -d &#39;
 {
     &quot;sbbb-test-2021dlh&quot;:{
@@ -799,8 +808,11 @@ curl -XPOST &quot;http://9.9.9.10:8200/sbbb-test-2021dlh/sbbb-test-2021dlh/_mapp
         }
     }
 }&#39;
-</code></pre><p>curl -XGET <a href="http://9.9.9.10:8200/sbbb-2021dlh/_mapping?pretty" target="_blank" rel="noopener">http://9.9.9.10:8200/sbbb-2021dlh/_mapping?pretty</a></p>
-<pre><code>{
+
+
+curl -XGET http://9.9.9.10:8200/sbbb-2021dlh/_mapping?pretty
+
+{
   &quot;sbbb-2021dlh&quot; : {
     &quot;mappings&quot; : {
       &quot;jdbc&quot; : {
@@ -837,9 +849,26 @@ curl -XPOST &quot;http://9.9.9.10:8200/sbbb-test-2021dlh/sbbb-test-2021dlh/_mapp
     }
   }
 }
-</code></pre><p><a href="https://stackoverflow.com/questions/36856849/elastic-search-document-count" target="_blank" rel="noopener">https://stackoverflow.com/questions/36856849/elastic-search-document-count</a><br>docs.count in _cat/indices returns the count of all documents, including artificial documents that have been created for nested fields.<br>GET /index/type/_count count will tell you how many Elasticsearch documents are in your index, i.e. how many you have indexed.<br>GET /_cat/indices?v’ will tell you how many Lucene documents are in your index.</p>
-<p><a href="https://discuss.elastic.co/t/elasticsearch-health-status-is-yellow-how-to-up-green/81765" target="_blank" rel="noopener">https://discuss.elastic.co/t/elasticsearch-health-status-is-yellow-how-to-up-green/81765</a><br>Elasticsearch health status is yellow. How to up Green?<br>==&gt;<br>The Yellow status means that there is a risk of losing data if something goes wrong with your shards.<br>To get it green you should at least have another node. I mean you should create a cluster.<br>Kab,</p>
-<p>集群状态为yellow<br>由于我们是单节点部署elasticsearch,而默认的分片副本数目配置为1,而相同的分片不能在一个节点上,<br>所以就存在副本分片指定不明确的问题,所以显示为yellow,我们可以通过在elasticsearch集群上添加一个节点来解决问题,<br>如果你不想这么做,你可以删除那些指定不明确的副本分片(当然这不是一个好办法)但是作为测试和解决办法还是可以尝试的,<br>下面我们试一下删除副本分片的办法<br>解决办法</p>
+
+
+
+https://stackoverflow.com/questions/36856849/elastic-search-document-count
+docs.count in _cat/indices returns the count of all documents, including artificial documents that have been created for nested fields.
+GET /index/type/_count count will tell you how many Elasticsearch documents are in your index, i.e. how many you have indexed.
+GET /_cat/indices?v&#39; will tell you how many Lucene documents are in your index.
+
+
+
+
+
+
+https://discuss.elastic.co/t/elasticsearch-health-status-is-yellow-how-to-up-green/81765
+Elasticsearch health status is yellow. How to up Green?
+==&gt; 
+The Yellow status means that there is a risk of losing data if something goes wrong with your shards.
+To get it green you should at least have another node. I mean you should create a cluster.
+Kab,
+</code></pre><p>集群状态为yellow<br>由于我们是单节点部署elasticsearch,而默认的分片副本数目配置为1,而相同的分片不能在一个节点上,<br>所以就存在副本分片指定不明确的问题,所以显示为yellow,我们可以通过在elasticsearch集群上添加一个节点来解决问题,<br>如果你不想这么做,你可以删除那些指定不明确的副本分片(当然这不是一个好办法)但是作为测试和解决办法还是可以尝试的,<br>下面我们试一下删除副本分片的办法<br>解决办法</p>
 <pre><code>root@c2dbf1f9da5d:/# curl -XPUT &quot;http://localhost:9200/_settings&quot; -d&#39; { &quot;number_of_replicas&quot; : 0 } &#39;
 {&quot;acknowledged&quot;:true}
 </code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><pre><code>http://www.cnblogs.com/kaynet/p/5861926.html
@@ -886,6 +915,10 @@ http://blog.csdn.net/xf_87/article/details/51026197
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/05/PowerShell 基础总结/" rel="prev" title="PowerShell 基础总结">
+                PowerShell 基础总结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -969,7 +1002,7 @@ http://blog.csdn.net/xf_87/article/details/51026197
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1073,7 +1106,7 @@ http://blog.csdn.net/xf_87/article/details/51026197
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES索引优化"><span class="nav-number">3.</span> <span class="nav-text">ES索引优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch常用配置及性能参数"><span class="nav-number">4.</span> <span class="nav-text">ElasticSearch常用配置及性能参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Elasticsearch线程池介绍"><span class="nav-number">5.</span> <span class="nav-text">Elasticsearch线程池介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch-我的小結"><span class="nav-number">6.</span> <span class="nav-text">ElasticSearch 我的小結</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-命令行模式导入elastic"><span class="nav-number">6.1.</span> <span class="nav-text">1. 命令行模式导入elastic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-csv文件导入到elastic"><span class="nav-number">6.2.</span> <span class="nav-text">2. csv文件导入到elastic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-日期-string类型"><span class="nav-number">6.3.</span> <span class="nav-text">3. 日期/string类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-安装plugin"><span class="nav-number">6.4.</span> <span class="nav-text">4. 安装plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用搜索"><span class="nav-number">6.5.</span> <span class="nav-text">. 常用搜索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES索引优化"><span class="nav-text">ES索引优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch常用配置及性能参数"><span class="nav-text">ElasticSearch常用配置及性能参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Elasticsearch线程池介绍"><span class="nav-text">Elasticsearch线程池介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch-我的小結"><span class="nav-text">ElasticSearch 我的小結</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行模式导入elastic"><span class="nav-text">命令行模式导入elastic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#csv文件导入到elastic"><span class="nav-text">csv文件导入到elastic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日期-string类型"><span class="nav-text">日期/string类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装plugin"><span class="nav-text">安装plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用搜索"><span class="nav-text">常用搜索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
