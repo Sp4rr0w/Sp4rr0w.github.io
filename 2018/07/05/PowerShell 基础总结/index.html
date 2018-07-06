@@ -98,7 +98,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/07/05/PowerShell%20基础总结/ps-version.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/07/05/PowerShell%20基础总结/ps.png">
-<meta property="og:updated_time" content="2018-07-06T13:38:36.612Z">
+<meta property="og:updated_time" content="2018-07-06T13:51:04.221Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PowerShell 基础总结">
 <meta name="twitter:description" content="0x01 PowerShell简介及特性Windows PowerShell 是一种命令行外壳程序和脚本环境(相当于 UNIX 系统 BASH),使命令行用户和脚本编写者可以利用.NET Framework的强大功能(因此也支持.NET对象)。Windows PowerShell具备以下特性: 操作便捷—-可识别单位(如GB、MB、KB等)Cmdlet命令结构简单(动名词形式) 面向对象—-同面向">
@@ -567,43 +567,12 @@ Cd,chdir, sl    更改当前目录的位置                        Set-Location
 —                提取路径的特定部分,例如父目录,文件名        Split-Path
 —                测试指定的路径是否存在                    Test-Path
 </code></pre><p>用于指定相对路径的四个重要的特殊字符</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">字符</th>
-<th style="text-align:center">意义</th>
-<th style="text-align:center">示例</th>
-<th style="text-align:center">示例描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">.</td>
-<td style="text-align:center">当前目录</td>
-<td style="text-align:center">ii .</td>
-<td style="text-align:center">用资源浏览器打开当前目录</td>
-</tr>
-<tr>
-<td style="text-align:center">..</td>
-<td style="text-align:center">父目录</td>
-<td style="text-align:center">Cd ..</td>
-<td style="text-align:center">切换到父目录</td>
-</tr>
-<tr>
-<td style="text-align:center">\</td>
-<td style="text-align:center">驱动器根目录</td>
-<td style="text-align:center">Cd \</td>
-<td style="text-align:center">切换到驱动器的顶级根目录</td>
-</tr>
-<tr>
-<td style="text-align:center">~</td>
-<td style="text-align:center">家目录</td>
-<td style="text-align:center">Cd ~</td>
-<td style="text-align:center">切换到PowerShell初始化的目录</td>
-</tr>
-</tbody>
-</table>
-<p>存储在环境变量中的Windows特殊目录</p>
+<pre><code>字符    意义        示例    示例描述
+.    当前目录    ii .    用资源浏览器打开当前目录
+..    父目录        Cd ..    切换到父目录
+\    驱动器根目录    Cd \    切换到驱动器的顶级根目录
+~    家目录        Cd ~    切换到PowerShell初始化的目录
+</code></pre><p>存储在环境变量中的Windows特殊目录</p>
 <pre><code>特殊目录                            描述                            示例
 C:\Users\YvY\AppData\Local        存储在本地机器上的应用程序数据    $env:localappdata
 C:\Users\YvY                    用户目录                            $env:userprofile
@@ -942,6 +911,7 @@ https://mva.microsoft.com/zh-cn/training-courses/advanced-tools-scripting-with-p
 9. 脚本和清单模块
 </code></pre><h3 id="3-Using-PowerShell-for-Active-Directory"><a href="#3-Using-PowerShell-for-Active-Directory" class="headerlink" title="3. Using PowerShell for Active Directory"></a>3. Using PowerShell for Active Directory</h3><pre><code>https://mva.microsoft.com/en-US/training-courses/using-powershell-for-active-directory-8397?l=zSaBLJJz_1304984382
 </code></pre><h2 id="0x04-Reference"><a href="#0x04-Reference" class="headerlink" title="0x04 Reference"></a>0x04 Reference</h2><pre><code>http://www.cnblogs.com/volcanol/archive/2012/05/14/2500665.html
+https://www.pstips.net/
 &lt;&lt; PowerShell 实战指南(第二版) &gt;&gt;
 </code></pre>
       

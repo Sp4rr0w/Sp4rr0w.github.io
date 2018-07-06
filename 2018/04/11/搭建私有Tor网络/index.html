@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="…..">
+<meta name="description" content="0x00 搭建私有Tor网络 ( private Tor network)RS1 ： Tor Client (客户端)     RS2 ： Tor relay    (退出及中继节点)    2个中继+1退出中继 RS3 ： Tor Bridge relay    (网桥)     RS4 ： Authority Server (权威目录服务器)">
 <meta name="keywords" content="笔记,Tor,网桥,中继,权威目录服务器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="搭建私有Tor网络">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/04/11/搭建私有Tor网络/index.html">
 <meta property="og:site_name" content="一 只 麻 雀">
-<meta property="og:description" content="…..">
+<meta property="og:description" content="0x00 搭建私有Tor网络 ( private Tor network)RS1 ： Tor Client (客户端)     RS2 ： Tor relay    (退出及中继节点)    2个中继+1退出中继 RS3 ： Tor Bridge relay    (网桥)     RS4 ： Authority Server (权威目录服务器)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-11T12:34:24.317Z">
+<meta property="og:updated_time" content="2018-07-06T13:52:46.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建私有Tor网络">
-<meta name="twitter:description" content="…..">
+<meta name="twitter:description" content="0x00 搭建私有Tor网络 ( private Tor network)RS1 ： Tor Client (客户端)     RS2 ： Tor relay    (退出及中继节点)    2个中继+1退出中继 RS3 ： Tor Bridge relay    (网桥)     RS4 ： Authority Server (权威目录服务器)">
 
 
 
@@ -421,15 +421,15 @@
       
 
       
-        <p>…..<br><a id="more"></a></p>
-<h1 id="搭建私有Tor网络-private-Tor-network"><a href="#搭建私有Tor网络-private-Tor-network" class="headerlink" title="搭建私有Tor网络 ( private Tor network)"></a>搭建私有Tor网络 ( private Tor network)</h1><p>RS1 ： Tor Client (客户端)    </p>
+        <h2 id="0x00-搭建私有Tor网络-private-Tor-network"><a href="#0x00-搭建私有Tor网络-private-Tor-network" class="headerlink" title="0x00 搭建私有Tor网络 ( private Tor network)"></a>0x00 搭建私有Tor网络 ( private Tor network)</h2><p>RS1 ： Tor Client (客户端)    </p>
 <p>RS2 ： Tor relay    (退出及中继节点)    2个中继+1退出中继</p>
 <p>RS3 ： Tor Bridge relay    (网桥)    </p>
 <p>RS4 ： Authority Server (权威目录服务器)</p>
+<a id="more"></a>
 <p>权威服务器(Authority Server)必须和洋葱路由器(Tor)在同一时间</p>
 <pre><code>apt-get install tor ntpdate 
 ntpdate time.nist.gov 
-</code></pre><h2 id="配置权威目录服务器RS4-Setup-Authority-Server-on-RS4"><a href="#配置权威目录服务器RS4-Setup-Authority-Server-on-RS4" class="headerlink" title="配置权威目录服务器RS4(Setup Authority Server on RS4)"></a>配置权威目录服务器RS4(Setup Authority Server on RS4)</h2><p>(1). 运行以下命令生成的权威密钥(authority keys)</p>
+</code></pre><h2 id="0x01-配置权威目录服务器RS4-Setup-Authority-Server-on-RS4"><a href="#0x01-配置权威目录服务器RS4-Setup-Authority-Server-on-RS4" class="headerlink" title="0x01 配置权威目录服务器RS4(Setup Authority Server on RS4)"></a>0x01 配置权威目录服务器RS4(Setup Authority Server on RS4)</h2><p>(1). 运行以下命令生成的权威密钥(authority keys)</p>
 <p>mkdir /var/lib/tor/keys</p>
 <pre><code>sudo tor-gencert --create-identity-key -m 12 -a 192.168.18.111:7000 \
             -i /var/lib/tor/keys/authority_identity_key \
@@ -490,7 +490,7 @@ ExitPolicy reject *:*
 <pre><code>eg. Your Tor server&#39;s identity key fingerprint is 
 &#39;Unnamed C78C7376A09461466F95C56E36199148058FBF84&#39;
 ===&gt; finger2 = C78C 7376 A094 6146 6F95 C56E 3619 9148 058F BF84
-</code></pre><h2 id="配置客户端-Tor-Client"><a href="#配置客户端-Tor-Client" class="headerlink" title="配置客户端(Tor Client)"></a>配置客户端(Tor Client)</h2><p>(1) 生成router keys</p>
+</code></pre><h2 id="0x02-配置客户端-Tor-Client"><a href="#0x02-配置客户端-Tor-Client" class="headerlink" title="0x02 配置客户端(Tor Client)"></a>0x02 配置客户端(Tor Client)</h2><p>(1) 生成router keys</p>
 <pre><code>tor --list-fingerprint --orport 1 \
     --dirserver &quot;x 127.0.0.1:1 ffffffffffffffffffffffffffffffffffffffff&quot; \
     --datadirectory /var/lib/tor
@@ -514,7 +514,7 @@ ProtocolWarnings 1
 SafeLogging 0
 DisableDebuggerAttachment 0
 </code></pre><p>service tor start</p>
-<h2 id="配置中继和退出节点-以及网桥"><a href="#配置中继和退出节点-以及网桥" class="headerlink" title="配置中继和退出节点(以及网桥)"></a>配置中继和退出节点(以及网桥)</h2><h3 id="配置中继节点-Tor-Relay-s"><a href="#配置中继节点-Tor-Relay-s" class="headerlink" title="配置中继节点 Tor Relay (s)"></a>配置中继节点 Tor Relay (s)</h3><p>(1) 生成router keys</p>
+<h2 id="0x03-配置中继和退出节点-以及网桥"><a href="#0x03-配置中继和退出节点-以及网桥" class="headerlink" title="0x03 配置中继和退出节点(以及网桥)"></a>0x03 配置中继和退出节点(以及网桥)</h2><h3 id="配置中继节点-Tor-Relay-s"><a href="#配置中继节点-Tor-Relay-s" class="headerlink" title="配置中继节点 Tor Relay (s)"></a>配置中继节点 Tor Relay (s)</h3><p>(1) 生成router keys</p>
 <pre><code>tor --list-fingerprint --orport 1 \
     --dirserver &quot;x 127.0.0.1:1 ffffffffffffffffffffffffffffffffffffffff&quot; \
     --datadirectory /var/lib/tor
@@ -546,7 +546,7 @@ IPv6Exit 1
 </code></pre><p>service tor start</p>
 <h3 id="Tor-Relay-s-配置退出中继节点"><a href="#Tor-Relay-s-配置退出中继节点" class="headerlink" title="Tor Relay (s)配置退出中继节点"></a>Tor Relay (s)配置退出中继节点</h3><p>只是在”Tor Relay (s)配置中继 “ 配置文件中加一个：</p>
 <pre><code>ExitRelay 1
-</code></pre><h2 id="配置网桥-Bridge-relay"><a href="#配置网桥-Bridge-relay" class="headerlink" title="配置网桥 Bridge relay"></a>配置网桥 Bridge relay</h2><p>Ubuntu</p>
+</code></pre><h2 id="0x04-配置网桥-Bridge-relay"><a href="#0x04-配置网桥-Bridge-relay" class="headerlink" title="0x04 配置网桥 Bridge relay"></a>0x04 配置网桥 Bridge relay</h2><p>Ubuntu</p>
 <p>must have External IP </p>
 <p>apt-get install obfs4proxy</p>
 <p>gedit /etc/tor/torrc   </p>
@@ -564,19 +564,20 @@ ContactInfo test@test.test
 DirAuthority RS4 orport=5000 v3ident=finger1 192.168.1.4:7000 finger2 #(finger1 and finger2 in RS4)
 </code></pre><p>service tor start</p>
 <p>sudo cat /var/lib/tor/fingerprint</p>
-<h2 id="使用网桥-UseBridges"><a href="#使用网桥-UseBridges" class="headerlink" title="使用网桥 UseBridges"></a>使用网桥 UseBridges</h2><pre><code>UseBridges 1
+<h2 id="0x05-使用网桥-UseBridges"><a href="#0x05-使用网桥-UseBridges" class="headerlink" title="0x05 使用网桥 UseBridges"></a>0x05 使用网桥 UseBridges</h2><pre><code>UseBridges 1
 Bridge obfs4 89.46.73.150:41595 BE158D7939B8C95C54F07C50D7EBE50BEDA68C4D cert=3OCxcKIP+9UmUUVJPgjArM95dpZUDJv6+uFR35KlKy6JzkxbN3llrvE1jNzhFPWaX2mgZw iat-mode=0
 Bridge obfs4 13.58.94.90:9443 DDAFCB98850DE23177224F382049A6FCD4A80E4B cert=MvzYIjUby2RfVa5ATIKkf1bC3lQ4JSzzmWtHCDcKZaCxByn4Tp5R30bMiMnOEXrKPP8qeA iat-mode=0
 Bridge obfs4 83.212.97.47:54187 80FCA5A349AE7E5C2C8503BFB908D4204FDB9C3E cert=IfdoBRxcIl/l5YrMUxFrNSOOI5DjU3w8IcZI/CQMbpzBj/UdpdCZsT5yfbZ1MFL6xmTTGw iat-mode=0
 ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
 MaxCircuitDirtiness 600    # 600 seconds = 10 minutes
 </code></pre><p>firefox : socks5 —&gt; 127.0.0.1 9050</p>
-<h2 id="Test-The-Private-Network"><a href="#Test-The-Private-Network" class="headerlink" title="Test The Private Network"></a>Test The Private Network</h2><p>在RS1，设置火狐为”127.0.0.1:9011” SOCKS5<br>Wireshark来观看每RS1访问<a href="http://192.168.1.4" target="_blank" rel="noopener">http://192.168.1.4</a></p>
-<p>参考 </p>
-<p><a href="https://www.torproject.org/docs/tor-manual-dev.html.en" target="_blank" rel="noopener">https://www.torproject.org/docs/tor-manual-dev.html.en</a></p>
-<p><a href="https://ritter.vg/blog-run_your_own_tor_network.html" target="_blank" rel="noopener">https://ritter.vg/blog-run_your_own_tor_network.html</a></p>
-<p><a href="http://fengy.me/prog/2015/01/09/private-tor-network/" target="_blank" rel="noopener">http://fengy.me/prog/2015/01/09/private-tor-network/</a></p>
-<p>写于 : 2017-10-30 16:09:00</p>
+<h2 id="0x06-Test-The-Private-Network"><a href="#0x06-Test-The-Private-Network" class="headerlink" title="0x06 Test The Private Network"></a>0x06 Test The Private Network</h2><p>在RS1，设置火狐为”127.0.0.1:9011” SOCKS5<br>Wireshark来观看每RS1访问<a href="http://192.168.1.4" target="_blank" rel="noopener">http://192.168.1.4</a></p>
+<h2 id="0x07-Reference"><a href="#0x07-Reference" class="headerlink" title="0x07 Reference"></a>0x07 Reference</h2><pre><code>https://www.torproject.org/docs/tor-manual-dev.html.en
+
+https://ritter.vg/blog-run_your_own_tor_network.html
+
+http://fengy.me/prog/2015/01/09/private-tor-network/
+</code></pre><p>写于 : 2017-10-30 16:09:00</p>
 
       
     </div>
@@ -815,7 +816,7 @@ MaxCircuitDirtiness 600    # 600 seconds = 10 minutes
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建私有Tor网络-private-Tor-network"><span class="nav-text">搭建私有Tor网络 ( private Tor network)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置权威目录服务器RS4-Setup-Authority-Server-on-RS4"><span class="nav-text">配置权威目录服务器RS4(Setup Authority Server on RS4)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置客户端-Tor-Client"><span class="nav-text">配置客户端(Tor Client)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置中继和退出节点-以及网桥"><span class="nav-text">配置中继和退出节点(以及网桥)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置中继节点-Tor-Relay-s"><span class="nav-text">配置中继节点 Tor Relay (s)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tor-Relay-s-配置退出中继节点"><span class="nav-text">Tor Relay (s)配置退出中继节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置网桥-Bridge-relay"><span class="nav-text">配置网桥 Bridge relay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用网桥-UseBridges"><span class="nav-text">使用网桥 UseBridges</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-The-Private-Network"><span class="nav-text">Test The Private Network</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-搭建私有Tor网络-private-Tor-network"><span class="nav-text">0x00 搭建私有Tor网络 ( private Tor network)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-配置权威目录服务器RS4-Setup-Authority-Server-on-RS4"><span class="nav-text">0x01 配置权威目录服务器RS4(Setup Authority Server on RS4)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-配置客户端-Tor-Client"><span class="nav-text">0x02 配置客户端(Tor Client)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-配置中继和退出节点-以及网桥"><span class="nav-text">0x03 配置中继和退出节点(以及网桥)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置中继节点-Tor-Relay-s"><span class="nav-text">配置中继节点 Tor Relay (s)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tor-Relay-s-配置退出中继节点"><span class="nav-text">Tor Relay (s)配置退出中继节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-配置网桥-Bridge-relay"><span class="nav-text">0x04 配置网桥 Bridge relay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-使用网桥-UseBridges"><span class="nav-text">0x05 使用网桥 UseBridges</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-Test-The-Private-Network"><span class="nav-text">0x06 Test The Private Network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x07-Reference"><span class="nav-text">0x07 Reference</span></a></li></ol></div>
             
 
           </div>
