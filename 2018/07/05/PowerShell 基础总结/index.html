@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="一 只 麻 雀">
 <meta property="og:description" content="…..">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-05T12:16:56.930Z">
+<meta property="og:updated_time" content="2018-07-06T07:58:46.601Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PowerShell 基础总结">
 <meta name="twitter:description" content="…..">
@@ -423,16 +423,35 @@
       
         <p>…..</p>
 <a id="more"></a>
-<h2 id="0x01-PowerShell简介及特性"><a href="#0x01-PowerShell简介及特性" class="headerlink" title="0x01 PowerShell简介及特性"></a>0x01 PowerShell简介及特性</h2><p>Windows PowerShell 是一种命令行外壳程序和脚本环境,使命令行用户和脚本编写者可以利用.NET Framework的强大功能(因此也支持.NET对象)。<br>Windows PowerShell具备以下特性:</p>
+<h2 id="0x01-PowerShell简介及特性"><a href="#0x01-PowerShell简介及特性" class="headerlink" title="0x01 PowerShell简介及特性"></a>0x01 PowerShell简介及特性</h2><p>Windows PowerShell 是一种命令行外壳程序和脚本环境(相当于 UNIX 系统 BASH),使命令行用户和脚本编写者可以利用.NET Framework的强大功能(因此也支持.NET对象)。<br>Windows PowerShell具备以下特性:</p>
 <pre><code>操作便捷—-可识别单位(如GB、MB、KB等)Cmdlet命令结构简单(动名词形式)
 面向对象—-同面向过程相比,更容易描述现实事物
 结合.NET Framework环境—-借助.NET Framework平台的强大的库
 兼容性强—-完全兼容windows平台上其他调用,如exe文件执行、bat脚本执行等
 基于平台的可扩展性—-PowerShell俨然已形成一个平台,并且向各类平台管理提供对应管理组件
-</code></pre><h2 id="0x02-PowerShell基础语法"><a href="#0x02-PowerShell基础语法" class="headerlink" title="0x02 PowerShell基础语法"></a>0x02 PowerShell基础语法</h2><h3 id="0x00-交互式"><a href="#0x00-交互式" class="headerlink" title="0x00 交互式"></a>0x00 交互式</h3><p>a)    命令:cmdlet命令—动词+名词(通过get-command –commandtype cmdlet</p>
+</code></pre><p>各版本独立包下载地址如下：</p>
+<pre><code>Windows PowerShell 1.0：
+    https://support.microsoft.com/en-us/help/926139/windows-powershell-1.0-english-language-installation-packages-for-windows-server-2003-and-for-windows-xp。
+    https://support.microsoft.com/en-us/help/928439/windows-powershell-1.0-installation-package-for-windows-vista。
+
+Windows PowerShell 2.0：
+    https://support.microsoft.com/en-us/help/968929/windows-management-framework-windows-powershell-2.0,-winrm-2.0,-and-bits-4.0。
+
+Windows PowerShell 3.0：
+    https://www.microsoft.com/en-us/download/details.aspx?id=34595。
+
+Windows PowerShell 4.0：
+    https://www.microsoft.com/en-us/download/details.aspx?id=40855。
+
+Windows PowerShell 5.0：
+    https://www.microsoft.com/en-us/download/details.aspx?id=50395。
+
+Windows PowerShell 5.1：
+    https://www.microsoft.com/en-us/download/details.aspx?id=54616。
+</code></pre><h2 id="0x02-PowerShell基础语法"><a href="#0x02-PowerShell基础语法" class="headerlink" title="0x02 PowerShell基础语法"></a>0x02 PowerShell基础语法</h2><h3 id="1-交互式"><a href="#1-交互式" class="headerlink" title="1) 交互式"></a>1) 交互式</h3><p>a)    命令:cmdlet命令—动词+名词(通过get-command –commandtype cmdlet</p>
 <p>c)    惯用帮助文档:通过Get-Help(别名:Help)-Name 命令名    help IEX</p>
 <p>b)    别名机制:Get-Alias –name 命令名</p>
-<h3 id="0x01-变量"><a href="#0x01-变量" class="headerlink" title="0x01 变量"></a>0x01 变量</h3><p>a)    定义变量:PowerShell不需要声明变量,可自动创建变量,变量值可以是字符也可以是命令,但是变量名前必须有$</p>
+<h3 id="2-变量"><a href="#2-变量" class="headerlink" title="2) 变量"></a>2) 变量</h3><p>a)    定义变量:PowerShell不需要声明变量,可自动创建变量,变量值可以是字符也可以是命令,但是变量名前必须有$</p>
 <pre><code>$a=1
 $b=2
 &quot;$a,$b&quot; -&gt; 1,2
@@ -445,7 +464,7 @@ $d=&#39;的文&#39;
 <pre><code>&gt; New-Variable xx -value &quot;33&quot; -Option ReadOnly
 &gt; $xx=5
 Cannot overwrite variable xx because it is read-only or constant.
-</code></pre><h3 id="0x01数组"><a href="#0x01数组" class="headerlink" title="0x01数组"></a>0x01数组</h3><p>a)    创建数组:常规数组可以使用逗号,连续数字数组可以使用。</p>
+</code></pre><h3 id="3-数组"><a href="#3-数组" class="headerlink" title="3) 数组"></a>3) 数组</h3><p>a)    创建数组:常规数组可以使用逗号,连续数字数组可以使用。</p>
 <pre><code>&gt; $xxc = 1,&quot;434&quot;,(get-date)
 &gt; $xxc
     1
@@ -474,7 +493,58 @@ $strr.Count
     5                              66                                              
     ddd                            3434                                            
     ewew                           dsd   
-</code></pre><h3 id="0x02-简写对比"><a href="#0x02-简写对比" class="headerlink" title="0x02 简写对比"></a>0x02 简写对比</h3><p>非常重要的文件系统命令概览</p>
+</code></pre><p>创建Hash表，语法以@{开头以}结尾，在分隔符内以定义键值对集，其中键值以=分割，不同的键值对以;分割。<br>例：</p>
+<pre><code>$test = @{ b1 = &quot;prml&quot;; b2 = &quot;ia&quot;}
+</code></pre><p>可以通过$test.b1、$test[‘b1’]访问值，通过$test.keys得到所有键。 </p>
+<p>PowerShell中创建数组的方式以逗号分割，例$test = 1, 2, 3，</p>
+<p>对于数字数组还可以使用范围运算符$test = 2 .. 3。PowerShell中数组默认是多态的，</p>
+<p>即可以在数组中存储任意类型的对象。创建单元素数组$test = ,1，创建空数组$test = @()。</p>
+<h3 id="4-简写对比"><a href="#4-简写对比" class="headerlink" title="4) 简写对比"></a>4) 简写对比</h3><p>PowerShell语句解析<br>双引号、单引号与反引号之间的区别。</p>
+<p>转义序列，如下：</p>
+<pre><code>`n      换行         
+`r      回车     
+`t      水平制表符
+`a      警铃
+`b      退格
+`&#39;      单引号
+`&quot;      双引号   
+`0      空
+``      单反引号
+</code></pre><p>PowerShell类型</p>
+<pre><code>PowerShell类型别名    .NET类型
+int[]            System.Int32
+[int[]]            System.Int32[]
+[long]            System.Int64
+[long[]            System.Int64[]
+[string]        System.String
+[string[]]        System.String[]
+[char]            System.Char
+[char[]]        System.Char[]
+[bool]            System.Boolean
+[bool[]]        System.Boolean[]
+[byte]            System.Byte
+[byte[]]        System.Byte[]
+[double]        System.Double
+[double[]]        System.Double[]
+[decimal]        System.Decimal
+[decimal[]]        System.Decimal[]
+[float[]]        System.Single
+[single]        System.Single
+[regex]            System.Text.RegularExpressions.Regex
+[array]            System.Array
+[xml]            System.Xml.XmlDocument
+[sriptblock]        System.Management.Automation.ScriptBlock
+[switch]        System.Management.Automation.SwitchParameter
+[hashtable]        System.Collections.Hashtable
+[psobject]        System.Management.Automation.PSObject
+[type]            System.Type
+[type[]]        System.Type[]
+</code></pre><p>访问静态方法，[类名]::属性名，如</p>
+<pre><code>[math]::cos([math]::pi / 3)
+</code></pre><p>类型转换，例：</p>
+<pre><code>[string] [char[]] ( [int[]] [char[]] $s | foreach {$_+1} )
+</code></pre><p>2&gt;    dir nosuchfile.txt 2&gt; err.txt    重定向错误流到文件…<br>2&gt;&gt;    dir nosuchfile.txt 2&gt;&gt; err.txt    重定向错误流到文件…<br>2&gt;&amp;1    dir nosuchfile.txt 2&gt;&amp;1    将错误流写到输出管线</p>
+<p>非常重要的文件系统命令概览</p>
 <pre><code>别名                描述                                    命令
 cp, cpi            复制文件或者目录                            Copy-Item
 Dir, ls, gci    列出目录的内容                            Get-Childitem
@@ -528,7 +598,7 @@ HasExtension()            如果路径中包含了扩展名,则返回True       
 IsPathRooted()            如果是绝对路径,返回为True; Split-Path -isAbsolute    IsPathRooted(“c:\test\file.txt”)
 </code></pre><p>运行命令中包含空格的命令,需要用单引号将命令括起来,同时在命令前面加: &amp; 符号;<br>这在PowerShell中称为调用操作<br>Exp:</p>
 <pre><code>&amp;&#39;C:\Program Files\Program\Program.exe&#39; arguments
-</code></pre><h3 id="0x03-PowerShell的安全执行策略"><a href="#0x03-PowerShell的安全执行策略" class="headerlink" title="0x03 PowerShell的安全执行策略"></a>0x03 PowerShell的安全执行策略</h3><pre><code>默认情况下,PowerShell不允许执行脚本文件,上面的用户配置文件也包括在内;如果不修改PowerShell的安全执行策略,
+</code></pre><h3 id="4-PowerShell的安全执行策略"><a href="#4-PowerShell的安全执行策略" class="headerlink" title="4) PowerShell的安全执行策略"></a>4) PowerShell的安全执行策略</h3><pre><code>默认情况下,PowerShell不允许执行脚本文件,上面的用户配置文件也包括在内;如果不修改PowerShell的安全执行策略,
 你在PowerShell执行Get-ExecutionPolicy命令来查看默认的策略组
 
 Set-ExecutionPolicy RemoteSigned
@@ -538,7 +608,7 @@ nishang.psm1 cannot be loaded. The filem is not digitally signed. You cannot run
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ok
-</code></pre><h3 id="0x04-PowerShell-中内置的命令"><a href="#0x04-PowerShell-中内置的命令" class="headerlink" title="0x04 PowerShell 中内置的命令"></a>0x04 PowerShell 中内置的命令</h3><p>实现cmd中tasklist的功能。</p>
+</code></pre><h3 id="5-PowerShell-中内置的命令"><a href="#5-PowerShell-中内置的命令" class="headerlink" title="5) PowerShell 中内置的命令"></a>5) PowerShell 中内置的命令</h3><p>实现cmd中tasklist的功能。</p>
 <p>PowerShell中内置的命令称为cmdlets,cmdlet实现具有以下特点:</p>
 <p>　　1)统一的命令形式<br>　　2)支持管道功能<br>　　3)输出易于管理的对象,支持面向对象的概念</p>
 <p>在PowerShell中有一个内置的变量: $profile;这个变量指示了PowerShell用户自定义配置文件。<br>可以在PowerShell中输入 $profile。</p>
@@ -632,7 +702,7 @@ dir hkcu\software
 <pre><code>这个配置文件保存在: %userprofile%\my documents\windowsPowerShell\v1.0\microsoft.poweshel_profile.psl
 修改这个配置文件只对当前用户有效,并且只影响PS。
 </code></pre><p>$path 变量存储的路径<br>这么多配置文件,那么在当前会话中到底哪个起作用呢？<br>这个问题的答案就是: 只有与$path 变量中存储路径相同的配置文件才起作用; 包括路径和文件名。</p>
-<h3 id="0x05-管道和对象成员"><a href="#0x05-管道和对象成员" class="headerlink" title="0x05 管道和对象成员"></a>0x05 管道和对象成员</h3><p>1  管道<br>    管道的最大特点就是:  前一个命令的输出作为后一个命令的输入。cmd、bash均支持管道</p>
+<h3 id="6-管道和对象成员"><a href="#6-管道和对象成员" class="headerlink" title="6) 管道和对象成员"></a>6) 管道和对象成员</h3><p>1  管道<br>    管道的最大特点就是:  前一个命令的输出作为后一个命令的输入。cmd、bash均支持管道</p>
 <p>管道的概念。<br>在PS中,继承了cmd管道符号的表示方法:  |   表管道;</p>
 <p>但是PS与cmd的管道有本质的区别, cmd中的管道传递的是文本信息,</p>
 <p>而PS中传递的是对象,因此PS中的管道更加易于使用和管理。</p>
@@ -711,7 +781,7 @@ move-item   ..\volcanol.txt  .\
 copy-item vol .\desktop
 copy-item vol  .\desktop  -recurse    exp:复制容器下的项目
 remove-item  .\Desktop\vol -recurse
-</code></pre><h3 id="0x06-WMI对象和COM组件"><a href="#0x06-WMI对象和COM组件" class="headerlink" title="0x06 WMI对象和COM组件"></a>0x06 WMI对象和COM组件</h3><p>利用Get-WmiObject命令获取WMI信息</p>
+</code></pre><h3 id="7-WMI对象和COM组件"><a href="#7-WMI对象和COM组件" class="headerlink" title="7) WMI对象和COM组件"></a>7) WMI对象和COM组件</h3><p>利用Get-WmiObject命令获取WMI信息</p>
 <pre><code>get-wmiobject  -list
 </code></pre><p>输出的头部:NameSpace: ROOT\CIMV2 ; 这个输出表示当前获取的WMI类型从属于root\cimv2 命名空间</p>
 <pre><code>get-wmiobject   -list  -namespace   root\cimv2
@@ -743,7 +813,7 @@ get-wmiobject  -class  win32_operatingsystem -namespace root\cimv2   | format-ta
 <p>则会到system命名空间中查找类,这就是说我们可以不指定system</p>
 <p>命名空间来引用system.diagnostics.eventlog,而是使用diagnostics.eventlog.</p>
 <pre><code>new-object -typename diagnostics.eventlog  -argumentlist application
-</code></pre><h3 id="0x07-静态对象"><a href="#0x07-静态对象" class="headerlink" title="0x07 静态对象"></a>0x07 静态对象</h3><pre><code>在PS中有一类特殊的对象,我们不能同过这些类创建新的对象,这些类是不能更改状态的方法和属性的引用库。
+</code></pre><h3 id="8-静态对象"><a href="#8-静态对象" class="headerlink" title="8) 静态对象"></a>8) 静态对象</h3><pre><code>在PS中有一类特殊的对象,我们不能同过这些类创建新的对象,这些类是不能更改状态的方法和属性的引用库。
 
 无法创建这些类,仅可以使用它。因为不能创建、销毁或更改这些类和方法,因此也将这些类叫做静态类。
 </code></pre><p>1 system.environment 静态类</p>
@@ -801,7 +871,43 @@ get-wmiobject  -class  win32_operatingsystem -namespace root\cimv2   | format-ta
 <p>利用FilterScript表达式获取win32_systemdriver中正在运行的类</p>
 <pre><code>get-wmiobject -class  win32_systemdriver  | where-object  -filterscript {$_.state -eq &quot;running&quot;}
 </code></pre><p>PS中的逻辑运算符有:   -and、 -or、-not 、!; 分别是与、或、非(其中 ! 也是表示非)。</p>
-<h3 id="0x07-Reference"><a href="#0x07-Reference" class="headerlink" title="0x07 Reference"></a>0x07 Reference</h3><pre><code>http://www.cnblogs.com/volcanol/archive/2012/05/14/2500665.html
+<h2 id="0x03-PowerShell官方视频教程"><a href="#0x03-PowerShell官方视频教程" class="headerlink" title="0x03 PowerShell官方视频教程"></a>0x03 PowerShell官方视频教程</h2><h3 id="1-Getting-Started-with-Microsoft-PowerShell"><a href="#1-Getting-Started-with-Microsoft-PowerShell" class="headerlink" title="1. Getting Started with Microsoft PowerShell"></a>1. Getting Started with Microsoft PowerShell</h3><pre><code>(PowerShell 3.0 入门教程 )
+
+https://www.pstips.net/powershell-v3-basic
+--&gt; 
+https://mva.microsoft.com/en-US/training-courses/getting-started-with-microsoft-powershell-8276?l=r54IrOWy_2304984382
+简介
+课程安排
+课程 1 : 克服对 Shell 的恐惧
+课程 2 : 帮助系统
+课程 3 : 使用管道建立连接和扩展 Shell
+课程 4 : 用于管理的对象
+课程 5 : 深入探讨管道
+课程 6 : 在 Shell 中使用 PowerSehll远程管理
+课程 7 : 为自动化做好准备
+课程 8 : 大规模自动化 ：远程操作
+课程 9 : 脚本和工具制作简介
+</code></pre><h3 id="2-Advanced-Tools-amp-Scripting-with-PowerShell-3-0-Jump-Start"><a href="#2-Advanced-Tools-amp-Scripting-with-PowerShell-3-0-Jump-Start" class="headerlink" title="2. Advanced Tools &amp; Scripting with PowerShell 3.0 Jump Start"></a>2. Advanced Tools &amp; Scripting with PowerShell 3.0 Jump Start</h3><pre><code>( 快速入门 : PowerShell 3.0 高级工具和脚本 )
+
+https://mva.microsoft.com/en-US/training-courses/advanced-tools-scripting-with-powershell-30-jump-start-8277?l=WOWaGUWy_8604984382
+https://mva.microsoft.com/zh-cn/training-courses/advanced-tools-scripting-with-powershell-30-jump-start-8277?l=g5FhezP5_704984382
+英文源有下载
+
+背景
+教程介绍
+教程主题
+1. 脚本入门
+2. PowerShell脚本语言
+3. 简单脚本和功能
+4. 高级功能
+5. 有关参数的更多信息
+6. 编写帮助
+7. 错误处理
+8. 更改工具
+9. 脚本和清单模块
+</code></pre><h3 id="3-Using-PowerShell-for-Active-Directory"><a href="#3-Using-PowerShell-for-Active-Directory" class="headerlink" title="3. Using PowerShell for Active Directory"></a>3. Using PowerShell for Active Directory</h3><pre><code>https://mva.microsoft.com/en-US/training-courses/using-powershell-for-active-directory-8397?l=zSaBLJJz_1304984382
+</code></pre><h2 id="0x04-Reference"><a href="#0x04-Reference" class="headerlink" title="0x04 Reference"></a>0x04 Reference</h2><pre><code>http://www.cnblogs.com/volcanol/archive/2012/05/14/2500665.html
+&lt;&lt; PowerShell 实战指南(第二版) &gt;&gt;
 </code></pre>
       
     </div>
@@ -1030,7 +1136,7 @@ get-wmiobject  -class  win32_operatingsystem -namespace root\cimv2   | format-ta
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-PowerShell简介及特性"><span class="nav-text">0x01 PowerShell简介及特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-PowerShell基础语法"><span class="nav-text">0x02 PowerShell基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-交互式"><span class="nav-text">0x00 交互式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-变量"><span class="nav-text">0x01 变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01数组"><span class="nav-text">0x01数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-简写对比"><span class="nav-text">0x02 简写对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-PowerShell的安全执行策略"><span class="nav-text">0x03 PowerShell的安全执行策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-PowerShell-中内置的命令"><span class="nav-text">0x04 PowerShell 中内置的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-管道和对象成员"><span class="nav-text">0x05 管道和对象成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x06-WMI对象和COM组件"><span class="nav-text">0x06 WMI对象和COM组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x07-静态对象"><span class="nav-text">0x07 静态对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x07-Reference"><span class="nav-text">0x07 Reference</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-PowerShell简介及特性"><span class="nav-text">0x01 PowerShell简介及特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-PowerShell基础语法"><span class="nav-text">0x02 PowerShell基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-交互式"><span class="nav-text">1) 交互式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-变量"><span class="nav-text">2) 变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-数组"><span class="nav-text">3) 数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-简写对比"><span class="nav-text">4) 简写对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-PowerShell的安全执行策略"><span class="nav-text">4) PowerShell的安全执行策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-PowerShell-中内置的命令"><span class="nav-text">5) PowerShell 中内置的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-管道和对象成员"><span class="nav-text">6) 管道和对象成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-WMI对象和COM组件"><span class="nav-text">7) WMI对象和COM组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-静态对象"><span class="nav-text">8) 静态对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-PowerShell官方视频教程"><span class="nav-text">0x03 PowerShell官方视频教程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Getting-Started-with-Microsoft-PowerShell"><span class="nav-text">1. Getting Started with Microsoft PowerShell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Advanced-Tools-amp-Scripting-with-PowerShell-3-0-Jump-Start"><span class="nav-text">2. Advanced Tools &amp; Scripting with PowerShell 3.0 Jump Start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Using-PowerShell-for-Active-Directory"><span class="nav-text">3. Using PowerShell for Active Directory</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-Reference"><span class="nav-text">0x04 Reference</span></a></li></ol></div>
             
 
           </div>
