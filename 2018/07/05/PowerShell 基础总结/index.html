@@ -96,10 +96,13 @@
 <meta property="og:site_name" content="一 只 麻 雀">
 <meta property="og:description" content="…..">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-06T07:58:46.601Z">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/07/05/PowerShell%20基础总结/ps-version.png">
+<meta property="og:image" content="https://sp4rr0w.github.io/2018/07/05/PowerShell%20基础总结/ps.png">
+<meta property="og:updated_time" content="2018-07-06T08:14:29.967Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PowerShell 基础总结">
 <meta name="twitter:description" content="…..">
+<meta name="twitter:image" content="https://sp4rr0w.github.io/2018/07/05/PowerShell%20基础总结/ps-version.png">
 
 
 
@@ -429,7 +432,8 @@
 结合.NET Framework环境—-借助.NET Framework平台的强大的库
 兼容性强—-完全兼容windows平台上其他调用,如exe文件执行、bat脚本执行等
 基于平台的可扩展性—-PowerShell俨然已形成一个平台,并且向各类平台管理提供对应管理组件
-</code></pre><p>各版本独立包下载地址如下：</p>
+</code></pre><p>PowerShell Version<br><img src="/2018/07/05/PowerShell 基础总结/ps-version.png" alt="ps-version"></p>
+<p>各版本独立包下载地址如下：</p>
 <pre><code>Windows PowerShell 1.0：
     https://support.microsoft.com/en-us/help/926139/windows-powershell-1.0-english-language-installation-packages-for-windows-server-2003-and-for-windows-xp。
     https://support.microsoft.com/en-us/help/928439/windows-powershell-1.0-installation-package-for-windows-vista。
@@ -448,7 +452,8 @@ Windows PowerShell 5.0：
 
 Windows PowerShell 5.1：
     https://www.microsoft.com/en-us/download/details.aspx?id=54616。
-</code></pre><h2 id="0x02-PowerShell基础语法"><a href="#0x02-PowerShell基础语法" class="headerlink" title="0x02 PowerShell基础语法"></a>0x02 PowerShell基础语法</h2><h3 id="1-交互式"><a href="#1-交互式" class="headerlink" title="1) 交互式"></a>1) 交互式</h3><p>a)    命令:cmdlet命令—动词+名词(通过get-command –commandtype cmdlet</p>
+</code></pre><h2 id="0x02-PowerShell基础语法"><a href="#0x02-PowerShell基础语法" class="headerlink" title="0x02 PowerShell基础语法"></a>0x02 PowerShell基础语法</h2><p>PowerShell基础语法<br><img src="/2018/07/05/PowerShell 基础总结/ps.png" alt="ps"></p>
+<h3 id="1-交互式"><a href="#1-交互式" class="headerlink" title="1) 交互式"></a>1) 交互式</h3><p>a)    命令:cmdlet命令—动词+名词(通过get-command –commandtype cmdlet</p>
 <p>c)    惯用帮助文档:通过Get-Help(别名:Help)-Name 命令名    help IEX</p>
 <p>b)    别名机制:Get-Alias –name 命令名</p>
 <h3 id="2-变量"><a href="#2-变量" class="headerlink" title="2) 变量"></a>2) 变量</h3><p>a)    定义变量:PowerShell不需要声明变量,可自动创建变量,变量值可以是字符也可以是命令,但是变量名前必须有$</p>
@@ -562,13 +567,8 @@ sp                设置文件或路径的属性                        Set-Item
 Cd,chdir, sl    更改当前目录的位置                        Set-Location
 —                提取路径的特定部分,例如父目录,文件名        Split-Path
 —                测试指定的路径是否存在                    Test-Path
-</code></pre><p>用于指定相对路径的四个重要的特殊字符</p>
-<pre><code>字符    意义        示例    示例描述
-.        当前目录        ii .    用资源浏览器打开当前目录
-..        父目录        Cd ..    切换到父目录
-\        驱动器根目录    Cd \    切换到驱动器的顶级根目录
-~        家目录        Cd ~    切换到PowerShell初始化的目录
-</code></pre><p>存储在环境变量中的Windows特殊目录</p>
+</code></pre><p>用于指定相对路径的四个重要的特殊字符<br>|字符    |意义        |示例    |示例描述|<br>|:—:|:—-:|:—:|:——-:|<br>|.        |当前目录        |ii .    |用资源浏览器打开当前目录|<br>|..        |父目录        |Cd ..    |切换到父目录|<br>|\        |驱动器根目录    |Cd \    |切换到驱动器的顶级根目录|<br>|~        |家目录        |Cd ~    |切换到PowerShell初始化的目录|</p>
+<p>存储在环境变量中的Windows特殊目录</p>
 <pre><code>特殊目录                            描述                            示例
 C:\Users\YvY\AppData\Local        存储在本地机器上的应用程序数据    $env:localappdata
 C:\Users\YvY                    用户目录                            $env:userprofile
