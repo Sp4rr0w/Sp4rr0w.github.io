@@ -88,21 +88,21 @@
 
 
 
-<meta name="description" content="…..">
+<meta name="description" content="0x01 Kerberos认证过程 (简易版)认证或请求服务 的过程如下: 简义 `KRB_AS_REQ (Kerberos Authentication Service Request)` 1. Client-A ---------------------------------------------------------==&amp;gt; KDC-AS (客户端执行散列运算加密一个时间戳,然后发">
 <meta name="keywords" content="笔记,KDC,Kerberos">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kerberos认证相关">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/index.html">
 <meta property="og:site_name" content="一 只 麻 雀">
-<meta property="og:description" content="…..">
+<meta property="og:description" content="0x01 Kerberos认证过程 (简易版)认证或请求服务 的过程如下: 简义 `KRB_AS_REQ (Kerberos Authentication Service Request)` 1. Client-A ---------------------------------------------------------==&amp;gt; KDC-AS (客户端执行散列运算加密一个时间戳,然后发">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/simple.jpg">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/Kerberos.jpg">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/getspn.png">
-<meta property="og:updated_time" content="2018-04-08T01:35:24.341Z">
+<meta property="og:updated_time" content="2018-07-06T13:40:12.902Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kerberos认证相关">
-<meta name="twitter:description" content="…..">
+<meta name="twitter:description" content="0x01 Kerberos认证过程 (简易版)认证或请求服务 的过程如下: 简义 `KRB_AS_REQ (Kerberos Authentication Service Request)` 1. Client-A ---------------------------------------------------------==&amp;gt; KDC-AS (客户端执行散列运算加密一个时间戳,然后发">
 <meta name="twitter:image" content="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/simple.jpg">
 
 
@@ -425,8 +425,7 @@
       
 
       
-        <p>…..<br><a id="more"></a></p>
-<h2 id="Kerberos认证过程-简易版"><a href="#Kerberos认证过程-简易版" class="headerlink" title="Kerberos认证过程 (简易版)"></a>Kerberos认证过程 (简易版)</h2><p>认证或请求服务 的过程如下:<br><img src="/2018/02/18/Kerberos认证相关/simple.jpg" alt="认证或请求服务"></p>
+        <h2 id="0x01-Kerberos认证过程-简易版"><a href="#0x01-Kerberos认证过程-简易版" class="headerlink" title="0x01 Kerberos认证过程 (简易版)"></a>0x01 Kerberos认证过程 (简易版)</h2><p>认证或请求服务 的过程如下:<br><img src="/2018/02/18/Kerberos认证相关/simple.jpg" alt="认证或请求服务"></p>
 <p><code>简义</code></p>
 <pre><code>`KRB_AS_REQ (Kerberos Authentication Service Request)`
 1. Client-A ---------------------------------------------------------==&gt; KDC-AS (客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)) 此过程叫KRB_AS_REQ
@@ -446,7 +445,8 @@
 
 `KRB_AP_REQ (Kerberos Application Request)`
 5. Client-A ----------------------------------------------------------==&gt; Server-B (Client-A把服务票据中的服务器部分和请求一起发送到Server-B(Client-A要访问活动目录中的主机),远程服务器将直接接受该服务器票据,并不需要和KDC直接通信,因为该票据是用远程服务器和KDC共享的长期密钥加密过的)
-</code></pre><h2 id="Kerberos认证过程-详细版"><a href="#Kerberos认证过程-详细版" class="headerlink" title="Kerberos认证过程 (详细版)"></a>Kerberos认证过程 (详细版)</h2><p><img src="/2018/02/18/Kerberos认证相关/Kerberos.jpg" alt="详细版"></p>
+</code></pre><a id="more"></a>
+<h2 id="0x02-Kerberos认证过程-详细版"><a href="#0x02-Kerberos认证过程-详细版" class="headerlink" title="0x02 Kerberos认证过程 (详细版)"></a>0x02 Kerberos认证过程 (详细版)</h2><p><img src="/2018/02/18/Kerberos认证相关/Kerberos.jpg" alt="详细版"></p>
 <p>认证或请求服务 的过程如下: </p>
 <h3 id="1-Client-A-—-gt-KDC-AS"><a href="#1-Client-A-—-gt-KDC-AS" class="headerlink" title="1. Client-A —&gt; KDC-AS"></a>1. Client-A —&gt; KDC-AS</h3><pre><code>KRB_AS_REQ (Kerberos Authentication Service Request) - 客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)
     a. 客户端Client对用户口令执行散列运算转换为NTLM散列。此散列值(即用户密钥)成为客户端和KDC共享的长期密钥(long term key)。 
@@ -473,7 +473,7 @@ Client-A把服务票据(Service Ticket)中的服务器部分和请求一起发�
 远程服务器将直接接受该服务器票据,并不需要和KDC直接通信,因为该票据是用远程服务器和KDC共享的长期密钥加密过的。
 解密成功(目标服务会使用自己的NTLM密码散列打开TGS票据,并提取用户的授权数据和会话密钥SessionKeya-b。)即表明KDC已经允许了此次通信。
 白银票据 - 此过程5可以伪造TGS(前提是获取服务账号的口令散列值)，宣称自己是域内任何账号，例如域管，这是白银票据的原理。
-</code></pre><h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><h3 id="Kerberos"><a href="#Kerberos" class="headerlink" title="Kerberos"></a>Kerberos</h3><p>是Windows活动目录中使用的客户/服务器认证协议(windows中的认证协议有两种NTLM和Kerberos),为通信双方提供双向身份认证。</p>
+</code></pre><h2 id="0x03-术语"><a href="#0x03-术语" class="headerlink" title="0x03 术语"></a>0x03 术语</h2><h3 id="Kerberos"><a href="#Kerberos" class="headerlink" title="Kerberos"></a>Kerberos</h3><p>是Windows活动目录中使用的客户/服务器认证协议(windows中的认证协议有两种NTLM和Kerberos),为通信双方提供双向身份认证。</p>
 <p>相互认证或请求服务的实体被称为委托人(principal)。参与的中央服务器被称为密钥分发中心(简称KDC)。</p>
 <p>KDC(密钥分发中心　Key Distribution Center)有两个服务组成 : </p>
 <pre><code>1. AS 身份验证服务(Authentication Server)
@@ -526,7 +526,7 @@ dsquery * -limit 0 -filter &quot;(&amp;(objectCategory=user)(objectClass=user))&
 2. SSPI不能确定用户是本地登录还是域账户进行域登录。所以他会先把身份认证请求传递到Kerberos SSP。
 3. Kerberos SSP会验证用户的登入目标是本地计算机还是域。如果是登录域,Kerberos SSP将继续处理。如果是本地计算机,即用户不是登录域,Kerberos SSP返回一个错误消息到SSPI,交回给GINA处理,使服务器登录不可用。
 4. SSPI现在发送请求到下一个安全提供程序——NTLM。NTLM SSP会将请求交给Netlogon服务针对LSAM (Local Security Account Manager,本地安全账户管理器)数据库进行身份认证。使用NTLM SSP的身份认证过程与Windows NT系统的身份认证方法是相同的。
-</code></pre><h2 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h2><p><strong>krbtgt 密码</strong></p>
+</code></pre><h2 id="0x05-相关"><a href="#0x05-相关" class="headerlink" title="0x05 相关"></a>0x05 相关</h2><p><strong>krbtgt 密码</strong></p>
 <p>它是整个活动目录中唯一的不会自动更新的密码。<br>除非:</p>
 <pre><code>第一种情况: 域功能级别(domain functional level,简称DFL)从NT5(2000/2003)升级到NT6(2008/2012)。
 第二种情况: 利用域的恢复数据来实施域的裸机恢复(bare metal recovery)。
@@ -536,7 +536,7 @@ dsquery * -limit 0 -filter &quot;(&amp;(objectCategory=user)(objectClass=user))&
 <p>KDC验证证书上的签名是否源于可信实体。然后KDC发送公钥证书加密过的TGT。既然信息只能被智能卡的私钥解密,用户也就通过了域的身份认证。</p>
 <p>然而,对于使用智能卡进行身份认证的账户来说,密码的散列值仍然存储在域控服务器上。此外,智能卡只能对”交互式会话(interactive sessions)”提供保护。</p>
 <p>也就意味着智能卡认证仅能用于登录域中的计算机。</p>
-<h2 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h2><pre><code>深入解读MS14-068漏洞:微软精心策划的后门?
+<h2 id="0x06-Reference"><a href="#0x06-Reference" class="headerlink" title="0x06 Reference"></a>0x06 Reference</h2><pre><code>深入解读MS14-068漏洞:微软精心策划的后门?
     http://www.freebuf.com/vuls/56081.html
 敞开的地狱之门:Kerberos协议的滥用
     http://www.freebuf.com/articles/system/45631.html
@@ -776,7 +776,7 @@ dsquery * -limit 0 -filter &quot;(&amp;(objectCategory=user)(objectClass=user))&
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberos认证过程-简易版"><span class="nav-text">Kerberos认证过程 (简易版)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberos认证过程-详细版"><span class="nav-text">Kerberos认证过程 (详细版)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Client-A-—-gt-KDC-AS"><span class="nav-text">1. Client-A —&gt; KDC-AS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Client-A-lt-—-KDC-AS"><span class="nav-text">2. Client-A &lt;— KDC-AS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Client-A-—-gt-KDC-TGS"><span class="nav-text">3. Client-A —&gt; KDC-TGS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Client-A-lt-—-KDC-TGS"><span class="nav-text">4. Client-A &lt;— KDC-TGS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Client-A-—-gt-Server-B"><span class="nav-text">5. Client-A —&gt; Server-B</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#术语"><span class="nav-text">术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos"><span class="nav-text">Kerberos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#krbtgt账户"><span class="nav-text">krbtgt账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Principal-委托人"><span class="nav-text">Principal　委托人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC-Privilege-Access-Certificate-特权访问证书"><span class="nav-text">PAC (Privilege Access Certificate 特权访问证书)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSA-Local-Security-Authority"><span class="nav-text">LSA (Local Security Authority)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关"><span class="nav-text">相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考"><span class="nav-text">參考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-Kerberos认证过程-简易版"><span class="nav-text">0x01 Kerberos认证过程 (简易版)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-Kerberos认证过程-详细版"><span class="nav-text">0x02 Kerberos认证过程 (详细版)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Client-A-—-gt-KDC-AS"><span class="nav-text">1. Client-A —&gt; KDC-AS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Client-A-lt-—-KDC-AS"><span class="nav-text">2. Client-A &lt;— KDC-AS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Client-A-—-gt-KDC-TGS"><span class="nav-text">3. Client-A —&gt; KDC-TGS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Client-A-lt-—-KDC-TGS"><span class="nav-text">4. Client-A &lt;— KDC-TGS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Client-A-—-gt-Server-B"><span class="nav-text">5. Client-A —&gt; Server-B</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-术语"><span class="nav-text">0x03 术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos"><span class="nav-text">Kerberos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#krbtgt账户"><span class="nav-text">krbtgt账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Principal-委托人"><span class="nav-text">Principal　委托人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC-Privilege-Access-Certificate-特权访问证书"><span class="nav-text">PAC (Privilege Access Certificate 特权访问证书)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSA-Local-Security-Authority"><span class="nav-text">LSA (Local Security Authority)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-相关"><span class="nav-text">0x05 相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-Reference"><span class="nav-text">0x06 Reference</span></a></li></ol></div>
             
 
           </div>

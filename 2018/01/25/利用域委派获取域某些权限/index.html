@@ -88,13 +88,13 @@
 
 
 
-<meta name="description" content="…..">
+<meta name="description" content="0x01 域委派将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。 域内委派主要有3种应用方式： 一. 非约束性委派Unconstrained Delegation      服务账号可以获取某用户的TGT，从而服务账号可使用该TGT，模拟用户访问任意服务。     举例说明，如果某个服务A的服务账号B被设置为非约束委派，当用户C通过Kerberos认证访问服务A时，KDC会检">
 <meta name="keywords" content="PowerShell,域委派,TGS票据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用域委派获取域某些权限">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/01/25/利用域委派获取域某些权限/index.html">
 <meta property="og:site_name" content="一 只 麻 雀">
-<meta property="og:description" content="…..">
+<meta property="og:description" content="0x01 域委派将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。 域内委派主要有3种应用方式： 一. 非约束性委派Unconstrained Delegation      服务账号可以获取某用户的TGT，从而服务账号可使用该TGT，模拟用户访问任意服务。     举例说明，如果某个服务A的服务账号B被设置为非约束委派，当用户C通过Kerberos认证访问服务A时，KDC会检">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/01/25/利用域委派获取域某些权限/delegation.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/01/25/利用域委派获取域某些权限/computerproperty.png">
@@ -102,10 +102,10 @@
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/01/25/利用域委派获取域某些权限/kekeo.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/01/25/利用域委派获取域某些权限/cfis1.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/01/25/利用域委派获取域某些权限/cfis2.png">
-<meta property="og:updated_time" content="2018-07-02T12:41:27.438Z">
+<meta property="og:updated_time" content="2018-07-06T13:45:07.969Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用域委派获取域某些权限">
-<meta name="twitter:description" content="…..">
+<meta name="twitter:description" content="0x01 域委派将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。 域内委派主要有3种应用方式： 一. 非约束性委派Unconstrained Delegation      服务账号可以获取某用户的TGT，从而服务账号可使用该TGT，模拟用户访问任意服务。     举例说明，如果某个服务A的服务账号B被设置为非约束委派，当用户C通过Kerberos认证访问服务A时，KDC会检">
 <meta name="twitter:image" content="https://sp4rr0w.github.io/2018/01/25/利用域委派获取域某些权限/delegation.png">
 
 
@@ -428,8 +428,7 @@
       
 
       
-        <p>…..<br><a id="more"></a></p>
-<h2 id="域委派"><a href="#域委派" class="headerlink" title="域委派"></a>域委派</h2><p>将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
+        <h2 id="0x01-域委派"><a href="#0x01-域委派" class="headerlink" title="0x01 域委派"></a>0x01 域委派</h2><p>将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
 <p>域内委派主要有3种应用方式：</p>
 <pre><code>一. 非约束性委派Unconstrained Delegation 
     服务账号可以获取某用户的TGT，从而服务账号可使用该TGT，模拟用户访问任意服务。
@@ -439,7 +438,8 @@
     即Kerberos的扩展协议S4U2Proxy，服务账号只能获取某用户的TGS，从而只能模拟用户访问特定的服务；
 三. 协议传递
     即Kerberos的扩展协议S4U2Self，服务账号针对某一个特定服务，可查询获取任意用户的TGS，从而能模拟任意用户访问该特定服务。
-</code></pre><p>在Windows系统中，普通用户的属性中没有委派Delegation这个选项卡，只有服务账号、主机账号才有</p>
+</code></pre><a id="more"></a>
+<p>在Windows系统中，普通用户的属性中没有委派Delegation这个选项卡，只有服务账号、主机账号才有</p>
 <pre><code>WIN10-NEW$ ： 192.168.19.8        加入域 DEMO.LOCAL
 owa2010dc$   ： 192.168.19.10    域服务器：DEMO.LOCAL
 testwin10 : 域用戶
@@ -691,10 +691,9 @@ Service(s):
     和样例1相同，样例1用明文口令生成NTLM，然后向域服务器申请获取服务账号的TGT。Kekeo提供了该功能，可直接从NTLM开始，向域服务器申请TGT。
 样例4：一个主机账号被设置了约束性委派，已获取该主机账号的口令NTLM
     方法和样例1也是类似，只不过样例1中是服务账号，而本样例中是主机账号。测试结果截图分别如下，不再过多解释。测试可在任何域内主机中进行，不需要在主机账号所在的主机。
-</code></pre><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>20180702<br>利用 Kerberos delegation 打造变种黄金票据<br><a href="https://paper.seebug.org/620/" target="_blank" rel="noopener">https://paper.seebug.org/620/</a></p>
+</code></pre><h2 id="0x02-后记"><a href="#0x02-后记" class="headerlink" title="0x02 后记"></a>0x02 后记</h2><p>20180702<br>利用 Kerberos delegation 打造变种黄金票据<br><a href="https://paper.seebug.org/620/" target="_blank" rel="noopener">https://paper.seebug.org/620/</a></p>
 <p>我测试的是域委派cifs服务SPN（共享服务），而这个文章直接测试的是krbtgt，意思是黄金票据和域委派相结合操作，挺牛逼的。<br>过程都一样，只是换了SPN和工具。</p>
-<p>參考：</p>
-<pre><code>https://www.anquanke.com/post/id/92484  (作者笔误： &quot;由于sqlsvc被设置为非约束性委派&quot; 改成 &quot;由于sqlsvc被设置为约束性委派&quot; 已证明 )
+<h2 id="0x03-Reference"><a href="#0x03-Reference" class="headerlink" title="0x03 Reference"></a>0x03 Reference</h2><pre><code>https://www.anquanke.com/post/id/92484  (作者笔误： &quot;由于sqlsvc被设置为非约束性委派&quot; 改成 &quot;由于sqlsvc被设置为约束性委派&quot; 已证明 )
 http://www.harmj0y.net/blog/activedirectory/s4u2pwnage/
 http://powersploit.readthedocs.io/en/latest/
 https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon
@@ -932,7 +931,7 @@ https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#域委派"><span class="nav-text">域委派</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-text">后记</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-域委派"><span class="nav-text">0x01 域委派</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-后记"><span class="nav-text">0x02 后记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-Reference"><span class="nav-text">0x03 Reference</span></a></li></ol></div>
             
 
           </div>

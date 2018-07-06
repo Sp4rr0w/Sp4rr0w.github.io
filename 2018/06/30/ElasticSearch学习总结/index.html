@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="…..">
+<meta name="description" content="0x01 简介ElasticSearch是一个分布式、Restful的搜索及分析服务器,设计用于分布式计算；能够达到实时搜索,稳定,可靠,快速。 和Apache Solr一样,它也是基于Lucence的索引服务器。2013年初,GitHub抛弃了Solr,采取ElasticSearch 来做PB级的搜索">
 <meta name="keywords" content="ElasticSearch,笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ElasticSearch学习总结">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/06/30/ElasticSearch学习总结/index.html">
 <meta property="og:site_name" content="一 只 麻 雀">
-<meta property="og:description" content="…..">
+<meta property="og:description" content="0x01 简介ElasticSearch是一个分布式、Restful的搜索及分析服务器,设计用于分布式计算；能够达到实时搜索,稳定,可靠,快速。 和Apache Solr一样,它也是基于Lucence的索引服务器。2013年初,GitHub抛弃了Solr,采取ElasticSearch 来做PB级的搜索">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-30T07:21:22.495Z">
+<meta property="og:updated_time" content="2018-07-06T13:41:47.487Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ElasticSearch学习总结">
-<meta name="twitter:description" content="…..">
+<meta name="twitter:description" content="0x01 简介ElasticSearch是一个分布式、Restful的搜索及分析服务器,设计用于分布式计算；能够达到实时搜索,稳定,可靠,快速。 和Apache Solr一样,它也是基于Lucence的索引服务器。2013年初,GitHub抛弃了Solr,采取ElasticSearch 来做PB级的搜索">
 
 
 
@@ -421,10 +421,10 @@
       
 
       
-        <p>…..<br><a id="more"></a></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><pre><code>ElasticSearch是一个分布式、Restful的搜索及分析服务器,设计用于分布式计算；能够达到实时搜索,稳定,可靠,快速。
+        <h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><pre><code>ElasticSearch是一个分布式、Restful的搜索及分析服务器,设计用于分布式计算；能够达到实时搜索,稳定,可靠,快速。
 和Apache Solr一样,它也是基于Lucence的索引服务器。2013年初,GitHub抛弃了Solr,采取ElasticSearch 来做PB级的搜索
-</code></pre><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><pre><code>Cluster和Node
+</code></pre><a id="more"></a>
+<h2 id="0x02-概念"><a href="#0x02-概念" class="headerlink" title="0x02 概念"></a>0x02 概念</h2><pre><code>Cluster和Node
     ES可以以单点或者集群方式运行,以一个整体对外提供search服务的所有节点组成cluster,组成这个cluster的各个节点叫做node。
 Index
     这是ES存储数据的地方,类似于关系数据库的database。
@@ -440,7 +440,7 @@ Discovery.zen
     代表ES的自动发现节点机制,ES是一个基于p2p的系统,它先通过广播寻找存在的节点,再通过多播协议来进行节点之间的通信,同时也支持点对点的交互。
 Transport
     代表ES内部节点或集群与客户端的交互方式,默认内部是使用tcp协议进行交互,同时它支持http协议json格式。
-</code></pre><h2 id="ES索引优化"><a href="#ES索引优化" class="headerlink" title="ES索引优化"></a>ES索引优化</h2><pre><code>一、索引数据过程
+</code></pre><h2 id="0x03-ES索引优化"><a href="#0x03-ES索引优化" class="headerlink" title="0x03 ES索引优化"></a>0x03 ES索引优化</h2><pre><code>一、索引数据过程
     ES索引的过程到相对Lucene的索引过程多了分布式数据的扩展,而这ES主要是用tranlog进行各节点之间的数据平衡
 
         index.translog.flush_threshold_ops: 500000
@@ -455,7 +455,7 @@ Transport
     2、副本数
 
         如果Node在非正常挂了,经常会导致分片丢失,为了保证这些数据的完整性,可以通过副本来解决这个问题
-</code></pre><h2 id="ElasticSearch常用配置及性能参数"><a href="#ElasticSearch常用配置及性能参数" class="headerlink" title="ElasticSearch常用配置及性能参数"></a>ElasticSearch常用配置及性能参数</h2><pre><code>bootstrap.memory_lock: true #     锁定内存,不让JVM写入swapping,避免降低ES的性能 。
+</code></pre><h2 id="0x04-ElasticSearch常用配置及性能参数"><a href="#0x04-ElasticSearch常用配置及性能参数" class="headerlink" title="0x04 ElasticSearch常用配置及性能参数"></a>0x04 ElasticSearch常用配置及性能参数</h2><pre><code>bootstrap.memory_lock: true #     锁定内存,不让JVM写入swapping,避免降低ES的性能 。
 http.cors.enabled: true        #     使用监控 例如head
 http.cors.allow-origin: &quot;*&quot; #   和上面那个一起开启,用于插件head
 cluster.name: new-elk       #    集群名称, 如果在同一网段下有多个集群,就可以用这个属性来区分不同的集群。
@@ -533,9 +533,9 @@ elasticsearch内存设置:
 ES对于内存的消耗,和很多因素相关,诸如数据总量、mapping设置、查询方式、查询频度等。
 ES是JAVA应用,作为一个JAVA应用,就脱离不开JVM和GC经常出现关于这两者的错误,
 上手ES的时候,对GC一点概念都没有就去网上抄各种JVM&quot;优化&quot;参数,却仍然被heap不够用,内存溢出这样的问题
-</code></pre><h2 id="Elasticsearch线程池介绍"><a href="#Elasticsearch线程池介绍" class="headerlink" title="Elasticsearch线程池介绍"></a>Elasticsearch线程池介绍</h2><pre><code>curl -XGET &#39;http://localhost:9200/_nodes/stats?pretty&#39;
+</code></pre><h2 id="0x05-Elasticsearch线程池介绍"><a href="#0x05-Elasticsearch线程池介绍" class="headerlink" title="0x05 Elasticsearch线程池介绍"></a>0x05 Elasticsearch线程池介绍</h2><pre><code>curl -XGET &#39;http://localhost:9200/_nodes/stats?pretty&#39;
 ......
-</code></pre><h2 id="ElasticSearch-我的小結"><a href="#ElasticSearch-我的小結" class="headerlink" title="ElasticSearch 我的小結"></a>ElasticSearch 我的小結</h2><h3 id="命令行模式导入elastic"><a href="#命令行模式导入elastic" class="headerlink" title="命令行模式导入elastic"></a>命令行模式导入elastic</h3><pre><code>命令行导入elastic(因为PDI(kettle)本身有900M,打开需要一定的内存,而且导入的时候还卡,所以使用命令行模式,速度快了10倍以上):
+</code></pre><h2 id="0x06-ElasticSearch-我的小結"><a href="#0x06-ElasticSearch-我的小結" class="headerlink" title="0x06 ElasticSearch 我的小結"></a>0x06 ElasticSearch 我的小結</h2><h3 id="命令行模式导入elastic"><a href="#命令行模式导入elastic" class="headerlink" title="命令行模式导入elastic"></a>命令行模式导入elastic</h3><pre><code>命令行导入elastic(因为PDI(kettle)本身有900M,打开需要一定的内存,而且导入的时候还卡,所以使用命令行模式,速度快了10倍以上):
 
 a. 先在PDI里面设置好ktr文件
 b. 创建bat文件
@@ -871,7 +871,7 @@ Kab,
 </code></pre><p>集群状态为yellow<br>由于我们是单节点部署elasticsearch,而默认的分片副本数目配置为1,而相同的分片不能在一个节点上,<br>所以就存在副本分片指定不明确的问题,所以显示为yellow,我们可以通过在elasticsearch集群上添加一个节点来解决问题,<br>如果你不想这么做,你可以删除那些指定不明确的副本分片(当然这不是一个好办法)但是作为测试和解决办法还是可以尝试的,<br>下面我们试一下删除副本分片的办法<br>解决办法</p>
 <pre><code>root@c2dbf1f9da5d:/# curl -XPUT &quot;http://localhost:9200/_settings&quot; -d&#39; { &quot;number_of_replicas&quot; : 0 } &#39;
 {&quot;acknowledged&quot;:true}
-</code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><pre><code>http://www.cnblogs.com/kaynet/p/5861926.html
+</code></pre><h2 id="0x07-Reference"><a href="#0x07-Reference" class="headerlink" title="0x07 Reference"></a>0x07 Reference</h2><pre><code>http://www.cnblogs.com/kaynet/p/5861926.html
 https://blog.csdn.net/mvpboss1004/article/details/65445023
 http://blog.csdn.net/xf_87/article/details/51026197
 </code></pre>
@@ -1106,7 +1106,7 @@ http://blog.csdn.net/xf_87/article/details/51026197
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES索引优化"><span class="nav-text">ES索引优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch常用配置及性能参数"><span class="nav-text">ElasticSearch常用配置及性能参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Elasticsearch线程池介绍"><span class="nav-text">Elasticsearch线程池介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch-我的小結"><span class="nav-text">ElasticSearch 我的小結</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行模式导入elastic"><span class="nav-text">命令行模式导入elastic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#csv文件导入到elastic"><span class="nav-text">csv文件导入到elastic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日期-string类型"><span class="nav-text">日期/string类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装plugin"><span class="nav-text">安装plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用搜索"><span class="nav-text">常用搜索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-简介"><span class="nav-text">0x01 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-概念"><span class="nav-text">0x02 概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-ES索引优化"><span class="nav-text">0x03 ES索引优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-ElasticSearch常用配置及性能参数"><span class="nav-text">0x04 ElasticSearch常用配置及性能参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-Elasticsearch线程池介绍"><span class="nav-text">0x05 Elasticsearch线程池介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-ElasticSearch-我的小結"><span class="nav-text">0x06 ElasticSearch 我的小結</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行模式导入elastic"><span class="nav-text">命令行模式导入elastic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#csv文件导入到elastic"><span class="nav-text">csv文件导入到elastic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日期-string类型"><span class="nav-text">日期/string类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装plugin"><span class="nav-text">安装plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用搜索"><span class="nav-text">常用搜索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x07-Reference"><span class="nav-text">0x07 Reference</span></a></li></ol></div>
             
 
           </div>

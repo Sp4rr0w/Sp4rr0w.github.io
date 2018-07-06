@@ -421,7 +421,13 @@
 
    <!-- 文章摘要图片 -->
         
-          <p>…..</p>
+          <h2 id="0x01-PowerShell简介及特性"><a href="#0x01-PowerShell简介及特性" class="headerlink" title="0x01 PowerShell简介及特性"></a>0x01 PowerShell简介及特性</h2><p>Windows PowerShell 是一种命令行外壳程序和脚本环境(相当于 UNIX 系统 BASH),使命令行用户和脚本编写者可以利用.NET Framework的强大功能(因此也支持.NET对象)。<br>Windows PowerShell具备以下特性:</p>
+<pre><code>操作便捷—-可识别单位(如GB、MB、KB等)Cmdlet命令结构简单(动名词形式)
+面向对象—-同面向过程相比,更容易描述现实事物
+结合.NET Framework环境—-借助.NET Framework平台的强大的库
+兼容性强—-完全兼容windows平台上其他调用,如exe文件执行、bat脚本执行等
+基于平台的可扩展性—-PowerShell俨然已形成一个平台,并且向各类平台管理提供对应管理组件
+</code></pre><p>PowerShell Version<br><img src="/2018/07/05/PowerShell 基础总结/ps-version.png" alt="ps-version"></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/07/05/PowerShell 基础总结/#more" rel="contents">
@@ -591,7 +597,9 @@
 
    <!-- 文章摘要图片 -->
         
-          <p>…..<br></p>
+          <h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><pre><code>ElasticSearch是一个分布式、Restful的搜索及分析服务器,设计用于分布式计算；能够达到实时搜索,稳定,可靠,快速。
+和Apache Solr一样,它也是基于Lucence的索引服务器。2013年初,GitHub抛弃了Solr,采取ElasticSearch 来做PB级的搜索
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/06/30/ElasticSearch学习总结/#more" rel="contents">
@@ -761,7 +769,17 @@
 
    <!-- 文章摘要图片 -->
         
-          <p>…..<br></p>
+          <p>域控制器 ： OWA2013DC - 10.1.0.100   域名：corp.contoso.com</p>
+<p>Exchange服务器 ： OWA2013Server - 10.1.0.213    加入域</p>
+<p>Kali ： 10.1.0.166   未加入域</p>
+<p>虚拟机模式: hostonly</p>
+<p>三台网关:10.1.0.100 </p>
+<p>hosts: 10.1.0.213    corp.contoso.com    contoso.com        autodiscover.contoso.com</p>
+<p><code>CVE-2017-11774</code></p>
+<pre><code>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-11774 
+</code></pre><p><code>Description</code></p>
+<pre><code>Microsoft Outlook 2010 SP2, Outlook 2013 SP1 and RT SP1, and Outlook 2016 allow an attacker to execute arbitrary commands, due to how Microsoft Office handles objects in memory, aka &quot;Microsoft Outlook Security Feature Bypass Vulnerability.&quot;
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/05/30/Outlook Homepage Vulner/#more" rel="contents">
@@ -1101,7 +1119,8 @@
 
    <!-- 文章摘要图片 -->
         
-          <p>…..<br></p>
+          <h2 id="0x01-Tor的工作原理"><a href="#0x01-Tor的工作原理" class="headerlink" title="0x01 Tor的工作原理"></a>0x01 Tor的工作原理</h2><p>基于TCP连接的匿名通信系统,它可以用于网页浏览、即时消息等通信。</p>
+<p>它首先从目录服务器(Directory Server,DS)中获得所有Tor节点信息,然后在Tor节点集合中随机选取一个节点,与它协商密钥,最后与它建立一个安全信道。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/04/07/Tor技术相关/#more" rel="contents">
@@ -1611,7 +1630,27 @@
 
    <!-- 文章摘要图片 -->
         
-          <p>…..<br></p>
+          <h2 id="0x01-Kerberos认证过程-简易版"><a href="#0x01-Kerberos认证过程-简易版" class="headerlink" title="0x01 Kerberos认证过程 (简易版)"></a>0x01 Kerberos认证过程 (简易版)</h2><p>认证或请求服务 的过程如下:<br><img src="/2018/02/18/Kerberos认证相关/simple.jpg" alt="认证或请求服务"></p>
+<p><code>简义</code></p>
+<pre><code>`KRB_AS_REQ (Kerberos Authentication Service Request)`
+1. Client-A ---------------------------------------------------------==&gt; KDC-AS (客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)) 此过程叫KRB_AS_REQ
+
+
+`KRB_AS_REP (Kerberos Authentication Service Response)`
+2. Client-A &lt;==--------------------------------------------------------- KDC-AS (返回TGT,TGT票据使用KDC的krbtgt密钥进行加密) 此过程叫KRB_AS_REP
+
+
+`KRB_TGS_REQ (Kerberos Ticket Granting Service Request)`
+3. Client-A ----------------------------------------------------------==&gt; KDC-TGS (Client-A使用AS返回的&quot;会话密钥&quot;构建访问特定服务的请求,再把AS返回的&quot;TGT&quot;连同请求一起发送到票据授予服务TGS) 此过程叫KRB_TGS_REP
+
+
+`KRB_TGS_REP (Kerberos Ticket Granting Service Response)`
+4. Client-A &lt;==---------------------------------------------------------- KDC-TGS (TGS解密TGT和服务请求,并向Client-A发送一个服务票据ST(Service Ticket)
+
+
+`KRB_AP_REQ (Kerberos Application Request)`
+5. Client-A ----------------------------------------------------------==&gt; Server-B (Client-A把服务票据中的服务器部分和请求一起发送到Server-B(Client-A要访问活动目录中的主机),远程服务器将直接接受该服务器票据,并不需要和KDC直接通信,因为该票据是用远程服务器和KDC共享的长期密钥加密过的)
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/02/18/Kerberos认证相关/#more" rel="contents">
@@ -1781,7 +1820,17 @@
 
    <!-- 文章摘要图片 -->
         
-          <p>…..<br></p>
+          <h2 id="0x01-域委派"><a href="#0x01-域委派" class="headerlink" title="0x01 域委派"></a>0x01 域委派</h2><p>将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
+<p>域内委派主要有3种应用方式：</p>
+<pre><code>一. 非约束性委派Unconstrained Delegation 
+    服务账号可以获取某用户的TGT，从而服务账号可使用该TGT，模拟用户访问任意服务。
+    举例说明，如果某个服务A的服务账号B被设置为非约束委派，当用户C通过Kerberos认证访问服务A时，KDC会检查服务账号B的属性，发现是非约束性委派时，KDC会将用户C的TGT放在TGS中，这样B在验证TGS的同时获取了A用户的TGT，从而可以模拟用户A访问任意服务。
+    从网络攻击的角度看，如果攻击者控制了服务账号B，并诱骗管理员来访问服务A，则可以获取管理员的TGT，进而模拟管理员访问任意服务，即获得管理员权限。越是大型网络、应用越多的网络，服务账号越多，委派的应用越多，越容易获取域管理员权限。
+二. 约束性委派Constrained Delegation
+    即Kerberos的扩展协议S4U2Proxy，服务账号只能获取某用户的TGS，从而只能模拟用户访问特定的服务；
+三. 协议传递
+    即Kerberos的扩展协议S4U2Self，服务账号针对某一个特定服务，可查询获取任意用户的TGS，从而能模拟任意用户访问该特定服务。
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/01/25/利用域委派获取域某些权限/#more" rel="contents">

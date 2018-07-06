@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="…..">
+<meta name="description" content="0x01 Tor的工作原理基于TCP连接的匿名通信系统,它可以用于网页浏览、即时消息等通信。 它首先从目录服务器(Directory Server,DS)中获得所有Tor节点信息,然后在Tor节点集合中随机选取一个节点,与它协商密钥,最后与它建立一个安全信道。">
 <meta name="keywords" content="笔记,Tor,网桥">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tor技术相关">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/04/07/Tor技术相关/index.html">
 <meta property="og:site_name" content="一 只 麻 雀">
-<meta property="og:description" content="…..">
+<meta property="og:description" content="0x01 Tor的工作原理基于TCP连接的匿名通信系统,它可以用于网页浏览、即时消息等通信。 它首先从目录服务器(Directory Server,DS)中获得所有Tor节点信息,然后在Tor节点集合中随机选取一个节点,与它协商密钥,最后与它建立一个安全信道。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-11T12:12:20.481Z">
+<meta property="og:updated_time" content="2018-07-06T13:42:45.510Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tor技术相关">
-<meta name="twitter:description" content="…..">
+<meta name="twitter:description" content="0x01 Tor的工作原理基于TCP连接的匿名通信系统,它可以用于网页浏览、即时消息等通信。 它首先从目录服务器(Directory Server,DS)中获得所有Tor节点信息,然后在Tor节点集合中随机选取一个节点,与它协商密钥,最后与它建立一个安全信道。">
 
 
 
@@ -421,10 +421,10 @@
       
 
       
-        <p>…..<br><a id="more"></a></p>
-<h2 id="Tor的工作原理"><a href="#Tor的工作原理" class="headerlink" title="Tor的工作原理"></a>Tor的工作原理</h2><p>基于TCP连接的匿名通信系统,它可以用于网页浏览、即时消息等通信。</p>
+        <h2 id="0x01-Tor的工作原理"><a href="#0x01-Tor的工作原理" class="headerlink" title="0x01 Tor的工作原理"></a>0x01 Tor的工作原理</h2><p>基于TCP连接的匿名通信系统,它可以用于网页浏览、即时消息等通信。</p>
 <p>它首先从目录服务器(Directory Server,DS)中获得所有Tor节点信息,然后在Tor节点集合中随机选取一个节点,与它协商密钥,最后与它建立一个安全信道。</p>
-<h2 id="Tor-技术相关"><a href="#Tor-技术相关" class="headerlink" title="Tor 技术相关"></a>Tor 技术相关</h2><h3 id="目录服务器-Directory-Server"><a href="#目录服务器-Directory-Server" class="headerlink" title="目录服务器(Directory Server)"></a>目录服务器(Directory Server)</h3><pre><code>存放Tor 节点的列表
+<a id="more"></a>
+<h2 id="0x02-Tor-技术相关"><a href="#0x02-Tor-技术相关" class="headerlink" title="0x02 Tor 技术相关"></a>0x02 Tor 技术相关</h2><h3 id="目录服务器-Directory-Server"><a href="#目录服务器-Directory-Server" class="headerlink" title="目录服务器(Directory Server)"></a>目录服务器(Directory Server)</h3><pre><code>存放Tor 节点的列表
 </code></pre><h4 id="无网桥"><a href="#无网桥" class="headerlink" title="无网桥"></a>无网桥</h4><pre><code>1. 本地Tor客户端A从目录服务器Directory Server获取Tor受信节点机器列表 
 2. 本地Tor客户端A挑选随机3条加密节点访问B(web)  (当经过一段时间后,tor将重新为你的访问建立一条线路访问B(web))
 </code></pre><h3 id="网桥-Bridge-relays-Bridges"><a href="#网桥-Bridge-relays-Bridges" class="headerlink" title="网桥(Bridge relays / Bridges)"></a>网桥(Bridge relays / Bridges)</h3><pre><code>中继节点都是通过从目录服务器或者目录镜像得到,GFW只需把中继节点IP加入黑名单即可
@@ -578,8 +578,21 @@ cp $GOPATH/bin/obfs4proxy /usr/local/bin
 <p>Bridge obfs4 192.168.18.111:9001 4D33C1FCB32E69093E36B8BAD53291A3E850C804</p>
 <p>ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy</p>
 <p>写于 : 2017-10-16 16:09:00</p>
-<p>参考：<br>    <a href="http://m.it610.com/article/3961692.htm" target="_blank" rel="noopener">http://m.it610.com/article/3961692.htm</a><br>    <a href="http://www.haiyun.me/archives/1059.html" target="_blank" rel="noopener">http://www.haiyun.me/archives/1059.html</a><br>    <a href="https://program-think.blogspot.com/2013/11/tor-faq.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2013/11/tor-faq.html</a><br>    <a href="https://dreamcreator108.com/dreams/tor-bridge/index.html" target="_blank" rel="noopener">https://dreamcreator108.com/dreams/tor-bridge/index.html</a><br>    <a href="https://www.torproject.org/docs/running-a-mirror.html.en" target="_blank" rel="noopener">https://www.torproject.org/docs/running-a-mirror.html.en</a><br>    <a href="https://www.torproject.org/docs/tor-manual-dev.html.en" target="_blank" rel="noopener">https://www.torproject.org/docs/tor-manual-dev.html.en</a><br>    <a href="https://github.com/Yawning/obfs4" target="_blank" rel="noopener">https://github.com/Yawning/obfs4</a><br>    <a href="https://hub.docker.com/r/vimagick/tor/" target="_blank" rel="noopener">https://hub.docker.com/r/vimagick/tor/</a><br>    <a href="https://tor.stackexchange.com/questions/6370/how-to-run-an-obfs4-bridge" target="_blank" rel="noopener">https://tor.stackexchange.com/questions/6370/how-to-run-an-obfs4-bridge</a><br>    <a href="https://trac.torproject.org/projects/tor/wiki/doc/PluggableTransports/obfs4proxy" target="_blank" rel="noopener">https://trac.torproject.org/projects/tor/wiki/doc/PluggableTransports/obfs4proxy</a><br>    <a href="https://gitweb.torproject.org/torspec.git/tree/attic/bridges-spec.txt" target="_blank" rel="noopener">https://gitweb.torproject.org/torspec.git/tree/attic/bridges-spec.txt</a><br>    <a href="https://www.torproject.org/docs/tor-doc-relay.html.en" target="_blank" rel="noopener">https://www.torproject.org/docs/tor-doc-relay.html.en</a><br>    <a href="https://www.torproject.org/docs/tor-relay-debian" target="_blank" rel="noopener">https://www.torproject.org/docs/tor-relay-debian</a><br>    <a href="https://www.torproject.org/docs/faq.html.en#ExitPolicies" target="_blank" rel="noopener">https://www.torproject.org/docs/faq.html.en#ExitPolicies</a></p>
-
+<h2 id="0x03-Reference"><a href="#0x03-Reference" class="headerlink" title="0x03 Reference"></a>0x03 Reference</h2><pre><code>http://m.it610.com/article/3961692.htm
+http://www.haiyun.me/archives/1059.html
+https://program-think.blogspot.com/2013/11/tor-faq.html
+https://dreamcreator108.com/dreams/tor-bridge/index.html
+https://www.torproject.org/docs/running-a-mirror.html.en
+https://www.torproject.org/docs/tor-manual-dev.html.en
+https://github.com/Yawning/obfs4
+https://hub.docker.com/r/vimagick/tor/
+https://tor.stackexchange.com/questions/6370/how-to-run-an-obfs4-bridge
+https://trac.torproject.org/projects/tor/wiki/doc/PluggableTransports/obfs4proxy 
+https://gitweb.torproject.org/torspec.git/tree/attic/bridges-spec.txt
+https://www.torproject.org/docs/tor-doc-relay.html.en
+https://www.torproject.org/docs/tor-relay-debian
+https://www.torproject.org/docs/faq.html.en#ExitPolicies
+</code></pre>
       
     </div>
     
@@ -813,7 +826,7 @@ cp $GOPATH/bin/obfs4proxy /usr/local/bin
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tor的工作原理"><span class="nav-text">Tor的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tor-技术相关"><span class="nav-text">Tor 技术相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录服务器-Directory-Server"><span class="nav-text">目录服务器(Directory Server)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无网桥"><span class="nav-text">无网桥</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网桥-Bridge-relays-Bridges"><span class="nav-text">网桥(Bridge relays / Bridges)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有网桥"><span class="nav-text">有网桥</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bridges-和-Relay-有啥区别"><span class="nav-text">Bridges 和 Relay 有啥区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tor的客户端是如何知道Tor网络中的中继节点有哪些的呢"><span class="nav-text">Tor的客户端是如何知道Tor网络中的中继节点有哪些的呢?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用自己的节点机器列表"><span class="nav-text">如何使用自己的节点机器列表?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-a-Tor-relay-中继"><span class="nav-text">Configuring a Tor relay(中继)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-a-Tor-Bridge-relay-Bridges网桥"><span class="nav-text">Configuring a Tor Bridge relay(Bridges网桥)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-a-directory-authority"><span class="nav-text">Configuring a directory authority</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-a-Bridge-authorities-or-v3-directory-authorities"><span class="nav-text">Configuring a Bridge authorities (or v3 directory authorities</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Centos7-setup-Bridge-relay-Bridges"><span class="nav-text">Centos7 setup Bridge relay(Bridges)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UseBridges"><span class="nav-text">UseBridges</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-Tor的工作原理"><span class="nav-text">0x01 Tor的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-Tor-技术相关"><span class="nav-text">0x02 Tor 技术相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录服务器-Directory-Server"><span class="nav-text">目录服务器(Directory Server)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无网桥"><span class="nav-text">无网桥</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网桥-Bridge-relays-Bridges"><span class="nav-text">网桥(Bridge relays / Bridges)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有网桥"><span class="nav-text">有网桥</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bridges-和-Relay-有啥区别"><span class="nav-text">Bridges 和 Relay 有啥区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tor的客户端是如何知道Tor网络中的中继节点有哪些的呢"><span class="nav-text">Tor的客户端是如何知道Tor网络中的中继节点有哪些的呢?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用自己的节点机器列表"><span class="nav-text">如何使用自己的节点机器列表?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-a-Tor-relay-中继"><span class="nav-text">Configuring a Tor relay(中继)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-a-Tor-Bridge-relay-Bridges网桥"><span class="nav-text">Configuring a Tor Bridge relay(Bridges网桥)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-a-directory-authority"><span class="nav-text">Configuring a directory authority</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-a-Bridge-authorities-or-v3-directory-authorities"><span class="nav-text">Configuring a Bridge authorities (or v3 directory authorities</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Centos7-setup-Bridge-relay-Bridges"><span class="nav-text">Centos7 setup Bridge relay(Bridges)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UseBridges"><span class="nav-text">UseBridges</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-Reference"><span class="nav-text">0x03 Reference</span></a></li></ol></div>
             
 
           </div>
