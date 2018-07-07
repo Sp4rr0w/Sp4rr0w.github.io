@@ -98,7 +98,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/07/05/PowerShell%20基础总结/ps-version.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2018/07/05/PowerShell%20基础总结/ps.png">
-<meta property="og:updated_time" content="2018-07-06T13:51:04.221Z">
+<meta property="og:updated_time" content="2018-07-07T05:03:00.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PowerShell 基础总结">
 <meta name="twitter:description" content="0x01 PowerShell简介及特性Windows PowerShell 是一种命令行外壳程序和脚本环境(相当于 UNIX 系统 BASH),使命令行用户和脚本编写者可以利用.NET Framework的强大功能(因此也支持.NET对象)。Windows PowerShell具备以下特性: 操作便捷—-可识别单位(如GB、MB、KB等)Cmdlet命令结构简单(动名词形式) 面向对象—-同面向">
@@ -566,6 +566,8 @@ sp                设置文件或路径的属性                        Set-Item
 Cd,chdir, sl    更改当前目录的位置                        Set-Location
 —                提取路径的特定部分,例如父目录,文件名        Split-Path
 —                测试指定的路径是否存在                    Test-Path
+gsv                获取系统服务                        get-service
+ps, gps                获取系统进程                        get-process
 </code></pre><p>用于指定相对路径的四个重要的特殊字符</p>
 <pre><code>字符    意义        示例    示例描述
 .    当前目录    ii .    用资源浏览器打开当前目录
