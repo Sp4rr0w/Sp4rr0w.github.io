@@ -88,23 +88,23 @@
 
 
 
-<meta name="description" content="…..">
+<meta name="description" content="0x01 正常编译torRouter Model : RT-AC66URouter CPU : MIPS32在 Ubuntu 下 sudo apt-get install openssl sudo apt-get install libevent-dev sudo apt-get install build-essential sudo apt-get install libssl-dev tar">
 <meta name="keywords" content="交叉编译,路由器,tor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="交叉编译tor在路由器上使用">
 <meta property="og:url" content="https://sp4rr0w.github.io/2017/12/07/交叉编译tor在路由器上使用/index.html">
 <meta property="og:site_name" content="一 只 麻 雀">
-<meta property="og:description" content="…..">
+<meta property="og:description" content="0x01 正常编译torRouter Model : RT-AC66URouter CPU : MIPS32在 Ubuntu 下 sudo apt-get install openssl sudo apt-get install libevent-dev sudo apt-get install build-essential sudo apt-get install libssl-dev tar">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/12/07/交叉编译tor在路由器上使用/2011-05-toolchain_choose.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/12/07/交叉编译tor在路由器上使用/configure_tor.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/12/07/交叉编译tor在路由器上使用/file_tor.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/12/07/交叉编译tor在路由器上使用/router_tor.png">
 <meta property="og:image" content="https://sp4rr0w.github.io/2017/12/07/交叉编译tor在路由器上使用/running_tor_in_ubuntu.png">
-<meta property="og:updated_time" content="2018-04-08T01:35:35.686Z">
+<meta property="og:updated_time" content="2018-07-07T03:31:59.442Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="交叉编译tor在路由器上使用">
-<meta name="twitter:description" content="…..">
+<meta name="twitter:description" content="0x01 正常编译torRouter Model : RT-AC66URouter CPU : MIPS32在 Ubuntu 下 sudo apt-get install openssl sudo apt-get install libevent-dev sudo apt-get install build-essential sudo apt-get install libssl-dev tar">
 <meta name="twitter:image" content="https://sp4rr0w.github.io/2017/12/07/交叉编译tor在路由器上使用/2011-05-toolchain_choose.png">
 
 
@@ -427,8 +427,7 @@
       
 
       
-        <p>…..<br><a id="more"></a></p>
-<h2 id="正常编译tor"><a href="#正常编译tor" class="headerlink" title="正常编译tor"></a>正常编译tor</h2><p>Router Model : RT-AC66U<br>Router CPU : MIPS32<br>在 <code>Ubuntu</code> 下</p>
+        <h2 id="0x01-正常编译tor"><a href="#0x01-正常编译tor" class="headerlink" title="0x01 正常编译tor"></a>0x01 正常编译tor</h2><p>Router Model : RT-AC66U<br>Router CPU : MIPS32<br>在 <code>Ubuntu</code> 下</p>
 <pre><code>sudo apt-get install openssl
 sudo apt-get install libevent-dev
 sudo apt-get install build-essential
@@ -439,7 +438,8 @@ cd tor-0.3.1.8
 src/or/tor
 src/config/torrc   # torrc 
 src/or/tor -f src/config/torrc &amp;
-</code></pre><p>直接交叉编译tor 是有问题的<br>结合上篇文章编译buildroot生成的buildroot-2011.05下/output/ 相关编译文件:</p>
+</code></pre><a id="more"></a>
+<p>直接交叉编译tor 是有问题的<br>结合上篇文章编译buildroot生成的buildroot-2011.05下/output/ 相关编译文件:</p>
 <pre><code>$ cd tor 
 $ ./configure : 
 $ CC=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-gcc RANLIB=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ranlib AR=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ar LD=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ld STRIP=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-strip ./configure --host=mipsel-linux --disable-tool-name-check --enable-static-libevent --with-libevent-dir=/usr/local/lib
@@ -514,7 +514,7 @@ https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libe
 zlib-1.2.11
 https://zlib.net/zlib-1.2.11.tar.gz
 </code></pre><p><code>----------------------------------------------------------------------</code></p>
-<h2 id="交叉编译-openssl"><a href="#交叉编译-openssl" class="headerlink" title="交叉编译 openssl"></a>交叉编译 openssl</h2><pre><code>$ CC=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-gcc AR=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ar RANLIB=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ranlib LD=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ld STRIP=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-strip ./config --prefix=/root/Desktop/cross/yes/openssl 
+<h2 id="0x02-交叉编译-openssl"><a href="#0x02-交叉编译-openssl" class="headerlink" title="0x02 交叉编译 openssl"></a>0x02 交叉编译 openssl</h2><pre><code>$ CC=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-gcc AR=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ar RANLIB=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ranlib LD=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ld STRIP=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-strip ./config --prefix=/root/Desktop/cross/yes/openssl 
 </code></pre><p>即:</p>
 <pre><code>$ CC=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-gcc \
 AR=/root/Desktop/8/buildroot-2011.05/output/host/usr/bin/mipsel-linux-ar \
@@ -580,7 +580,7 @@ $ export MIPSEL_LINUX_PATH2=/root/Desktop/88/buildroot-2011.05/output/host/usr/b
 </code></pre><p>ok编译成功</p>
 <p>对了 这边需要很强调一点是 编译哪个版本的buildroot,即使编译buildroot时多选了几个选项,都需要根据Buildroot编译后的bin/下面的文件，进行对<code>openssl</code>再次交叉编译，不然出现 <code>You will probably need to install openssl-devel too.</code></p>
 <hr>
-<h2 id="交叉编译-libevent"><a href="#交叉编译-libevent" class="headerlink" title="交叉编译 libevent"></a>交叉编译 libevent</h2><pre><code>$ ./configure --prefix=/root/Desktop/cross/yes/libevent CC=$MIPSEL_LINUX_PATH2/mipsel-linux-gcc AR=$MIPSEL_LINUX_PATH2/mipsel-linux-ar RANLIB=$MIPSEL_LINUX_PATH2/mipsel-linux-ranlib LD=$MIPSEL_LINUX_PATH2/mipsel-linux-ld STRIP=$MIPSEL_LINUX_PATH2/mipsel-linux-strip --host=mipsel-linux 
+<h2 id="0x03-交叉编译-libevent"><a href="#0x03-交叉编译-libevent" class="headerlink" title="0x03 交叉编译 libevent"></a>0x03 交叉编译 libevent</h2><pre><code>$ ./configure --prefix=/root/Desktop/cross/yes/libevent CC=$MIPSEL_LINUX_PATH2/mipsel-linux-gcc AR=$MIPSEL_LINUX_PATH2/mipsel-linux-ar RANLIB=$MIPSEL_LINUX_PATH2/mipsel-linux-ranlib LD=$MIPSEL_LINUX_PATH2/mipsel-linux-ld STRIP=$MIPSEL_LINUX_PATH2/mipsel-linux-strip --host=mipsel-linux 
 </code></pre><p>错误 </p>
 <pre><code>bufferevent_openssl.c:66:10: fatal error: &#39;openssl/bio.h&#39; file not found
 </code></pre><p>找错 <code>https://github.com/libevent/libevent/issues/465</code><br>需要配合 <code>openssl</code> 加上 <code>CPPFLAGS</code> and <code>LDFLAGS</code></p>
@@ -602,7 +602,7 @@ LDFLAGS=-L/root/Desktop/cross/yes/openssl2/lib
 <p>到libevent下面执行/root/Desktop/cross/yes/libevent/lib<br>$ file libevent-2.1.so.6.0.2</p>
 <pre><code>libevent-2.1.so.6.0.2: ELF 32-bit LSB shared object, MIPS, MIPS32 version 1 (SYSV), dynamically linked, with unknown capability 0xf41 = 0x756e6700, with unknown capability 0x70100 = 0x3040000, not stripped
 </code></pre><p><code>编译成功</code></p>
-<h2 id="交叉编译-zlib"><a href="#交叉编译-zlib" class="headerlink" title="交叉编译 zlib"></a>交叉编译 zlib</h2><pre><code>$ ./configure --prefix=/root/Desktop/cross/yes/zlib
+<h2 id="0x04-交叉编译-zlib"><a href="#0x04-交叉编译-zlib" class="headerlink" title="0x04 交叉编译 zlib"></a>0x04 交叉编译 zlib</h2><pre><code>$ ./configure --prefix=/root/Desktop/cross/yes/zlib
 $ CC=$MIPSEL_LINUX_PATH2/mipsel-linux-gcc AR=$MIPSEL_LINUX_PATH2/mipsel-linux-ar RANLIB=$MIPSEL_LINUX_PATH2/mipsel-linux-ranlib
 </code></pre><p>$ make install<br>到zlib目录/root/Desktop/cross/yes/zlib/lib里面执行<br>$ file libz.so.1.2.11 </p>
 <pre><code>libz.so.1.2.11: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped
@@ -613,7 +613,7 @@ $ CC=$MIPSEL_LINUX_PATH2/mipsel-linux-gcc AR=$MIPSEL_LINUX_PATH2/mipsel-linux-ar
 <pre><code>libz.so.1.2.11: ELF 32-bit LSB shared object, MIPS, MIPS32 version 1 (SYSV), dynamically linked, with unknown capability 0xf41 = 0x756e6700, with unknown capability 0x70100 = 0x3040000, not stripped
 </code></pre><p>编译成功</p>
 <hr>
-<h2 id="交叉编译-tor"><a href="#交叉编译-tor" class="headerlink" title="交叉编译 tor"></a>交叉编译 tor</h2><pre><code>$ CC=$MIPSEL_LINUX_PATH2/mipsel-linux-gcc AR=$MIPSEL_LINUX_PATH2/mipsel-linux-ar RANLIB=$MIPSEL_LINUX_PATH2/mipsel-linux-ranlib LD=$MIPSEL_LINUX_PATH2/mipsel-linux-ld STRIP=$MIPSEL_LINUX_PATH2/mipsel-linux-strip ./configure --host=mipsel-linux --disable-tool-name-check --prefix=/root/Desktop/cross/yes/tor --enable-static-libevent --with-libevent-dir=/root/Desktop/cross/yes/libevent --enable-static-openssl --with-openssl-dir=/root/Desktop/cross/yes/openssl2 --enable-static-zlib --with-zlib-dir=/root/Desktop/cross/yes/zlib
+<h2 id="0x05-交叉编译-tor"><a href="#0x05-交叉编译-tor" class="headerlink" title="0x05 交叉编译 tor"></a>0x05 交叉编译 tor</h2><pre><code>$ CC=$MIPSEL_LINUX_PATH2/mipsel-linux-gcc AR=$MIPSEL_LINUX_PATH2/mipsel-linux-ar RANLIB=$MIPSEL_LINUX_PATH2/mipsel-linux-ranlib LD=$MIPSEL_LINUX_PATH2/mipsel-linux-ld STRIP=$MIPSEL_LINUX_PATH2/mipsel-linux-strip ./configure --host=mipsel-linux --disable-tool-name-check --prefix=/root/Desktop/cross/yes/tor --enable-static-libevent --with-libevent-dir=/root/Desktop/cross/yes/libevent --enable-static-openssl --with-openssl-dir=/root/Desktop/cross/yes/openssl2 --enable-static-zlib --with-zlib-dir=/root/Desktop/cross/yes/zlib
 </code></pre><p><code>or</code></p>
 <pre><code>$  ./configure --host=mipsel-linux --disable-tool-name-check --prefix=/root/Desktop/cross/yes/tor CC=$MIPSEL_LINUX_PATH2/mipsel-linux-gcc AR=$MIPSEL_LINUX_PATH2/mipsel-linux-ar RANLIB=$MIPSEL_LINUX_PATH2/mipsel-linux-ranlib LD=$MIPSEL_LINUX_PATH2/mipsel-linux-ld STRIP=$MIPSEL_LINUX_PATH2/mipsel-linux-strip --enable-static-libevent --with-libevent-dir=/root/Desktop/cross/yes/libevent --enable-static-openssl --with-openssl-dir=/root/Desktop/cross/yes/openssl2 --enable-static-zlib --with-zlib-dir=/root/Desktop/cross/yes/zlib
 </code></pre><p>即:</p>
@@ -712,7 +712,7 @@ wget http://ip/tor 即可.
 </code></pre><p><strong>running tor</strong><br><img src="/2017/12/07/交叉编译tor在路由器上使用/router_tor.png" alt="running tor"></p>
 <p>之前我怀疑传到路由器上的tor运行时需要某些库文件的,运行发现是不需要的</p>
 <p>但是还是有segmentation fault。<br>还是要用QEMU模拟MIPS测试….</p>
-<h2 id="qemu模拟mips运行tor"><a href="#qemu模拟mips运行tor" class="headerlink" title="qemu模拟mips运行tor"></a>qemu模拟mips运行tor</h2><p>转到Ubuntu的<br>拷贝buildroot编译成的rootfs.tar（buildroot-2011.05 /output/ images）<br>里面有个lib文件夹，将里面的链接库sudo mv * /lib/</p>
+<h2 id="0x06-qemu模拟mips运行tor"><a href="#0x06-qemu模拟mips运行tor" class="headerlink" title="0x06 qemu模拟mips运行tor"></a>0x06 qemu模拟mips运行tor</h2><p>转到Ubuntu的<br>拷贝buildroot编译成的rootfs.tar（buildroot-2011.05 /output/ images）<br>里面有个lib文件夹，将里面的链接库sudo mv * /lib/</p>
 <p>之后直接运行TOR（qemu的安装后会自动识别MIPS类型的文件）<br>在Ubuntu中运行qemu<br><img src="/2017/12/07/交叉编译tor在路由器上使用/running_tor_in_ubuntu.png" alt="running tor"></p>
 <p>QEMU模拟MIPS运行TOR完美运行成功！</p>
 <p>问题来了为什么在路由器上运行失败segmentation fault呢？</p>
@@ -950,7 +950,7 @@ wget http://ip/tor 即可.
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正常编译tor"><span class="nav-text">正常编译tor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-openssl"><span class="nav-text">交叉编译 openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-libevent"><span class="nav-text">交叉编译 libevent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-zlib"><span class="nav-text">交叉编译 zlib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译-tor"><span class="nav-text">交叉编译 tor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qemu模拟mips运行tor"><span class="nav-text">qemu模拟mips运行tor</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-正常编译tor"><span class="nav-text">0x01 正常编译tor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-交叉编译-openssl"><span class="nav-text">0x02 交叉编译 openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-交叉编译-libevent"><span class="nav-text">0x03 交叉编译 libevent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-交叉编译-zlib"><span class="nav-text">0x04 交叉编译 zlib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-交叉编译-tor"><span class="nav-text">0x05 交叉编译 tor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-qemu模拟mips运行tor"><span class="nav-text">0x06 qemu模拟mips运行tor</span></a></li></ol></div>
             
 
           </div>

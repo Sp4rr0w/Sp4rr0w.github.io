@@ -931,7 +931,18 @@
 
    <!-- 文章摘要图片 -->
         
-          <p>…..<br></p>
+          <h2 id="0x01-正常编译tor"><a href="#0x01-正常编译tor" class="headerlink" title="0x01 正常编译tor"></a>0x01 正常编译tor</h2><p>Router Model : RT-AC66U<br>Router CPU : MIPS32<br>在 <code>Ubuntu</code> 下</p>
+<pre><code>sudo apt-get install openssl
+sudo apt-get install libevent-dev
+sudo apt-get install build-essential
+sudo apt-get install libssl-dev
+tar xzf tor-0.3.1.8.tar.gz
+cd tor-0.3.1.8
+./configure &amp;&amp; make
+src/or/tor
+src/config/torrc   # torrc 
+src/or/tor -f src/config/torrc &amp;
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/12/07/交叉编译tor在路由器上使用/#more" rel="contents">
@@ -1101,7 +1112,30 @@
 
    <!-- 文章摘要图片 -->
         
-          <p>…..<br></p>
+          <h2 id="0x00-路由器架构"><a href="#0x00-路由器架构" class="headerlink" title="0x00 路由器架构"></a>0x00 路由器架构</h2><p>Author : Sparrow<br>Time : 2017-11-27 22:25:51<br>Router Model : RT-N12<br>Router CPU : MIPS32</p>
+<pre><code>admin@RT-N12:/tmp/home/root
+cat /proc/cpuinfo
+system type             : Broadcom BCM53572 chip rev 1 pkg 8
+processor               : 0
+cpu model               : MIPS 74K V4.9
+BogoMIPS                : 149.91
+wait instruction        : no
+microsecond timers      : yes
+tlb_entries             : 32
+extra interrupt vector  : no
+hardware watchpoint     : yes
+ASEs implemented        : mips16 dsp
+shadow register sets    : 1
+VCED exceptions         : not available
+VCEI exceptions         : not available
+
+unaligned_instructions  : 51078121
+dcache hits             : 2147483648
+dcache misses           : 0
+icache hits             : 2147483648
+icache misses           : 0
+instructions            : 2147483648
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/27/交叉编译netcat在路由器上使用 - 从入门到放弃再到success/#more" rel="contents">
