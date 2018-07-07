@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="一 只 麻 雀">
 <meta property="og:description" content="0x01 PowerShell条件判断PowerShell Switch 条件如果语句中有多路分支,使用IF-ELSEIF-ELSE不友好,可以使用Switch,看起来比较清爽一点。下面的例子将If-ElseIF-Else转换成Switch语句 # 使用 IF-ElseIF-Else If( $value -eq 1 ) {     &amp;quot;Beijing&amp;quot; } Elseif( $v">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-07T06:12:02.938Z">
+<meta property="og:updated_time" content="2018-07-07T06:25:16.591Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PowerShell Tips">
 <meta name="twitter:description" content="0x01 PowerShell条件判断PowerShell Switch 条件如果语句中有多路分支,使用IF-ELSEIF-ELSE不友好,可以使用Switch,看起来比较清爽一点。下面的例子将If-ElseIF-Else转换成Switch语句 # 使用 IF-ElseIF-Else If( $value -eq 1 ) {     &amp;quot;Beijing&amp;quot; } Elseif( $v">
@@ -666,8 +666,8 @@ DayofWeek &#39;1927-8-1&#39;
 #Monday
 DayofWeek 2008-8-1
 #Friday
-</code></pre><p>Switch 参数<br>PowerShell函数最简单的参数类型为布尔类型,除了使用Bool类型,也可以使用Switch关键字。<br>下面的函数逆转字符串,但是可以通过$try 参数进行控制,如果没有指定$try的值,默认值为$false<br>function  tryReverse( [switch]$try , [string]$source )<br>{<br>    [string]$target=””<br>    if($try)<br>    {<br>        for( [int]$i = $source.length -1; $i -ge 0 ;$i–)<br>        {<br>            $target += $source[$i]<br>        }<br>        return $target<br>    }<br>    return $source<br>}<br>tryReverse -source <a href="http://www.xxx" target="_blank" rel="noopener">www.xxx</a><br>tryReverse -try $true -source <a href="http://www.xxx" target="_blank" rel="noopener">www.xxx</a></p>
-<h1 id="www-xxx"><a href="#www-xxx" class="headerlink" title="www.xxx"></a><a href="http://www.xxx" target="_blank" rel="noopener">www.xxx</a></h1><h1 id="xxx-www"><a href="#xxx-www" class="headerlink" title="xxx.www"></a>xxx.www</h1><p>PowerShell指定函数的返回值<br>一个或多个返回值</p>
+</code></pre><p>Switch 参数<br>PowerShell函数最简单的参数类型为布尔类型,除了使用Bool类型,也可以使用Switch关键字。<br>下面的函数逆转字符串,但是可以通过$try 参数进行控制,如果没有指定$try的值,默认值为$false<br>    function  tryReverse( [switch]$try , [string]$source )<br>    {<br>        [string]$target=””<br>        if($try)<br>        {<br>        for( [int]$i = $source.length -1; $i -ge 0 ;$i–)<br>        {<br>            $target += $source[$i]<br>        }<br>        return $target<br>        }<br>        return $source<br>    }<br>    tryReverse -source <a href="http://www.xxx" target="_blank" rel="noopener">www.xxx</a><br>    tryReverse -try $true -source <a href="http://www.xxx" target="_blank" rel="noopener">www.xxx</a><br>    -&gt;<br>    <a href="http://www.xxx" target="_blank" rel="noopener">www.xxx</a><br>    xxx.www</p>
+<p>PowerShell指定函数的返回值<br>一个或多个返回值</p>
 <pre><code>function Square([double]$num)
 {
     return $num*$num
@@ -797,8 +797,10 @@ Mode                LastWriteTime     Length Name
 d----         2012/2/28     23:34            a
 d----         2012/2/28     23:35            b
 </code></pre><h2 id="0x04-PowerShell-编写和运行脚本"><a href="#0x04-PowerShell-编写和运行脚本" class="headerlink" title="0x04 PowerShell 编写和运行脚本"></a>0x04 PowerShell 编写和运行脚本</h2><h3 id="1-通过重定向创建脚本"><a href="#1-通过重定向创建脚本" class="headerlink" title="1. 通过重定向创建脚本"></a>1. 通过重定向创建脚本</h3><p>如果您的脚本不是很长,您甚至可以直接在控制台中要执行的语句重定向给一个脚本文件。</p>
-<p>PS E:&gt; ‘“Hello,PowerShell Script”‘ &gt; MyScript.ps1<br>PS E:&gt; .\MyScript.ps1<br>Hello,PowerShell Script</p>
-<p>脚本文件通过@‘‘@闭合起来 (PowerShell ISE):</p>
+<pre><code>PS E:&gt; &#39;&quot;Hello,PowerShell Script&quot;&#39; &gt; MyScript.ps1
+PS E:&gt; .\MyScript.ps1
+Hello,PowerShell Script
+</code></pre><p>脚本文件通过@‘‘@闭合起来 (PowerShell ISE):</p>
 <pre><code>@&#39;
 get-date
 $env:commonProgramfiles
@@ -818,7 +820,7 @@ $env:commonProgramfiles
     106
 </code></pre><p>Here-String以 @’开头,以‘@结束.任何文本都可以存放在里面,哪怕是一些特殊字符,空号,白空格。</p>
 <p>但是如果您不小心将单引号写成了双引号,PowerShell将会把里面的变量进行解析。</p>
-<h3 id="2-执行策略限制"><a href="#2-执行策略限制" class="headerlink" title="2.执行策略限制"></a>2.执行策略限制</h3><p>PowerShell一般初始化情况下都会禁止脚本执行。脚本能否执行取决于PowerShell的执行策略。</p>
+<h3 id="2-执行策略限制"><a href="#2-执行策略限制" class="headerlink" title="2. 执行策略限制"></a>2. 执行策略限制</h3><p>PowerShell一般初始化情况下都会禁止脚本执行。脚本能否执行取决于PowerShell的执行策略。</p>
 <p>PS E:&gt; .\MyScript.ps1</p>
 <p>无法加载文件 E:MyScript.ps1,因为在此系统中禁止执行脚本….</p>
 <pre><code>PS E:&gt; Get-ExecutionPolicy
@@ -844,7 +846,7 @@ RemoteSigned：本地脚本无限制,但是对来自网络的脚本必须经过�
 if：
 Import-Module : File Invoke-Phant0m.ps1 is not digitally signed. You cannot run this
 PS C:\&gt; Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass        ===&gt; ok
-</code></pre><h3 id="3-像命令一样执行脚本"><a href="#3-像命令一样执行脚本" class="headerlink" title="3.像命令一样执行脚本"></a>3.像命令一样执行脚本</h3><p>怎样像执行一个命令一样执行一个脚本,不用输入脚本的相对路径或者绝对路径,甚至*.ps1扩展名。</p>
+</code></pre><h3 id="3-像命令一样执行脚本"><a href="#3-像命令一样执行脚本" class="headerlink" title="3. 像命令一样执行脚本"></a>3. 像命令一样执行脚本</h3><p>怎样像执行一个命令一样执行一个脚本,不用输入脚本的相对路径或者绝对路径,甚至*.ps1扩展名。</p>
 <p>那就将脚本的执行语句保存为别名吧：</p>
 <pre><code>PS E:&gt; Set-Alias Invok-MyScript .11.ps1
 PS E:&gt; Invok-MyScript
@@ -1294,7 +1296,7 @@ test.ps1
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-PowerShell条件判断"><span class="nav-text">0x01 PowerShell条件判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-PowerShell-流控制语句"><span class="nav-text">0x02 PowerShell 流控制语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-PowerShell-Do-While-循环"><span class="nav-text">1. PowerShell Do While 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-For循环是特殊类型的While循环"><span class="nav-text">2. For循环是特殊类型的While循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-PowerShell-ForEach-Object-循环"><span class="nav-text">3. PowerShell ForEach-Object 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-PowerShell-Foreach-循环"><span class="nav-text">4. PowerShell Foreach 循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-PowerShell定义函数"><span class="nav-text">0x03 PowerShell定义函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-函数是自定义的PowerShell代码-有三个原则"><span class="nav-text">1. 函数是自定义的PowerShell代码,有三个原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-使用函数作为别名"><span class="nav-text">2. 使用函数作为别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-PowerShell处理函数的参数"><span class="nav-text">3. PowerShell处理函数的参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#www-xxx"><span class="nav-text">www.xxx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xxx-www"><span class="nav-text">xxx.www</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-PowerShell-编写和运行脚本"><span class="nav-text">0x04 PowerShell 编写和运行脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-通过重定向创建脚本"><span class="nav-text">1. 通过重定向创建脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-执行策略限制"><span class="nav-text">2.执行策略限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-像命令一样执行脚本"><span class="nav-text">3.像命令一样执行脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-PowerShell-增强脚本的可读性"><span class="nav-text">4. PowerShell 增强脚本的可读性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-PowerShell-创建管道脚本"><span class="nav-text">5. PowerShell 创建管道脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-PowerShell自动执行脚本之profile"><span class="nav-text">6. PowerShell自动执行脚本之profile</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-PowerShell命令发现和脚本块"><span class="nav-text">0x05 PowerShell命令发现和脚本块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-PowerShell-发现命令"><span class="nav-text">1. PowerShell 发现命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PowerShell-语句块"><span class="nav-text">2. PowerShell 语句块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-Reference"><span class="nav-text">0x06 Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-PowerShell条件判断"><span class="nav-text">0x01 PowerShell条件判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-PowerShell-流控制语句"><span class="nav-text">0x02 PowerShell 流控制语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-PowerShell-Do-While-循环"><span class="nav-text">1. PowerShell Do While 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-For循环是特殊类型的While循环"><span class="nav-text">2. For循环是特殊类型的While循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-PowerShell-ForEach-Object-循环"><span class="nav-text">3. PowerShell ForEach-Object 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-PowerShell-Foreach-循环"><span class="nav-text">4. PowerShell Foreach 循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-PowerShell定义函数"><span class="nav-text">0x03 PowerShell定义函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-函数是自定义的PowerShell代码-有三个原则"><span class="nav-text">1. 函数是自定义的PowerShell代码,有三个原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-使用函数作为别名"><span class="nav-text">2. 使用函数作为别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-PowerShell处理函数的参数"><span class="nav-text">3. PowerShell处理函数的参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-PowerShell-编写和运行脚本"><span class="nav-text">0x04 PowerShell 编写和运行脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-通过重定向创建脚本"><span class="nav-text">1. 通过重定向创建脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-执行策略限制"><span class="nav-text">2. 执行策略限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-像命令一样执行脚本"><span class="nav-text">3. 像命令一样执行脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-PowerShell-增强脚本的可读性"><span class="nav-text">4. PowerShell 增强脚本的可读性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-PowerShell-创建管道脚本"><span class="nav-text">5. PowerShell 创建管道脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-PowerShell自动执行脚本之profile"><span class="nav-text">6. PowerShell自动执行脚本之profile</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-PowerShell命令发现和脚本块"><span class="nav-text">0x05 PowerShell命令发现和脚本块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-PowerShell-发现命令"><span class="nav-text">1. PowerShell 发现命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PowerShell-语句块"><span class="nav-text">2. PowerShell 语句块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-Reference"><span class="nav-text">0x06 Reference</span></a></li></ol></div>
             
 
           </div>
