@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="一 只 麻 雀">
 <meta property="og:description" content="0x01 PowerShell条件判断PowerShell Switch 条件如果语句中有多路分支,使用IF-ELSEIF-ELSE不友好,可以使用Switch,看起来比较清爽一点。下面的例子将If-ElseIF-Else转换成Switch语句 # 使用 IF-ElseIF-Else If( $value -eq 1 ) {     &amp;quot;Beijing&amp;quot; } Elseif( $v">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-07T06:25:16.591Z">
+<meta property="og:updated_time" content="2018-07-07T06:35:37.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PowerShell Tips">
 <meta name="twitter:description" content="0x01 PowerShell条件判断PowerShell Switch 条件如果语句中有多路分支,使用IF-ELSEIF-ELSE不友好,可以使用Switch,看起来比较清爽一点。下面的例子将If-ElseIF-Else转换成Switch语句 # 使用 IF-ElseIF-Else If( $value -eq 1 ) {     &amp;quot;Beijing&amp;quot; } Elseif( $v">
@@ -666,8 +666,26 @@ DayofWeek &#39;1927-8-1&#39;
 #Monday
 DayofWeek 2008-8-1
 #Friday
-</code></pre><p>Switch 参数<br>PowerShell函数最简单的参数类型为布尔类型,除了使用Bool类型,也可以使用Switch关键字。<br>下面的函数逆转字符串,但是可以通过$try 参数进行控制,如果没有指定$try的值,默认值为$false<br>    function  tryReverse( [switch]$try , [string]$source )<br>    {<br>        [string]$target=””<br>        if($try)<br>        {<br>        for( [int]$i = $source.length -1; $i -ge 0 ;$i–)<br>        {<br>            $target += $source[$i]<br>        }<br>        return $target<br>        }<br>        return $source<br>    }<br>    tryReverse -source <a href="http://www.xxx" target="_blank" rel="noopener">www.xxx</a><br>    tryReverse -try $true -source <a href="http://www.xxx" target="_blank" rel="noopener">www.xxx</a><br>    -&gt;<br>    <a href="http://www.xxx" target="_blank" rel="noopener">www.xxx</a><br>    xxx.www</p>
-<p>PowerShell指定函数的返回值<br>一个或多个返回值</p>
+</code></pre><p>Switch 参数<br>PowerShell函数最简单的参数类型为布尔类型,除了使用Bool类型,也可以使用Switch关键字。<br>下面的函数逆转字符串,但是可以通过$try 参数进行控制,如果没有指定$try的值,默认值为$false</p>
+<pre><code>function  tryReverse( [switch]$try , [string]$source )
+{
+    [string]$target=&quot;&quot;
+    if($try)
+    {
+    for( [int]$i = $source.length -1; $i -ge 0 ;$i--)
+    {
+        $target += $source[$i]
+    }
+    return $target
+    }
+    return $source
+}
+tryReverse -source www.xxx
+tryReverse -try $true -source www.xxx
+-&gt;
+www.xxx
+xxx.www
+</code></pre><p>PowerShell指定函数的返回值<br>一个或多个返回值</p>
 <pre><code>function Square([double]$num)
 {
     return $num*$num
@@ -1316,7 +1334,7 @@ test.ps1
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
