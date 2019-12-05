@@ -81,7 +81,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="一 只 麻 雀" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Sparrow" type="application/atom+xml" />
 
 
 
@@ -93,13 +93,15 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows身份验证体系结构">
 <meta property="og:url" content="https://sp4rr0w.github.io/2019/12/04/Windows 身份验证体系结构/index.html">
-<meta property="og:site_name" content="一 只 麻 雀">
+<meta property="og:site_name" content="Sparrow">
 <meta property="og:description" content="Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权限授予该用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-04T06:55:18.561Z">
+<meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif">
+<meta property="og:updated_time" content="2019-12-05T09:17:25.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows身份验证体系结构">
 <meta name="twitter:description" content="Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权限授予该用">
+<meta name="twitter:image" content="https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif">
 
 
 
@@ -135,7 +137,7 @@
 
 
 
-  <title>Windows身份验证体系结构 | 一 只 麻 雀</title>
+  <title>Windows身份验证体系结构 | Sparrow</title>
   
 
 
@@ -165,7 +167,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">一 只 麻 雀</span>
+        <span class="site-title">Sparrow</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -315,7 +317,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一 只 麻 雀">
+      <meta itemprop="name" content="Sparrow">
     </span>
 
     
@@ -628,7 +630,7 @@ Basic （基本身份验证 - 不再推荐）
 <p>默认情况下，将根据本地计算机上的安全帐户管理器（SAM）数据库或通过 Winlogon 服务在加入域的计算机上 Active Directory 验证 Windows 凭据。 </p>
 <p>凭据是通过登录用户界面上的用户输入收集的，也可以通过应用程序编程接口（API）以编程方式通过向身份验证目标提供。</p>
 <p>本地安全信息存储在HKEY_LOCAL_MACHINE\SECURITY下的注册表中。 存储的信息包括策略设置、默认安全值和帐户信息，如缓存的登录凭据。 SAM 数据库的副本也存储在此处，尽管它是写保护的。</p>
-<p><a href="https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif</a></p>
+<p><img src="https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif" alt="authn_lsa_architecture_client"></p>
 <h2 id="Windows-身份验证中使用的组策略设置"><a href="#Windows-身份验证中使用的组策略设置" class="headerlink" title="Windows 身份验证中使用的组策略设置"></a>Windows 身份验证中使用的组策略设置</h2><p><a href="https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/group-policy-settings-used-in-windows-authentication" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/group-policy-settings-used-in-windows-authentication</a></p>
 
       
