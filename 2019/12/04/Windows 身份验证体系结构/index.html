@@ -88,19 +88,19 @@
 
 
 
-<meta name="description" content="Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权限授予该用">
+<meta name="description" content="0x00 Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权">
 <meta name="keywords" content="笔记,Windows,身份验证,SSP&amp;SSPI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows身份验证体系结构">
 <meta property="og:url" content="https://sp4rr0w.github.io/2019/12/04/Windows 身份验证体系结构/index.html">
 <meta property="og:site_name" content="Sparrow">
-<meta property="og:description" content="Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权限授予该用">
+<meta property="og:description" content="0x00 Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif">
-<meta property="og:updated_time" content="2019-12-05T09:17:25.393Z">
+<meta property="og:updated_time" content="2019-12-06T08:41:42.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows身份验证体系结构">
-<meta name="twitter:description" content="Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权限授予该用">
+<meta name="twitter:description" content="0x00 Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权">
 <meta name="twitter:image" content="https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif">
 
 
@@ -423,11 +423,13 @@
       
 
       
-        <h1 id="Windows-身份验证体系结构"><a href="#Windows-身份验证体系结构" class="headerlink" title="Windows 身份验证体系结构"></a>Windows 身份验证体系结构</h1><p><a href="https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture</a></p>
+        <h1 id="0x00-Windows-身份验证体系结构"><a href="#0x00-Windows-身份验证体系结构" class="headerlink" title="0x00 Windows 身份验证体系结构"></a>0x00 Windows 身份验证体系结构</h1><p><a href="https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture</a></p>
 <p>身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权限授予该用户的权限列表中指定的范围。</p>
 <p>作为可扩展体系结构的一部分，Windows Server 操作系统将实现一组默认身份验证安全支持提供程序(SSP)，其中包括 Negotiate、Kerberos 协议、NTLM、Schannel （安全通道）和Digest(摘要)。 </p>
+<p><strong>authn_lsa_architecture_client</strong><br><img src="https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif" alt="authn_lsa_architecture_client"></p>
+<a id="more"></a>
 <p>这些提供程序使用的协议允许用户、计算机和服务进行身份验证，并且身份验证过程使授权的用户和服务能够安全地访问资源。</p>
-<h2 id="本地安全机构-LSA"><a href="#本地安全机构-LSA" class="headerlink" title="本地安全机构 LSA"></a>本地安全机构 LSA</h2><p>本地安全机构（LSA）是一个受保护的子系统，用于对用户进行身份验证并登录到本地计算机。 </p>
+<h2 id="0x01-本地安全机构-LSA"><a href="#0x01-本地安全机构-LSA" class="headerlink" title="0x01 本地安全机构 LSA"></a>0x01 本地安全机构 LSA</h2><p>本地安全机构（LSA）是一个受保护的子系统，用于对用户进行身份验证并登录到本地计算机。 </p>
 <p>此外，LSA 还维护有关计算机上的本地安全所有方面的信息（这些方面统称为本地安全策略）。 它还提供了用于在名称和安全标识符（Sid）之间进行转换的各种服务。</p>
 <p>LSA管理本地安全策略、管理审计策略和设置、为用户生成包含SID和组权限关系的令牌。</p>
 <p>LSA验证的过程: LSA通过访问本地SAM(Security Accounts Manager)数据库,可以完成本地用户的验证。</p>
@@ -436,7 +438,7 @@
 2. SSPI不能确定用户是本地登录还是域账户进行域登录。所以他会先把身份认证请求传递到Kerberos SSP。
 3. Kerberos SSP会验证用户的登入目标是本地计算机还是域。如果是登录域,Kerberos SSP将继续处理。如果是本地计算机,即用户不是登录域,Kerberos SSP返回一个错误消息到SSPI,交回给GINA处理,使服务器登录不可用。
 4. SSPI现在发送请求到下一个安全提供程序——NTLM。NTLM SSP会将请求交给Netlogon服务针对LSAM (Local Security Account Manager,本地安全账户管理器)数据库进行身份认证。使用NTLM SSP的身份认证过程与Windows NT系统的身份认证方法是相同的。   
-</code></pre><h2 id="身份验证安全支持提供程序-SSP-amp-SSPI"><a href="#身份验证安全支持提供程序-SSP-amp-SSPI" class="headerlink" title="身份验证安全支持提供程序 SSP &amp; SSPI"></a>身份验证安全支持提供程序 SSP &amp; SSPI</h2><p>SSPI(Security Support Provider Interface) 安全支持提供接口</p>
+</code></pre><h2 id="0x02-身份验证安全支持提供程序-SSP-amp-SSPI"><a href="#0x02-身份验证安全支持提供程序-SSP-amp-SSPI" class="headerlink" title="0x02 身份验证安全支持提供程序 SSP &amp; SSPI"></a>0x02 身份验证安全支持提供程序 SSP &amp; SSPI</h2><p>SSPI(Security Support Provider Interface) 安全支持提供接口</p>
 <pre><code>是通用安全服务 API （GSSAPI）的实现，也是 Windows 定义的一套接口，此接口定义了与安全有关的功能函数， 用来获得验证、信息完整性、信息隐私等安全功能，但是没有具体的实现。
 </code></pre><p>SSP(Security Support Provider)直译为安全支持提供者，又名Security Package，SSPI 的实现者，对SSPI相关功能函数的具体实现。</p>
 <p>简单的理解为SSP就是一个DLL，来实现身份验证等安全功能，实现的身份验证机制是不一样的，例如：</p>
@@ -471,7 +473,7 @@ Internet Explorer                       }                   {   Digest
                                                             {   Schannel
                                                             {   Negotiate
                                                             {   Other
-</code></pre><h3 id="msv-NTLM-SSP"><a href="#msv-NTLM-SSP" class="headerlink" title="msv - NTLM SSP"></a>msv - NTLM SSP</h3><p><a href="https://github.com/gentilkiwi/mimikatz/blob/master/mimikatz/modules/sekurlsa/kuhl_m_sekurlsa.c" target="_blank" rel="noopener">https://github.com/gentilkiwi/mimikatz/blob/master/mimikatz/modules/sekurlsa/kuhl_m_sekurlsa.c</a></p>
+</code></pre><h3 id="0x02-1-msv-NTLM-SSP"><a href="#0x02-1-msv-NTLM-SSP" class="headerlink" title="0x02-1  msv - NTLM SSP"></a>0x02-1  msv - NTLM SSP</h3><p><a href="https://github.com/gentilkiwi/mimikatz/blob/master/mimikatz/modules/sekurlsa/kuhl_m_sekurlsa.c" target="_blank" rel="noopener">https://github.com/gentilkiwi/mimikatz/blob/master/mimikatz/modules/sekurlsa/kuhl_m_sekurlsa.c</a></p>
 <pre><code>msv1_0.dll     身份验证包 Lists LM &amp; NTLM credential
 </code></pre><p>NTLM 身份验证是 Windows msv1_0.dll 中包含的一系列身份验证协议。 </p>
 <pre><code>NTLM 身份验证协议包括 LAN Manager 版本 1 和 2 以及 NTLM 版本 1 和 2。 
@@ -521,7 +523,7 @@ MSV1_0是用于交互式登陆到本地计算机的 Windows Authentication packa
 
         `KRB_AP_REQ (Kerberos Application Request)`
         5. Client-A ----------------------------------------------------------==&gt; Server-B (Client-A把服务票据ST中的服务器部分和请求一起发送到Server-B(Client-A要访问活动目录中的主机),远程服务器将直接接受该服务器票据,并不需要和KDC直接通信,因为该票据是用远程服务器和KDC共享的长期密钥加密过的)
-</code></pre><h3 id="kerberos"><a href="#kerberos" class="headerlink" title="kerberos"></a>kerberos</h3><p>是Windows活动目录中使用的客户/服务器认证协议(windows中的认证协议有两种NTLM和Kerberos),为通信双方提供双向身份认证。</p>
+</code></pre><h3 id="0x02-2-kerberos"><a href="#0x02-2-kerberos" class="headerlink" title="0x02-2 kerberos"></a>0x02-2 kerberos</h3><p>是Windows活动目录中使用的客户/服务器认证协议(windows中的认证协议有两种NTLM和Kerberos),为通信双方提供双向身份认证。</p>
 <p>相互认证或请求服务的实体被称为委托人(principal)。参与的中央服务器被称为密钥分发中心(简称KDC)。</p>
 <p>KDC(密钥分发中心　Key Distribution Center)有两个服务组成 : </p>
 <pre><code>1. AS 身份验证服务(Authentication Server)
@@ -539,7 +541,7 @@ MSV1_0是用于交互式登陆到本地计算机的 Windows Authentication packa
 Intranet 到 Internet Information Services 的身份验证（IIS）
 Internet 协议安全（IPsec）的安全机构身份验证
 用于域用户和计算机 Active Directory 证书服务的证书请求
-</code></pre><h3 id="tspkg"><a href="#tspkg" class="headerlink" title="tspkg"></a>tspkg</h3><p>TSPKG - Terminal Services Package  身份验证提供程序<br>TSSSP - Terminal Services SSP  终端服务SSP<br>SSP - 安全支持提供程序</p>
+</code></pre><h3 id="0x02-3-tspkg"><a href="#0x02-3-tspkg" class="headerlink" title="0x02-3 tspkg"></a>0x02-3 tspkg</h3><p>TSPKG - Terminal Services Package  身份验证提供程序<br>TSSSP - Terminal Services SSP  终端服务SSP<br>SSP - 安全支持提供程序</p>
 <p>RDP SSO功能依赖于允许“凭据委派(Credential Delegation)”的 CredSSP / TSSSP / TSPKG 组件。</p>
 <p><a href="https://clement.notin.org/blog/2019/07/03/credential-theft-without-admin-or-touching-lsass-with-kekeo-by-abusing-credssp-tspkg-rdp-sso/" target="_blank" rel="noopener">通过滥用CredSSP / TSPKG（RDP SSO）即凭据委派，无需管理员或通过Kekeo接触LSASS即可进行凭据盗窃</a></p>
 <p>凭据委派 Allow delegating default credentials  （类似于记住远程登陆过的密码）</p>
@@ -549,12 +551,12 @@ Allow Delegating Default Credentials with NTLM-only Server Authentication
 Allow Delegating Default Credentials
 </code></pre><p>tspkg.DLL: TSSSP (Terminal Services SSP)</p>
 <pre><code>C:\Windows\System32\tspkg.dll - Web Service Security Package 
-</code></pre><h3 id="CredSSP"><a href="#CredSSP" class="headerlink" title="CredSSP"></a>CredSSP</h3><p>配置远程登陆RDP，当选中“Network Layer Authentication”（NLA是网络级身份验证）选项时，它允许在打开图形会话之前进行身份验证。</p>
+</code></pre><h3 id="0x02-4-CredSSP"><a href="#0x02-4-CredSSP" class="headerlink" title="0x02-4 CredSSP"></a>0x02-4 CredSSP</h3><p>配置远程登陆RDP，当选中“Network Layer Authentication”（NLA是网络级身份验证）选项时，它允许在打开图形会话之前进行身份验证。</p>
 <p>凭据安全服务提供程序（CredSSP）提供启动新终端服务和远程桌面服务会话时的单一登录（SSO）用户体验。 </p>
 <p>使用 CredSSP，应用程序可以根据客户端的策略，将用户的凭据从客户端计算机（通过使用客户端 SSP）委托给目标服务器（通过服务器端 SSP）。 </p>
 <p>CredSSP 策略通过使用组策略进行配置，并且默认情况下禁用凭据的委派。</p>
 <pre><code>位置：%windir%\Windows\System32\credssp.dll
-</code></pre><h3 id="Schannel"><a href="#Schannel" class="headerlink" title="Schannel"></a>Schannel</h3><p><a href="https://docs.microsoft.com/zh-cn/windows-server/security/tls/tls-ssl-schannel-ssp-overview?redirectedfrom=MSDN" target="_blank" rel="noopener">TLS/SSL 概述（Schannel SSP）</a></p>
+</code></pre><h3 id="0x02-5-Schannel"><a href="#0x02-5-Schannel" class="headerlink" title="0x02-5 Schannel"></a>0x02-5 Schannel</h3><p><a href="https://docs.microsoft.com/zh-cn/windows-server/security/tls/tls-ssl-schannel-ssp-overview?redirectedfrom=MSDN" target="_blank" rel="noopener">TLS/SSL 概述（Schannel SSP）</a></p>
 <p>安全通道（Schannel）用于基于 web 的服务器身份验证，例如，当用户尝试访问安全 web 服务器时。</p>
 <pre><code>位置：%windir%\Windows\System32\Schannel.dll
 </code></pre><p>Schannel 是安全支持提供程序 (SSP)，可实现安全套接字层 (SSL) 和传输层安全 (TLS) Internet 标准身份验证协议。</p>
@@ -574,7 +576,7 @@ Allow Delegating Default Credentials
 远程访问
 SQL 访问
 电子邮件
-</code></pre><h3 id="WDigest"><a href="#WDigest" class="headerlink" title="WDigest"></a>WDigest</h3><p>Digest 与 NTLM 类似也一种挑战认证的协议，用于轻型目录访问协议（LDAP）和 web 身份验证(IIS)。 摘要式身份验证通过网络以 MD5 哈希或消息摘要形式传输凭据。</p>
+</code></pre><h3 id="0x02-6-WDigest"><a href="#0x02-6-WDigest" class="headerlink" title="0x02-6 WDigest"></a>0x02-6 WDigest</h3><p>Digest 与 NTLM 类似也一种挑战认证的协议，用于轻型目录访问协议（LDAP）和 web 身份验证(IIS)。 摘要式身份验证通过网络以 MD5 哈希或消息摘要形式传输凭据。</p>
 <p>Digest SSP （Wdigest）用于以下内容：</p>
 <pre><code>Internet Explorer 和 Internet Information Services （IIS）访问
 LDAP 查询
@@ -611,27 +613,26 @@ Windows Server 2012 R2-2016：默认情况下禁用WDigest，不执行任何操�
 5.从wdigest.dll中获得每条凭据的信息，判断加密算法，解密获得明文口令。
 (Windows Server 2008 R2及更高版本的系统需要修改注册表)
 位置：%windir%\Windows\System32\kerberos.dll
-</code></pre><h3 id="Negotiate-SPNEGO"><a href="#Negotiate-SPNEGO" class="headerlink" title="Negotiate - SPNEGO"></a>Negotiate - SPNEGO</h3><p>简单且受保护的 GSS-API 协商机制（ SPNEGO ）构成协商 SSP 的基础，whichcan 用于协商特定身份验证协议。</p>
+</code></pre><h3 id="0x02-7-Negotiate-SPNEGO"><a href="#0x02-7-Negotiate-SPNEGO" class="headerlink" title="0x02-7 Negotiate - SPNEGO"></a>0x02-7 Negotiate - SPNEGO</h3><p>简单且受保护的 GSS-API 协商机制（ SPNEGO ）构成协商 SSP 的基础，whichcan 用于协商特定身份验证协议。</p>
 <p>当应用程序调用 SSPI 登录到网络时，它可以指定 SSP 来处理请求。 如果应用程序指定 Negotiate SSP，则它会分析请求，并根据客户配置的安全策略选择相应的提供程序来处理请求。</p>
 <p>在支持的 Windows 操作系统版本中，协商安全支持提供程序在 Kerberos 协议和 NTLM 之间选择。 </p>
 <p>默认情况下，协商将选择 Kerberos 协议，除非该协议不能由身份验证中涉及的系统之一使用，或调用应用程序没有提供足够的信息来使用 Kerberos 协议。</p>
 <pre><code>位置：%windir%\Windows\System32\lsasrv.dll
-</code></pre><h3 id="PKU2U"><a href="#PKU2U" class="headerlink" title="PKU2U"></a>PKU2U</h3><p>Windows 7 和 Windows Server 2008 R2 中引入了 PKU2U 协议，并将其作为 SSP 实现。 </p>
+</code></pre><h3 id="0x02-8-PKU2U"><a href="#0x02-8-PKU2U" class="headerlink" title="0x02-8 PKU2U"></a>0x02-8 PKU2U</h3><p>Windows 7 和 Windows Server 2008 R2 中引入了 PKU2U 协议，并将其作为 SSP 实现。 </p>
 <p>此 SSP 启用对等身份验证，特别是在 Windows 7 中引入了名为 “家庭组” 的媒体和文件共享功能。 此功能允许在非域成员的计算机之间共享。</p>
 <pre><code>位置：%windir%\Windows\System32\pku2u.dll
-</code></pre><h3 id="Exchange-认证"><a href="#Exchange-认证" class="headerlink" title="Exchange 认证"></a>Exchange 认证</h3><p>身份验证是 Exchange Web Services (EWS) 应用程序的关键部分。</p>
+</code></pre><h3 id="0x02-9-Exchange-认证"><a href="#0x02-9-Exchange-认证" class="headerlink" title="0x02-9 Exchange 认证"></a>0x02-9 Exchange 认证</h3><p>身份验证是 Exchange Web Services (EWS) 应用程序的关键部分。</p>
 <p><a href="https://docs.microsoft.com/zh-cn/exchange/client-developer/exchange-web-services/authentication-and-ews-in-exchange" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/exchange/client-developer/exchange-web-services/authentication-and-ews-in-exchange</a></p>
 <p>Exchange 提供以下身份验证选项：</p>
 <pre><code>OAuth 2.0 (Exchange Online 仅 ， OAuth2.0应用于Office 365应用程序接口)
 NTLM （Exchange 内部部署仅）
 Basic （基本身份验证 - 不再推荐）
-</code></pre><h2 id="Windows-身份验证中的凭据进程"><a href="#Windows-身份验证中的凭据进程" class="headerlink" title="Windows 身份验证中的凭据进程"></a>Windows 身份验证中的凭据进程</h2><p>Windows 凭据管理是操作系统从<strong>服务或用户接收凭据</strong>的过程，并保护该信息以供将来呈现到身份验证目标。 </p>
+</code></pre><h2 id="0x03-Windows-身份验证中的凭据进程"><a href="#0x03-Windows-身份验证中的凭据进程" class="headerlink" title="0x03 Windows 身份验证中的凭据进程"></a>0x03 Windows 身份验证中的凭据进程</h2><p>Windows 凭据管理是操作系统从<strong>服务或用户接收凭据</strong>的过程，并保护该信息以供将来呈现到身份验证目标。 </p>
 <p>对于已加入域的计算机，身份验证目标为域控制器。身份验证中使用的凭据是将用户标识关联到某种形式的身份验证（如证书、密码或 PIN）的数字文档。</p>
 <p>默认情况下，将根据本地计算机上的安全帐户管理器（SAM）数据库或通过 Winlogon 服务在加入域的计算机上 Active Directory 验证 Windows 凭据。 </p>
 <p>凭据是通过登录用户界面上的用户输入收集的，也可以通过应用程序编程接口（API）以编程方式通过向身份验证目标提供。</p>
 <p>本地安全信息存储在HKEY_LOCAL_MACHINE\SECURITY下的注册表中。 存储的信息包括策略设置、默认安全值和帐户信息，如缓存的登录凭据。 SAM 数据库的副本也存储在此处，尽管它是写保护的。</p>
-<p><img src="https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif" alt="authn_lsa_architecture_client"></p>
-<h2 id="Windows-身份验证中使用的组策略设置"><a href="#Windows-身份验证中使用的组策略设置" class="headerlink" title="Windows 身份验证中使用的组策略设置"></a>Windows 身份验证中使用的组策略设置</h2><p><a href="https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/group-policy-settings-used-in-windows-authentication" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/group-policy-settings-used-in-windows-authentication</a></p>
+<h2 id="0x04-Windows-身份验证中使用的组策略设置"><a href="#0x04-Windows-身份验证中使用的组策略设置" class="headerlink" title="0x04 Windows 身份验证中使用的组策略设置"></a>0x04 Windows 身份验证中使用的组策略设置</h2><p><a href="https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/group-policy-settings-used-in-windows-authentication" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/group-policy-settings-used-in-windows-authentication</a></p>
 
       
     </div>
@@ -864,7 +865,7 @@ Basic （基本身份验证 - 不再推荐）
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows-身份验证体系结构"><span class="nav-text">Windows 身份验证体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地安全机构-LSA"><span class="nav-text">本地安全机构 LSA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#身份验证安全支持提供程序-SSP-amp-SSPI"><span class="nav-text">身份验证安全支持提供程序 SSP &amp; SSPI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#msv-NTLM-SSP"><span class="nav-text">msv - NTLM SSP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kerberos"><span class="nav-text">kerberos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tspkg"><span class="nav-text">tspkg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CredSSP"><span class="nav-text">CredSSP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Schannel"><span class="nav-text">Schannel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WDigest"><span class="nav-text">WDigest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Negotiate-SPNEGO"><span class="nav-text">Negotiate - SPNEGO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PKU2U"><span class="nav-text">PKU2U</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exchange-认证"><span class="nav-text">Exchange 认证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-身份验证中的凭据进程"><span class="nav-text">Windows 身份验证中的凭据进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-身份验证中使用的组策略设置"><span class="nav-text">Windows 身份验证中使用的组策略设置</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-Windows-身份验证体系结构"><span class="nav-text">0x00 Windows 身份验证体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-本地安全机构-LSA"><span class="nav-text">0x01 本地安全机构 LSA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-身份验证安全支持提供程序-SSP-amp-SSPI"><span class="nav-text">0x02 身份验证安全支持提供程序 SSP &amp; SSPI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-1-msv-NTLM-SSP"><span class="nav-text">0x02-1  msv - NTLM SSP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-2-kerberos"><span class="nav-text">0x02-2 kerberos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-3-tspkg"><span class="nav-text">0x02-3 tspkg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-4-CredSSP"><span class="nav-text">0x02-4 CredSSP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-5-Schannel"><span class="nav-text">0x02-5 Schannel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-6-WDigest"><span class="nav-text">0x02-6 WDigest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-7-Negotiate-SPNEGO"><span class="nav-text">0x02-7 Negotiate - SPNEGO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-8-PKU2U"><span class="nav-text">0x02-8 PKU2U</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-9-Exchange-认证"><span class="nav-text">0x02-9 Exchange 认证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-Windows-身份验证中的凭据进程"><span class="nav-text">0x03 Windows 身份验证中的凭据进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-Windows-身份验证中使用的组策略设置"><span class="nav-text">0x04 Windows 身份验证中使用的组策略设置</span></a></li></ol></li></ol></div>
             
 
           </div>
