@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="0x01 PowerShell条件判断PowerShell Switch 条件如果语句中有多路分支,使用IF-ELSEIF-ELSE不友好,可以使用Switch,看起来比较清爽一点。下面的例子将If-ElseIF-Else转换成Switch语句 # 使用 IF-ElseIF-Else If( $value -eq 1 ) {     &amp;quot;Beijing&amp;quot; } Elseif( $v">
+<meta name="description" content="0x01 PowerShell条件判断">
 <meta name="keywords" content="笔记,PowerShell,Tips">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PowerShell Tips">
 <meta property="og:url" content="https://sp4rr0w.github.io/2018/07/07/PowerShell Tips/index.html">
 <meta property="og:site_name" content="Sparrow">
-<meta property="og:description" content="0x01 PowerShell条件判断PowerShell Switch 条件如果语句中有多路分支,使用IF-ELSEIF-ELSE不友好,可以使用Switch,看起来比较清爽一点。下面的例子将If-ElseIF-Else转换成Switch语句 # 使用 IF-ElseIF-Else If( $value -eq 1 ) {     &amp;quot;Beijing&amp;quot; } Elseif( $v">
+<meta property="og:description" content="0x01 PowerShell条件判断">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-07T06:35:37.049Z">
+<meta property="og:updated_time" content="2019-12-10T06:52:25.698Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PowerShell Tips">
-<meta name="twitter:description" content="0x01 PowerShell条件判断PowerShell Switch 条件如果语句中有多路分支,使用IF-ELSEIF-ELSE不友好,可以使用Switch,看起来比较清爽一点。下面的例子将If-ElseIF-Else转换成Switch语句 # 使用 IF-ElseIF-Else If( $value -eq 1 ) {     &amp;quot;Beijing&amp;quot; } Elseif( $v">
+<meta name="twitter:description" content="0x01 PowerShell条件判断">
 
 
 
@@ -421,7 +421,8 @@
       
 
       
-        <h2 id="0x01-PowerShell条件判断"><a href="#0x01-PowerShell条件判断" class="headerlink" title="0x01 PowerShell条件判断"></a>0x01 PowerShell条件判断</h2><p>PowerShell Switch 条件<br>如果语句中有多路分支,使用IF-ELSEIF-ELSE不友好,可以使用Switch,看起来比较清爽一点。<br>下面的例子将If-ElseIF-Else转换成Switch语句</p>
+        <h2 id="0x01-PowerShell条件判断"><a href="#0x01-PowerShell条件判断" class="headerlink" title="0x01 PowerShell条件判断"></a>0x01 PowerShell条件判断</h2><a id="more"></a>
+<p>PowerShell Switch 条件<br>如果语句中有多路分支,使用IF-ELSEIF-ELSE不友好,可以使用Switch,看起来比较清爽一点。<br>下面的例子将If-ElseIF-Else转换成Switch语句</p>
 <pre><code># 使用 IF-ElseIF-Else
 If( $value -eq 1 )
 {
@@ -443,8 +444,7 @@ switch($value)
     2 {&quot;Shanghai&quot;}
     3 {&quot;Chongqing&quot;}
 }
-</code></pre><a id="more"></a>
-<p>PowerShell IF-ELSEIF-ELSE 条件</p>
+</code></pre><p>PowerShell IF-ELSEIF-ELSE 条件</p>
 <p>Where-Object 进行条件判断很方便,如果在判断后执行很多代码可以使用IF-ELSEIF-ELSE语句。语句模板：</p>
 <p>If(条件满足){如果条件满足就执行代码}Else{如果条件不满足}</p>
 <p>条件判断必须放在圆括号中,执行的代码必须紧跟在后面的花括号中。</p>
