@@ -305,6 +305,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/02/18/Kerberos认证相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sparrow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/jacksparrow.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sparrow">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/18/Kerberos认证相关/" itemprop="url">Kerberos认证相关</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-18T19:09:00-05:00">
+                2018-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术相关/" itemprop="url" rel="index">
+                    <span itemprop="name">技术相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/18/Kerberos认证相关/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/02/18/Kerberos认证相关/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/02/18/Kerberos认证相关/" class="leancloud_visitors" data-flag-title="Kerberos认证相关">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+   <!-- 文章摘要图片 -->
+
+   <!-- 文章摘要图片 -->
+        
+          <h2 id="0x01-Kerberos认证过程-简易版"><a href="#0x01-Kerberos认证过程-简易版" class="headerlink" title="0x01 Kerberos认证过程 (简易版)"></a>0x01 Kerberos认证过程 (简易版)</h2><p>认证或请求服务 的过程如下:<br><img src="/2018/02/18/Kerberos认证相关/simple.jpg" alt="认证或请求服务"></p>
+<p><code>简义</code></p>
+<pre><code>`KRB_AS_REQ (Kerberos Authentication Service Request)`
+1. Client-A ---------------------------------------------------------==&gt; KDC-AS (客户端执行散列运算加密一个时间戳,然后发送给身份验证服务(KDC-AS)) 此过程叫KRB_AS_REQ
+
+
+`KRB_AS_REP (Kerberos Authentication Service Response)`
+2. Client-A &lt;==--------------------------------------------------------- KDC-AS (返回TGT,TGT票据使用KDC的krbtgt密钥进行加密) 此过程叫KRB_AS_REP
+
+
+`KRB_TGS_REQ (Kerberos Ticket Granting Service Request)`
+3. Client-A ----------------------------------------------------------==&gt; KDC-TGS (Client-A使用AS返回的&quot;会话密钥&quot;构建访问特定服务的请求,再把AS返回的&quot;TGT&quot;连同请求一起发送到票据授予服务TGS) 此过程叫KRB_TGS_REP
+
+
+`KRB_TGS_REP (Kerberos Ticket Granting Service Response)`
+4. Client-A &lt;==---------------------------------------------------------- KDC-TGS (TGS解密TGT和服务请求,并向Client-A发送一个服务票据ST(Service Ticket)
+
+
+`KRB_AP_REQ (Kerberos Application Request)`
+5. Client-A ----------------------------------------------------------==&gt; Server-B (Client-A把服务票据中的服务器部分和请求一起发送到Server-B(Client-A要访问活动目录中的主机),远程服务器将直接接受该服务器票据,并不需要和KDC直接通信,因为该票据是用远程服务器和KDC共享的长期密钥加密过的)
+</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/02/18/Kerberos认证相关/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://sp4rr0w.github.io/2018/01/25/利用域委派获取域某些权限/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1928,7 +2118,7 @@ instructions            : 2147483648
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1950,7 +2140,7 @@ instructions            : 2147483648
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

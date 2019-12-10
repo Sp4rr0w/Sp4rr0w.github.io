@@ -88,19 +88,19 @@
 
 
 
-<meta name="description" content="0x00 Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权">
+<meta name="description" content="0x00 Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问">
 <meta name="keywords" content="笔记,Windows,身份验证,SSP&amp;SSPI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows身份验证体系结构">
 <meta property="og:url" content="https://sp4rr0w.github.io/2019/12/04/Windows 身份验证体系结构/index.html">
 <meta property="og:site_name" content="Sparrow">
-<meta property="og:description" content="0x00 Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权">
+<meta property="og:description" content="0x00 Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif">
-<meta property="og:updated_time" content="2019-12-06T09:18:34.286Z">
+<meta property="og:updated_time" content="2019-12-10T06:38:48.957Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows身份验证体系结构">
-<meta name="twitter:description" content="0x00 Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权">
+<meta name="twitter:description" content="0x00 Windows 身份验证体系结构https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture 身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问">
 <meta name="twitter:image" content="https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif">
 
 
@@ -423,11 +423,11 @@
       
 
       
-        <h1 id="0x00-Windows-身份验证体系结构"><a href="#0x00-Windows-身份验证体系结构" class="headerlink" title="0x00 Windows 身份验证体系结构"></a>0x00 Windows 身份验证体系结构</h1><p><a href="https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture</a></p>
+        <a id="more"></a>
+<h1 id="0x00-Windows-身份验证体系结构"><a href="#0x00-Windows-身份验证体系结构" class="headerlink" title="0x00 Windows 身份验证体系结构"></a>0x00 Windows 身份验证体系结构</h1><p><a href="https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows-server/security/windows-authentication/windows-authentication-architecture</a></p>
 <p>身份验证是指系统验证用户的登录或登录信息时所使用的过程。 用户的名称和密码与授权列表进行比较，如果系统检测到匹配项，则将访问权限授予该用户的权限列表中指定的范围。</p>
 <p>作为可扩展体系结构的一部分，Windows Server 操作系统将实现一组默认身份验证安全支持提供程序(SSP)，其中包括 Negotiate、Kerberos 协议、NTLM、Schannel （安全通道）和Digest(摘要)。 </p>
 <p><strong>authn_lsa_architecture_client</strong><br><img src="https://docs.microsoft.com/zh-cn/windows-server/security/media/credentials-processes-in-windows-authentication/authn_lsa_architecture_client.gif" alt="authn_lsa_architecture_client"></p>
-<a id="more"></a>
 <p>这些提供程序使用的协议允许用户、计算机和服务进行身份验证，并且身份验证过程使授权的用户和服务能够安全地访问资源。</p>
 <h2 id="0x01-本地安全机构-LSA"><a href="#0x01-本地安全机构-LSA" class="headerlink" title="0x01 本地安全机构 LSA"></a>0x01 本地安全机构 LSA</h2><p>本地安全机构（LSA）是一个受保护的子系统，用于对用户进行身份验证并登录到本地计算机。 </p>
 <p>此外，LSA 还维护有关计算机上的本地安全所有方面的信息（这些方面统称为本地安全策略）。 它还提供了用于在名称和安全标识符（Sid）之间进行转换的各种服务。</p>
@@ -509,8 +509,14 @@ MSV1_0是用于交互式登陆到本地计算机的 Windows Authentication packa
 <pre><code>若存在域,MSV1_0 使用传递身份(pass-through)验证处理域登录:
 1-&gt; 本地MSV1_0 使用Netlogon服务来调用在域控制器上运行的MSV1_0.
     2-&gt; 域控制器的MSV1_0实例检查域控制器的SAM数据库(上面的3步骤),并将登录结果返回到本地计算机上的MSV1_0. 
-</code></pre><p>交互式登录 (登录域)<br>    身份验证过程<br>    0-&gt; 用户按下Ctrl+Alt+Del组合键，Winlogon 检测到用户按下SAS组合键，调用GINA显示登录对话框，以便输入账号密码。<br>     1-&gt; GINA为Winlogon登录过程收集的登录数据通过 Secur32.dll 传递到LSA, LSA 使用 LsaLogonUser API 为各种各样的用户身份验证 ( LsaLogonUser 支持交互式登录 / 服务登录 / 网络登录 ).<br>      2-&gt; (登录域情况下)LSA 将请求发送给Kerberos (Kerberos.dll)身份验证,通过散列算法，将用户信息生成一个密钥，并将密钥存储在证书缓存区中。<br>       3-&gt;<br>            <code>KRB_AS_REQ (Kerberos Authentication Service Request)</code></p>
-<pre><code>        1. Client-A ---------------------------------------------------------==&gt; KDC-AS (客户端执行散列运算加密一个时间戳,然后（包含用户证书）发送给身份验证服务(KDC-AS)) 此过程叫KRB_AS_REQ
+</code></pre><p>交互式登录 (登录域)    </p>
+<pre><code>身份验证过程
+0-&gt; 用户按下Ctrl+Alt+Del组合键，Winlogon 检测到用户按下SAS组合键，调用GINA显示登录对话框，以便输入账号密码。
+ 1-&gt; GINA为Winlogon登录过程收集的登录数据通过 Secur32.dll 传递到LSA, LSA 使用 LsaLogonUser API 为各种各样的用户身份验证 ( LsaLogonUser 支持交互式登录 / 服务登录 / 网络登录 ).
+  2-&gt; (登录域情况下)LSA 将请求发送给Kerberos (Kerberos.dll)身份验证,通过散列算法，将用户信息生成一个密钥，并将密钥存储在证书缓存区中。 
+   3-&gt; 
+        `KRB_AS_REQ (Kerberos Authentication Service Request)`
+        1. Client-A ---------------------------------------------------------==&gt; KDC-AS (客户端执行散列运算加密一个时间戳,然后（包含用户证书）发送给身份验证服务(KDC-AS)) 此过程叫KRB_AS_REQ
 
         `KRB_AS_REP (Kerberos Authentication Service Response)`
         2. Client-A &lt;==--------------------------------------------------------- KDC-AS (返回TGT,KDC利用自己的密钥对请求中时间戳进行解密，若解密成功(KDC-AS检查用户的信息(登录限制.组成员身份等)并创建票据授予票据TGT，且向本地LSA请求生成一个特殊的数据PAC。返回会话密钥和TGT) 此过程叫KRB_AS_REP
@@ -543,9 +549,13 @@ Internet 协议安全（IPsec）的安全机构身份验证
 用于域用户和计算机 Active Directory 证书服务的证书请求
 </code></pre><h3 id="0x02-3-tspkg"><a href="#0x02-3-tspkg" class="headerlink" title="0x02-3 tspkg"></a>0x02-3 tspkg</h3><p>TSPKG - Terminal Services Package  身份验证提供程序<br>TSSSP - Terminal Services SSP  终端服务SSP<br>SSP - 安全支持提供程序</p>
 <p>RDP SSO功能依赖于允许“凭据委派(Credential Delegation)”的 CredSSP / TSSSP / TSPKG 组件。</p>
-<p><a href="https://clement.notin.org/blog/2019/07/03/credential-theft-without-admin-or-touching-lsass-with-kekeo-by-abusing-credssp-tspkg-rdp-sso/" target="_blank" rel="noopener">通过滥用CredSSP / TSPKG（RDP SSO）即凭据委派，无需管理员或通过Kekeo接触LSASS即可进行凭据盗窃</a></p>
-<p>凭据委派 Allow delegating default credentials  （类似于记住远程登陆过的密码）</p>
-<p>Local Computer Policy –&gt; Computer Configuration –&gt; Administrative Templates –&gt; System –&gt; Credentials Delegation<br>双击打开”Allow Delegating Saved Credentials with NTLM-only Server Authentication”， 默认是 “Not configured” 选择”Enabled”<br>单击 “Show”按钮，并输入”TERMSRV/*” 到列表中，单击OK保存。<br>同样的方法，修改如下的策略：</p>
+<p>expend read</p>
+<pre><code>[通过滥用CredSSP / TSPKG（RDP SSO）即凭据委派，无需管理员或通过Kekeo接触LSASS即可进行凭据盗窃](https://clement.notin.org/blog/2019/07/03/credential-theft-without-admin-or-touching-lsass-with-kekeo-by-abusing-credssp-tspkg-rdp-sso/)
+</code></pre><p>凭据委派 Allow delegating default credentials  （类似于记住远程登陆过的密码）</p>
+<pre><code>Local Computer Policy –&gt; Computer Configuration –&gt; Administrative Templates –&gt; System –&gt; Credentials Delegation
+双击打开&quot;Allow Delegating Saved Credentials with NTLM-only Server Authentication&quot;， 默认是 &quot;Not configured&quot; 选择&quot;Enabled&quot;
+单击 &quot;Show&quot;按钮，并输入&quot;TERMSRV/*&quot; 到列表中，单击OK保存。
+</code></pre><p>同样的方法，修改如下的策略：</p>
 <pre><code>Allow Delegating Saved Credentials
 Allow Delegating Default Credentials with NTLM-only Server Authentication
 Allow Delegating Default Credentials
@@ -589,11 +599,12 @@ LDAP 查询
 </code></pre><p>所以，在用户进行了交互式登陆后，为了实现 Digest 认证机制的 SSO，Digest SSP 只能将密码加密后保存在内存里面，在有任何客户端软件需要与远程服务器进行 Digest 认证的时候解密还原成明文用于计算 Digest response。</p>
 <p>从 Windows 2003 开始，引入了Advanced Digest（就是 Digest 的升级版）。</p>
 <p>wdigest.dll 实现的就是 Advanced digest，而不再是老的 digest 认证协议了。其中一项改变就是，它允许不再存储账号的明文密码。</p>
-<p>比如域的 FQDN 为 EAST.COM，域账号为 user01，密码为 123456。那么域控并不会保存 user01 账号的明文密码 123456，而是将 MD5(user01:EAST.COM:123456) 后的29种HASH保存在域数据库中，这样就绕过了需要明文密码的问题。</p>
-<p>使用 mimikatz 的 dcsync 或其他功能看到的一大堆 Wdigest 的 Hash，就是这 29 种 Hash。而如果给账号开了 Reversible Encryption ，则 dcscync 会将明文密码读出来</p>
-<p>Reversible Encryption （可逆加密）</p>
-<p>默认情况下，域里的所有账号都是关闭这个功能的（在没有 Advanced digest 的时候，关闭了这个功能的域账号将不能使用 digest 进行认证）。所以，域数据库里面默认只保存了密码的 Hash 而没有保存密码本身。</p>
-<p>开启 Reversible Encryption 的三种方法：</p>
+<pre><code>比如域的 FQDN 为 aa.COM，域账号为 user01，密码为 123456。那么域控并不会保存 user01 账号的明文密码 123456，而是将 MD5(user01:aa.COM:123456) 后的29种HASH保存在域数据库中，这样就绕过了需要明文密码的问题。
+
+使用 mimikatz 的 dcsync 或其他功能看到的一大堆 Wdigest 的 Hash，就是这 29 种 Hash。而如果给账号开了 Reversible Encryption ，则 dcscync 会将明文密码读出来
+</code></pre><p>Reversible Encryption （可逆加密）</p>
+<pre><code>默认情况下，域里的所有账号都是关闭这个功能的（在没有 Advanced digest 的时候，关闭了这个功能的域账号将不能使用 digest 进行认证）。所以，域数据库里面默认只保存了密码的 Hash 而没有保存密码本身。
+</code></pre><p>开启 Reversible Encryption 的三种方法：</p>
 <pre><code>在域控的组策略里面对所有域成员开启，此时除了 HASH 外，所有域成员的明文密码都会以一种可逆加密的形式保存在域数据库中。以可逆加密形式存储的明文密码，跟直接存储明文没有什么区别。（Group Policy -&gt; Computer Configuration -&gt; Policies -&gt; Windows Settings -&gt; Security Settings -&gt; Account Policies -&gt; Store password using Reversible Encryption √ )
 
 在域用户管理里面，单独为某些用户启用 Reversible Encryption 功能。启动了此功能的用户会在它们的 UserAccessControl 属性里面留下标志。（右键用户属性-&gt; Account -&gt; Store password using Reversible Encryption √ )
@@ -679,6 +690,10 @@ Basic （基本身份验证 - 不再推荐）
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/12/04/Windows WMI技术总结/" rel="prev" title="Windows WMI技术总结">
+                Windows WMI技术总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -761,7 +776,7 @@ Basic （基本身份验证 - 不再推荐）
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -783,7 +798,7 @@ Basic （基本身份验证 - 不再推荐）
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
