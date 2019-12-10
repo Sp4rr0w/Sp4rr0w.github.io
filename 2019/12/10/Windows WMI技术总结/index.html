@@ -97,9 +97,9 @@
 <meta property="og:description" content="0x00 WMI - Windows 管理规范">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows/win32/wmisdk/images/wmi-architecture.png">
-<meta property="og:image" content="https://p3.ssl.qhimg.com/t0137317750f59275a4.jpg">
+<meta property="og:image" content="https://sp4rr0w.github.io/2019/12/10/Windows%20WMI技术总结/wmi/fireye-wmi.jpg">
 <meta property="og:image" content="https://sp4rr0w.github.io/2019/12/10/Windows%20WMI技术总结/wmi/csharp_wmi.PNG">
-<meta property="og:updated_time" content="2019-12-10T07:50:04.155Z">
+<meta property="og:updated_time" content="2019-12-10T08:49:10.990Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows WMI技术总结">
 <meta name="twitter:description" content="0x00 WMI - Windows 管理规范">
@@ -431,7 +431,7 @@
 <p>WMI是架构在组件对象模型COM(Component Object Model COM)技术之上的,是微软的一套软件组件的二进制接口标准。这使得跨编程语言的进程间通信、动态对象创建成为可能。</p>
 <h2 id="0x01-WMI基础结构"><a href="#0x01-WMI基础结构" class="headerlink" title="0x01 WMI基础结构"></a>0x01 WMI基础结构</h2><p><a href="https://docs.microsoft.com/zh-cn/windows/win32/wmisdk/wmi-architecture" target="_blank" rel="noopener">Objects, Consumers, and Infrastructure of WMI - WMI基础结构与WMI提供程序和受管理对象之间的关系</a></p>
 <p><img src="https://docs.microsoft.com/zh-cn/windows/win32/wmisdk/images/wmi-architecture.png" alt="WMI基础结构"></p>
-<p>Fireeye - WMI的结构<br><img src="https://p3.ssl.qhimg.com/t0137317750f59275a4.jpg" alt="Fireeye - WMI的结构"></p>
+<p>Fireeye - WMI的结构<br><img src="/2019/12/10/Windows WMI技术总结/wmi/fireye-wmi.jpg" alt="Fireeye - WMI的结构"></p>
 <h3 id="1-WMI-consumers-WMI使用者"><a href="#1-WMI-consumers-WMI使用者" class="headerlink" title="1. WMI consumers - WMI使用者"></a>1. WMI consumers - WMI使用者</h3><p>它位于WMI构架的最顶层,是WMI技术使用的载体。如果我们是C++程序员,我们可以通过COM技术直接与下层通信。而脚本语言则要支持WMI Scripting API,间接与下层通信。对于.net平台语言,则要使用System.Management域相关功能与下层通信。</p>
 <p>WMI使用者是与WMI基础结构进行交互的管理应用程序或脚本。 </p>
 <p>这一层是程序员能直接接触到的API层面的东西,我们可以使用C++、WMI Script脚本编写代码去操作WMI COM API对WMI进行操作</p>
